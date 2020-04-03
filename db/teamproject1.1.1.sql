@@ -456,7 +456,8 @@ ALTER TABLE message
     )
     REFERENCES user ( -- 사용자
       user_no -- 사용자번호
-    );
+    )
+    ON DELETE CASCADE;
 
 -- 쪽지
 ALTER TABLE message
@@ -466,7 +467,8 @@ ALTER TABLE message
     )
     REFERENCES user ( -- 사용자
       user_no -- 사용자번호
-    );
+    )
+    ON DELETE CASCADE;
 
 -- 게시글
 ALTER TABLE post
@@ -476,7 +478,8 @@ ALTER TABLE post
     )
     REFERENCES class_member ( -- 수업참여
       member_no -- 수업참여자번호
-    );
+    )
+    ON DELETE CASCADE;
 
 -- 게시글
 ALTER TABLE post

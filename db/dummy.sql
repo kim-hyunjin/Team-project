@@ -30,11 +30,11 @@ insert into class_member(user_no, class_no, role)
 insert into class_member(user_no, class_no, role)
   values(2, 2, 1);
 insert into class_member(user_no, class_no, role)
-  values(3, 2, 0);
+  values(3, 2, 1);
 insert into class_member(user_no, class_no, role)
   values(4, 2, 0);
 insert into class_member(user_no, class_no, role)
-  values(5, 2, 1);
+  values(5, 2, 0);
   
 -- 과제 입력
 
@@ -143,6 +143,12 @@ insert into post(board_no, member_no, title, content)
 insert into post(board_no, member_no, title, content)
     values(4, 3, '1조 홧팅', '다같이 힘내봐요');
   
+-- 태그 입력
+insert into tag(name) values('1주차');
+insert into tag(name) values('2주차');
+insert into tag(name) values('3주차');
+insert into tag(name) values('중간평가');
+insert into tag(name) values('기말평가');
  
 -- 클래스 태그 입력
 insert into class_tag(class_no, tag_no) values(2, 1);
@@ -151,12 +157,6 @@ insert into class_tag(class_no, tag_no) values(2, 3);
 insert into class_tag(class_no, tag_no) values(2, 4);
 insert into class_tag(class_no, tag_no) values(2, 5);
   
--- 태그 입력
-insert into tag(name) values('1주차');
-insert into tag(name) values('2주차');
-insert into tag(name) values('3주차');
-insert into tag(name) values('중간평가');
-insert into tag(name) values('기말평가');
 
 -- 과제 태그 입력
 insert into assignment_tag(assignment_no, tag_no) values (1, 1);

@@ -2,7 +2,7 @@ package Team.project.domain;
 
 import java.sql.Date;
 
-public class Class {
+public class Clazz {
 
   private String name;
   private String description;

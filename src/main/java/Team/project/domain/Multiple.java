@@ -1,6 +1,6 @@
 package Team.project.domain;
 
-public class Mulitple {
+public class Multiple {
 
   private int no;
   private String content;

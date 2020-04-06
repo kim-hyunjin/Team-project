@@ -2,26 +2,26 @@ package Team.project.domain;
 
 import java.sql.Date;
 
-public class Assignment_submmit {
-  private int member_no;
-  private int assignment_no;
+public class AssignmentSubmmit {
+  private int memberNo;
+  private int assignmentNo;
   private String file;
   private int score;
   private String content;
   private String feedback;
-  private Date create_date;
+  private Date createDate;
 
   public int getMember_no() {
-    return member_no;
+    return memberNo;
   }
   public void setMember_no(int member_no) {
-    this.member_no = member_no;
+    this.memberNo = member_no;
   }
   public int getAssignment_no() {
-    return assignment_no;
+    return assignmentNo;
   }
   public void setAssignment_no(int assignment_no) {
-    this.assignment_no = assignment_no;
+    this.assignmentNo = assignment_no;
   }
   public String getFile() {
     return file;
@@ -48,9 +48,9 @@ public class Assignment_submmit {
     this.feedback = feedback;
   }
   public Date getCreate_date() {
-    return create_date;
+    return createDate;
   }
   public void setCreate_date(Date create_date) {
-    this.create_date = create_date;
+    this.createDate = create_date;
   }
 }

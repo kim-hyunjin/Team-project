@@ -1,29 +1,29 @@
 package Team.project.domain;
 
-public class clazz_member {
-  private int member_no;
-  private int user_no;
-  private int clazz_no;
+public class ClazzMember {
+  private int memberNo;
+  private int userNo;
+  private int clazzNo;
   private int role;
 
 
   public int getMember_no() {
-    return member_no;
+    return memberNo;
   }
   public void setMember_no(int member_no) {
-    this.member_no = member_no;
+    this.memberNo = member_no;
   }
   public int getUser_no() {
-    return user_no;
+    return userNo;
   }
   public void setUser_no(int user_no) {
-    this.user_no = user_no;
+    this.userNo = user_no;
   }
   public int getClazz_no() {
-    return clazz_no;
+    return clazzNo;
   }
   public void setClazz_no(int clazz_no) {
-    this.clazz_no = clazz_no;
+    this.clazzNo = clazz_no;
   }
   public int getRole() {
     return role;

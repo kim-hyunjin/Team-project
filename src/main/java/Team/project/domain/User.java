@@ -6,20 +6,28 @@ import java.sql.Date;
 public class User implements Serializable {
 
   private static final long serialVersionUID = 1L;
-  
+
   private int userNo;
+  private String email;
   private String name;
-  private String description;
-  private String room;
-  private String classCode;
+  private String password;
+  private String tel;
+  private String major;
+  private String introduce;
+  private String profilePhoto;
+  private int loginMethod;
   private Date createDate;
-
-
   public int getUserNo() {
     return userNo;
   }
   public void setUserNo(int userNo) {
     this.userNo = userNo;
+  }
+  public String getEmail() {
+    return email;
+  }
+  public void setEmail(String email) {
+    this.email = email;
   }
   public String getName() {
     return name;
@@ -27,23 +35,41 @@ public class User implements Serializable {
   public void setName(String name) {
     this.name = name;
   }
-  public String getDescription() {
-    return description;
+  public String getPassword() {
+    return password;
   }
-  public void setDescription(String description) {
-    this.description = description;
+  public void setPassword(String password) {
+    this.password = password;
   }
-  public String getRoom() {
-    return room;
+  public String getTel() {
+    return tel;
   }
-  public void setRoom(String room) {
-    this.room = room;
+  public void setTel(String tel) {
+    this.tel = tel;
   }
-  public String getClassCode() {
-    return classCode;
+  public String getMajor() {
+    return major;
   }
-  public void setClassCode(String classCode) {
-    this.classCode = classCode;
+  public void setMajor(String major) {
+    this.major = major;
+  }
+  public String getIntroduce() {
+    return introduce;
+  }
+  public void setIntroduce(String introduce) {
+    this.introduce = introduce;
+  }
+  public String getProfilePhoto() {
+    return profilePhoto;
+  }
+  public void setProfilePhoto(String profilePhoto) {
+    this.profilePhoto = profilePhoto;
+  }
+  public int getLoginMethod() {
+    return loginMethod;
+  }
+  public void setLoginMethod(int loginMethod) {
+    this.loginMethod = loginMethod;
   }
   public Date getCreateDate() {
     return createDate;
@@ -51,4 +77,7 @@ public class User implements Serializable {
   public void setCreateDate(Date createDate) {
     this.createDate = createDate;
   }
+
+
+
 }

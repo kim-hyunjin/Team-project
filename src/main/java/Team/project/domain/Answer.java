@@ -37,7 +37,6 @@ public class Answer implements Serializable {
   }
 
 
-
   public String getContent() {
     return content;
   }

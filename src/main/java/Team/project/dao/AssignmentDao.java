@@ -1,8 +1,9 @@
 package Team.project.dao;
 
 import java.util.List;
+import Team.project.domain.Assignment;
 
-public interface Assignment {
+public interface AssignmentDao {
 
   public int insert(Assignment assignment) throws Exception;
 

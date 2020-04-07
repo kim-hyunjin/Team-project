@@ -1,16 +1,23 @@
 package Team.project.domain;
 
-public class Multiple {
+import java.io.Serializable;
 
-  private int no;
+public class Multiple implements Serializable {
+
+  private static final long serialVersionUID = 1L;
+  
+  
+  
+  private int multipleNo;
   private String content;
 
-  public int getNo() {
-    return no;
+
+  public int getMultipleNo() {
+    return multipleNo;
   }
 
-  public void setNo(int no) {
-    this.no = no;
+  public void setMultipleNo(int multipleNo) {
+    this.multipleNo = multipleNo;
   }
 
   public String getContent() {

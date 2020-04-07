@@ -1,14 +1,26 @@
 package Team.project.domain;
 
+import java.io.Serializable;
 import java.sql.Date;
 
-public class User {
+public class User implements Serializable {
+
+  private static final long serialVersionUID = 1L;
+  
+  private int userNo;
   private String name;
   private String description;
   private String room;
   private String classCode;
   private Date createDate;
 
+
+  public int getUserNo() {
+    return userNo;
+  }
+  public void setUserNo(int userNo) {
+    this.userNo = userNo;
+  }
   public String getName() {
     return name;
   }

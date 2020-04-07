@@ -1,14 +1,27 @@
 package Team.project.domain;
 
+import java.io.Serializable;
 import java.sql.Date;
 
-public class Question {
+public class Question implements Serializable {
 
+  private static final long serialVersionUID = 1L;
+  
+  private int questionNo;
   private String title;
   private String content;
   private String filePath;
   private Date deadline;
   private Date createDate;
+
+  
+  public int getQuestionNo() {
+    return questionNo;
+  }
+
+  public void setQuestionNo(int questionNo) {
+    this.questionNo = questionNo;
+  }
 
   public String getTitle() {
     return title;

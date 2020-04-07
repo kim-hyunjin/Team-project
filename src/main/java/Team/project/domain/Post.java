@@ -1,13 +1,25 @@
 package Team.project.domain;
 
+import java.io.Serializable;
 import java.sql.Date;
 
-public class Post {
+public class Post implements Serializable {
 
+  private static final long serialVersionUID = 1L;
+  
+  private int postNo;
   private String title;
   private String content;
   private Date createDate;
   private String filePath;
+  
+  
+  public int getPostNo() {
+    return postNo;
+  }
+  public void setPostNo(int postNo) {
+    this.postNo = postNo;
+  }
   
   public String getTitle() {
     return title;

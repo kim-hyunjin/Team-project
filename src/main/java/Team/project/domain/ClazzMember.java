@@ -1,6 +1,10 @@
 package Team.project.domain;
 
-public class ClazzMember {
+import java.io.Serializable;
+
+public class ClazzMember implements Serializable {
+  private static final long serialVersionUID = 1L;
+
   private int memberNo;
   private int userNo;
   private int clazzNo;

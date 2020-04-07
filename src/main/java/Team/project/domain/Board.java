@@ -1,12 +1,27 @@
 package Team.project.domain;
 
+import java.io.Serializable;
 
+public class Board implements Serializable {
+  private static final long serialVersionUID = 1L;
 
-public class Board {
-  
+  private int boardNo;
   private String title;
+  private int classNo;
   private boolean notice;
-  
+
+  public int getBoardNo() {
+    return boardNo;
+  }
+  public void setBoardNo(int boardNo) {
+    this.boardNo = boardNo;
+  }
+  public int getClassNo() {
+    return classNo;
+  }
+  public void setClassNo(int classNo) {
+    this.classNo = classNo;
+  }
   public String getTitle() {
     return title;
   }

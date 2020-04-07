@@ -1,7 +1,6 @@
 package Team.project.dao;
 
 import java.util.List;
-import Team.project.domain.Board;
 import Team.project.domain.Question;
 
 public interface QuestionDao {
@@ -9,7 +8,7 @@ public interface QuestionDao {
 
   public List<Question> findAll() throws Exception;
 
-  public Board findByNo(int no) throws Exception;
+  public Question findByNo(int no) throws Exception;
 
   public int update(Question question) throws Exception;
 

@@ -28,10 +28,60 @@
       user
   </sql>
   
+  <insert id="insert" parameterType="User">
+    insert into user
+    (email, name, password, tel, major, introduce, profile_photo, login_method) 
+    values(#{email}, 
+    #{name}, 
+    password(#{password}), 
+    #{tel}, 
+    #{major}, 
+    #{introduce}, 
+    #{profilePhoto},
+    #{loginMethod}
+    )
+  </insert>
+  
   <select id="findAll" resultMap="UserMap">
     <include refid="select1"/>
   </select>
-
+  
+  <select id="findByNo" resultMap="UserMap" parameterType="int">
+    select user_no, email, name, tel, major, introduce, profile_photo, login_method, create_date
+    from user
+    where 
+      user_no=#{no}
+  </select>
+  
+  <update id="update" parameterType="User">
+    update user
+    <set>
+      <if test="name != null and name != ''">name=#{name},</if>
+      <if test="email != null and email != ''">email=#{email},</if> 
+      <if test="password != null and password != ''">password=password(#{password}),</if>
+      <if test="tel != null and tel != ''">tel=#{tel},</if>
+      <if test="major != null and major != ''">major=#{major},</if>
+      <if test="introduce != null and introduce != ''">introduce=#{introduce},</if>
+      <if test="profilePhoto != null and profilePhoto != ''">profile_photo=#{profilePhoto}</if>
+    </set>
+    where user_no=#{userNo}
+  </update>
+  
+  <delete id="delete" parameterType="int">
+    delete from user
+    where user_no=#{no}
+  </delete>
+  
+  <select id="findByKeyword" 
+    resultMap="UserMap" 
+    parameterType="string">
+    <bind name="keywordPattern" value="'%' + _parameter + '%'"/>
+      <include refid="select1"/>
+    where 
+      name like #{keywordPattern}
+      or email like #{keywordPattern}
+      or tel like #{keywordPattern}
+  </select>
 </mapper>
 
 

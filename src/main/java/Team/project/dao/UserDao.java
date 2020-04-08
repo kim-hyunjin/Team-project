@@ -14,4 +14,6 @@ public interface UserDao {
 
   public int delete(int no) throws Exception;
 
+  List<User> findByKeyword(String keyword) throws Exception;
+
 }

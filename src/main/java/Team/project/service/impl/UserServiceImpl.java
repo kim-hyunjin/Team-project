@@ -40,4 +40,9 @@ public class UserServiceImpl implements UserService{
     return userDao.update(user);
   }
 
+  @Override
+  public List<User> search(String keyword) throws Exception {
+    return userDao.findByKeyword(keyword);
+  }
+
 }

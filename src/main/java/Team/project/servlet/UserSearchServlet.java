@@ -13,8 +13,8 @@ import org.springframework.context.ApplicationContext;
 import Team.project.domain.User;
 import Team.project.service.UserService;
 
-@WebServlet("/user/list")
-public class UserListServlet extends HttpServlet{
+@WebServlet("/user/search")
+public class UserSearchServlet extends HttpServlet{
   private static final long serialVersionUID = 1L;
 
   @Override
@@ -33,11 +33,12 @@ public class UserListServlet extends HttpServlet{
       out.println("<html>");
       out.println("<head>");
       out.println("  <meta charset='UTF-8'>");
-      out.println("  <title>유저 목록</title>");
+      out.println("  <title>회원 검색</title>");
       out.println("</head>");
       out.println("<body>");
-      out.println("  <h1>유저목록</h1>");
-      List<User> users = userService.list();
+      out.println("  <h1>회원 검색 결과</h1>");
+      String keyword = req.getParameter("keyword");
+      List<User> users = userService.search(keyword);
       for (User user : users) {
         out.printf("%d, %s, <a href='detail?no=%d'>%s</a> <br>",
             user.getUserNo(),
@@ -46,15 +47,10 @@ public class UserListServlet extends HttpServlet{
             user.getName()
             );
       }
-      out.println("<form action='search' method='get'>");
-      out.println("검색어: <input name='keyword' type='text'>");
-      out.println("<button>검색</button>");
       out.println("</body>");
       out.println("</html>");
     } catch (Exception e) {
       throw new ServletException(e);
     }
-
   }
-
 }

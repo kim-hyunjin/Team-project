@@ -13,4 +13,6 @@ public interface UserService {
   User get(int no) throws Exception;
 
   int update(User user) throws Exception;
+
+  List<User> search(String keyword) throws Exception;
 }

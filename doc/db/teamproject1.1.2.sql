@@ -161,7 +161,7 @@ CREATE TABLE user (
   user_no       INTEGER      NOT NULL COMMENT '사용자번호', -- 사용자번호
   email         VARCHAR(50)  NOT NULL COMMENT '이메일', -- 이메일
   name          VARCHAR(30)  NOT NULL COMMENT '이름', -- 이름
-  password      VARCHAR(30)  NOT NULL COMMENT '비밀번호', -- 비밀번호
+  password      VARCHAR(50)  NOT NULL COMMENT '비밀번호', -- 비밀번호
   tel           VARCHAR(20)  NULL     COMMENT '연락처', -- 연락처
   major         VARCHAR(30)  NULL     COMMENT '전공', -- 전공
   introduce     TEXT         NULL     COMMENT '자기소개', -- 자기소개

@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -12,6 +13,7 @@ import org.springframework.context.ApplicationContext;
 import Team.project.domain.User;
 import Team.project.service.UserService;
 
+@MultipartConfig(maxFileSize = 1024 * 1024 * 10)
 @WebServlet("/user/detail")
 public class UserDetailServlet extends HttpServlet{
   private static final long serialVersionUID = 1L;
@@ -19,6 +21,9 @@ public class UserDetailServlet extends HttpServlet{
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
+
+    req.setCharacterEncoding("utf-8");
+    int no = Integer.parseInt(req.getParameter("no"));
     try {
       resp.setContentType("text/html;charset=UTF-8");
       PrintWriter out = resp.getWriter();
@@ -27,7 +32,6 @@ public class UserDetailServlet extends HttpServlet{
       ApplicationContext iocContainer =
           (ApplicationContext) servletContext.getAttribute("iocContainer");
       UserService userService = iocContainer.getBean(UserService.class);
-      int no = Integer.parseInt(req.getParameter("no"));
 
       User user = userService.get(no);
 
@@ -41,7 +45,8 @@ public class UserDetailServlet extends HttpServlet{
       out.println("<h1>회원 상세정보</h1>");
 
       if (user != null) {
-        out.println("<form action='update' method='post'>");
+        out.printf("<img src='../upload/%s'><br>\n", user.getProfilePhoto());
+        out.println("<form action='update' method='post' enctype='multipart/form-data'>");
         out.printf("번호: <input name='no' type='text' readonly value='%d'><br>\n", //
             user.getUserNo());
         out.printf("이메일: <input name='email' type='email' value='%s'><br>\n", //
@@ -55,8 +60,7 @@ public class UserDetailServlet extends HttpServlet{
             user.getMajor());
         out.printf("자기소개<br><textarea name='introduce' rows='5' cols='60'>%s</textarea><br>\n", //
             user.getIntroduce());
-        out.printf("사진: <input name='photo' type='text' value='%s'><br>\n", //
-            user.getProfilePhoto());
+        out.printf("사진: <input name='profilePhoto' type='file'><br>\n");
         int loginm = user.getLoginMethod();
         String loginstr;
         switch(loginm) {
@@ -72,12 +76,14 @@ public class UserDetailServlet extends HttpServlet{
             user.getUserNo());
         out.println("</form>");
       } else {
-        out.println("<p>해당 번호의 회원이 없습니다.</p>");
+        throw new Exception("해당 번호의 회원이 없습니다.");
       }
       out.println("</body>");
       out.println("</html>");
     } catch (Exception e) {
-      throw new ServletException(e);
+      req.setAttribute("error", e);
+      req.setAttribute("url", "user/detail?no="+no);
+      req.getRequestDispatcher("/error").forward(req, resp);
     }
   }
 }

@@ -1,7 +1,6 @@
 package Team.project.servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -18,37 +17,25 @@ public class UserDeleteServlet extends HttpServlet{
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
+    req.setCharacterEncoding("utf-8");
     try {
-      resp.setContentType("text/html;charset=UTF-8");
-      PrintWriter out = resp.getWriter();
-
       ServletContext servletContext = getServletContext();
       ApplicationContext iocContainer =
           (ApplicationContext) servletContext.getAttribute("iocContainer");
       UserService userService = iocContainer.getBean(UserService.class);
 
-      out.println("<!DOCTYPE html>");
-      out.println("<html>");
-      out.println("<head>");
-      out.println("<meta charset='UTF-8'>");
-      out.println("<meta http-equiv='refresh' content='2;url=list'>");
-      out.println("<title>회원 삭제</title>");
-      out.println("</head>");
-      out.println("<body>");
-      out.println("<h1>회원 삭제 결과</h1>");
-
       int no = Integer.parseInt(req.getParameter("no"));
       if (userService.delete(no) > 0) { // 삭제했다면,
-        out.println("<p>회원을 삭제했습니다.</p>");
+        resp.sendRedirect("list");
 
       } else {
-        out.println("<p>해당 번호의 회원이 없습니다.</p>");
+        throw new Exception("해당 번호의 회원이 없습니다.");
       }
 
-      out.println("</body>");
-      out.println("</html>");
     } catch (Exception e) {
-      throw new ServletException(e);
+      req.setAttribute("error", e);
+      req.setAttribute("url", "list");
+      req.getRequestDispatcher("/error").forward(req, resp);
     }
 
   }

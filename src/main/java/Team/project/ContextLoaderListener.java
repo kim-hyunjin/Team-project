@@ -41,12 +41,12 @@ public class ContextLoaderListener implements ServletContextListener {
           AppConfig.class);
 
       // 현재 Spring IoC 컨테이너에 들어있는 객체를 확인해보자.
-      printBeans(iocContainer);
+      //printBeans(iocContainer);
 
       // ServerApp이 사용할 수 있게 context 맵에 담아 둔다.
       servletContext.setAttribute("iocContainer", iocContainer);
 
-      logger.debug("----------------------------");
+      //logger.debug("----------------------------");
 
       // 서블릿 객체는 더이상 Spring IoC 컨테이너에서 관리하지 않는다.
       // 서블릿 객체의 관리 주체는 서블릿 컨테이너로 넘어갔다.

@@ -58,6 +58,11 @@ dependencies {
   //
   compileOnly 'javax.servlet:javax.servlet-api:4.0.1'
   
+  // Thumnailator
+  implementation 'net.coobird:thumbnailator:0.4.11'
+  // Apache의 파일 업로드 처리 라이브러리
+  implementation 'commons-fileupload:commons-fileupload:1.4'
+  
   implementation 'com.google.guava:guava:28.1-jre'
   testImplementation 'junit:junit:4.12'
 }

@@ -37,6 +37,9 @@ public class UserListServlet extends HttpServlet{
       out.println("</head>");
       out.println("<body>");
       out.println("  <h1>유저목록</h1>");
+      out.println("  <a href='add'>유저등록</a><br>");
+
+
       List<User> users = userService.list();
       for (User user : users) {
         out.printf("%d, %s, <a href='detail?no=%d'>%s</a> <br>",
@@ -52,7 +55,9 @@ public class UserListServlet extends HttpServlet{
       out.println("</body>");
       out.println("</html>");
     } catch (Exception e) {
-      throw new ServletException(e);
+      req.setAttribute("error", e);
+      req.setAttribute("url", "list");
+      req.getRequestDispatcher("/error").forward(req, resp);
     }
 
   }

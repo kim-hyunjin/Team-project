@@ -47,10 +47,13 @@ public class UserSearchServlet extends HttpServlet{
             user.getName()
             );
       }
+      out.println("  <a href='list'>목록으로 돌아가기</a><br>");
       out.println("</body>");
       out.println("</html>");
     } catch (Exception e) {
-      throw new ServletException(e);
+      req.setAttribute("error", e);
+      req.setAttribute("url", "list");
+      req.getRequestDispatcher("/error").forward(req, resp);
     }
   }
 }

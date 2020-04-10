@@ -1,7 +1,6 @@
 package Team.project.servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.UUID;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -32,31 +31,7 @@ public class UserAddServlet extends HttpServlet {
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
     resp.setContentType("text/html;charset=UTF-8");
-    PrintWriter out = resp.getWriter();
-    out.println("<!DOCTYPE html>");
-    out.println("<html>");
-    out.println("<head>");
-    out.println("<meta charset='UTF-8'>");
-    out.println("<title>회원 입력</title>");
-    out.println("</head>");
-    out.println("<body>");
-    out.println("<h1>회원 입력</h1>");
-    out.println("<form action='add' method='post' enctype='multipart/form-data'>");
-    out.println("이메일: <input name='email' type='email'><br>");
-    out.println("이름: <input name='name' type='text'><br>");
-    out.println("암호: <input name='password' type='password'><br>");
-    out.println("전화: <input name='tel' type='tel'><br>");
-    out.println("전공: <input name='major' type='text'><br>");
-    out.println("자기소개<br><textarea name='introduce' rows='5' cols='60'></textarea><br>");
-    out.println("사진: <input name='profilePhoto' type='file'><br>");
-    out.println("로그인 방식");
-    out.print("<label><input type='checkbox' name='loginMethod' value='0'>이메일</label>");
-    out.print("<label><input type='checkbox' name='loginMethod' value='1'>카카오</label>");
-    out.print("<label><input type='checkbox' name='loginMethod' value='2'>구글</label>");
-    out.println("<button>등록</button>");
-    out.println("</form>");
-    out.println("</body>");
-    out.println("</html>");
+    req.getRequestDispatcher("/user/form.jsp").include(req, resp);
   }
 
   @Override

@@ -1,6 +1,7 @@
 package Team.project.dao;
 
 import java.util.List;
+import java.util.Map;
 import Team.project.domain.User;
 
 public interface UserDao {
@@ -15,5 +16,7 @@ public interface UserDao {
   public int delete(int no) throws Exception;
 
   List<User> findByKeyword(String keyword) throws Exception;
+
+  public User findByEmailAndPassword(Map<String, Object> map) throws Exception;
 
 }

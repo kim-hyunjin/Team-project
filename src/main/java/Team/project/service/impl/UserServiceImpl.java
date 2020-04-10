@@ -1,5 +1,6 @@
 package Team.project.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
 import org.springframework.stereotype.Component;
 import Team.project.dao.UserDao;
@@ -43,6 +44,14 @@ public class UserServiceImpl implements UserService{
   @Override
   public List<User> search(String keyword) throws Exception {
     return userDao.findByKeyword(keyword);
+  }
+
+  @Override
+  public User get(String email, String password) throws Exception {
+    HashMap<String, Object> params = new HashMap<>();
+    params.put("email", email);
+    params.put("password", password);
+    return userDao.findByEmailAndPassword(params);
   }
 
 }

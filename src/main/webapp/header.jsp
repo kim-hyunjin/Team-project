@@ -1,3 +1,7 @@
+<%@page import="Team.project.domain.User"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"
+    trimDirectiveWhitespaces="true"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,7 +15,7 @@
 <body>
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="/index.html">비트클래스</a>
+  <a class="navbar-brand" href="../index.html">비트클래스</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -25,7 +29,7 @@
         <a class="nav-link" href="#">수업</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="user/list">사용자</a>
+        <a class="nav-link" href="../user/list">사용자</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="#">성적</a>
@@ -34,16 +38,19 @@
         <a class="nav-link" href="#">게시판</a>
       </li>
     </ul>
-    <span>
-    <a class="btn btn-outline-dark btn-sm" href="auth/login" role="button">로그인</a>
+    <%
+    User loginUser = (User)request.getSession().getAttribute("loginUser");
+    if(loginUser != null) {
+    %>
+    <span class='navbar-brand mr-2'>
+      <a href='../user/detail?no=<%=loginUser.getUserNo()%>'><%=loginUser.getName()%></a>
     </span>
+    <a href='../auth/logout' class='btn btn-outline-dark btn-sm'>Logout</a>
+    <%} else {%>
+    <span>
+    <a class="btn btn-outline-dark btn-sm" href="../auth/login" role="button">Login</a>
+    </span>
+    <%}%>
   </div>
 </nav>
-<h2>유저 정보 테스트</h2>
-  <a href="user/list">유저목록</a>
-  <a href="user/add">유저추가</a>
-  <a href="user/detail">유저상세조회</a>
-  <a href="user/update">유저정보수정</a>
-  <a href="user/delete">유저삭제</a>
-</body>
-</html>
+<div class="container-fluid" style="margin-top:20px; margin-left:20px;">

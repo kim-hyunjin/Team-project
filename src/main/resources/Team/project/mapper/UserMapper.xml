@@ -82,6 +82,11 @@
       or email like #{keywordPattern}
       or tel like #{keywordPattern}
   </select>
+  
+  <select id="findByEmailAndPassword" resultMap="UserMap" parameterType="map">
+  select email, name from user
+  where email=#{email} and password=password(#{password})
+  </select>
 </mapper>
 
 

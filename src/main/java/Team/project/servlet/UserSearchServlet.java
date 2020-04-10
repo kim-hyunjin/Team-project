@@ -1,7 +1,6 @@
 package Team.project.servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -28,28 +27,12 @@ public class UserSearchServlet extends HttpServlet{
       UserService userService = iocContainer.getBean(UserService.class);
 
       resp.setContentType("text/html;charset=UTF-8");
-      PrintWriter out = resp.getWriter();
-      out.println("<!DOCTYPE html>");
-      out.println("<html>");
-      out.println("<head>");
-      out.println("  <meta charset='UTF-8'>");
-      out.println("  <title>회원 검색</title>");
-      out.println("</head>");
-      out.println("<body>");
-      out.println("  <h1>회원 검색 결과</h1>");
+
       String keyword = req.getParameter("keyword");
       List<User> users = userService.search(keyword);
-      for (User user : users) {
-        out.printf("%d, %s, <a href='detail?no=%d'>%s</a> <br>",
-            user.getUserNo(),
-            user.getEmail(),
-            user.getUserNo(),
-            user.getName()
-            );
-      }
-      out.println("  <a href='list'>목록으로 돌아가기</a><br>");
-      out.println("</body>");
-      out.println("</html>");
+      req.setAttribute("users", users);
+      req.getRequestDispatcher("/user/search.jsp").include(req, resp);
+
     } catch (Exception e) {
       req.setAttribute("error", e);
       req.setAttribute("url", "list");

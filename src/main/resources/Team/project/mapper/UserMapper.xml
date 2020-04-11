@@ -84,7 +84,7 @@
   </select>
   
   <select id="findByEmailAndPassword" resultMap="UserMap" parameterType="map">
-  select email, name from user
+  select user_no, email, name from user
   where email=#{email} and password=password(#{password})
   </select>
 </mapper>

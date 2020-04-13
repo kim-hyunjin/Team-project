@@ -26,7 +26,7 @@
         <a class="nav-link" href="#">타임라인 <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">수업</a>
+        <a class="nav-link" href="../clazz/list">수업</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="../user/list">사용자</a>

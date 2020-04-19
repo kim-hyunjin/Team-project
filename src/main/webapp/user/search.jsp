@@ -3,21 +3,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
     trimDirectiveWhitespaces="true"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset='UTF-8'>
-  <title>회원 검색</title>
-</head>
-<body>
+<jsp:include page="/header.jsp"></jsp:include>
+
   <h1>회원 검색 결과</h1>
-  <% 
-  List<User> users = (List<User>)request.getAttribute("users");
-  for (User user : users) {%>
-      <%=user.getUserNo()%>, <%=user.getEmail()%>, 
-      <a href='detail?no=<%=user.getUserNo()%>'><%=user.getName()%></a><br>
-      <%}%>
+  <c:forEach items="${users}" var="user">
+      ${user.userNo}, ${user.email}, 
+      <a href='detail?no=${user.userNo}'>${user.name}</a><br>
+  </c:forEach>
       <a href='list'>목록으로 돌아가기</a><br>
-</body>
-</html>
+
+<jsp:include page="/footer.jsp"></jsp:include>

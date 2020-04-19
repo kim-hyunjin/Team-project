@@ -2,13 +2,8 @@
     pageEncoding="UTF-8"
     trimDirectiveWhitespaces="true"%>
 
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset='UTF-8'>
-<title>회원 입력</title>
-</head>
-<body>
+<jsp:include page="/header.jsp"/>
+
 <h1>회원 입력</h1>
 <form action='add' method='post' enctype='multipart/form-data'>
 이메일: <input name='email' type='email'><br>
@@ -26,5 +21,5 @@
 </select><br>
 <button>완료</button>
 </form>
-</body>
-</html>
+
+<jsp:include page="/footer.jsp"/>

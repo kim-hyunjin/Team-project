@@ -1,0 +1,55 @@
+  .container {
+    display:flex;
+    width:100%;
+    height:100%;
+  }
+  
+  .clazz_list {
+    margin-top: 7em;
+    padding-left: 3em;    
+    width:90%;
+    height:auto;
+    display:flex;
+    flex-wrap: wrap;
+    min-width:500px;
+    justify-content: flex-start;
+    }
+    
+  .clazz_card {
+    width: 22em;
+    height: 22em;
+    border: thin solid black;
+    margin: 30px;
+  }
+  .clazz_name{
+    display: flex;
+    flex-direction: column;
+    height:8em;
+    background-color: darkslategrey;
+  }
+  .clazz_name>a {
+    font-size: 2em;
+  }
+  .clazz_name>* {
+    text-decoration: none;
+    color: white;
+  }
+  
+  .clazz_header {
+    background-color: white;
+    z-index: 100;
+    position:fixed;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    top:0%;
+    width: 100%;
+    height: 5em;
+    border-bottom: thin solid black;
+  }
+   .clazz_header>span:first-child {
+    margin-left:2em;
+  }
+  .clazz_header>span:last-child {
+    margin-right:2em;
+  }

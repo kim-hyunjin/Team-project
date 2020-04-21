@@ -16,7 +16,7 @@ public class AuthController {
 
   @RequestMapping("/auth/form")
   public String form(HttpServletRequest req, Map<String, Object> model) {
-    return "/auth/form.jsp";
+    return "/WEB-INF/jsp/auth/form.jsp";
   }
 
   @RequestMapping("/auth/login")
@@ -24,7 +24,7 @@ public class AuthController {
     User user = userService.get(email, password);
     if (user != null) {
       req.getSession().setAttribute("loginUser", user);
-      return "redirect:../../index.html";
+      return "redirect:../clazz/list";
     } else {
       req.getSession().invalidate();
       return "/auth/form.jsp";

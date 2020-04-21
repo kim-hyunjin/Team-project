@@ -95,7 +95,7 @@
                         </tr>
                         <tr align="center">
                             <td><input type="button" value="로그인" onclick="sendit()">
-                                <a href="member.html">회원가입 </a></td>
+                                <a href="../user/form">회원가입 </a></td>
                         </tr>
                     </table>
                 </td>

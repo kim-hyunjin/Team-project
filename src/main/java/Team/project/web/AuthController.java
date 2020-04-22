@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import Team.project.domain.User;
 import Team.project.service.UserService;
@@ -21,7 +22,7 @@ public class AuthController {
   @GetMapping("form")
   public void form() {}
 
-  @GetMapping("login")
+  @PostMapping("login")
   public String login( //
       String email, //
       String password, //
@@ -41,13 +42,11 @@ public class AuthController {
     User user = userService.get(email, password);
     if (user != null) {
       session.setAttribute("loginUser", user);
-      model.addAttribute("refreshUrl", "2;url=../../index.html");
+      return "redirect:../../index.html";
     } else {
       session.invalidate();
-      model.addAttribute("refreshUrl", "2;url=form");
+      return "redirect:form.jsp";
     }
-
-    return "auth/login";
   }
 
   @GetMapping("logout")
@@ -56,5 +55,3 @@ public class AuthController {
     return "redirect:../../index.html";
   }
 }
-
-

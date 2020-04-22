@@ -32,7 +32,7 @@ public class UserController {
       MultipartFile photoFile) throws Exception {
 
     if (photoFile.getSize() > 0) {
-      String dirPath = servletContext.getRealPath("/WEB-INF/upload/user");
+      String dirPath = servletContext.getRealPath("/upload/user");
       String filename = UUID.randomUUID().toString();
       photoFile.transferTo(new File(dirPath + "/" + filename));
       user.setProfilePhoto(filename);
@@ -75,7 +75,7 @@ public class UserController {
       MultipartFile photoFile) throws Exception {
 
     if (photoFile.getSize() > 0) {
-      String dirPath = servletContext.getRealPath("/WEB-INF/upload/user"); // /src/main/webapp/WEB-INF/upload/user
+      String dirPath = servletContext.getRealPath("/upload/user"); // /src/main/webapp/WEB-INF/upload/user
       String filename = UUID.randomUUID().toString();
       photoFile.transferTo(new File(dirPath + "/" + filename));
       user.setProfilePhoto(filename);

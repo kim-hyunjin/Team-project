@@ -23,9 +23,9 @@
       user_no, 
       email, 
       name, 
-      introduce,
       tel,
-      major
+      major,
+      profile_photo
     from 
       user
   </sql>
@@ -79,11 +79,16 @@
     resultMap="UserMap" 
     parameterType="string">
     <bind name="keywordPattern" value="'%' + _parameter + '%'"/>
-      <include refid="select1"/>
+    select
+      user_no, name,  email, tel, major
+    from
+      user
     where 
-      name like #{keywordPattern}
+      user_no like #{keywordPattern}
+      or name like #{keywordPattern}
       or email like #{keywordPattern}
       or tel like #{keywordPattern}
+      or major like #{keywordPattern}
   </select>
   
     <select id="findByEmailAndPassword" 

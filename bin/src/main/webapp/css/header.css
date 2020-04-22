@@ -1,0 +1,26 @@
+  .header{
+  background-color: white;
+  z-index: 100;
+  position:fixed;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  top:0%;
+  width: 100%;
+  height: 4.2em;
+  border-bottom: thin solid rgba(0, 0, 0, 0.1);
+}
+
+.header__user {
+  display: flex;
+  align-items: center;
+}
+
+.header__user__photo {
+	display:block;
+	overflow:hidden;
+  height: 2.1em;
+  width: 2.1em;
+  border-radius: 1em;
+  margin-right: 0.5em;
+}

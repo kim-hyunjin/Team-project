@@ -94,7 +94,7 @@
                 </form>
             </div>
             <div style="margin-top: 1em;">
-                <span style="margin-right: 1em;">계정이 없나요?</span><a style="color: aqua; font-size: larger;" href="../user/form">회원가입 </a>
+                <span style="margin-right: 1em;">계정이 없나요?</span><a style="color: blue; font-size: larger;" href="../user/form">회원가입 </a>
             </div>
         </div>
     </div>

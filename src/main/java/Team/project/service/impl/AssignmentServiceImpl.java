@@ -1,10 +1,12 @@
 package Team.project.service.impl;
 
 import java.util.List;
+import org.springframework.stereotype.Component;
 import Team.project.dao.AssignmentDao;
 import Team.project.domain.Assignment;
 import Team.project.service.AssignmentService;
 
+@Component
 public class AssignmentServiceImpl implements AssignmentService {
 
   AssignmentDao assignmetDao;

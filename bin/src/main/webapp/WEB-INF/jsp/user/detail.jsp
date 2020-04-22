@@ -16,7 +16,7 @@
         전화: <input name='tel' type='tel' value='${user.tel}'><br>
         전공: <input name='major' type='text' value='${user.major}'><br>
         자기소개<br><textarea name='introduce' rows='5' cols='60'>${user.introduce}</textarea><br>
-        사진: <input name='profilePhoto' type='file'><br>
+        사진: <input name='photo' type='file'><br>
         로그인 방식: ${loginMethod}<br>
         회원가입일 : ${user.createDate}
         <p><button>변경</button>

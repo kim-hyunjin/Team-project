@@ -3,6 +3,7 @@ package Team.project.web;
 import java.io.File;
 import java.util.UUID;
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -39,7 +40,7 @@ public class UserController {
       user.setProfilePhoto(filename);
     }
     if (userService.add(user) > 0) {
-      return "redirect:../clazz/list";
+      return "redirect:../auth/form";
     } else {
       throw new Exception("회원을 추가할 수 없습니다.");
     }
@@ -89,7 +90,7 @@ public class UserController {
   }
 
   @RequestMapping("update")
-  public String update(User user, MultipartFile photo) throws Exception {
+  public String update(HttpSession session, User user, MultipartFile photo) throws Exception {
     if (photo.getSize() > 0) {
       String dirPath = servletContext.getRealPath("/upload/user");
       String filename = UUID.randomUUID().toString();
@@ -100,9 +101,11 @@ public class UserController {
     }
 
     if (userService.update(user) > 0) {
+      session.removeAttribute("loginUser");
+      session.setAttribute("loginUser", user);
       return "redirect:../clazz/list";
     } else {
-      throw new Exception("변경할 회원 번호가 유효하지 않습니다.");
+      throw new Exception("유저 정보 변경에 실패했습니다.");
     }
   }
 

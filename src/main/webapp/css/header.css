@@ -24,3 +24,7 @@
   border-radius: 1em;
   margin-right: 0.5em;
 }
+
+.header__user__photo>img {
+	width:4em;
+}

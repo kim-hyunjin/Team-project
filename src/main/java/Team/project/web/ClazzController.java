@@ -62,11 +62,13 @@ public class ClazzController {
     return "/WEB-INF/jsp/clazz/detail.jsp";
   }
 
-  @GetMapping("/clazz/room")
-  public String room(int no, Model model) throws Exception {
-    Clazz clazz = clazzService.get(no);
-    model.addAttribute("clazz", clazz);
-    return "/WEB-INF/jsp/clazz/room_timeline.jsp";
+  @PostMapping("/clazz/update")
+  public String update(Clazz clazz, Model model) throws Exception {
+    if (clazzService.update(clazz) > 0) {
+      return "redirect:../room/timeline";
+    } else {
+      throw new Exception("수업 정보 변경에 실패했습니다.");
+    }
   }
 
 }// ClazzController

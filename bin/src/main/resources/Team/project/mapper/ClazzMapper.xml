@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="Team.project.dao.ClazzDao">
+
+<resultMap type="Clazz" id="ClazzMap">
+  <id column="class_no" property="classNo"/>
+  <!-- <result column="name" property="name"/>
+  <result column="description" property="description"/>
+  <result column="room" property="room"/> -->
+  <result column="class_code" property="classCode"/>
+  <result column="create_date" property="createDate"/>
+</resultMap>
+
+<sql id="selectAll">
+  select
+    class_no,
+    name,
+    description,
+    room,
+    class_code,
+    create_date
+</sql>
+
+<select id="findAll" resultMap="ClazzMap">
+  <!--  <include refid="selectAll"/>-->
+  select *
+  from class;
+</select>
+
+<insert id="insert" parameterType="Clazz">
+  insert into class
+  (name, description, room, class_code)
+  values(
+    #{name},
+    #{description},
+    #{room},
+    #{classCode}
+  )
+</insert>
+
+<select id="findByNo" resultMap="ClazzMap" parameterType="int">
+  select * from class
+  where class_no=#{no}
+</select>
+
+</mapper>

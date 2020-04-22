@@ -4,7 +4,7 @@ import java.util.List;
 import Team.project.domain.User;
 
 public interface UserService {
-  void add(User user) throws Exception;
+  int add(User user) throws Exception;
 
   List<User> list() throws Exception;
 

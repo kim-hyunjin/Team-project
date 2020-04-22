@@ -79,10 +79,8 @@
     resultMap="UserMap" 
     parameterType="string">
     <bind name="keywordPattern" value="'%' + _parameter + '%'"/>
-    select
-      user_no, name,  email, tel, major
-    from
-      user
+    
+    <include refid="select1"/>
     where 
       user_no like #{keywordPattern}
       or name like #{keywordPattern}

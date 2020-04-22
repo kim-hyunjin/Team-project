@@ -3,6 +3,8 @@
     trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     
+<jsp:include page="../header.jsp"/>
+    
 <h1>회원 상세정보</h1>
 
 <c:if test="${not empty user}">
@@ -28,4 +30,4 @@
 <p>해당 사용자가 없습니다.</p>
 </c:if>
 
-  
+<jsp:include page="../footer.jsp"/>

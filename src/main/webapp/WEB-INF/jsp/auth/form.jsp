@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"
     trimDirectiveWhitespaces="true"%>
 
+<jsp:include page="../header.jsp"/>
 
 <h1>로그인</h1>
 
@@ -12,4 +13,4 @@
 <button>로그인</button>
 </form>
 
-    
+<jsp:include page="../footer.jsp"/>

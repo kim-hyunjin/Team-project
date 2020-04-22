@@ -3,6 +3,8 @@
      trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+<jsp:include page="../header.jsp"/>
+
 <h1>로그인</h1>
 
       <form action='login' method='post'>
@@ -20,4 +22,4 @@
 <p>사용자 정보가 유효하지 않습니다.</p>
 </c:if>
 
-
+<jsp:include page="../footer.jsp"/>

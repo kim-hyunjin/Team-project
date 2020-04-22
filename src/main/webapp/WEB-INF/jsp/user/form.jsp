@@ -2,6 +2,8 @@
     pageEncoding="UTF-8"
     trimDirectiveWhitespaces="true"%>
 
+<jsp:include page="../header.jsp"/>
+
 <h1>사용자 입력</h1>
 
 <form action='add' method='post' enctype='multipart/form-data'>
@@ -20,3 +22,5 @@
 </select><br>
 <button>완료</button>
 </form>
+
+<jsp:include page="../footer.jsp"/>

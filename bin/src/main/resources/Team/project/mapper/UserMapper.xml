@@ -76,7 +76,7 @@
     resultMap="UserMap" 
     parameterType="string">
     <bind name="keywordPattern" value="'%' + _parameter + '%'"/>
-    select * from user
+      <include refid="select1"/>
     where 
       name like #{keywordPattern}
       or email like #{keywordPattern}
@@ -84,7 +84,7 @@
   </select>
   
   <select id="findByEmailAndPassword" resultMap="UserMap" parameterType="map">
-  select * from user
+  select user_no, email, name from user
   where email=#{email} and password=password(#{password})
   </select>
 </mapper>

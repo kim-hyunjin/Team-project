@@ -1,13 +1,13 @@
 package Team.project.web;
 
+import java.io.File;
 import java.util.UUID;
 import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.Part;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
 import Team.project.domain.User;
 import Team.project.service.UserService;
 import net.coobird.thumbnailator.Thumbnails;
@@ -29,11 +29,11 @@ public class UserController {
   }
 
   @RequestMapping("add")
-  public String add(HttpServletRequest req, User user, Part profilePhoto) throws Exception {
-    if (profilePhoto.getSize() > 0) {
+  public String add(User user, MultipartFile photo) throws Exception {
+    if (photo.getSize() > 0) {
       String dirPath = servletContext.getRealPath("/upload/user");
       String filename = UUID.randomUUID().toString();
-      profilePhoto.write(dirPath + "/" + filename);
+      photo.transferTo(new File(dirPath + "/" + filename));
       Thumbnails.of(dirPath + "/" + filename).size(160, 160).outputFormat("jpg")
           .toFiles(Rename.PREFIX_DOT_THUMBNAIL);
       user.setProfilePhoto(filename);
@@ -89,18 +89,18 @@ public class UserController {
   }
 
   @RequestMapping("update")
-  public String update(HttpServletRequest request, User user, Part profilePhoto) throws Exception {
-    if (profilePhoto.getSize() > 0) {
-      String dirPath = request.getServletContext().getRealPath("/upload/user");
+  public String update(User user, MultipartFile photo) throws Exception {
+    if (photo.getSize() > 0) {
+      String dirPath = servletContext.getRealPath("/upload/user");
       String filename = UUID.randomUUID().toString();
-      profilePhoto.write(dirPath + "/" + filename);
+      photo.transferTo(new File(dirPath + "/" + filename));
       Thumbnails.of(dirPath + "/" + filename).size(160, 160).outputFormat("jpg")
           .toFiles(Rename.PREFIX_DOT_THUMBNAIL);
       user.setProfilePhoto(filename);
     }
 
     if (userService.update(user) > 0) {
-      return "redirect:list";
+      return "redirect:../clazz/list";
     } else {
       throw new Exception("변경할 회원 번호가 유효하지 않습니다.");
     }

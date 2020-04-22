@@ -1,12 +1,7 @@
 plugins {
     id 'java'
-    
-    id 'eclipse-wtp'
-    // => 'eclipse' 플러그인 기능을 포함한다.
-    // => 이클립스 웹 프로젝트용 설정 파일을 생성한다.
-
-    id 'war'
-    // => 배치 관련 기능을 처리한다.
+    id 'eclipse-wtp' // 'eclipse'플러그인 기능을 포함한다. 추가로 이클립스 웹 프로젝트용 설정 파일을 생성한다.
+    id 'war' // 배치 관련 기능을 처리한다.
 }
 
 tasks.withType(JavaCompile) {
@@ -27,9 +22,6 @@ repositories {
 dependencies {
   // Reflection API를 좀 더 쉽게 사용하게 도와주는 유틸리티
   implementation 'org.reflections:reflections:0.9.12'
-
-  // log4j 1.2.x 라이브러리
-  //implementation 'log4j:log4j:1.2.17'
   
   // log4j 2.x 라이브러리
   implementation 'org.apache.logging.log4j:log4j-core:2.13.1'
@@ -42,12 +34,6 @@ dependencies {
 
   // Spring webMVC 라이브러리
   implementation 'org.springframework:spring-webmvc:5.2.5.RELEASE'
-
-  // Spring IoC 컨테이너
-  // Spring webMVC 라이브러리는 Spring-context 라이브러리를 사용하기 때문에
-  // SPring IoC 컨테이너는 자동으로 추가된다.
-  // => 따라서 gradle 스크립트 파일에 명시할 필요 없다.
-  //implementation 'org.springframework:spring-context:5.2.5.RELEASE'
 
   // Spring JDBC 관련 라이브러리
   implementation 'org.springframework:spring-jdbc:5.2.5.RELEASE'
@@ -75,16 +61,12 @@ dependencies {
   // JSTL API 및 구현 라이브러리
   implementation 'jstl:jstl:1.2'
   
-  // Spring의 MultipartResolver를 사용하려면
-  // Servlet 3.0에서 제공하는 multipart 처리기를 등록하거나
-  // Apache에서 제공하는 multipart 처리기를 등록해야 한다.
-  //
-  // apache의 multipart 처리기 등록
-  implementation 'commons-fileupload:commons-fileupload:1.4'
-  
   // Thumnailator
   implementation 'net.coobird:thumbnailator:0.4.11'
-    
+  // Apache의 파일 업로드 처리 라이브러리
+  implementation 'commons-fileupload:commons-fileupload:1.4'
+  
   implementation 'com.google.guava:guava:28.1-jre'
   testImplementation 'junit:junit:4.12'
 }
+

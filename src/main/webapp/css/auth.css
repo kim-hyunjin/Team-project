@@ -1,0 +1,81 @@
+.center-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  position: relative;
+  justify-content: center;
+
+}
+
+.login_box {
+  position: absolute;
+  top: 20%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 30%;
+  height: 40%;
+}
+
+.social_login {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.social_login__box>i {
+  margin-right: 0.5em;
+}
+
+.social_login__box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 70%;
+  height: 2.5em;
+  border-radius: 1em;
+}
+
+.social_login__box.google {
+  background-color: aliceblue;
+  color: #4B89DC;
+}
+
+.social_login__box.kakao {
+  margin-top: 1em;
+  background-color: #f7e600;
+  color: rgb(60, 30, 30);
+}
+
+.email_login {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 70%;
+}
+
+#loginForm {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.email_login__input {
+  margin-top: 1em;
+  width: 100%;
+  height: 2.5em;
+}
+
+.login_btn {
+  margin-top: 1em;
+  background-color: #ff4040;
+  color: white;
+  font-weight: 700;
+  font-size: 1em;
+}

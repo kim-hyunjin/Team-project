@@ -4,7 +4,7 @@
     height:100%;
   }
   
-  .clazz_list {
+  .main_list {
     margin-top: 7em;
     padding-left: 3em;    
     width:90%;
@@ -15,27 +15,38 @@
     justify-content: flex-start;
     }
     
-  .clazz_card {
-    width: 22em;
-    height: 22em;
-    border: thin solid black;
-    margin: 30px;
+  .main_card {
+    width: 18em;
+    height: 18em;
+    border: thin solid rgba(0, 0, 0, 0.5);
+    margin: 0.5em;
+    border-radius: 1em;
   }
-  .clazz_name{
+  .main_name{
+    padding: 1em;
+    border: thin solid rgba(0, 0, 0, 0.5);
+    border-radius: 1em 1em 0% 0%;
     display: flex;
     flex-direction: column;
-    height:8em;
+    height:6em;
     background-color: darkslategrey;
   }
-  .clazz_name>a {
-    font-size: 2em;
+  .main_name>a {
+    font-size: 1.3em;
   }
-  .clazz_name>* {
+  .main_name>span {
+    font-size: small;
+  }
+  .main_name>* {
     text-decoration: none;
     color: white;
   }
+
+  .description {
+    padding: 1em;
+  }
   
-  .clazz_header {
+  .main_header {
     background-color: white;
     z-index: 100;
     position:fixed;
@@ -47,9 +58,9 @@
     height: 5em;
     border-bottom: thin solid black;
   }
-   .clazz_header>span:first-child {
+   .main_header>span:first-child {
     margin-left:2em;
   }
-  .clazz_header>span:last-child {
+  .main_header>span:last-child {
     margin-right:2em;
   }

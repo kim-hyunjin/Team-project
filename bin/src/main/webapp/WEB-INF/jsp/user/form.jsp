@@ -12,7 +12,7 @@
 전화: <input name='tel' type='tel'><br>
 전공: <input name='major' type='text'><br>
 자기소개<br><textarea name='introduce' rows='5' cols='60'></textarea><br>
-사진: <input name='photo' type='file'><br>
+사진: <input name='profilePhoto' type='file'><br>
 로그인 방식
 <select name="loginMethod">
     <option value="0">이메일</option>

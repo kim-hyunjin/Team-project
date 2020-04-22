@@ -1,25 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 
-<!DOCTYPE html>
-<html lang="ko">
+<html>
 <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="../../css/style.css" />
-<script src="https://kit.fontawesome.com/764f0503e3.js" crossorigin="anonymous"></script>
 <title>BTS-로그인</title>
-<style>
-  html, body {
-  margin:0px;
-  padding:0px;
-  width: 100%;
-  height: 100%;
-  
-  }
-</style>
 <script>
     window.onload = function() {
  
@@ -75,28 +59,48 @@
  
     }
 </script>
+ 
+ 
 </head>
 <body>
-    <div class="center-container">
-        <div class="login_box">
-            <div class="social_login">
-                <a href="#" class="social_login__box google"><i class="fab fa-google"></i>Continue with Google</a>
-                <a href="#" class="social_login__box kakao"><i class="fas fa-comment fa-lg"></i>Continue with Kakao</a>
-            </div>
-            <div class="email_login">
-                <form id="loginForm" name="loginForm" method="post" action="login">
-                    <input class="email_login__input" type="text" name="email" placeholder="이메일 입력">
-                    <input class="email_login__input" type="password" name="password" placeholder="비밀번호 입력"></td>
-                    <div style="margin-top: 1em;">
-                        <input type="checkbox" name="idsave" value="saveOk">아이디 저장
-                    </div>
-                    <input class="email_login__input login_btn" type="button" value="로그인" onclick="sendit()">
-                </form>
-            </div>
-            <div style="margin-top: 1em;">
-                <span style="margin-right: 1em;">계정이 없나요?</span><a style="color: aqua; font-size: larger;" href="../user/form">회원가입 </a>
-            </div>
-        </div>
-    </div>
+    <form id="loginForm" name="loginForm" method="post"
+        action="login">
+        <table width="100%" height="400" border="0" align="center">
+            <tr>
+                <td>
+                    <table border="0" width="300" height="200" align="center"
+                        class="loginBorder">
+                        <tr align="center">
+                            <td>로그인</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <table border="0" width="100%" height="100%">
+                                    <tr>
+                                        <td width="30%">아이디</td>
+                                        <td width="70%"><input type="text" name="email"
+                                            size="20" maxlength="20"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>패스워드</td>
+                                        <td><input type="password" name="password" size="20"
+                                            maxlength="20"></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" align="left"><input type="checkbox"
+                                            name="idsave" value="saveOk">아이디 저장</td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr align="center">
+                            <td><input type="button" value="로그인" onclick="sendit()">
+                                <a href="../user/form">회원가입 </a></td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </form>
 </body>
 </html>

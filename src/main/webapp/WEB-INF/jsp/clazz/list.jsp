@@ -9,25 +9,46 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="../../css/style.css" />
+<script src="https://kit.fontawesome.com/764f0503e3.js" crossorigin="anonymous"></script>
 </head>
 <style>
   html, body {
-  maring:0px;
+  margin:0px;
   padding:0px;
   
   }
 </style>
 <body>
 <div class="container">
-  <div class="clazz_header">
-    <span style="font-weight:600; font-size:2em;">BTS</span>
-    <span><a href="add">수업 추가</a></span>
+  <div class="header main_header">
+    <div class="main_header__column">
+      <a href="#"><i class="fas fa-bars" style="font-size:1.2em; margin-right: 0.8em;"></i></a>
+      <span style="font-weight:600; font-size:1.5em;">BTS</span>
+    </div>
+    <div class="main_header__column">
+      <span><a href="form">수업 추가</a></span>
+	    <c:if test="${not empty loginUser}">
+        <div class="header__user">
+          <c:if test="${not empty loginUser.profilePhoto}">
+            <span class="header__user__photo"><img style="width:2.5em;" src='${pageContext.servletContext.contextPath}/upload/user/thumbnail.${loginUser.profilePhoto}.jpg'></span>
+          </c:if>
+          <c:if test="${empty loginUser.profilePhoto}">
+            <i class="far fa-user" style="font-size:1.5em; margin-right: 0.3em;"></i>
+          </c:if>
+          <span><a href="../user/detail?no=${loginUser.userNo}">${loginUser.name}</a></span>
+        </div>
+	      <a href="../auth/logout">logout</a>
+	    </c:if>
+    </div>
   </div>
-  <div class="clazz_list">
+  <div class="main_list">
     <c:forEach items="${clazzList}" var="clazz">
-        <div class="clazz_card">
-            <div class="clazz_name">
-              <a href="detail?no=${clazz.classNo}">${clazz.name}</a>
+        <div class="main_card">
+            <div class="main_name">
+              <div>
+                <a class="main_name_title" href="room?no=${clazz.classNo}">${clazz.name}</a>
+                <i class="fas fa-ellipsis-v js-main_name__menu"></i>
+              </div>
               <span>${clazz.room}</span>
             </div>
           <div class="description">${clazz.description}</div>

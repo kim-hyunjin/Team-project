@@ -42,7 +42,7 @@ public class AuthController {
     User user = userService.get(email, password);
     if (user != null) {
       session.setAttribute("loginUser", user);
-      return "redirect:../../index.html";
+      return "redirect:../../app/clazz/list";
     } else {
       session.invalidate();
       return "redirect:form.jsp";

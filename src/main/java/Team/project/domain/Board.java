@@ -5,7 +5,7 @@ import java.io.Serializable;
 public class Board implements Serializable {
   private static final long serialVersionUID = 1L;
 
-  private int boardNo;
+  private int boardNo; // pk // fk - class_no (클래스번호)
   private String title;
   private int classNo;
   private boolean notice;

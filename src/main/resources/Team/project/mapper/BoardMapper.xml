@@ -5,4 +5,55 @@
   
 <mapper namespace="Team.project.dao.BoardDao">
 
+  <resultMap type="Board" id="BoardMap">
+    <id column="board_no" property="boardNo"/>
+    <result column="title" property="title"/>
+    <result column="class_no" property="classNo"/>
+    <result column="notice" property="notice"/>
+  </resultMap>
+  
+  <sql id="select1">
+    select 
+      board_no,
+      title,
+      class_no,
+      notice
+  </sql>
+  
+  <select id="findAll" resultMap="BoardMap" parameterType="int">
+    select
+      *
+    from board
+    where class_no = #{no}
+  </select>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </mapper>

@@ -7,8 +7,8 @@ public class Post implements Serializable {
 
   private static final long serialVersionUID = 1L;
   
-  private int postNo;
-  private String title;
+  private int postNo; // pk // fk - board_no(게시판번호) fk- member_no(작성자번호)
+  private String title; 
   private String content;
   private Date createDate;
   private String filePath;

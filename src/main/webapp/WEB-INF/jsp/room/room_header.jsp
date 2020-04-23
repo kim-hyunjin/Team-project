@@ -22,7 +22,7 @@
                 <a href="../lesson/list?no=${clazzNow.classNo}"><span class="room_header__menu">수업</span></a>
                 <a href="#"><span class="room_header__menu">사용자</span></a>
                 <a href="#"><span class="room_header__menu">성적</span></a>
-                <a href="#"><span class="room_header__menu">게시판</span></a>
+                <a href="../board/list?no=${clazzNow.classNo}"><span class="room_header__menu">게시판</span></a>
             </div>
             <div class="room_header__column">
                 <a href="../clazz/detail"><i class="fas fa-cog" style="font-size: 1.2em;"></i></a>

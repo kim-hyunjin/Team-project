@@ -8,7 +8,7 @@ import Team.project.domain.User;
 import Team.project.service.UserService;
 
 @Component
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl implements UserService{
 
   UserDao userDao;
 
@@ -42,6 +42,11 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
+  public List<User> search(String keyword) throws Exception {
+    return userDao.findByKeyword(keyword);
+  }
+
+  @Override
   public User get(String email, String password) throws Exception {
     HashMap<String, Object> params = new HashMap<>();
     params.put("email", email);
@@ -49,11 +54,4 @@ public class UserServiceImpl implements UserService {
     return userDao.findByEmailAndPassword(params);
   }
 
-  @Override
-  public List<User> search(String keyword) throws Exception {
-    return userDao.findByKeyword(keyword);
-  }
-
 }
-
-

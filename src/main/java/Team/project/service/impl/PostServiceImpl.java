@@ -1,21 +1,23 @@
 package Team.project.service.impl;
 
 import java.util.List;
+import org.springframework.stereotype.Component;
 import Team.project.dao.PostDao;
 import Team.project.domain.Post;
 import Team.project.service.PostService;
 
-public class PostServiceImpl implements PostService{
-  
+@Component
+public class PostServiceImpl implements PostService {
+
   PostDao postDao;
-  
+
   public PostServiceImpl(PostDao postDao) {
     this.postDao = postDao;
   }
-  
+
   @Override
   public void add(Post post) throws Exception {
-    
+
   }
 
   @Override

@@ -5,7 +5,6 @@ import java.util.Map;
 import Team.project.domain.User;
 
 public interface UserDao {
-
   public int insert(User user) throws Exception;
 
   public List<User> findAll() throws Exception;
@@ -18,6 +17,6 @@ public interface UserDao {
 
   List<User> findByKeyword(String keyword) throws Exception;
 
-  public User findByEmailAndPassword(Map<String, Object> params) throws Exception;
+  public User findByEmailAndPassword(Map<String, Object> map) throws Exception;
 
 }

@@ -3,7 +3,7 @@ package Team.project.domain;
 import java.io.Serializable;
 import java.sql.Date;
 
-public class AssignmentSubmmit implements Serializable{
+public class AssignmentSubmit implements Serializable{
   private static final long serialVersionUID = 1L;
   private int memberNo;
   private int assignmentNo;

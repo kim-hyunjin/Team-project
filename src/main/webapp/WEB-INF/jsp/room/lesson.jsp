@@ -2,11 +2,11 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<jsp:include page="header.jsp"/>
+<jsp:include page="room_header.jsp"/>
 
-<h1>오류 내용</h1>
-<p>${error.message}</p>
-<pre>${errorDetail}</pre>
+        <div class="room_contents">
 
-<jsp:include page="footer.jsp"/>
-    
+        </div>
+    </div>
+</body>
+</html>

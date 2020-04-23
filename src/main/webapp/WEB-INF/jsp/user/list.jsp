@@ -2,36 +2,26 @@
     pageEncoding="UTF-8"
     trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-    
-<jsp:include page="../header.jsp"/>
-    
-  <h1>사용자목록</h1>
-  <a href='form'>사용자 등록</a>
-  <table border='1'>
-  <tr>
-    <th>번호</th>
-    <th>이름</th>
-    <th>이메일</th>
-    <th>연락처</th>
-    <th>전공</th>
-  </tr>
-  
-<c:forEach items="${list}" var="item">
-  <tr>
-    <td>${item.userNo}</td>
-    <td><a href='detail?no=${item.userNo}'>${item.name}</a></td>
-    <td>${item.email}</td>
-    <td>${item.tel}</td>
-    <td>${item.major}</td>
-  </tr>
-</c:forEach>
 
-</table>
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../../css/style.css" />
+<script src="https://kit.fontawesome.com/764f0503e3.js" crossorigin="anonymous"></script>
+</head>
+<body>
+	  <h1>유저목록</h1>
+	  <a href='form'>유저등록</a>
+	  <form action='search' method='get'>
+	    <input name='keyword' type='text' placeholder="유저 검색">
+	    <button>검색</button>
+	  </form>
+	<c:forEach items="${users}" var="user">
+	   ${user.userNo}, ${user.email}, <a href='detail?no=${user.userNo}'>${user.name}</a><br>
+	</c:forEach>
+</body>
+</html>
 
-<hr>
-<form action='search' method='get'>
-검색어 : <input name='keyword' type='text'>
-<button>검색</button>
-</form>
-
-<jsp:include page="../footer.jsp"/>

@@ -18,14 +18,12 @@
     <result column="create_date" property="createDate"/>
   </resultMap>
   
-  <sql id="select1"> 
+  <sql id="select1">
     select 
       user_no, 
       email, 
       name, 
-      tel,
-      major,
-      profile_photo
+      introduce
     from 
       user
   </sql>
@@ -33,8 +31,7 @@
   <insert id="insert" parameterType="User">
     insert into user
     (email, name, password, tel, major, introduce, profile_photo, login_method) 
-    values(
-    #{email}, 
+    values(#{email}, 
     #{name}, 
     password(#{password}), 
     #{tel}, 
@@ -79,27 +76,22 @@
     resultMap="UserMap" 
     parameterType="string">
     <bind name="keywordPattern" value="'%' + _parameter + '%'"/>
-    
-    <include refid="select1"/>
+    select * from user
     where 
-      user_no like #{keywordPattern}
-      or name like #{keywordPattern}
+      name like #{keywordPattern}
       or email like #{keywordPattern}
       or tel like #{keywordPattern}
-      or major like #{keywordPattern}
   </select>
   
-    <select id="findByEmailAndPassword" 
-    resultMap="UserMap" 
-    parameterType="Map">
-    select
-      email,
-      name
-      from user
-      where
-      email=#{email}
-      and password=password(#{password})
+  <select id="findByEmailAndPassword" resultMap="UserMap" parameterType="map">
+  select * from user
+  where email=#{email} and password=password(#{password})
   </select>
 </mapper>
 
- 
+
+
+
+
+
+

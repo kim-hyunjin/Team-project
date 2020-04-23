@@ -4,7 +4,6 @@ import java.util.List;
 import Team.project.domain.User;
 
 public interface UserService {
-
   int add(User user) throws Exception;
 
   List<User> list() throws Exception;
@@ -15,7 +14,7 @@ public interface UserService {
 
   User get(String email, String password) throws Exception;
 
-  List<User> search(String keyword) throws Exception;
-
   int update(User user) throws Exception;
+
+  List<User> search(String keyword) throws Exception;
 }

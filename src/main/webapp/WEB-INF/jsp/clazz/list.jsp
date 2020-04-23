@@ -1,30 +1,23 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"
-    trimDirectiveWhitespaces="true"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 
-<jsp:include page="../header.jsp"/>
+<<jsp:include page="main_header.jsp"></jsp:include>
 
-  <h1>클래스 목록</h1>
-  <a href='form'>클래스 등록</a><br>
-  <table border='1'>
-  <tr>
-    <th>번호</th>
-    <th>클래스명</th>
-    <th>내용</th>
-    <th>강의실</th>
-  </tr>
-  
-  <c:forEach items="${list}" var="item">
-  <tr>
-    <td>${item.classNo}</td>
-    <td><a href='detail?no=${item.classNo}'>${item.name}</a></td>
-    <td>${item.name}</td>
-    <td>${item.room}</td>
-  </tr>
-  </c:forEach>
-  
-  </table>
-
-<jsp:include page="../footer.jsp"/>
-
+  <div class="main_list">
+    <c:forEach items="${clazzList}" var="clazz">
+        <div class="main_card">
+            <div class="main_name">
+              <div>
+                <a class="main_name_title" href="../room/timeline/list?no=${clazz.classNo}">${clazz.name}</a>
+                <i class="fas fa-ellipsis-v js-main_name__menu"></i>
+              </div>
+              <span>${clazz.room}</span>
+            </div>
+          <div class="description">${clazz.description}</div>
+        </div>
+    </c:forEach>
+  </div>
+</div>
+</body>
+</html>

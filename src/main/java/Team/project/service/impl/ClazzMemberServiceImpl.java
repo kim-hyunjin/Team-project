@@ -1,10 +1,12 @@
 package Team.project.service.impl;
 
 import java.util.List;
+import org.springframework.stereotype.Component;
 import Team.project.dao.ClazzMemberDao;
 import Team.project.domain.ClazzMember;
 import Team.project.service.ClazzMemberService;
 
+@Component
 public class ClazzMemberServiceImpl implements ClazzMemberService {
 
   ClazzMemberDao clazzMemberDao;

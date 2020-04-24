@@ -3,12 +3,11 @@ package Team.project.web;
 import javax.servlet.ServletContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import Team.project.service.BoardService;
+import Team.project.service.PostService;
 
 @Controller
-@RequestMapping("/room/board")
 public class BoardController {
 
   @Autowired
@@ -17,11 +16,16 @@ public class BoardController {
   @Autowired
   BoardService boardService;
 
-  @RequestMapping("list")
-  public String list(int no, Model model) throws Exception {
-    model.addAttribute("boards", boardService.list(no));
-    return "/WEB-INF/jsp/board/list.jsp";
+  @Autowired
+  PostService postService;
+
+  @RequestMapping("/room/board/")
+  public String boardList() throws Exception {
+    return "/WEB-INF/jsp/post/list.jsp";
   }
+
+
+
 }
 
 // @RequestMapping("form")
@@ -47,27 +51,6 @@ public class BoardController {
 // }
 // }
 
-// @RequestMapping("detail")
-// public String detail(int no, Model model) throws Exception {
-// User user = userService.get(no);
-// String login = "";
-// switch (user.getLoginMethod()) {
-// case 0:
-// login = "이메일";
-// break;
-// case 1:
-// login = "카카오";
-// break;
-// case 2:
-// login = "구글";
-// break;
-// default:
-// login = "이메일";
-// }
-// model.addAttribute("user", user);
-// model.addAttribute("loginMethod", login);
-// return "/WEB-INF/jsp/user/detail.jsp";
-// }
 
 
 // @RequestMapping("search")

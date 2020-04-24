@@ -14,4 +14,6 @@ public interface PostService {
   Post get(int no) throws Exception;
 
   int update(Post post) throws Exception;
+
+  List<Post> list(int no) throws Exception;
 }

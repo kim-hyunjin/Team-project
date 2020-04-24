@@ -44,4 +44,6 @@ public class BoardServiceImpl implements BoardService {
   public List<Board> list(int no) throws Exception {
     return boardDao.findAll(no);
   }
+
+
 }

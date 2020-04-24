@@ -14,4 +14,6 @@ public interface PostDao {
   public int update(Post post) throws Exception;
 
   public int delete(int no) throws Exception;
+
+  public List<Post> findAll(int no) throws Exception;
 }

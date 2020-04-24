@@ -22,9 +22,18 @@
   
   <select id="findAll" resultMap="BoardMap" parameterType="int">
     select
-      *
+      board_no, title
     from board
     where class_no = #{no}
+  </select>
+  
+  <select id="findByNo" resultMap="BoardMap" parameterType="int">
+    select
+      board_no
+    from
+      board
+    where
+      board_no=#{no}
   </select>
   
   

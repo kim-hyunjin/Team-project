@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 
-<<jsp:include page="main_header.jsp"></jsp:include>
+<jsp:include page="main_header.jsp"/>
 
   <div class="main_list">
     <c:forEach items="${clazzList}" var="clazz">

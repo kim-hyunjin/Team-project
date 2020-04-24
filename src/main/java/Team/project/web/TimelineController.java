@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import Team.project.domain.Clazz;
 import Team.project.service.AssignmentService;
+import Team.project.service.BoardService;
 import Team.project.service.ClazzService;
 import Team.project.service.PostService;
 import Team.project.service.QuestionService;
@@ -26,12 +27,15 @@ public class TimelineController {
   PostService postService;
   @Autowired
   ClazzService clazzService;
+  @Autowired
+  BoardService boardService;
 
   @GetMapping("list")
   public String list(HttpSession session, int no, Model model) throws Exception {
     Clazz clazz = clazzService.get(no);
     session.removeAttribute("clazzNow");
     session.setAttribute("clazzNow", clazz);
+    session.setAttribute("nowBoard", boardService.list(no));
     return "/WEB-INF/jsp/room/timeline.jsp";
   }
 

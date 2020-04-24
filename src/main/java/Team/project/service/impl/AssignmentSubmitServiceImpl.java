@@ -21,14 +21,14 @@ public class AssignmentSubmitServiceImpl implements AssignmentSubmitService {
   }
 
   @Override
-  public List<AssignmentSubmit> listAssignment() throws Exception {
-    return assignmentSubmitDao.findAllAssignment();
+  public List<AssignmentSubmit> list(int no) throws Exception {
+    return assignmentSubmitDao.findAllAssignment(no);
   }
   
-  @Override
-  public List<AssignmentSubmit> listUserName() throws Exception {
-    return assignmentSubmitDao.findAllUserName();
-  }
+//  @Override
+//  public List<AssignmentSubmit> listUserName() throws Exception {
+//    return assignmentSubmitDao.findAllUserName();
+//  }
   
   @Override
   public int delete(int no) throws Exception {

@@ -10,11 +10,29 @@
   <tr>
     <th>기준</th>
     <c:forEach items="${assignmentList}" var="item">
-    <th>${item.title}</th>
+      <th>${item.assignment.title}</th>
     </c:forEach>
-  </tr>
-    <tr>
     
+  </tr>
+  
+  <c:forEach items="${assignmentList}" var="item">
+  <tr>
+      <th>${item.user.name}</th>
+      <c:forEach items="${assignmentList}" var="test">
+        <th>${test.score}</th>
+      </c:forEach>
+ </tr>
+    </c:forEach>
+
+
+  
+  
+  
+  
+  
+  
+  
+  
   </table>
         </div>
       

@@ -15,38 +15,17 @@ public class AssignmentSubmit implements Serializable{
   private ClazzMember clazzMember;
   private User user;
   private Assignment assignment;
-  
-  
-  public Assignment getAssignment() {
-    return assignment;
-  }
-  public void setAssignment(Assignment assignment) {
-    this.assignment = assignment;
-  }
-  public ClazzMember getClazzMember() {
-    return clazzMember;
-  }
-  public void setClazzMember(ClazzMember clazzMember) {
-    this.clazzMember = clazzMember;
-  }
-  public User getUser() {
-    return user;
-  }
-  public void setUser(User user) {
-    this.user = user;
-  }
-
-  public int getMember_no() {
+  public int getMemberNo() {
     return memberNo;
   }
-  public void setMember_no(int member_no) {
-    this.memberNo = member_no;
+  public void setMemberNo(int memberNo) {
+    this.memberNo = memberNo;
   }
-  public int getAssignment_no() {
+  public int getAssignmentNo() {
     return assignmentNo;
   }
-  public void setAssignment_no(int assignment_no) {
-    this.assignmentNo = assignment_no;
+  public void setAssignmentNo(int assignmentNo) {
+    this.assignmentNo = assignmentNo;
   }
   public String getFile() {
     return file;
@@ -72,10 +51,38 @@ public class AssignmentSubmit implements Serializable{
   public void setFeedback(String feedback) {
     this.feedback = feedback;
   }
-  public Date getCreate_date() {
+  public Date getCreateDate() {
     return createDate;
   }
-  public void setCreate_date(Date create_date) {
-    this.createDate = create_date;
+  public void setCreateDate(Date createDate) {
+    this.createDate = createDate;
   }
+  public ClazzMember getClazzMember() {
+    return clazzMember;
+  }
+  public void setClazzMember(ClazzMember clazzMember) {
+    this.clazzMember = clazzMember;
+  }
+  public User getUser() {
+    return user;
+  }
+  public void setUser(User user) {
+    this.user = user;
+  }
+  public Assignment getAssignment() {
+    return assignment;
+  }
+  public void setAssignment(Assignment assignment) {
+    this.assignment = assignment;
+  }
+  @Override
+  public String toString() {
+    return "AssignmentSubmit [memberNo=" + memberNo + ", assignmentNo=" + assignmentNo + ", file="
+        + file + ", score=" + score + ", content=" + content + ", feedback=" + feedback
+        + ", createDate=" + createDate + ", clazzMember=" + clazzMember + ", user=" + user
+        + ", assignment=" + assignment + "]";
+  }
+  
+  
+  
 }

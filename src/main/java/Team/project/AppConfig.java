@@ -7,7 +7,6 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 // Spring IoC 컨테이너가 탐색할 패키지 설정
@@ -36,12 +35,6 @@ public class AppConfig implements WebMvcConfigurer {
     return mr;
   }
 
-  @Override
-  public void addInterceptors(InterceptorRegistry registry) {
-    registry.addInterceptor(new GlobalInterceptor()).addPathPatterns("/app/**")
-        .excludePathPatterns("/app/auth/**");
-    registry.addInterceptor(new RoomInterceptor()).addPathPatterns("/app/room/**");
-  }
 }
 
 

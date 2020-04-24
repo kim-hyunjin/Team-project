@@ -12,6 +12,29 @@ public class AssignmentSubmit implements Serializable{
   private String content;
   private String feedback;
   private Date createDate;
+  private ClazzMember clazzMember;
+  private User user;
+  private Assignment assignment;
+  
+  
+  public Assignment getAssignment() {
+    return assignment;
+  }
+  public void setAssignment(Assignment assignment) {
+    this.assignment = assignment;
+  }
+  public ClazzMember getClazzMember() {
+    return clazzMember;
+  }
+  public void setClazzMember(ClazzMember clazzMember) {
+    this.clazzMember = clazzMember;
+  }
+  public User getUser() {
+    return user;
+  }
+  public void setUser(User user) {
+    this.user = user;
+  }
 
   public int getMember_no() {
     return memberNo;

@@ -3,35 +3,42 @@ package Team.project.domain;
 import java.sql.Date;
 
 public class Assignment {
-
-  private int assignment_no;
-  private int clazz_no;
-  private int member_no;
+  
+  private int assignmentNo;
+  private int memberNo;
   private String title;
   private String content;
   private String file;
   private Date deadline;
-  private String standare;
-  private Date create_date;
+  private Date createDate;
+  private String standard;
+  
+  public String getStandard() {
+    return standard;
+  }
+  public void setStandard(String standard) {
+    this.standard = standard;
+  }
 
+  private int classNo;
+  public int getClassNo() {
+    return classNo;
+  }
+  public void setClassNo(int classNo) {
+    this.classNo = classNo;
+  }
+  public int getAssignmentNo() {
+    return assignmentNo;
+  }
+  public void setAssignmentNo(int assignmentNo) {
+    this.assignmentNo = assignmentNo;
+  }
 
-  public int getAssignment_no() {
-    return assignment_no;
+  public int getMemberNo() {
+    return memberNo;
   }
-  public void setAssignment_no(int assignment_no) {
-    this.assignment_no = assignment_no;
-  }
-  public int getClazz_no() {
-    return clazz_no;
-  }
-  public void setClazz_no(int clazz_no) {
-    this.clazz_no = clazz_no;
-  }
-  public int getMember_no() {
-    return member_no;
-  }
-  public void setMember_no(int member_no) {
-    this.member_no = member_no;
+  public void setMemberNo(int memberNo) {
+    this.memberNo = memberNo;
   }
   public String getTitle() {
     return title;
@@ -57,17 +64,15 @@ public class Assignment {
   public void setDeadline(Date deadline) {
     this.deadline = deadline;
   }
-  public String getStandare() {
-    return standare;
+
+  public Date getCreateDate() {
+    return createDate;
   }
-  public void setStandare(String standare) {
-    this.standare = standare;
+  public void setCreateDate(Date createDate) {
+    this.createDate = createDate;
   }
-  public Date getCreate_date() {
-    return create_date;
-  }
-  public void setCreate_date(Date create_date) {
-    this.create_date = create_date;
-  }
+
+
+
 
 }

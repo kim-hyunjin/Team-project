@@ -5,4 +5,52 @@
   
 <mapper namespace="Team.project.dao.AssignmentSubmitDao">
 
+<resultMap type="AssignmentSubmit" id="AssignmentSubmitMap">
+<id column="assignment_no" property="assignmentNo"/>
+<id column="member_no" property="memberNo"/>
+<result column="file" property="file"/>
+<result column="score" property="score"/>
+<result column="content" property="content"/>
+<result column="feedback" property="feedback"/>
+<result column="create_date" property="createDate"/>
+
+<association property="user" javaType="User">
+      <id column="user_no"   property="userNo"/>
+      <result column="name"  property="name"/>
+</association>
+
+    <collection property="clazzmember" javaType="ClazzMember">
+      <id column="member_no" property="memberNo"/>
+      <result column="class_no"  property="classNo"/>
+    </collection>
+
+</resultMap>
+
+<select id="findAllAssignment" resultMap="AssignmentSubmitMap">
+select 
+m.class_no, 
+a.assignment_no, 
+a.content, u.name,  
+a.score
+from user u, class_member m, assignment_submmit a
+where 
+u.user_no=m.user_no and 
+a.member_no=m.member_no and 
+m.class_no=#{classNo}
+order by a.assignment_no asc, u.name asc;
+</select>
+
+<select id="findAllUserName" resultMap="AssignmentSubmitMap">
+select 
+u.name, 
+a.score, 
+m.class_no, 
+a.assignment_no
+from user u, class_member m, assignment_submmit a
+where 
+u.user_no=m.user_no and a.member_no=m.member_no and m.class_no=#{classNo}
+order by u.name asc;
+</select>
+
+
 </mapper>

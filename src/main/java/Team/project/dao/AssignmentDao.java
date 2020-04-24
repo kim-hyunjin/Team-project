@@ -7,6 +7,8 @@ public interface AssignmentDao {
 
   public int insert(Assignment assignment) throws Exception;
 
+  public List<Assignment> findAllByClassNo(int no) throws Exception;
+
   public List<Assignment> findAll() throws Exception;
 
   public Assignment findByNo(int no) throws Exception;

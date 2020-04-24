@@ -28,6 +28,8 @@
       user
   </sql>
   
+  
+  
   <insert id="insert" parameterType="User">
     insert into user
     (email, name, password, tel, major, introduce, profile_photo, login_method) 
@@ -51,6 +53,14 @@
     from user
     where 
       user_no=#{no}
+  </select>
+  
+   <select id="findByClassNo" resultMap="UserMap" parameterType="int">
+   select user_no, email, name, tel, major, introduce, profile_photo, login_method, create_date 
+    user join class_member on user.user_no = class_member.user_no
+    from user
+    where 
+      class_no=#{no}
   </select>
   
   <update id="update" parameterType="User">
@@ -88,10 +98,3 @@
   where email=#{email} and password=password(#{password})
   </select>
 </mapper>
-
-
-
-
-
-
-

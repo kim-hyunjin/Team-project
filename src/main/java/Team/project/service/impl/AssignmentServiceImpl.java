@@ -20,6 +20,10 @@ public class AssignmentServiceImpl implements AssignmentService {
     assignmetDao.insert(assignment);
 
   }
+  @Override
+  public List<Assignment> list(int no) throws Exception {
+    return assignmetDao.findAllByClassNo(no);
+  }
 
   @Override
   public List<Assignment> list() throws Exception {

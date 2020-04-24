@@ -54,4 +54,10 @@ public class UserServiceImpl implements UserService{
     return userDao.findByEmailAndPassword(params);
   }
 
+  @Override
+  public List<User> list(int no) throws Exception {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
 }

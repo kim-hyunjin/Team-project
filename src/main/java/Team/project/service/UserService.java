@@ -7,6 +7,8 @@ public interface UserService {
   int add(User user) throws Exception;
 
   List<User> list() throws Exception;
+  
+  List<User> list(int no) throws Exception;
 
   int delete(int no) throws Exception;
 
@@ -17,4 +19,5 @@ public interface UserService {
   int update(User user) throws Exception;
 
   List<User> search(String keyword) throws Exception;
+  
 }

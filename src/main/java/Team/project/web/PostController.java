@@ -28,11 +28,6 @@ public class PostController {
     return "/WEB-INF/jsp/post/list.jsp";
   }
 
-  // @RequestMapping("detail")
-  // public String detail(int no, Model model) throws Exception {
-  // model.addAttribute("postLists", postService.get(no));
-  // return "/WEB-INF/jsp/post/detail.jsp";
-  // }
 }
 
 

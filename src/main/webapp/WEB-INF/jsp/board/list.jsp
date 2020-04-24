@@ -2,7 +2,8 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 
-
+  <!--  -->
+  
   <div class="room_contents">
 
    <h1 style="width:30%">게시판</h1>

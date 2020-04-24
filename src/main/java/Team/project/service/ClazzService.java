@@ -5,7 +5,7 @@ import Team.project.domain.Clazz;
 
 public interface ClazzService {
 
-  void add(Clazz clazz) throws Exception;
+  int add(Clazz clazz) throws Exception;
 
   List<Clazz> list() throws Exception;
 
@@ -14,4 +14,6 @@ public interface ClazzService {
   Clazz get(int no) throws Exception;
 
   int update(Clazz clazz) throws Exception;
+
+  List<Clazz> list(int no) throws Exception;
 }

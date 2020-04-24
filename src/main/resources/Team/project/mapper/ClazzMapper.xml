@@ -30,7 +30,13 @@
   from class;
 </select>
 
-<insert id="insert" parameterType="Clazz">
+<select id="findByUserNo" resultMap="ClazzMap" parameterType="int">
+  select c.class_no, name, description, room, class_code, create_date
+  from class c
+  join class_member m on c.class_no = m.class_no where user_no = #{no} 
+</select>
+
+<insert id="insert" useGeneratedKeys="true" keyProperty="classNo" parameterType="Clazz">
   insert into class
   (name, description, room, class_code)
   values(

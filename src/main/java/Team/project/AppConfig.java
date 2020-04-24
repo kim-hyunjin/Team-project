@@ -6,13 +6,17 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 // Spring IoC 컨테이너가 탐색할 패키지 설정
 // => 지정한 패키지 및 그 하위 패키지를 모두 뒤져서
 // @Component 애노테이션이 붙은 클래스를 찾아 객체를 생성한다.
 //
 @ComponentScan(value = "Team.project")
-public class AppConfig {
+@EnableWebMvc
+public class AppConfig implements WebMvcConfigurer {
 
   static Logger logger = LogManager.getLogger(AppConfig.class);
 
@@ -30,6 +34,13 @@ public class AppConfig {
     mr.setMaxInMemorySize(2000000);
     mr.setMaxUploadSizePerFile(5000000);
     return mr;
+  }
+
+  @Override
+  public void addInterceptors(InterceptorRegistry registry) {
+    registry.addInterceptor(new GlobalInterceptor()).addPathPatterns("/app/**")
+        .excludePathPatterns("/app/auth/**");
+    registry.addInterceptor(new RoomInterceptor()).addPathPatterns("/app/room/**");
   }
 }
 

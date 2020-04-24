@@ -1,5 +1,6 @@
 package Team.project.dao;
 
+import java.util.HashMap;
 import java.util.List;
 import Team.project.domain.ClazzMember;
 
@@ -14,5 +15,7 @@ public interface ClazzMemberDao {
   public int update(ClazzMember clazzMember) throws Exception;
 
   public int delete(int no) throws Exception;
+
+  public ClazzMember findByUserNoAndClassNo(HashMap<String, Integer> map) throws Exception;
 }
 

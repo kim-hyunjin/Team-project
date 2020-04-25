@@ -16,7 +16,11 @@ public class AuthController {
   UserService userService;
 
   @RequestMapping("/auth/form")
-  public String form(HttpServletRequest req, Map<String, Object> model) {
+  public String form(HttpSession session, Map<String, Object> model) {
+    User user = (User) session.getAttribute("loginUser");
+    if (user != null) {
+      return "redirect:../clazz/list";
+    }
     return "/WEB-INF/jsp/auth/form.jsp";
   }
 

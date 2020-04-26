@@ -5,7 +5,6 @@
   
 <mapper namespace="Team.project.dao.AssignmentSubmitDao">
 
-<<<<<<< HEAD
   <resultMap type="AssignmentSubmit" id="AssignmentSubmitMap">
   <id column="assignment_no" property="assignmentNo"/>
   <id column="member_no" property="memberNo"/>
@@ -56,6 +55,4 @@
   </select>
  -->
 
-=======
->>>>>>> upstream/master
 </mapper>

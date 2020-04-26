@@ -38,11 +38,7 @@ public class LoginUserFilter implements Filter {
       return;
     }
     String path = req.getRequestURI();
-<<<<<<< HEAD
     if (path.contains("/auth") || path.contains("/user/form") || path.contains("/user/add")) {
-=======
-    if (path.contains("/auth")) {
->>>>>>> upstream/master
       chain.doFilter(req, res);
       return;
     }

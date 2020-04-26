@@ -21,8 +21,8 @@ public class AssignmentSubmitServiceImpl implements AssignmentSubmitService {
   }
 
   @Override
-  public List<AssignmentSubmit> list() throws Exception {
-    return assignmentSubmitDao.findAll();
+  public List<AssignmentSubmit> list(int no) throws Exception {
+    return assignmentSubmitDao.findAll(no);
   }
 
   @Override

@@ -7,7 +7,7 @@ public interface AssignmentSubmitDao {
 
   public int insert(AssignmentSubmit assignmentSubmit) throws Exception;
 
-  public List<AssignmentSubmit> findAll() throws Exception;
+  public List<AssignmentSubmit> findAll(int no) throws Exception;
 
   public AssignmentSubmit findByNo(int no) throws Exception;
 

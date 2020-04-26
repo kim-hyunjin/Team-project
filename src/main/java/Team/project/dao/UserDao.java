@@ -19,7 +19,6 @@ public interface UserDao {
 
   public User findByEmailAndPassword(Map<String, Object> map) throws Exception;
   
-  
   public User findByClassNo(int no) throws Exception;
 
 }

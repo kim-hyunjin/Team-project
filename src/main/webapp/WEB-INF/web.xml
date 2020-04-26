@@ -12,6 +12,18 @@
 
   <display-name>BTS</display-name>
   
+  <filter>
+  <filter-name>myfilter</filter-name>
+  <filter-class>
+    org.springframework.web.filter.DelegatingFilterProxy
+  </filter-class>
+</filter>
+
+<filter-mapping>
+  <filter-name>myfilter</filter-name>
+  <url-pattern>/app/room/*</url-pattern>
+</filter-mapping>
+  
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
     <welcome-file>index.htm</welcome-file>

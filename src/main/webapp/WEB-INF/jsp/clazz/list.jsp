@@ -2,9 +2,10 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 
-<<jsp:include page="main_header.jsp"></jsp:include>
+<jsp:include page="main_header.jsp"/>
 
   <div class="main_list">
+  <c:if test="${not empty clazzList}">
     <c:forEach items="${clazzList}" var="clazz">
         <div class="main_card">
             <div class="main_name">
@@ -17,6 +18,7 @@
           <div class="description">${clazz.description}</div>
         </div>
     </c:forEach>
+    </c:if>
   </div>
 </div>
 </body>

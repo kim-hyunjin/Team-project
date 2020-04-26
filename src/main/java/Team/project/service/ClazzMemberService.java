@@ -14,4 +14,6 @@ public interface ClazzMemberService {
   ClazzMember get(int no) throws Exception;
 
   int update(ClazzMember clazzMember) throws Exception;
+
+  public ClazzMember get(int userNo, int classNo) throws Exception;
 }

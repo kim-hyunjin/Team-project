@@ -1,5 +1,6 @@
 package Team.project.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
 import org.springframework.stereotype.Component;
 import Team.project.dao.ClazzMemberDao;
@@ -38,5 +39,13 @@ public class ClazzMemberServiceImpl implements ClazzMemberService {
   @Override
   public int update(ClazzMember clazzMember) throws Exception {
     return clazzMemberDao.update(clazzMember);
+  }
+
+  @Override
+  public ClazzMember get(int userNo, int classNo) throws Exception {
+    HashMap<String, Integer> map = new HashMap<>();
+    map.put("userNo", userNo);
+    map.put("classNo", classNo);
+    return clazzMemberDao.findByUserNoAndClassNo(map);
   }
 }

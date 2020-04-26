@@ -32,9 +32,9 @@ public class GradeController {
   
   
  @RequestMapping("/room/grade/list")
-  public String list(int classNo, Model model) throws Exception{
+  public String list(int no, Model model) throws Exception{
 //    List<AssignmentSubmit> submitList = assignmentSubmitService.listUserName();
-    List<AssignmentSubmit> assignmentList = assignmentSubmitService.list(classNo);
+    List<AssignmentSubmit> assignmentList = assignmentSubmitService.list(no);
     for(AssignmentSubmit test : assignmentList) {
       System.out.println(test.toString());
     }

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="Team.project.dao.AnswerDao">
+
+ <resultMap type="Answer" id="AnswerMap">
+ <id column="member_no" property="memberNo"/>
+ <result column="question_no" property="questionNo"/>
+ <result column="content" property="content"/>
+ <result column="multipl_no" property="multipleNo"/>
+ <result column="create_date" property="createDate"/>
+ 
+ </resultMap>
+
+<select id="findByUserNo" resultMap="AnswerMap" parameterType="int">
+    select * from answer
+    where member_no = #{no}
+</select>
+</mapper>

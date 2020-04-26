@@ -3,30 +3,24 @@ package Team.project.domain;
 import java.sql.Date;
 
 public class Assignment {
-  
+
   private int assignmentNo;
+  private int classNo;
   private int memberNo;
   private String title;
   private String content;
   private String file;
   private Date deadline;
-  private Date createDate;
   private String standard;
+  private Date createDate;
   
-  public String getStandard() {
-    return standard;
-  }
-  public void setStandard(String standard) {
-    this.standard = standard;
-  }
-
-  private int classNo;
   public int getClassNo() {
     return classNo;
   }
   public void setClassNo(int classNo) {
     this.classNo = classNo;
   }
+  
   public int getAssignmentNo() {
     return assignmentNo;
   }
@@ -65,13 +59,18 @@ public class Assignment {
     this.deadline = deadline;
   }
 
+  public String getStandard() {
+    return standard;
+  }
+  public void setStandard(String standard) {
+    this.standard = standard;
+  }
   public Date getCreateDate() {
     return createDate;
   }
   public void setCreateDate(Date createDate) {
     this.createDate = createDate;
   }
-
 
 
 

@@ -9,8 +9,6 @@ public interface AssignmentSubmitService {
 
   List<AssignmentSubmit> list(int no) throws Exception;
 
-  //List<AssignmentSubmit> listAssignment() throws Exception;
-
   int delete(int no) throws Exception;
 
   AssignmentSubmit get(int no) throws Exception;

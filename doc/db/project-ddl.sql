@@ -127,25 +127,23 @@ insert into assignment(class_no, member_no, title, content, file, deadline, crea
 -- 과제 제출 입력
 
 insert into assignment_submmit(member_no, assignment_no, file, score, content, feedback)
-  values(2, 4, '짜장면레시피1.pdf', 40, '춘장볶는게 어려워요.', '연습해야죠.');
+  values(2, 3, '짜장면레시피1.pdf', 30, '춘장볶는게 어려워요.', '연습해야죠.');
 insert into assignment_submmit(member_no, assignment_no, file, score, content, feedback)
-  values(3, 4, '짜장면레시피2.pdf', 50, '미원을 너무 많이넣었어요.', '네 짜네요.');
+  values(3, 3, '짜장면레시피2.pdf', 40, '미원을 너무 많이넣었어요.', '네 짜네요.');
 insert into assignment_submmit(member_no, assignment_no, file, score, content, feedback)
-  values(4, 4, '짜장면레시피3.pdf', 60, '완벽합니다.', '구라치지마세요.');
+  values(4, 3, '짜장면레시피3.pdf', 100, '완벽합니다.', '구라치지마세요.');
 insert into assignment_submmit(member_no, assignment_no, file, score, content, feedback)
-  values(5, 4, '짜장면레시피4.pdf', 90, '뭐가 잘못된지모르겠씁니다..', '저도몰라요.');
+  values(5, 3, '짜장면레시피4.pdf', 90, '뭐가 잘못된지모르겠씁니다..', '저도몰라요.');
 insert into assignment_submmit(member_no, assignment_no, file, score, content, feedback)
-  values(6, 4, '짜장면레시피5.pdf', 90, '열심히해왔습니다.', '네 그래요.');
+  values(6, 3, '짜장면레시피5.pdf', 90, '열심히해왔습니다.', '네 그래요.');
 insert into assignment_submmit(member_no, assignment_no, file, score, content, feedback)
-  values(7, 4, '짜장면레시피6.pdf', 90, '먹어보세요.', '싫어요.');
+  values(7, 3, '짜장면레시피6.pdf', 90, '먹어보세요.', '싫어요.');
 insert into assignment_submmit(member_no, assignment_no, file, score, content, feedback)
-  values(8, 4, '짜장면레시피7.pdf', 90, '속옷준비해오세요.', '갈아입기 귀찮아요.');
+  values(8, 3, '짜장면레시피7.pdf', 90, '속옷준비해오세요.', '갈아입기 귀찮아요.');
 insert into assignment_submmit(member_no, assignment_no, file, score, content, feedback)
-  values(9, 4, '짜장면레시피8.pdf', 90, '아무노래나일단틀어.', '분위기겁나싸해.');
+  values(9, 3, '짜장면레시피8.pdf', 90, '아무노래나일단틀어.', '분위기겁나싸해.');
 insert into assignment_submmit(member_no, assignment_no, file, score, content, feedback)
-  values(10, 4, '짜장면레시피9.pdf', 90, '뭐가문제야 saysomething.', '아무노래나일단틀어.');
-  
-  
+  values(10, 3, '짜장면레시피9.pdf', 90, '뭐가문제야 saysomething.', '아무노래나일단틀어.');
 insert into assignment_submmit(member_no, assignment_no, file, score, content, feedback)
   values(12, 4, 'c.pdf', 40, '열심히해왔습니다.', 'UI UX가 조금 아쉽네요.');
 insert into assignment_submmit(member_no, assignment_no, file, score, content, feedback)

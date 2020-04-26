@@ -15,10 +15,10 @@
     
   </tr>
   
-  <c:forEach items="${assignmentList}" var="item">
+  <c:forEach items="{${listoflist},${clazzMemberList}}" var="list">
   <tr>
-      <th>${item.user.name}</th>
-      <c:forEach items="${assignmentList}" var="test">
+      <th>${list.user.name}</th>
+      <c:forEach items="list" var="test">
         <th>${test.score}</th>
       </c:forEach>
  </tr>

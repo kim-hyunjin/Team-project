@@ -32,14 +32,17 @@
   </resultMap>
 
   <select id="findAll" resultMap="AssignmentSubmitMap" parameterType="int">
-     select 
-         m.class_no, u.name, a.assignment_no, a.content,  a.score, m.member_no, u.user_no, s.title 
-     from 
-         user u, class_member m, assignment_submmit a, assignment s
-     where 
-         u.user_no=m.user_no and a.member_no=m.member_no and m.class_no=#{no} and a.assignment_no=s.assignment_no
-     order by 
-         a.assignment_no asc, u.name asc;
+     select u.name, m.member_no,  ass.assignment_no, a.content,  a.score, ass.title,             
+GROUP_CONCAT(IF(a.assignment_no=#{assignmentNo}, a.score, Null))as '과제8'        
+from user u, class_member m, assignment_submmit a, assignment ass       
+where u.user_no=m.user_no       
+and a.member_no=m.member_no       
+and ass.assignment_no = a.assignment_no 
+and m.class_no=#{clazzNo}
+and m.member_no=#{memberNo}
+      
+group by u.name       
+order by m.member_no asc; 
   </select>
 <!-- 
   <select id="findAllUserName" resultMap="AssignmentSubmitMap">

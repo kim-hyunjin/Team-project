@@ -17,6 +17,11 @@ public class ClazzMemberServiceImpl implements ClazzMemberService {
   }
 
   @Override
+	public List<ClazzMember> list(int no) throws Exception {
+	  return clazzMemberDao.findAllByNo(no);
+	}
+  
+  @Override
   public void add(ClazzMember clazzMember) throws Exception {
     clazzMemberDao.insert(clazzMember);
   }

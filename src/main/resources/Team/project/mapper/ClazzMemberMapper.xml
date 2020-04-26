@@ -15,6 +15,10 @@
   select * from class_member
   where user_no = #{userNo} and class_no = #{classNo}
 </select>
+<select id="findAllByNo" resultMap="ClazzMemberMap" parameterType="map">
+  select * from class_member
+  where user_no = #{userNo} and class_no = #{classNo}
+</select>
 
 <insert id="insert" parameterType="ClazzMember">
   insert into class_member(user_no, class_no, role) values(#{userNo}, #{clazzNo}, #{role})

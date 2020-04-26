@@ -9,12 +9,19 @@ public interface AssignmentService {
 
   List<Assignment> list() throws Exception;
 
+<<<<<<< HEAD
   List<Assignment> list(int no) throws Exception;
   
+=======
+>>>>>>> upstream/master
   int delete(int no) throws Exception;
 
   Assignment get(int no) throws Exception;
 
   int update(Assignment assignment) throws Exception;
   
+<<<<<<< HEAD
+=======
+  List<Assignment> list(int no) throws Exception;
+>>>>>>> upstream/master
 }

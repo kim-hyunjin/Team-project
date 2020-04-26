@@ -2,7 +2,46 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <!--  -->
   
 <mapper namespace="Team.project.dao.PostDao">
+
+  <resultMap type="Post" id="PostMap">
+    <id column="post_no" property="postNo"/>
+    <result column="titile" property="titile"/>
+    <result column="content" property="content"/>
+    <result column="create_date" property="createDate"/>
+    <result column="file" property="file"/>   
+  </resultMap>
+  
+  <sql id="sleect1">
+    select
+      post_no,
+      title,
+      content
+      create_date
+  </sql>
+  
+  <select id="findAll" resultMap="PostMap" parameterType="int">
+    select
+      *
+    from post
+    where
+     board_no = #{no}
+  </select>
+    
+
+  <select id="compare" resultMap="PostMap" parameterType="int">
+    select
+      post_no
+      board_no
+    from
+      post
+    where
+      post_no = board_no
+  </select>  
+  
+ <!-- select * from board where class_no = 1 and title = "공지사항"; -->
+  
 
 </mapper>

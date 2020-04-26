@@ -44,4 +44,9 @@ public class PostServiceImpl implements PostService {
     return 0;
   }
 
+  @Override
+  public List<Post> list(int no) throws Exception {
+    return postDao.findAll(no);
+  }
+
 }

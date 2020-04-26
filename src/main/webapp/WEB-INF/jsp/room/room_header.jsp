@@ -4,7 +4,6 @@
     <!DOCTYPE html>
     <html lang="ko">
     <head>
-        <!-- Required meta tags -->
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="../../../css/style.css" />
@@ -22,7 +21,7 @@
                 <a href="../lesson/list?no=${clazzNow.classNo}"><span class="room_header__menu">수업</span></a>
                 <a href="../user/list?no=${clazzNow.classNo}"><span class="room_header__menu">사용자</span></a>
                 <a href="#"><span class="room_header__menu">성적</span></a>
-                <a href="#"><span class="room_header__menu">게시판</span></a>
+                <a href="../board/"><span class="room_header__menu">게시판</span></a>
             </div>
             <div class="room_header__column">
                 <a href="../clazz/detail"><i class="fas fa-cog" style="font-size: 1.2em;"></i></a>

@@ -14,4 +14,7 @@ public interface BoardService {
   Board get(int no) throws Exception;
 
   int update(Board board) throws Exception;
+
+  List<Board> list(int no) throws Exception;
+
 }

@@ -39,4 +39,11 @@ public class BoardServiceImpl implements BoardService {
   public int update(Board board) throws Exception {
     return boardDao.update(board);
   }
+
+  @Override
+  public List<Board> list(int no) throws Exception {
+    return boardDao.findAll(no);
+  }
+
+
 }

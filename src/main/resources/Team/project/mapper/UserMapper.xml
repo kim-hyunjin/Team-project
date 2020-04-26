@@ -29,7 +29,7 @@
   </sql>
   
   
-  
+    
   <insert id="insert" parameterType="User">
     insert into user
     (email, name, password, tel, major, introduce, profile_photo, login_method) 
@@ -98,3 +98,10 @@
   where email=#{email} and password=password(#{password})
   </select>
 </mapper>
+
+
+
+
+
+
+

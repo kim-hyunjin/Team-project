@@ -9,40 +9,41 @@ import Team.project.service.AssignmentService;
 @Component
 public class AssignmentServiceImpl implements AssignmentService {
 
-  AssignmentDao assignmetDao;
+  AssignmentDao assignmentDao;
 
   public AssignmentServiceImpl(AssignmentDao assignmetDao) {
-    this.assignmetDao = assignmetDao;
+    this.assignmentDao = assignmetDao;
   }
 
   @Override
   public void add(Assignment assignment) throws Exception {
-    assignmetDao.insert(assignment);
+    assignmentDao.insert(assignment);
 
-  }
-  @Override
-  public List<Assignment> list(int no) throws Exception {
-    return assignmetDao.findAllByClassNo(no);
   }
 
   @Override
   public List<Assignment> list() throws Exception {
-    return assignmetDao.findAll();
+    return assignmentDao.findAll();
   }
 
   @Override
   public int delete(int no) throws Exception {
-    return assignmetDao.delete(no);
+    return assignmentDao.delete(no);
   }
 
   @Override
   public Assignment get(int no) throws Exception {
 
-    return assignmetDao.findByNo(no);
+    return assignmentDao.findByNo(no);
   }
 
   @Override
   public int update(Assignment assignment) throws Exception {
-    return assignmetDao.update(assignment);
+    return assignmentDao.update(assignment);
+  }
+
+  @Override
+  public List<Assignment> list(int no) throws Exception {
+    return assignmentDao.findByClassNo(no);
   }
 }

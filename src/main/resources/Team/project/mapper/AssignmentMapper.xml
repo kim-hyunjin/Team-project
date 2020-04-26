@@ -5,25 +5,20 @@
   
 <mapper namespace="Team.project.dao.AssignmentDao">
 
-
 <resultMap type="Assignment" id="AssignmentMap">
-<id column="assignment_no" property="assignmentNo"/>
-<result column="class_no" property="classNo"/>
-<result column="member_no" property="memberNo"/>
-<result column="title" property="title"/>
-<result column="file" property="file"/>
-<result column="content" property="content"/>
-<result column="deadline" property="deadline"/>
-<result column="standard" property="standard"/>
-<result column="create_date" property="createDate"/>
+    <id column="assignment_no" property="assignmentNo"/>
+    <result column="class_no" property="classNo"/>
+    <result column="member_no" property="memberNo"/>
+    <result column="title" property="title"/>
+    <result column="content" property="content"/>
+    <result column="file" property="file"/>
+    <result column="deadline" property="deadline"/>
+    <result column="standard" property="standard"/>
+    <result column="create_date" property="createDate"/>
 </resultMap>
 
-<select id="findAllByClassNo" resultMap="AssignmentMap"
- parameterType="int">
-select * 
-from assignment 
-where class_no=#{no};
+<select id="findByClassNo" resultMap="AssignmentMap" parameterType="int">
+  select * from assignment
+  where class_no = #{no}
 </select>
-
-
 </mapper>

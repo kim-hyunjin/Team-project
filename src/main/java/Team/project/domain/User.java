@@ -17,6 +17,7 @@ public class User implements Serializable {
   private String profilePhoto;
   private int loginMethod;
   private Date createDate;
+  
   public int getUserNo() {
     return userNo;
   }

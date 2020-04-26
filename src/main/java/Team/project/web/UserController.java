@@ -15,7 +15,7 @@ import net.coobird.thumbnailator.Thumbnails;
 import net.coobird.thumbnailator.name.Rename;
 
 @Controller
-@RequestMapping("/user")
+@RequestMapping()
 public class UserController {
 
   @Autowired
@@ -24,12 +24,12 @@ public class UserController {
   @Autowired
   UserService userService;
 
-  @RequestMapping("form")
+  @RequestMapping("/user/form")
   public String form() {
     return "/WEB-INF/jsp/user/form.jsp";
   }
 
-  @RequestMapping("add")
+  @RequestMapping("/user/add")
   public String add(User user, MultipartFile photo) throws Exception {
     if (photo.getSize() > 0) {
       String dirPath = servletContext.getRealPath("/upload/user");
@@ -46,7 +46,7 @@ public class UserController {
     }
   }
 
-  @RequestMapping("delete")
+  @RequestMapping("/user/delete")
   public String delete(int no) throws Exception {
     if (userService.delete(no) > 0) { // 삭제했다면,
       return "redirect:list";
@@ -55,7 +55,7 @@ public class UserController {
     }
   }
 
-  @RequestMapping("detail")
+  @RequestMapping("/user/detail")
   public String detail(int no, Model model) throws Exception {
     User user = userService.get(no);
     String login = "";
@@ -77,7 +77,7 @@ public class UserController {
     return "/WEB-INF/jsp/user/detail.jsp";
   }
 
-  @RequestMapping("list")
+  @RequestMapping("/room/user/list")
   public String list(Model model) throws Exception {
     model.addAttribute("users", userService.list());
     return "/WEB-INF/jsp/user/list.jsp";

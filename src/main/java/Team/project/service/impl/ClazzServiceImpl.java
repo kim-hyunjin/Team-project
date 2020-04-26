@@ -16,8 +16,8 @@ public class ClazzServiceImpl implements ClazzService {
   }
 
   @Override
-  public void add(Clazz clazz) throws Exception {
-    clazzDao.insert(clazz);
+  public int add(Clazz clazz) throws Exception {
+    return clazzDao.insert(clazz);
   }
 
   @Override
@@ -38,6 +38,11 @@ public class ClazzServiceImpl implements ClazzService {
   @Override
   public int update(Clazz clazz) throws Exception {
     return clazzDao.update(clazz);
+  }
+
+  @Override
+  public List<Clazz> list(int no) throws Exception {
+    return clazzDao.findByUserNo(no);
   }
 
 

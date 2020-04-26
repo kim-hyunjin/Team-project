@@ -36,7 +36,7 @@
                         </c:if>
                         <span><a href="../user/detail?no=${loginUser.userNo}">${loginUser.name}</a></span>
                     </div>
-	                <a href="../auth/logout">logout</a>
+	                <a href="../../auth/logout">logout</a>
 	            </c:if>
             </div>
         </div>

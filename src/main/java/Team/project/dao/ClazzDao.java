@@ -14,5 +14,7 @@ public interface ClazzDao {
   public int update(Clazz clazz) throws Exception;
 
   public int delete(int no) throws Exception;
+
+  public List<Clazz> findByUserNo(int userNo) throws Exception;
 }
 

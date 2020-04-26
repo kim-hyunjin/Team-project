@@ -5,6 +5,7 @@
 <<jsp:include page="main_header.jsp"></jsp:include>
 
   <div class="main_list">
+  <c:if test="${not empty clazzList}">
     <c:forEach items="${clazzList}" var="clazz">
         <div class="main_card">
             <div class="main_name">
@@ -17,6 +18,7 @@
           <div class="description">${clazz.description}</div>
         </div>
     </c:forEach>
+    </c:if>
   </div>
 </div>
 </body>

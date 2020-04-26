@@ -2,12 +2,16 @@ package Team.project.web;
 
 import java.util.List;
 import java.util.Random;
+import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import Team.project.domain.Clazz;
+import Team.project.domain.ClazzMember;
+import Team.project.domain.User;
+import Team.project.service.ClazzMemberService;
 import Team.project.service.ClazzService;
 
 @Controller
@@ -15,11 +19,19 @@ public class ClazzController {
 
   @Autowired
   ClazzService clazzService;
+  @Autowired
+  ClazzMemberService clazzMemberService;
 
   @GetMapping("/clazz/list")
-  public String list(Model model) throws Exception {
-    List<Clazz> clazzList = clazzService.list();
-    model.addAttribute("clazzList", clazzList);
+  public String list(HttpSession session, Model model) throws Exception {
+    int no = -1;
+    if (session.getAttribute("loginUser") != null) {
+      no = ((User) session.getAttribute("loginUser")).getUserNo();
+    }
+    List<Clazz> clazzList = clazzService.list(no);
+    if (clazzList != null) {
+      model.addAttribute("clazzList", clazzList);
+    }
     return "/WEB-INF/jsp/clazz/list.jsp";
   }
 
@@ -29,7 +41,7 @@ public class ClazzController {
   }
 
   @PostMapping("/clazz/add")
-  public String add(Clazz clazz) throws Exception {
+  public String add(HttpSession session, Clazz clazz) throws Exception {
     // 랜덤 수업 코드 생성
     StringBuffer temp = new StringBuffer();
     Random rnd = new Random();
@@ -51,7 +63,12 @@ public class ClazzController {
       }
     }
     clazz.setClassCode(temp.toString());
+    ClazzMember member = new ClazzMember();
     clazzService.add(clazz);
+    member.setClazz_no(clazz.getClassNo());
+    member.setUser_no(((User) session.getAttribute("loginUser")).getUserNo());
+    member.setRole(0);
+    clazzMemberService.add(member);
     return "redirect:list";
   }
 

@@ -24,6 +24,11 @@ public class RoomUserFilter implements Filter {
     HttpServletRequest req = (HttpServletRequest) request;
     HttpServletResponse res = (HttpServletResponse) response;
     User user = (User) req.getSession().getAttribute("loginUser");
+    if(user == null  ) {
+      res.setStatus(403);
+      res.sendRedirect("/Team-project/app/auth/form");
+      return;
+    }
     int userNo = user.getUserNo();
     System.out.println("userNo ===> " + userNo);
     int classNo = Integer.parseInt(req.getParameter("no"));

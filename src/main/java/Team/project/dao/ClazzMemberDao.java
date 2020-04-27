@@ -17,5 +17,7 @@ public interface ClazzMemberDao {
   public int delete(int no) throws Exception;
 
   public ClazzMember findByUserNoAndClassNo(HashMap<String, Integer> map) throws Exception;
+
+  public List<ClazzMember> findAllByClassNo(int no) throws Exception;
 }
 

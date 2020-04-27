@@ -7,9 +7,9 @@
 
 <resultMap type="Clazz" id="ClazzMap">
   <id column="class_no" property="classNo"/>
-  <!-- <result column="name" property="name"/>
+  <result column="name" property="name"/>
   <result column="description" property="description"/>
-  <result column="room" property="room"/> -->
+  <result column="room" property="room"/>
   <result column="class_code" property="classCode"/>
   <result column="create_date" property="createDate"/>
 </resultMap>

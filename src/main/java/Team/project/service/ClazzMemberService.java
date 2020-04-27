@@ -16,4 +16,6 @@ public interface ClazzMemberService {
   int update(ClazzMember clazzMember) throws Exception;
 
   public ClazzMember get(int userNo, int classNo) throws Exception;
+
+  List<ClazzMember> findAllByClassNo(int no) throws Exception;
 }

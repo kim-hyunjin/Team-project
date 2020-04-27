@@ -15,6 +15,8 @@ public interface QuestionDao {
   public int delete(int no) throws Exception;
 
   // List<ClassMember> findByKeyword(String keyword) throws Exception;
+
+  public List<Question> findAll(int no) throws Exception;
 }
 
 

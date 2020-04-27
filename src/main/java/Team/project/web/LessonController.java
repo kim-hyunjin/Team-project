@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import Team.project.domain.Answer;
 import Team.project.domain.Assignment;
+import Team.project.domain.Question;
 import Team.project.service.AnswerService;
 import Team.project.service.AssignmentService;
 import Team.project.service.AssignmentSubmitService;
@@ -28,11 +29,16 @@ public class LessonController {
   TagService tagService;
 
   @RequestMapping("list")
-  public String list(int no, Model model) throws Exception{
+  public String list(int no, Model model) throws Exception {
     List<Assignment> assignmentList = assignmentService.list(no);
     model.addAttribute("assignments", assignmentList);
     List<Answer> answerList = answerService.list(no);
     model.addAttribute("answers", answerList);
+    List<Question> questionList = questionService.list(no);
+    model.addAttribute("questions", questionList);
     return "/WEB-INF/jsp/room/lesson.jsp";
   }
+
+
+
 }

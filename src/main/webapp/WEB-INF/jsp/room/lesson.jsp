@@ -7,6 +7,7 @@
   
   <div class="room_contents">
   
+   <h1>수업게시판</h1>
      <table border='1'>
       <c:forEach items="${assignments}" var="item">
       <tr>
@@ -16,8 +17,10 @@
       <td>${item.createDate}</td>
     </tr>
     </c:forEach>
+    </table>
     
-
-  </div>
+    <jsp:include page="../question/list.jsp"/>
+</div>
 </body>
 </html>
+    

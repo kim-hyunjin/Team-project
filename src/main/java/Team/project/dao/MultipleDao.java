@@ -1,5 +1,6 @@
 package Team.project.dao;
 
+import java.util.HashMap;
 import java.util.List;
 import Team.project.domain.Multiple;
 
@@ -14,6 +15,9 @@ public interface MultipleDao {
   public int update(Multiple mulitple) throws Exception;
 
   public int delete(int no) throws Exception;
+
+  public Multiple get(HashMap<String, Integer> map) throws Exception;
+
 }
 
 

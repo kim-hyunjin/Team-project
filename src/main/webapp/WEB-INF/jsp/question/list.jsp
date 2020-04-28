@@ -16,10 +16,12 @@
     <c:forEach items="${questions}" var="item">
       <tr>
         <td>${item.questionNo}</td>
-        <td><a href='detail?no=${item.questionNo}'>${item.title}</a></td>
+        <td><a href='../question/detail?qno=${item.questionNo}'>${item.title}</a></td>
         <td>${item.deadline}</td>
        </tr>
     </c:forEach>
+    
+
     
     </table>
     </c:if>

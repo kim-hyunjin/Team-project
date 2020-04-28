@@ -12,7 +12,7 @@
       <c:forEach items="${assignments}" var="item">
       <tr>
       <td>${item.assignmentNo}</td> 
-      <td><a href='detail?no=${item.assignmentNo}'>${item.title}</a></td> 
+      <td><a href='../assignment/detail?no=${item.assignmentNo}'>${item.title}</a></td> 
       <td>${item.memberNo}</td> 
       <td>${item.createDate}</td>
     </tr>

@@ -2,7 +2,6 @@ package Team.project.dao;
 
 import java.util.List;
 import Team.project.domain.Answer;
-import Team.project.domain.Assignment;
 
 public interface AnswerDao {
 
@@ -15,8 +14,10 @@ public interface AnswerDao {
   public int update(Answer answer) throws Exception;
 
   public int delete(int no) throws Exception;
-  
-  public List<Answer> findByUserNo(int no) throws Exception; 
+
+  public List<Answer> findByUserNo(int no) throws Exception;
+
+  public List<Answer> findAllByQuestionNo(int qno) throws Exception;
 }
 
 

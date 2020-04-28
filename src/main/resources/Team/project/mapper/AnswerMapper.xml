@@ -9,13 +9,35 @@
  <id column="member_no" property="memberNo"/>
  <result column="question_no" property="questionNo"/>
  <result column="content" property="content"/>
- <result column="multipl_no" property="multipleNo"/>
+ <result column="multiple_no" property="multipleNo"/>
  <result column="create_date" property="createDate"/>
- 
+ <association property="user" javaType="User">
+ <id column="user_no"   property="userNo"/>
+    <result column="email"  property="email"/>
+    <result column="name"  property="name"/>
+    <result column="password"  property="password"/>
+    <result column="tel"  property="tel"/>
+    <result column="major"  property="major"/>
+    <result column="introduce"    property="introduce"/>
+    <result column="profile_photo"    property="profilePhoto"/>
+    <result column="login_method" property="loginMethod"/>
+    <result column="create_date" property="createDate"/>
+ </association>
  </resultMap>
 
 <select id="findByUserNo" resultMap="AnswerMap" parameterType="int">
     select * from answer
     where member_no = #{no}
 </select>
+
+  <select id="findAllByQuestionNo" resultMap="AnswerMap" parameterType="int">
+     select  
+  a.member_no, a.question_no, a.content, a.multiple_no,
+  a.create_date, u.name
+from answer a
+      join class_member cm on a.member_no = cm.member_no
+      join user u on cm.user_no = u.user_no
+    where question_no=#{1231231};
+  </select>
+
 </mapper>

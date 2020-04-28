@@ -21,4 +21,18 @@
   select * from assignment
   where class_no = #{no}
 </select>
+
+<insert id="insert" parameterType="Assignment">
+  insert into assignment(class_no, member_no, title, content, file, deadline, standard)
+  values(
+    #{classNo},
+    #{memberNo},
+    #{title},
+    #{content},
+    #{file},
+    #{deadline},
+    #{standard}
+  )
+
+</insert>
 </mapper>

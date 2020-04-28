@@ -1,6 +1,8 @@
 package Team.project.web;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
@@ -9,7 +11,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
+import Team.project.domain.ClazzMember;
 import Team.project.domain.User;
+import Team.project.service.ClazzMemberService;
 import Team.project.service.UserService;
 import net.coobird.thumbnailator.Thumbnails;
 import net.coobird.thumbnailator.name.Rename;
@@ -23,6 +27,8 @@ public class UserController {
 
   @Autowired
   UserService userService;
+  @Autowired
+  ClazzMemberService clazzMemberService;
 
   @RequestMapping("/user/form")
   public String form() {
@@ -78,8 +84,19 @@ public class UserController {
   }
 
   @RequestMapping("/room/user/list")
-  public String list(Model model) throws Exception {
-    model.addAttribute("users", userService.list());
+  public String list(int no, Model model) throws Exception {
+    List<ClazzMember> memberList = clazzMemberService.findAllByClassNo(no);
+    List<ClazzMember> teachers = new ArrayList<>();
+    List<ClazzMember> students = new ArrayList<>();
+    for (ClazzMember member : memberList) {
+      if (member.getRole() == 0) {
+        teachers.add(member);
+      } else {
+        students.add(member);
+      }
+    }
+    model.addAttribute("teachers", teachers);
+    model.addAttribute("students", students);
     return "/WEB-INF/jsp/user/list.jsp";
   }
 
@@ -89,7 +106,7 @@ public class UserController {
     return "/WEB-INF/jsp/user/search.jsp";
   }
 
-  @RequestMapping("update")
+  @RequestMapping("/user/update")
   public String update(HttpSession session, User user, MultipartFile photo) throws Exception {
     if (photo.getSize() > 0) {
       String dirPath = servletContext.getRealPath("/upload/user");

@@ -6,8 +6,8 @@
 <jsp:include page="../room/room_header.jsp"/>
   
   <div class="room_contents">
-  
    <h1>수업게시판</h1>
+  <a href="../assignment/form">과제 추가</a>
      <table border='1'>
       <c:forEach items="${assignments}" var="item">
       <tr>
@@ -18,7 +18,6 @@
     </tr>
     </c:forEach>
     </table>
-    
     <jsp:include page="../question/list.jsp"/>
 </div>
 </body>

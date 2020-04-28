@@ -6,7 +6,7 @@ import java.sql.Date;
 public class Question implements Serializable {
 
   private static final long serialVersionUID = 1L;
-  
+
   private int questionNo;
   private String title;
   private String content;
@@ -14,7 +14,7 @@ public class Question implements Serializable {
   private Date deadline;
   private Date createDate;
 
-  
+
   public int getQuestionNo() {
     return questionNo;
   }
@@ -62,6 +62,7 @@ public class Question implements Serializable {
   public void setCreateDate(Date createDate) {
     this.createDate = createDate;
   }
+
 
 
 }

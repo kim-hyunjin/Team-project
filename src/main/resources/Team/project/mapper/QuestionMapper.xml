@@ -27,9 +27,11 @@
     select
       *
     from 
-      question
-    where
-      member_no = #{no}
+      question q
+    join class_member cm
+    on q.member_no = cm.member_no
+     where class_no = #{no}
+    
   </select>
   
   

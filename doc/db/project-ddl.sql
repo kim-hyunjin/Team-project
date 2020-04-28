@@ -160,6 +160,7 @@ insert into assignment_submmit(member_no, assignment_no, file, score, feedback, 
   values(18, 4, 'url.txt', 20, '시간이 부족했나요?', '2020-04-23' ); 
 insert into assignment_submmit(member_no, assignment_no, file, score, content, feedback)
   values(19, 3, 'b.pdf', 30, '열심히해왔습니다.', '부족합니다.');
+
   
 -- 질문 입력
 
@@ -212,9 +213,15 @@ insert into answer(member_no, question_no, content)
 insert into answer(member_no, question_no, content)
   values(4, 3, '향과 쓰이는 용도가 다릅니다.');
 insert into answer(member_no, question_no, multiple_no)
-  values(5, 4, 1);
+  values(5, 5, 1);
 insert into answer(member_no, question_no, multiple_no)
-  values(6, 4, 2);
+  values(6, 5, 2);
+insert into answer(member_no, question_no, multiple_no)
+  values(7, 5, 3);
+insert into answer(member_no, question_no, multiple_no)
+  values(8, 5, 4);
+insert into answer(member_no, question_no, multiple_no)
+  values(9, 5, 5);
 insert into answer(member_no, question_no, content)
   values(12, 6, '객체 지향 프로그래밍은 컴퓨터 프로그래밍의 패러다임 중 하나이다.');
 insert into answer(member_no, question_no, content)
@@ -230,7 +237,8 @@ insert into answer(member_no, question_no, multiple_no)
 insert into answer(member_no, question_no, multiple_no) 
   values(19, 8, 5);   
 insert into answer(member_no, question_no, multiple_no) 
-  values(20, 8, 5);   
+  values(20, 8, 5); 
+
   
 -- 쪽지
 

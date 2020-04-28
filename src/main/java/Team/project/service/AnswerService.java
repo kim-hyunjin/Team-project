@@ -2,7 +2,6 @@ package Team.project.service;
 
 import java.util.List;
 import Team.project.domain.Answer;
-import Team.project.domain.Assignment;
 
 public interface AnswerService {
 
@@ -10,11 +9,15 @@ public interface AnswerService {
 
   List<Answer> findAll() throws Exception;
 
+  List<Answer> findAll(int qno) throws Exception;
+
   int delete(int no) throws Exception;
 
   Answer get(int no) throws Exception;
 
   int update(Answer answer) throws Exception;
-  
+
   List<Answer> list(int no) throws Exception;
+
+
 }

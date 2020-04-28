@@ -5,4 +5,20 @@
   
 <mapper namespace="Team.project.dao.MultipleDao">
 
+  <resultMap type="Multiple" id="MultipleMap">
+    <id column="multiple_no"  property="multipleNo"/>
+    <result column="no"  property="no"/>
+    <result column="content"  property="content"/>
+  </resultMap>
+  
+  <select id="get" resultMap="MultipleMap" parameterType="map">
+    select
+      *
+    from 
+      multiple
+    where 
+      question_no = #{qNO} and multiple_no = #{mNo}
+  </select>
+  
+  
 </mapper>

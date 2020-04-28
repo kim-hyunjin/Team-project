@@ -40,6 +40,11 @@ public class QuestionServiceImpl implements QuestionService {
     return questionDao.update(question);
   }
 
+  @Override
+  public List<Question> list(int no) throws Exception {
+    return questionDao.findAll(no);
+  }
+
 
 
 }

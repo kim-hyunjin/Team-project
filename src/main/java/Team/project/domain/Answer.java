@@ -10,6 +10,7 @@ public class Answer implements Serializable {
   private String content;
   private int multipleNo;
   private Date createDate;
+  private User user;
 
 
   public int getMemberNo() {
@@ -51,6 +52,14 @@ public class Answer implements Serializable {
 
   public void setCreateDate(Date createDate) {
     this.createDate = createDate;
+  }
+
+  public User getUser() {
+    return user;
+  }
+
+  public void setUser(User user) {
+    this.user = user;
   }
 
 

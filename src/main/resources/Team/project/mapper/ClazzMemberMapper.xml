@@ -9,12 +9,18 @@
   <result column="user_no" property="userNo"/>
   <result column="class_no" property="clazzNo"/>
   <result column="role" property="role"/>
-  
   <association property="user" javaType="User">
-    <id column="user_no" property="userNo"/>
-    <result column="name" property="name"/>
+    <id column="user_no"   property="userNo"/>
+    <result column="email"  property="email"/>
+    <result column="name"  property="name"/>
+    <result column="password"  property="password"/>
+    <result column="tel"  property="tel"/>
+    <result column="major"  property="major"/>
+    <result column="introduce"    property="introduce"/>
+    <result column="profile_photo"    property="profilePhoto"/>
+    <result column="login_method" property="loginMethod"/>
+    <result column="create_date" property="createDate"/>
   </association>
-  
 </resultMap>
 
 <select id="findByUserNoAndClassNo" resultMap="ClazzMemberMap" parameterType="map">
@@ -38,4 +44,10 @@
 <insert id="insert" parameterType="ClazzMember">
   insert into class_member(user_no, class_no, role) values(#{userNo}, #{clazzNo}, #{role})
 </insert>
+
+<!-- <select id="findAllByClassNo" resultMap="ClazzMemberMap" parameterType="int">
+  select * from class_member join user on class_member.user_no = user.user_no
+  where class_no=#{no}
+</select> -->
+
 </mapper>

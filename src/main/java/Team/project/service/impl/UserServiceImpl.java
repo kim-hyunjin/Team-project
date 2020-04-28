@@ -8,7 +8,7 @@ import Team.project.domain.User;
 import Team.project.service.UserService;
 
 @Component
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService {
 
   UserDao userDao;
 
@@ -54,9 +54,8 @@ public class UserServiceImpl implements UserService{
     return userDao.findByEmailAndPassword(params);
   }
 
-  @SuppressWarnings("unchecked")
   @Override
   public List<User> list(int no) throws Exception {
-    return (List<User>) userDao.findByClassNo(no);
+    return userDao.findByClassNo(no);
   }
 }

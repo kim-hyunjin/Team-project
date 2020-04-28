@@ -9,6 +9,8 @@ public interface QuestionService {
 
   List<Question> list() throws Exception;
 
+  List<Question> list(int no) throws Exception;
+
   int delete(int no) throws Exception;
 
   Question get(int no) throws Exception;

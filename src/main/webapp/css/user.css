@@ -1,0 +1,53 @@
+.user_content {
+	display: flexbox;
+	justify-content: center;
+	flex-direction: column;
+	margin-top: 7em;
+	margin-left: 4em;
+	width: 90%;
+	height: auto;
+}
+
+.teacher, .student {
+	width:100%;
+}
+
+.teacher__header, .student__header {
+	display:flex;
+	justify-content: space-between;
+	align-items: center;
+	width: 100%;
+}
+
+.user_list {
+	display:flex;
+	width:90%;
+	justify-content: start;
+	align-items: center;
+	text-decoration: none;
+	flex-wrap: wrap;
+}
+
+.user_card {
+	display: flex;
+	justify-content: start;
+	align-items: center;
+	text-decoration: none;
+	margin-right: 1em;
+	margin-top: 1em;
+	border: thin solid rgba(0, 0, 0, 0.1);
+	border-radius: 0.5em;
+	width: 9em;
+	height: 3.5em;
+	font-size: larger;
+}
+
+.user_list__profile {
+	overflow:hidden;
+  height: 2.1em;
+  width: 2.1em;
+	border-radius: 1em;
+	margin-left: 0.5em;
+  margin-right: 0.5em;
+}
+

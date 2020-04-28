@@ -11,14 +11,6 @@ public class ClazzMember implements Serializable {
   private int role;
   private User user;
   
-  
-  
-  public User getUser() {
-    return user;
-  }
-  public void setUser(User user) {
-    this.user = user;
-  }
   public int getMemberNo() {
     return memberNo;
   }
@@ -43,6 +35,15 @@ public class ClazzMember implements Serializable {
   public void setRole(int role) {
     this.role = role;
   }
+  public User getUser() {
+    return user;
+  }
+  public void setUser(User user) {
+    this.user = user;
+  }
+  
+  
+
 
 
 

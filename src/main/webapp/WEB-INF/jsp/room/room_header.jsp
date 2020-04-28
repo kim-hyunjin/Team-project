@@ -6,7 +6,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="../../../css/style.css" />
+        <link rel="stylesheet" href="/Team-project/css/style.css" />
     <script src="https://kit.fontawesome.com/764f0503e3.js" crossorigin="anonymous"></script>
     </head>
     <body>

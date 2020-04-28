@@ -4,5 +4,35 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="Team.project.dao.QuestionDao">
-
+  <resultMap type="Question" id="QuestionMap">
+    <id column="question_no"   property="questionNo"/>
+    <result column="title"  property="title"/>
+    <result column="content"  property="content"/>
+    <result column="file"  property="filePath"/>
+    <result column="deadline"  property="deadline"/>
+    <result column="create_date"  property="createDate"/>
+  </resultMap>
+  
+  <sql id="select1">
+    select
+      question_no,
+      title,
+      deadline,
+      create_date
+    from
+      question
+  </sql>
+  
+  <select id="findAll" resultMap="QuestionMap" parameterType="int">
+    select
+      *
+    from 
+      question q
+    join class_member cm
+    on q.member_no = cm.member_no
+     where class_no = #{no}
+    
+  </select>
+  
+  
 </mapper>

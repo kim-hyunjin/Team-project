@@ -53,4 +53,9 @@ public class ClazzMemberServiceImpl implements ClazzMemberService {
     map.put("classNo", classNo);
     return clazzMemberDao.findByUserNoAndClassNo(map);
   }
+
+  @Override
+  public List<ClazzMember> findAllByClassNo(int no) throws Exception {
+    return clazzMemberDao.findAllByClassNo(no);
+  }
 }

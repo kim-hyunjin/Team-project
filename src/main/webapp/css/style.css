@@ -3,6 +3,7 @@
 @import 'main.css';
 @import 'room.css';
 @import 'auth.css';
+@import 'user.css';
 
 * {
   box-sizing: border-box;

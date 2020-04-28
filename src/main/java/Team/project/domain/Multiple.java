@@ -5,10 +5,9 @@ import java.io.Serializable;
 public class Multiple implements Serializable {
 
   private static final long serialVersionUID = 1L;
-  
-  
-  
+
   private int multipleNo;
+  private int no;
   private String content;
 
 
@@ -27,5 +26,14 @@ public class Multiple implements Serializable {
   public void setContent(String content) {
     this.content = content;
   }
+
+  public int getNo() {
+    return no;
+  }
+
+  public void setNo(int no) {
+    this.no = no;
+  }
+
 
 }

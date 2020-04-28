@@ -45,6 +45,11 @@ public class AnswerServiceImpl implements AnswerService {
     return answerDao.findByUserNo(no);
   }
 
+  @Override
+  public List<Answer> findAll(int qno) throws Exception {
+    return answerDao.findAllByQuestionNo(qno);
+  }
+
 
 
 }

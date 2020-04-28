@@ -1,5 +1,6 @@
 package Team.project.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
 import org.springframework.stereotype.Component;
 import Team.project.dao.MultipleDao;
@@ -38,6 +39,14 @@ public class MultipleServiceImpl implements MultipleService {
   @Override
   public int update(Multiple multiple) throws Exception {
     return multipleDao.update(multiple);
+  }
+
+  @Override
+  public Multiple get(int questionNo, int multipleNo) throws Exception {
+    HashMap<String, Integer> map = new HashMap<>();
+    map.put("qNO", questionNo);
+    map.put("mNo", multipleNo);
+    return multipleDao.get(map);
   }
 
 

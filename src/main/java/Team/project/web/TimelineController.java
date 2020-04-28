@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import Team.project.domain.Clazz;
+import Team.project.service.AnswerService;
 import Team.project.service.AssignmentService;
 import Team.project.service.BoardService;
 import Team.project.service.ClazzService;
@@ -29,6 +30,8 @@ public class TimelineController {
   ClazzService clazzService;
   @Autowired
   BoardService boardService;
+  @Autowired
+  AnswerService answerService;
 
   @GetMapping("list")
   public String list(HttpSession session, int no, Model model) throws Exception {
@@ -36,6 +39,8 @@ public class TimelineController {
     session.removeAttribute("clazzNow");
     session.setAttribute("clazzNow", clazz);
     session.setAttribute("nowBoard", boardService.list(no));
+    // session.setAttribute("nowQuestion", questionService.list(no));
+    // session.setAttribute("nowAnswer", answerService.list(no));
     return "/WEB-INF/jsp/room/timeline.jsp";
   }
 

@@ -56,11 +56,9 @@
   </select>
   
    <select id="findByClassNo" resultMap="UserMap" parameterType="int">
-   select user_no, email, name, tel, major, introduce, profile_photo, login_method, create_date 
-    user join class_member on user.user_no = class_member.user_no
-    from user
-    where 
-      class_no=#{no}
+   select user.user_no, email, name, tel, major, introduce, profile_photo, login_method, create_date 
+    from user join class_member on user.user_no = class_member.user_no
+    where class_no=#{no}
   </select>
   
   <update id="update" parameterType="User">

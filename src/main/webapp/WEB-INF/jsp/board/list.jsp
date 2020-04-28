@@ -17,7 +17,7 @@
 <c:forEach items="${nowBoard}" var="item">
     <tr>
       <td>${item.boardNo}</td> 
-      <td><a href='list?no=${item.boardNo}'>${item.title}</a></td> 
+      <td><a href='list?bno=${item.boardNo}'>${item.title}</a></td> 
     </tr>
 </c:forEach>
 

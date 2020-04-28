@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import Team.project.domain.Board;
 import Team.project.service.BoardService;
 import Team.project.service.PostService;
 
@@ -22,9 +21,8 @@ public class PostController {
   PostService postService;
 
   @RequestMapping("list")
-  public String list(int no, Model model) throws Exception {
-    Board board = boardService.get(no);
-    model.addAttribute("posts", postService.list(board.getBoardNo()));
+  public String list(int bno, Model model) throws Exception {
+    model.addAttribute("posts", postService.list(bno));
     return "/WEB-INF/jsp/post/list.jsp";
   }
 

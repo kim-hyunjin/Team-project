@@ -14,4 +14,6 @@ public interface MultipleService {
   Multiple get(int no) throws Exception;
 
   int update(Multiple multiple) throws Exception;
+
+  Multiple get(int questionNo, int multipleNo) throws Exception;
 }

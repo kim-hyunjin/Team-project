@@ -15,6 +15,7 @@ public class AssignmentSubmit implements Serializable{
   private ClazzMember clazzMember;
   private User user;
   private Assignment assignment;
+  
   public int getMemberNo() {
     return memberNo;
   }

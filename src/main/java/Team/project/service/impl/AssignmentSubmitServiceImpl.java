@@ -1,5 +1,6 @@
 package Team.project.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
 import org.springframework.stereotype.Component;
 import Team.project.dao.AssignmentSubmitDao;
@@ -21,8 +22,16 @@ public class AssignmentSubmitServiceImpl implements AssignmentSubmitService {
   }
 
   @Override
-  public List<AssignmentSubmit> list(int no) throws Exception {
-    return assignmentSubmitDao.findAll(no);
+  public List<AssignmentSubmit> list(int classNo) throws Exception {
+    return assignmentSubmitDao.findAll(classNo);
+  }
+  
+  @Override
+  public List<AssignmentSubmit> list(int classNo, int userNo) throws Exception {
+    HashMap<String,Object> params = new HashMap<>();
+    params.put("classNo", classNo);
+    params.put("userNo", userNo);
+    return assignmentSubmitDao.findAllByUserNo(params);
   }
 
   @Override

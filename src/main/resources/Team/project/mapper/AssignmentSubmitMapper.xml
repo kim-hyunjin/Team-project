@@ -13,37 +13,142 @@
   <result column="content" property="content"/>
   <result column="feedback" property="feedback"/>
   <result column="create_date" property="createDate"/>
-  
-  <association property="user" javaType="User">
-        <id column="user_no"   property="userNo"/>
-        <result column="name"  property="name"/>
-  </association>
-  
-  <association property="clazzMember" javaType="ClazzMember">
-    <id column="member_no" property="memberNo"/>
-    <result column="class_no"  property="clazzNo"/>
-  </association>
-  
-  <association property="assignment" javaType="Assignment">
-    <id column="assignment_no" property="assignmentNo"/>
-    <result column="title"  property="title"/>
-  </association>
-  
   </resultMap>
 
   <select id="findAll" resultMap="AssignmentSubmitMap" parameterType="int">
-     select u.name, m.member_no,  ass.assignment_no, a.content,  a.score, ass.title,             
-GROUP_CONCAT(IF(a.assignment_no=#{assignmentNo}, a.score, Null))as '과제8'        
-from user u, class_member m, assignment_submmit a, assignment ass       
-where u.user_no=m.user_no       
-and a.member_no=m.member_no       
-and ass.assignment_no = a.assignment_no 
-and m.class_no=#{clazzNo}
-and m.member_no=#{memberNo}
-      
-group by u.name       
-order by m.member_no asc; 
+  select
+    c.class_no,
+    a.assignment_no,
+    a.title,
+    cm.member_no,
+    cm.user_no,
+    ass.assignment_no,
+    ass.member_no,
+    ass.score
+  from
+    class c
+    left outer join assignment a on c.class_no = a.class_no
+    left outer join class_member cm on c.class_no = cm.class_no
+    left outer join assignment_submmit ass on a.assignment_no = ass.assignment_no and cm.member_no = ass.member_no
+    
+    -- inner join class_member cm on ass.member_no = cm.member_no
+  where 
+    c.class_no =#{classNo}     and cm.role=1
+  order by a.assignment_no, cm.member_no
+
   </select>
+  
+  <select id="findAllByUserNo" resultMap="AssignmentSubmitMap" parameterType="map">
+  select
+    c.class_no,
+    a.assignment_no,
+    a.title,
+    cm.member_no,
+    cm.user_no,
+    ass.score
+  from
+    class c
+    left outer join assignment a on c.class_no = a.class_no
+    left outer join class_member cm on c.class_no = cm.class_no
+    left outer join assignment_submmit ass on a.assignment_no = ass.assignment_no and cm.member_no = ass.member_no
+  where 
+    c.class_no = #{classNo} and cm.user_no = #{userNo} and cm.role=1
+  order by a.assignment_no
+  </select>
+
+  <!--   
+    과제제출 반복문
+  게터세터
+  user, 과제제출
+  새로 할꺼면 result map 새로 구성
+  select
+    cm.member_no,
+    cm.class_no,
+    cm.user_no,
+    u.name,
+    a.assignment_no,
+    a.title,
+    ass.score
+  from
+    class_member cm
+    inner join user u on cm.user_no = u.user_no
+    inner join assignment a on cm.class_no = a.class_no
+    left outer join assignment_submmit ass on cm.member_no = ass.member_no and ass.assignment_no = a.assignment_no
+  where 
+    cm.class_no = 3
+  order by cm.user_no
+ 
+  select 
+         m.class_no, u.name, a.assignment_no, a.content,  a.score, m.member_no, u.user_no, s.title 
+     from 
+         user u, class_member m, assignment_submmit a, assignment s
+     where 
+         u.user_no=m.user_no and a.member_no=m.member_no and m.class_no=#{no} and a.assignment_no=s.assignment_no
+     order by 
+         a.assignment_no asc, u.name asc;
+  
+  
+  
+  select 
+         m.class_no, u.name, s.assignment_no, a.content,  s.score, m.member_no, u.user_no, a.title 
+     from 
+         user u, class_member m, assignment_submmit s, assignment a
+     where 
+         u.user_no=m.user_no and a.member_no=m.member_no and a.assignment_no=s.assignment_no 
+         and m.class_no=#{no}   
+     order by 
+         a.assignment_no asc, u.name asc;
+     select 
+         cm.class_no, 
+         cm.user_no
+         u.name, 
+         a.assignment_no, 
+         a.title,
+         ass.score 
+     from 
+         class_member cm 
+         inner join user u on u.user_no = cm.user_no 
+         inner join assignment a on a.class_no = cm.class_no  
+         left outer join assignment_submmit ass ass.assignment_no = a.assignment_no and ass.user_no = cm.user_no 
+     where 
+         cm.class_no=#{no}   
+     order by 
+         a.assignment_no asc, u.name asc; 
+         -->
+  
+<!--   <select id="findByMemberNo" resultMap="AssignmentSubmitMap" parameterType="int">
+  select * from assignment a, assignment_submmit s, user u
+  where a.member_no=#{memberNo} and u.name=#{name} and s.score=#{score} and a.assignment_no=#{assignmentNo}
+  </select> 
+  
+    select
+    c.class_no,
+    a.assignment_no,
+    a.title,
+    cm.member_no,
+    cm.user_no,
+    ass.score
+  from
+    class c
+    left outer join assignment a on c.class_no = a.class_no
+    left outer join class_member cm on c.class_no = cm.class_no
+    left outer join assignment_submmit ass on a.assignment_no = ass.assignment_no and cm.member_no = ass.member_no
+  where 
+    c.class_no = 3 and cm.member_no=12 and cm.role=1
+  order by a.assignment_no
+  -->
+
+  <!-- 
+  
+select 
+         m.class_no, u.name, a.assignment_no, a.content,  a.score, m.member_no, u.user_no, s.title 
+     from 
+         user u, class_member m, assignment_submmit a, assignment s
+     where 
+         u.user_no=m.user_no and a.member_no=m.member_no and m.class_no=#{no} and a.assignment_no=s.assignment_no
+     order by 
+         a.assignment_no asc, u.name asc;
+   -->
 <!-- 
   <select id="findAllUserName" resultMap="AssignmentSubmitMap">
   select 

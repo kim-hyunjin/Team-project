@@ -10,7 +10,7 @@ public interface ClazzMemberDao {
 
   public List<ClazzMember> findAll() throws Exception;
 
-  public List<ClazzMember> findAllByNo(int no) throws Exception;
+  public List<ClazzMember> findAllByClassNo(int classNo) throws Exception;
 
   public ClazzMember findByNo(int no) throws Exception;
 

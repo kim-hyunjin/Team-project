@@ -13,6 +13,7 @@ public class Assignment {
   private Date deadline;
   private String standard;
   private Date createDate;
+
   
   public int getClassNo() {
     return classNo;

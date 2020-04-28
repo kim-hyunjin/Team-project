@@ -18,7 +18,10 @@
 </resultMap>
 
 <select id="findByClassNo" resultMap="AssignmentMap" parameterType="int">
-  select * from assignment
-  where class_no = #{no}
+  select class_no, assignment_no, title 
+  from assignment 
+  where class_no=3
+  order by assignment_no
 </select>
+
 </mapper>

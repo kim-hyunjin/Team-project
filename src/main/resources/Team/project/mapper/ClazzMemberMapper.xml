@@ -9,15 +9,30 @@
   <result column="user_no" property="userNo"/>
   <result column="class_no" property="clazzNo"/>
   <result column="role" property="role"/>
+  
+  <association property="user" javaType="User">
+    <id column="user_no" property="userNo"/>
+    <result column="name" property="name"/>
+  </association>
+  
 </resultMap>
 
 <select id="findByUserNoAndClassNo" resultMap="ClazzMemberMap" parameterType="map">
   select * from class_member
   where user_no = #{userNo} and class_no = #{classNo}
 </select>
-<select id="findAllByNo" resultMap="ClazzMemberMap" parameterType="map">
-  select * from class_member
-  where user_no = #{userNo} and class_no = #{classNo}
+
+<select id="findAllByClassNo" resultMap="ClazzMemberMap" parameterType="int">
+  select 
+    cm.member_no,
+    cm.class_no,
+    cm.user_no,
+    cm.role,
+    u.name
+  from 
+    class_member cm
+    inner join user u on cm.user_no = u.user_no
+  where class_no = #{no}
 </select>
 
 <insert id="insert" parameterType="ClazzMember">

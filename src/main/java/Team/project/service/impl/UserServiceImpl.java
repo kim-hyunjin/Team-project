@@ -59,5 +59,4 @@ public class UserServiceImpl implements UserService{
   public List<User> list(int no) throws Exception {
     return (List<User>) userDao.findByClassNo(no);
   }
-
 }

@@ -1,6 +1,7 @@
 package Team.project.web;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import javax.servlet.ServletContext;
@@ -85,7 +86,17 @@ public class UserController {
   @RequestMapping("/room/user/list")
   public String list(int no, Model model) throws Exception {
     List<ClazzMember> memberList = clazzMemberService.findAllByClassNo(no);
-    model.addAttribute("users", memberList);
+    List<ClazzMember> teachers = new ArrayList<>();
+    List<ClazzMember> students = new ArrayList<>();
+    for (ClazzMember member : memberList) {
+      if (member.getRole() == 0) {
+        teachers.add(member);
+      } else {
+        students.add(member);
+      }
+    }
+    model.addAttribute("teachers", teachers);
+    model.addAttribute("students", students);
     return "/WEB-INF/jsp/user/list.jsp";
   }
 

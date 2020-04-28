@@ -5,35 +5,51 @@
 
 <jsp:include page="../room/room_header.jsp"/>
 
-        <div class="room_contents">
-        
-	  <h1>유저목록</h1>
+		<div class="user_content">
+		<div class="teacher">
+			<div class="teacher__header">
+				<div style="font-size: x-large; font-weight: bold;">선생</div>
+				<a href="../teacher/add">
+				<div><i class="fas fa-user-plus"></i></div></a>
+			</div>
+			<hr>
+			<ul class="teacher_list user_list">
+				<c:forEach items="${teachers}" var="teacher">
+					<li class="user_card">
+						<c:if test="${not empty teacher.user.profilePhoto}">
+							<span class="user_list__profile"><img src="${pageContext.servletContext.contextPath}/upload/user/thumbnail.${teacher.user.profilePhoto}.jpg" /></span>
+						</c:if>
+						<c:if test="${empty teacher.user.profilePhoto}">
+							<span class="user_list__profile"><i class="far fa-user"></i></span>
+						</c:if>
+						<a href='detail?no=${teacher.user.userNo}'>${teacher.user.name}</a>
+					</li>
+				</c:forEach>
+			</ul>
+		</div>
+				
+		<div class="student" style="margin-top: 10em;">
+			<div class="student__header">
+				<div style="font-size: x-large; font-weight: bold;">학생</div>
+				<a href="../student/add"><div><i class="fas fa-user-plus"></i></div></a>
+			</div>
+			<hr>
+			<ul class="student_list user_list">
+				<c:forEach items="${students}" var="student">
+				<li class="user_card">
+					<c:if test="${not empty student.user.profilePhoto}">
+						<span class="user_list__profile"><img src="${pageContext.servletContext.contextPath}/upload/user/thumbnail.${student.user.profilePhoto}.jpg" /></span>
+					</c:if>
+					<c:if test="${empty student.user.profilePhoto}">
+						<span class="user_list__profile"><i class="far fa-user"></i></span>
+					</c:if>
+						<a href='detail?no=${student.user.userNo}'>${student.user.name}</a>
+				</li>
+				</c:forEach>
+			</ul>
+		</div>
 
-	<c:forEach items="${users}" var="item">
-	  <c:if test="${item.role == 0}">
-	    <div class="teacher_list">
-	      <c:if test="${not empty item.user.profilePhoto}">
-	         <img class="user_list__profile" src="${pageContext.servletContext.contextPath}/upload/user/thumbnail.${item.user.profilePhoto}.jpg" />
-	      </c:if>
-	      <c:if test="${empty item.user.profilePhoto}">
-	         <i class="far fa-user"></i>
-	      </c:if>
-	      <a href='detail?no=${item.user.userNo}'>${item.user.name}</a>
-	    </div>
-	  </c:if>
-	  <c:if test="${item.role == 1}">
-	    <div class="student_list">
-	     <c:if test="${not empty item.user.profilePhoto}">
-	       <img class="user_list__profile" src="${pageContext.servletContext.contextPath}/upload/user/thumbnail.${item.user.profilePhoto}.jpg" />
-	     </c:if>
-	     <c:if test="${empty item.user.profilePhoto}">
-         <i class="far fa-user"></i>
-       </c:if>
-	      <a href='detail?no=${item.user.userNo}'>${item.user.name}</a>
-	    </div>
-	  </c:if>
-	</c:forEach>
-	</div>
-</body>
+		</div>
+	</body>
 </html>
 

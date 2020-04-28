@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import Team.project.domain.Clazz;
+import Team.project.domain.ClazzMember;
 import Team.project.domain.User;
 import Team.project.service.ClazzMemberService;
 
@@ -25,7 +26,7 @@ public class RoomUserFilter implements Filter {
     HttpServletRequest req = (HttpServletRequest) request;
     HttpServletResponse res = (HttpServletResponse) response;
     User user = (User) req.getSession().getAttribute("loginUser");
-    if(user == null) {
+    if (user == null) {
       res.setStatus(403);
       res.sendRedirect("/Team-project/app/auth/form");
       return;
@@ -34,19 +35,21 @@ public class RoomUserFilter implements Filter {
     System.out.println("userNo ===> " + userNo);
     int classNo = 0;
     try {
-    classNo = Integer.parseInt(req.getParameter("no"));
-    } catch(Exception e) {
+      classNo = Integer.parseInt(req.getParameter("no"));
+    } catch (Exception e) {
       Clazz clazz = (Clazz) req.getSession().getAttribute("clazzNow");
       classNo = clazz.getClassNo();
     }
     System.out.println("classNo ===> " + classNo);
-    if(classNo == 0) {
+    if (classNo == 0) {
       res.setStatus(403);
       res.sendRedirect("/Team-project/app/clazz/list");
       return;
     }
     try {
-      if (memberService.get(userNo, classNo) != null) {
+      ClazzMember member = memberService.get(userNo, classNo);
+      if (member != null) {
+        req.getSession().setAttribute("nowMember", member);
         chain.doFilter(req, res);
         return;
       }

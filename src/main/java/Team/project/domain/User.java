@@ -2,6 +2,7 @@ package Team.project.domain;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.util.List;
 
 public class User implements Serializable {
 
@@ -17,7 +18,7 @@ public class User implements Serializable {
   private String profilePhoto;
   private int loginMethod;
   private Date createDate;
-  
+
   public int getUserNo() {
     return userNo;
   }

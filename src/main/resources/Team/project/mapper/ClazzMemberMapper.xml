@@ -28,13 +28,26 @@
   where user_no = #{userNo} and class_no = #{classNo}
 </select>
 
+<select id="findAllByClassNo" resultMap="ClazzMemberMap" parameterType="int">
+  select 
+    cm.member_no,
+    cm.class_no,
+    cm.user_no,
+    cm.role,
+    u.name
+  from 
+    class_member cm
+    inner join user u on cm.user_no = u.user_no
+  where class_no = #{no}
+</select>
+
 <insert id="insert" parameterType="ClazzMember">
   insert into class_member(user_no, class_no, role) values(#{userNo}, #{clazzNo}, #{role})
 </insert>
 
-<select id="findAllByClassNo" resultMap="ClazzMemberMap" parameterType="int">
+<!-- <select id="findAllByClassNo" resultMap="ClazzMemberMap" parameterType="int">
   select * from class_member join user on class_member.user_no = user.user_no
   where class_no=#{no}
-</select>
+</select> -->
 
 </mapper>

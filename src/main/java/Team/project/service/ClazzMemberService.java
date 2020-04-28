@@ -9,6 +9,8 @@ public interface ClazzMemberService {
 
   List<ClazzMember> list() throws Exception;
 
+  List<ClazzMember> list(int no) throws Exception;
+
   int delete(int no) throws Exception;
 
   ClazzMember get(int no) throws Exception;

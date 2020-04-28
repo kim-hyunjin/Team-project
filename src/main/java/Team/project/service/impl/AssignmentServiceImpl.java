@@ -46,4 +46,5 @@ public class AssignmentServiceImpl implements AssignmentService {
   public List<Assignment> list(int no) throws Exception {
     return assignmentDao.findByClassNo(no);
   }
+
 }

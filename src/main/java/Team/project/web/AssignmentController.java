@@ -34,7 +34,7 @@ public class AssignmentController {
     Clazz clazz = (Clazz) session.getAttribute("clazzNow");
     ClazzMember member = (ClazzMember) session.getAttribute("nowMember");
     assignment.setClassNo(clazz.getClassNo());
-    assignment.setMemberNo(member.getMember_no());
+    assignment.setMemberNo(member.getMemberNo());
     if (partfile.getSize() > 0) {
       String dirPath = servletContext.getRealPath("/upload/lesson/assignment");
       String originalName = partfile.getOriginalFilename();

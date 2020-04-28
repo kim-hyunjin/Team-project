@@ -65,8 +65,8 @@ public class ClazzController {
     clazz.setClassCode(temp.toString());
     ClazzMember member = new ClazzMember();
     clazzService.add(clazz);
-    member.setClazz_no(clazz.getClassNo());
-    member.setUser_no(((User) session.getAttribute("loginUser")).getUserNo());
+    member.setClazzNo(clazz.getClassNo());
+    member.setUserNo(((User) session.getAttribute("loginUser")).getUserNo());
     member.setRole(0);
     clazzMemberService.add(member);
     return "redirect:list";

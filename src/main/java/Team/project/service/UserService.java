@@ -9,7 +9,7 @@ public interface UserService {
   List<User> list() throws Exception;
   
   List<User> list(int no) throws Exception;
-
+  
   int delete(int no) throws Exception;
 
   User get(int no) throws Exception;

@@ -10,45 +10,41 @@ public class ClazzMember implements Serializable {
   private int clazzNo;
   private int role;
   private User user;
-
-
-  public int getMember_no() {
+  
+  public int getMemberNo() {
     return memberNo;
   }
-
-  public void setMember_no(int member_no) {
-    this.memberNo = member_no;
+  public void setMemberNo(int memberNo) {
+    this.memberNo = memberNo;
   }
-
-  public int getUser_no() {
+  public int getUserNo() {
     return userNo;
   }
-
-  public void setUser_no(int user_no) {
-    this.userNo = user_no;
+  public void setUserNo(int userNo) {
+    this.userNo = userNo;
   }
-
-  public int getClazz_no() {
+  public int getClazzNo() {
     return clazzNo;
   }
-
-  public void setClazz_no(int clazz_no) {
-    this.clazzNo = clazz_no;
+  public void setClazzNo(int clazzNo) {
+    this.clazzNo = clazzNo;
   }
-
   public int getRole() {
     return role;
   }
-
   public void setRole(int role) {
     this.role = role;
   }
-
   public User getUser() {
     return user;
   }
-
   public void setUser(User user) {
     this.user = user;
   }
+  
+  
+
+
+
+
 }

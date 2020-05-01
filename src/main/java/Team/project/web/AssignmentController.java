@@ -43,6 +43,6 @@ public class AssignmentController {
       assignment.setFile(originalName);
     }
     assignmentService.add(assignment);
-    return "redirect:../lesson/list?no=" + clazz.getClassNo();
+    return "redirect:../lesson/list?room_no=" + clazz.getClassNo();
   }
 }

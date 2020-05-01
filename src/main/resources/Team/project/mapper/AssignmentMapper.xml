@@ -15,6 +15,13 @@
     <result column="deadline" property="deadline"/>
     <result column="standard" property="standard"/>
     <result column="create_date" property="createDate"/>
+    <association property="question" javaType="Question">
+    <id column="question_no"   property="questionNo"/>
+    <result column="title" property="title"/>
+    <result column="create_date" property="createDate"/>
+    </association>
+    
+    
 </resultMap>
 
 <select id="findByClassNo" resultMap="AssignmentMap" parameterType="int">
@@ -37,5 +44,21 @@
   )
 
 </insert>
+
+  <select id="findAllByLesson" resultMap="AssignmentMap" parameterType="int">
+select 
+  c.class_no, a.assignment_no as no, a.title, a.create_date, a.deadline
+from 
+  assignment a, class c
+where c.class_no=#{no}
+union 
+select 
+  c.class_no, q.question_no as no, q.title, q.create_date, q.deadline
+from 
+  question q, class c
+where c.class_no=#{no}
+order by deadline, no desc;
+  </select>
+  
 
 </mapper>

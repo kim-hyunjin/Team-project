@@ -5,67 +5,50 @@
 
   <jsp:include page="room_header.jsp"/>
 
-  <div class="room_contents">
-  
-        
-    <table border='1'>
-    <tr>
-      <th>게시판제목</th>
-      <th>제목</th>
-      <th>내용</th>
-      <th>작성일</th>
-    </tr>
-    
-  <c:if test="${not empty posts}">
-    <h1>게시글 리스트</h1>
-  <c:forEach items="${posts}" var="item">
-    <tr>
-      <td>${item.board.title}</td>
-      <td>${item.title}</td>
-      <td>${item.content}</td>
-      <td>${item.createDate}</td>
-    </tr>
-  </c:forEach>
-  </c:if>
-  </table>
+  <div id="timeline_contents"></div>
+</div>
+    <script>
+      let posts = eval('('+ '${postJson}' +')');
+      let assignments = eval('('+ '${assignmentJson}' +')');
+      let questions = eval('('+ '${questionJson}' +')');
 
-   <h2>질문게시판</h2>
-   <table border='1' style="width:100%">
-   <tr>
-    <th>번호</th>
-    <th>질문제목</th>
-    <th>질문마감기한</th>
-   </tr>
-    <c:forEach items="${questions}" var="item">
-      <tr>
-        <td>${item.questionNo}</td>
-        <td><a href='../question/detail?qno=${item.questionNo}'>${item.title}</a></td>
-        <td>${item.deadline}</td>
-       </tr>
-    </c:forEach>
-    </table>
+      let all = posts.concat(assignments).concat(questions);
+      let sortingField = "createDate";
+      all.sort(function(a, b) {
+        return b[sortingField] - a[sortingField];
+      });
+      console.log(all);
 
-        <h2>과제</h2>
-        <div class="assignments">
-          <c:if test="${not empty assignments}">
-              <table border='1' style="width:100%">
-		              <tr>
-		                <th>과제 번호</th>
-		                <th>과제 제목</th>
-		                <th>마감일</th>
-		              </tr>
-		            <c:forEach items="${assignments}" var="ass">
-		              <tr>
-		                <td>${ass.assignmentNo}</td>
-		                <td>${ass.title}</td>
-		                <td>${ass.deadline}</td>
-		              </tr>
-		            </c:forEach>
-              </table>
-          </c:if>
-        </div>
-        
-    </div>
+
+      const contentbox = document.getElementById("timeline_contents");
+      let content = "";
+      const POST = "postNo";
+      const ASSIGNMENT = "assignmentNo";
+      const QUESTION = "questionNo";
+      for(let item of all) { // 리스트에 담긴 객체들의 값을 출력하는 html 작성
+        content += `<div class="timeline_content">` +
+          `<div class="timeline_content__header">`;
+          if(item.hasOwnProperty(POST)) { // 게시글의 종류에 따라 다른 아이콘과 링크 적용
+            content += `<span class="timeline_content__category"><i class="far fa-flag"></i></span>`
+            + `<span class="timeline_content__title"><a href="../post/detail?no=`+ item.postNo +`">` + item.title + `</a></span>`;
+          } else if(item.hasOwnProperty(ASSIGNMENT)) {
+            content += `<span class="timeline_content__category"><i class="fas fa-pen-square"></i></span>`
+            + `<span class="timeline_content__title"><a href="../assignment/detail?no=`+ item.assignmentNo +`">` + item.title + `</a></span>`;
+          } else if(item.hasOwnProperty(QUESTION)) {
+            content += `<span class="timeline_content__category"><i class="fas fa-question-circle"></i></span>`
+            + `<span class="timeline_content__title"><a href="../question/detail?no=`+ item.questionNo +`">` + item.title + `</a></span>`;
+          }
+          + `<span class="timeline_content__more"><i class="fas fa-ellipsis-v"></i></span>` // more버튼
+          +`</div>` // timeline_content__header 끝
+          + `<div class="timeline_content__date">`;
+            let date = new Date(item.createDate);
+            content += date.toLocaleString() + `</div>`
+        +`</div>`;//timeline_content 끝
+      }
+      contentbox.innerHTML = content;
+
+
+    </script>
 </body>
 </html>
 

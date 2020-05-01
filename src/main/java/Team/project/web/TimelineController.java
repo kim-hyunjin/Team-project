@@ -39,7 +39,7 @@ public class TimelineController {
     session.removeAttribute("clazzNow");
     session.setAttribute("clazzNow", clazz);
     session.setAttribute("nowBoard", boardService.list(no));
-    // session.setAttribute("nowQuestion", questionService.list(no));
+    model.addAttribute("questions", questionService.list(no));
     // session.setAttribute("nowAnswer", answerService.list(no));
     return "/WEB-INF/jsp/room/timeline.jsp";
   }

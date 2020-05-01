@@ -10,7 +10,7 @@
         <div class="main_card">
             <div class="main_name">
               <div>
-                <a class="main_name_title" href="../room/timeline/list?no=${clazz.classNo}">${clazz.name}</a>
+                <a class="main_name_title" href="../room/timeline/list?room_no=${clazz.classNo}">${clazz.name}</a>
                 <i class="fas fa-ellipsis-v js-main_name__menu"></i>
               </div>
               <span>${clazz.room}</span>

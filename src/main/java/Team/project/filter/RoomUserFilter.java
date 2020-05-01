@@ -35,7 +35,7 @@ public class RoomUserFilter implements Filter {
     System.out.println("userNo ===> " + userNo);
     int classNo = 0;
     try {
-      classNo = Integer.parseInt(req.getParameter("no"));
+      classNo = Integer.parseInt(req.getParameter("room_no"));
     } catch (Exception e) {
       Clazz clazz = (Clazz) req.getSession().getAttribute("clazzNow");
       classNo = clazz.getClassNo();

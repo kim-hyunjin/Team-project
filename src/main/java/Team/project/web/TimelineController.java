@@ -34,13 +34,13 @@ public class TimelineController {
   AnswerService answerService;
 
   @GetMapping("list")
-  public String list(HttpSession session, int no, Model model) throws Exception {
-    Clazz clazz = clazzService.get(no);
+  public String list(HttpSession session, int room_no, Model model) throws Exception {
+    Clazz clazz = clazzService.get(room_no);
     session.removeAttribute("clazzNow");
     session.setAttribute("clazzNow", clazz);
-    session.setAttribute("nowBoard", boardService.list(no));
-    model.addAttribute("questions", questionService.list(no));
-    // session.setAttribute("nowAnswer", answerService.list(no));
+    session.setAttribute("nowBoard", boardService.list(room_no));
+    model.addAttribute("assignments", assignmentService.list(room_no));
+    model.addAttribute("questions", questionService.list(room_no));
     return "/WEB-INF/jsp/room/timeline.jsp";
   }
 

@@ -49,4 +49,9 @@ public class PostServiceImpl implements PostService {
     return postDao.findAll(no);
   }
 
+  @Override
+  public List<Post> timelineList(int no) throws Exception {
+    return postDao.findList(no);
+  }
+
 }

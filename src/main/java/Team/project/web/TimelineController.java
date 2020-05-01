@@ -41,6 +41,9 @@ public class TimelineController {
     session.setAttribute("nowBoard", boardService.list(no));
     // session.setAttribute("nowQuestion", questionService.list(no));
     // session.setAttribute("nowAnswer", answerService.list(no));
+
+    model.addAttribute("posts", postService.timelineList(no));
+
     return "/WEB-INF/jsp/room/timeline.jsp";
   }
 

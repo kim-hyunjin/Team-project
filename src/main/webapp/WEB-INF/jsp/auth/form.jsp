@@ -20,7 +20,30 @@
   
   }
 </style>
-<script>
+</head>
+<body>
+    <div class="center-container">
+        <div class="login_box">
+            <div class="social_login">
+                <a href="#" class="social_login__box google"><i class="fab fa-google"></i>Continue with Google</a>
+                <a href="#" class="social_login__box kakao"><i class="fas fa-comment fa-lg"></i>Continue with Kakao</a>
+            </div>
+            <div class="email_login">
+                <form id="loginForm" name="loginForm" method="post" action="login">
+                    <input class="email_login__input" type="text" name="email" placeholder="이메일 입력">
+                    <input class="email_login__input" type="password" name="password" placeholder="비밀번호 입력"></td>
+                    <div style="margin-top: 1em;">
+                        <input type="checkbox" name="idsave" value="saveOk">아이디 저장
+                    </div>
+                    <input class="email_login__input login_btn" type="button" value="로그인" onclick="sendit()">
+                </form>
+            </div>
+            <div style="margin-top: 1em;">
+                <span style="margin-right: 1em;">계정이 없나요?</span><a style="color: blue; font-size: larger;" href="../user/form">회원가입 </a>
+            </div>
+        </div>
+    </div>
+    <script>
     window.onload = function() {
  
         if (getCookie("id")) { // getCookie함수로 id라는 이름의 쿠키를 불러와서 있을경우
@@ -75,28 +98,5 @@
  
     }
 </script>
-</head>
-<body>
-    <div class="center-container">
-        <div class="login_box">
-            <div class="social_login">
-                <a href="#" class="social_login__box google"><i class="fab fa-google"></i>Continue with Google</a>
-                <a href="#" class="social_login__box kakao"><i class="fas fa-comment fa-lg"></i>Continue with Kakao</a>
-            </div>
-            <div class="email_login">
-                <form id="loginForm" name="loginForm" method="post" action="login">
-                    <input class="email_login__input" type="text" name="email" placeholder="이메일 입력">
-                    <input class="email_login__input" type="password" name="password" placeholder="비밀번호 입력"></td>
-                    <div style="margin-top: 1em;">
-                        <input type="checkbox" name="idsave" value="saveOk">아이디 저장
-                    </div>
-                    <input class="email_login__input login_btn" type="button" value="로그인" onclick="sendit()">
-                </form>
-            </div>
-            <div style="margin-top: 1em;">
-                <span style="margin-right: 1em;">계정이 없나요?</span><a style="color: blue; font-size: larger;" href="../user/form">회원가입 </a>
-            </div>
-        </div>
-    </div>
 </body>
 </html>

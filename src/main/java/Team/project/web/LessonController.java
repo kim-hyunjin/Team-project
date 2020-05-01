@@ -37,11 +37,11 @@ public class LessonController {
   ClazzMemberService clazzMemberService;
 
   @RequestMapping("lesson/list")
-  public String list(int no, Model model) throws Exception {
-    List<Assignment> assignmentList = assignmentService.list(no);
+  public String list(int room_no, Model model) throws Exception {
+    List<Assignment> assignmentList = assignmentService.list(room_no);
     model.addAttribute("assignments", assignmentList);
 
-    List<Question> questionList = questionService.list(no);
+    List<Question> questionList = questionService.list(room_no);
     model.addAttribute("questions", questionList);
     return "/WEB-INF/jsp/room/lesson.jsp";
   }

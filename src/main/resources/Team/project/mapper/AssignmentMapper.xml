@@ -20,7 +20,7 @@
 <select id="findByClassNo" resultMap="AssignmentMap" parameterType="int">
   select class_no, assignment_no, title 
   from assignment 
-  where class_no=3
+  where class_no=#{no}
   order by assignment_no
 </select>
 

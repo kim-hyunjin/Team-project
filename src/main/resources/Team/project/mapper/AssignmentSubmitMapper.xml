@@ -15,29 +15,6 @@
   <result column="create_date" property="createDate"/>
   </resultMap>
 
-  <select id="findAll" resultMap="AssignmentSubmitMap" parameterType="int">
-  select
-    c.class_no,
-    a.assignment_no,
-    a.title,
-    cm.member_no,
-    cm.user_no,
-    ass.assignment_no,
-    ass.member_no,
-    ass.score
-  from
-    class c
-    left outer join assignment a on c.class_no = a.class_no
-    left outer join class_member cm on c.class_no = cm.class_no
-    left outer join assignment_submmit ass on a.assignment_no = ass.assignment_no and cm.member_no = ass.member_no
-    
-    -- inner join class_member cm on ass.member_no = cm.member_no
-  where 
-    c.class_no =#{classNo}     and cm.role=1
-  order by a.assignment_no, cm.member_no
-
-  </select>
-  
   <select id="findAllByUserNo" resultMap="AssignmentSubmitMap" parameterType="map">
   select
     c.class_no,

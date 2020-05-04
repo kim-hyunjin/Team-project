@@ -6,22 +6,13 @@
 <mapper namespace="Team.project.dao.QuestionDao">
   <resultMap type="Question" id="QuestionMap">
     <id column="question_no"   property="questionNo"/>
+    <result column="member_no" property="memberNo"/>
     <result column="title"  property="title"/>
     <result column="content"  property="content"/>
     <result column="file"  property="filePath"/>
     <result column="deadline"  property="deadline"/>
     <result column="create_date"  property="createDate"/>
   </resultMap>
-  
-  <sql id="select1">
-    select
-      question_no,
-      title,
-      deadline,
-      create_date
-    from
-      question
-  </sql>
   
   <select id="findAll" resultMap="QuestionMap" parameterType="int">
     select
@@ -34,5 +25,31 @@
     
   </select>
   
+  <insert id="insert" parameterType="Question">
+    insert into question(member_no, title, content, file, deadline)
+    values(#{memberNo}, #{title}, #{content}, #{filePath}, #{deadline})
+  </insert>
+  
+  <select id="findByNo" resultMap="QuestionMap" parameterType="int">
+    select *
+    from question
+    where question_no = #{no}
+  </select>
+  
+  <update id="update" parameterType="Question">
+    update question
+    <set>
+      <if test="title != null and title != ''">title=#{title},</if>
+      <if test="content != null and content != ''">content=#{content},</if> 
+      <if test="filePath != null and filePath != ''">filePath=#{filePath},</if>
+      <if test="deadline != null">deadline=#{deadline}</if>
+    </set>
+    where question_no=#{questionNo}
+  </update>
+  
+  <delete id="delete" parameterType="int">
+    delete from question
+    where question_no=#{no}
+  </delete>
   
 </mapper>

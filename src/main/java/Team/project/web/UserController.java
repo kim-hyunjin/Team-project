@@ -52,14 +52,33 @@ public class UserController {
     }
   }
 
+  @RequestMapping("/room/user/form")
+  public String studentForm() {
+    return "/WEB-INF/jsp/room/user/form.jsp";
+  }
+  
+  @RequestMapping("/room/user/add")
+  public String add(User user) throws Exception {
+    if (userService.add(user) > 0) {
+      return "redirect:../user/list";
+    } else {
+      throw new Exception("회원을 추가할 수 없습니다.");
+    }
+  }
+  
   @RequestMapping("/user/delete")
-  public String delete(int no) throws Exception {
+  public String delete(int no, int room_no) throws Exception {
     if (userService.delete(no) > 0) { // 삭제했다면,
-      return "redirect:list";
+      if (room_no != 0) {
+        return "redirect:../room/user/list?room_no="+room_no;
+      } else {
+        return "redirect:list";
+      }
     } else {
       throw new Exception("해당 번호의 회원이 없습니다.");
     }
   }
+  
 
   @RequestMapping("/user/detail")
   public String detail(int no, Model model) throws Exception {
@@ -82,6 +101,17 @@ public class UserController {
     model.addAttribute("loginMethod", login);
     return "/WEB-INF/jsp/user/detail.jsp";
   }
+  
+  @RequestMapping("/room/user/detail")
+  public String roomDetail(int no, int room_no, Model model) throws Exception {
+    User user = userService.get(no);
+   
+    model.addAttribute("user", user);
+    model.addAttribute("room_no", room_no);
+    return "/WEB-INF/jsp/room/user/detail.jsp";
+  }
+  
+  
 
   @RequestMapping("/room/user/list")
   public String list(int room_no, Model model) throws Exception {
@@ -97,6 +127,7 @@ public class UserController {
     }
     model.addAttribute("teachers", teachers);
     model.addAttribute("students", students);
+    model.addAttribute("room_no", room_no);
     return "/WEB-INF/jsp/user/list.jsp";
   }
 

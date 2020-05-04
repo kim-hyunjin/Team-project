@@ -41,4 +41,5 @@ public class Board implements Serializable {
   public void setNotice(boolean notice) {
     this.notice = notice;
   }
+
 }

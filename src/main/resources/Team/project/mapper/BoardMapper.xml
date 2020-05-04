@@ -37,31 +37,11 @@
       board_no=#{no}
   </select>
   
+  <insert id="insert" parameterType="Board">
+ insert into board (title, notice, class_no) values (#{title}, #{notice}, #{classNo});
+  </insert>
   
-  
-  
-  
-  
-  
-  
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+ 
 
 
 

@@ -41,4 +41,13 @@ public class Board implements Serializable {
   public void setNotice(boolean notice) {
     this.notice = notice;
   }
+
+  @Override
+  public String toString() {
+    return "Board [boardNo=" + boardNo + ", title=" + title + ", classNo=" + classNo + ", notice="
+        + notice + "]";
+  }
+
+
+
 }

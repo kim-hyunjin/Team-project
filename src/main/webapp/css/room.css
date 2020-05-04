@@ -24,7 +24,7 @@
   margin-right: 2em;
 }
 
-.room_contents {
+.room_contents, #timeline_contents {
     margin-top: 7em;
     padding-left: 3em;    
     width:90%;

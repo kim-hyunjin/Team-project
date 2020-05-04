@@ -84,6 +84,11 @@ dependencies {
   
   // Thumnailator
   implementation 'net.coobird:thumbnailator:0.4.11'
+  
+  // json처리
+  compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.11.0'
+
+  
     
   implementation 'com.google.guava:guava:28.1-jre'
   testImplementation 'junit:junit:4.12'

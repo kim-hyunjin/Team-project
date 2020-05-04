@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import Team.project.domain.Clazz;
 import Team.project.service.AnswerService;
 import Team.project.service.AssignmentService;
@@ -34,13 +35,20 @@ public class TimelineController {
   AnswerService answerService;
 
   @GetMapping("list")
-  public String list(HttpSession session, int no, Model model) throws Exception {
-    Clazz clazz = clazzService.get(no);
+  public String list(HttpSession session, int room_no, Model model) throws Exception {
+    Clazz clazz = clazzService.get(room_no);
     session.removeAttribute("clazzNow");
     session.setAttribute("clazzNow", clazz);
-    session.setAttribute("nowBoard", boardService.list(no));
-    model.addAttribute("questions", questionService.list(no));
-    // session.setAttribute("nowAnswer", answerService.list(no));
+    session.setAttribute("nowBoard", boardService.list(room_no));
+
+    // json으로 바꾸기
+    ObjectMapper mapper = new ObjectMapper();
+    String postJson = mapper.writeValueAsString(postService.timelineList(room_no));
+    String assignmentJson = mapper.writeValueAsString(assignmentService.list(room_no));
+    String questionJson = mapper.writeValueAsString(questionService.list(room_no));
+    model.addAttribute("postJson", postJson);
+    model.addAttribute("assignmentJson", assignmentJson);
+    model.addAttribute("questionJson", questionJson);
     return "/WEB-INF/jsp/room/timeline.jsp";
   }
 

@@ -16,4 +16,6 @@ public interface PostService {
   int update(Post post) throws Exception;
 
   List<Post> list(int no) throws Exception;
+
+  List<Post> timelineList(int no) throws Exception;
 }

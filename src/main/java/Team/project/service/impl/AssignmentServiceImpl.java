@@ -1,6 +1,5 @@
 package Team.project.service.impl;
 
-import java.util.HashMap;
 import java.util.List;
 import org.springframework.stereotype.Component;
 import Team.project.dao.AssignmentDao;
@@ -47,5 +46,5 @@ public class AssignmentServiceImpl implements AssignmentService {
   public List<Assignment> list(int no) throws Exception {
     return assignmentDao.findByClassNo(no);
   }
-  
+
 }

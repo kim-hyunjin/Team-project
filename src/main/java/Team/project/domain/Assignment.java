@@ -72,6 +72,12 @@ public class Assignment {
   public void setCreateDate(Date createDate) {
     this.createDate = createDate;
   }
+  @Override
+  public String toString() {
+    return "Assignment [assignmentNo=" + assignmentNo + ", classNo=" + classNo + ", memberNo="
+        + memberNo + ", title=" + title + ", content=" + content + ", file=" + file + ", deadline="
+        + deadline + ", standard=" + standard + ", createDate=" + createDate + "]";
+  }
 
 
 

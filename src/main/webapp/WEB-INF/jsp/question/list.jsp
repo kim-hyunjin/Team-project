@@ -5,6 +5,7 @@
 
   
    <h1>질문 게시판</h1>
+   <a href="../question/form">질문 추가</a>
 <c:if test="${not empty questions}">
    <table border='1'>
    <tr>

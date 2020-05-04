@@ -8,6 +8,7 @@ public class Question implements Serializable {
   private static final long serialVersionUID = 1L;
 
   private int questionNo;
+  private int memberNo;
   private String title;
   private String content;
   private String filePath;
@@ -61,6 +62,14 @@ public class Question implements Serializable {
 
   public void setCreateDate(Date createDate) {
     this.createDate = createDate;
+  }
+
+  public int getMemberNo() {
+    return memberNo;
+  }
+
+  public void setMemberNo(int memberNo) {
+    this.memberNo = memberNo;
   }
 
 

@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import Team.project.domain.Clazz;
 import Team.project.service.AnswerService;
 import Team.project.service.AssignmentService;
@@ -39,9 +40,15 @@ public class TimelineController {
     session.removeAttribute("clazzNow");
     session.setAttribute("clazzNow", clazz);
     session.setAttribute("nowBoard", boardService.list(room_no));
-    model.addAttribute("posts", postService.timelineList(room_no));
-    model.addAttribute("assignments", assignmentService.list(room_no));
-    model.addAttribute("questions", questionService.list(room_no));
+
+    // json으로 바꾸기
+    ObjectMapper mapper = new ObjectMapper();
+    String postJson = mapper.writeValueAsString(postService.timelineList(room_no));
+    String assignmentJson = mapper.writeValueAsString(assignmentService.list(room_no));
+    String questionJson = mapper.writeValueAsString(questionService.list(room_no));
+    model.addAttribute("postJson", postJson);
+    model.addAttribute("assignmentJson", assignmentJson);
+    model.addAttribute("questionJson", questionJson);
     return "/WEB-INF/jsp/room/timeline.jsp";
   }
 

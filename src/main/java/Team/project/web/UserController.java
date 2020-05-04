@@ -84,8 +84,8 @@ public class UserController {
   }
 
   @RequestMapping("/room/user/list")
-  public String list(int no, Model model) throws Exception {
-    List<ClazzMember> memberList = clazzMemberService.findAllByClassNo(no);
+  public String list(int room_no, Model model) throws Exception {
+    List<ClazzMember> memberList = clazzMemberService.findAllByClassNo(room_no);
     List<ClazzMember> teachers = new ArrayList<>();
     List<ClazzMember> students = new ArrayList<>();
     for (ClazzMember member : memberList) {

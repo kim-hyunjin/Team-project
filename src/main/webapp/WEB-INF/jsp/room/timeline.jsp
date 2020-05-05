@@ -18,7 +18,6 @@
       });
       console.log(all);
 
-
       const contentbox = document.getElementById("timeline_contents");
       let content = "";
       const POST = "postNo";

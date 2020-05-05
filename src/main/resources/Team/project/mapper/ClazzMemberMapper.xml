@@ -42,12 +42,19 @@
 </select>
 
 <insert id="insert" parameterType="ClazzMember">
-  insert into class_member(user_no, class_no, role) values(#{userNo}, #{clazzNo}, #{role})
+  insert into class_member 
+  (user_no, class_no, role) 
+  values (#{userNo}, #{clazzNo}, #{role})
 </insert>
 
 <!-- <select id="findAllByClassNo" resultMap="ClazzMemberMap" parameterType="int">
   select * from class_member join user on class_member.user_no = user.user_no
   where class_no=#{no}
 </select> -->
+
+<delete id="delete" parameterType="int">
+    delete from class_member
+    where member_no = #{member_no}
+</delete>
 
 </mapper>

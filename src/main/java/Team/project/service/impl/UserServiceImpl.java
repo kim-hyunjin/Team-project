@@ -58,4 +58,9 @@ public class UserServiceImpl implements UserService {
   public List<User> list(int no) throws Exception {
     return userDao.findByClassNo(no);
   }
+
+  @Override
+  public User get(String email) throws Exception {
+    return userDao.findByEmail(email);
+  }
 }

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import Team.project.domain.Clazz;
 import Team.project.domain.ClazzMember;
 import Team.project.domain.User;
@@ -87,5 +88,4 @@ public class ClazzController {
       throw new Exception("수업 정보 변경에 실패했습니다.");
     }
   }
-
 }// ClazzController

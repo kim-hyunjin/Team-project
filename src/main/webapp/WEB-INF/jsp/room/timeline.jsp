@@ -6,7 +6,6 @@
   <jsp:include page="room_header.jsp"/>
 
   <div id="timeline_contents"></div>
-</div>
     <script>
       let posts = eval('('+ '${postJson}' +')');
       let assignments = eval('('+ '${assignmentJson}' +')');
@@ -36,7 +35,7 @@
             + `<span class="timeline_content__title"><a href="../assignment/detail?no=`+ item.assignmentNo +`">` + item.title + `</a></span>`;
           } else if(item.hasOwnProperty(QUESTION)) {
             content += `<span class="timeline_content__category"><i class="fas fa-question-circle"></i></span>`
-            + `<span class="timeline_content__title"><a href="../question/detail?no=`+ item.questionNo +`">` + item.title + `</a></span>`;
+            + `<span class="timeline_content__title"><a href="../question/detail?qno=`+ item.questionNo +`">` + item.title + `</a></span>`;
           }
           + `<span class="timeline_content__more"><i class="fas fa-ellipsis-v"></i></span>` // more버튼
           +`</div>` // timeline_content__header 끝
@@ -45,6 +44,7 @@
             content += date.toLocaleString() + `</div>`
         +`</div>`;//timeline_content 끝
       }
+      console.log(contentbox);
       contentbox.innerHTML = content;
 
 

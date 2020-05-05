@@ -38,4 +38,29 @@
 
 </insert>
 
+  <delete id="delete" parameterType="int">
+    delete from assignment
+    where assignment_no=#{no}
+  </delete>
+
+<select id="findByNo" resultMap="AssignmentMap" parameterType="int">
+select 
+  *
+from 
+  assignment
+where 
+  assignment_no=#{no}
+</select>
+
+<update id="update" parameterType="Assignment">
+update assignment
+    <set>
+      <if test="title != null and title != ''">title=#{title},</if>
+      <if test="content != null and content != ''">content=#{content},</if>
+      <if test="deadline != null">deadline=#{deadline}</if>
+    </set>
+    where 
+  assignment_no=#{assignmentNo}
+</update>
+
 </mapper>

@@ -39,6 +39,7 @@ public class TimelineController {
     Clazz clazz = clazzService.get(room_no);
     session.removeAttribute("clazzNow");
     session.setAttribute("clazzNow", clazz);
+    session.setAttribute("clazzNowNo", clazz.getClassNo());
     session.setAttribute("nowBoard", boardService.list(room_no));
 
     // json으로 바꾸기

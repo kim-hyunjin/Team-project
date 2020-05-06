@@ -1,0 +1,15 @@
+.board_part {
+	
+}
+
+.post_part {
+	margin:3em;
+	width:70%;
+	height:100%;
+}
+
+.post_part__content{
+	width:100%;
+	height:100%;
+	border :none;
+}

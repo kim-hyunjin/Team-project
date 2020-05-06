@@ -9,7 +9,7 @@
 		<div class="teacher">
 			<div class="teacher__header">
 				<div style="font-size: x-large; font-weight: bold;">선생</div>
-				<a href="../teacher/add">
+				<a href="../../room/user/form?class_no=${room_no}&role=0">
 				<div><i class="fas fa-user-plus"></i></div></a>
 			</div>
 			<hr>
@@ -22,7 +22,7 @@
 						<c:if test="${empty teacher.user.profilePhoto}">
 							<span class="user_list__profile"><i class="far fa-user"></i></span>
 						</c:if>
-						<a href='detail?no=${teacher.user.userNo}'>${teacher.user.name}</a>
+						<a href='detail?no=${teacher.user.userNo}&room_no=${room_no}&member_no=${teacher.memberNo}'>${teacher.user.name}</a>
 					</li>
 				</c:forEach>
 			</ul>
@@ -31,7 +31,7 @@
 		<div class="student" style="margin-top: 10em;">
 			<div class="student__header">
 				<div style="font-size: x-large; font-weight: bold;">학생</div>
-				<a href="../student/add"><div><i class="fas fa-user-plus"></i></div></a>
+				<a href="../../room/user/form?class_no=${room_no}&role=1"><div><i class="fas fa-user-plus"></i></div></a>
 			</div>
 			<hr>
 			<ul class="student_list user_list">
@@ -43,7 +43,7 @@
 					<c:if test="${empty student.user.profilePhoto}">
 						<span class="user_list__profile"><i class="far fa-user"></i></span>
 					</c:if>
-						<a href='detail?no=${student.user.userNo}'>${student.user.name}</a>
+						<a href='detail?no=${student.user.userNo}&room_no=${room_no}&member_no=${student.memberNo}'>${student.user.name}</a>
 				</li>
 				</c:forEach>
 			</ul>

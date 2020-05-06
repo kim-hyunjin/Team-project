@@ -27,8 +27,6 @@
     from 
       user
   </sql>
-  
-  
     
   <insert id="insert" parameterType="User">
     insert into user
@@ -80,6 +78,11 @@
     where user_no=#{no}
   </delete>
   
+  <delete id="delete2" parameterType="int">
+    delete from member_no
+    where class_no=#{no}
+  </delete>
+  
   <select id="findByKeyword" 
     resultMap="UserMap" 
     parameterType="string">
@@ -94,6 +97,11 @@
   <select id="findByEmailAndPassword" resultMap="UserMap" parameterType="map">
   select * from user
   where email=#{email} and password=password(#{password})
+  </select>
+  
+  <select id="findByEmail" resultMap="UserMap" parameterType="string">
+  select * from user
+  where email=#{email} 
   </select>
 </mapper>
 

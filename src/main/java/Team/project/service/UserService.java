@@ -14,10 +14,12 @@ public interface UserService {
 
   User get(int no) throws Exception;
 
+  User get(String email) throws Exception;
+
   User get(String email, String password) throws Exception;
 
   int update(User user) throws Exception;
 
   List<User> search(String keyword) throws Exception;
-  
+
 }

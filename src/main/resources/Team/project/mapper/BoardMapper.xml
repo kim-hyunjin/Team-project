@@ -28,22 +28,23 @@
     where class_no = #{no}
   </select>
   
-  <select id="findByNo" resultMap="BoardMap" parameterType="int">
-    select
-      board_no
-    from
-      board
-    where
-      board_no=#{no}
-  </select>
-  
   <insert id="insert" parameterType="Board">
  insert into board (title, notice, class_no) values (#{title}, #{notice}, #{classNo});
   </insert>
   
- 
-
-
+  <update id="update" parameterType="Board">
+ update board
+    <set>
+      <if test="title != null and title != ''">title=#{title},</if>
+      <if test="notice != null and notice != ''">notice=#{notice}</if> 
+    </set>
+  where board_no = #{boardNo}
+  </update>
+  
+  <delete id="delete" parameterType="int">
+    delete from board
+    where board_no=#{boardNo}
+  </delete>
 
 
 </mapper>

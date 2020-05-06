@@ -40,7 +40,6 @@ public class TimelineController {
     session.removeAttribute("clazzNow");
     session.setAttribute("clazzNow", clazz);
     session.setAttribute("clazzNowNo", clazz.getClassNo());
-    session.setAttribute("nowBoard", boardService.list(room_no));
 
     // json으로 바꾸기
     ObjectMapper mapper = new ObjectMapper();

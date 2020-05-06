@@ -4,6 +4,7 @@
 @import 'room.css';
 @import 'auth.css';
 @import 'user.css';
+@import 'board.css';
 
 * {
   box-sizing: border-box;

@@ -4,6 +4,8 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +37,17 @@ public class UserController {
     return "/WEB-INF/jsp/user/form.jsp";
   }
 
+  @SuppressWarnings("unused")
+  private static boolean validationPasswd(String password) {
+    Pattern p = Pattern.compile("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$");
+    Matcher m = p.matcher(password);
+    
+    if(m.matches()) {
+      return true;
+    }
+    return false;
+  }
+  
   @RequestMapping("/user/add")
   public String add(User user, MultipartFile photo) throws Exception {
     if (photo.getSize() > 0) {
@@ -75,13 +88,10 @@ public class UserController {
   }
   
   @RequestMapping("/user/delete")
-  public String delete(int no, int room_no) throws Exception {
+  public String delete(HttpSession session, int no) throws Exception {
     if (userService.delete(no) > 0) { // 삭제했다면,
-      if (room_no != 0) {
-        return "redirect:../room/user/list?room_no="+room_no;
-      } else {
-        return "redirect:list";
-      }
+      session.removeAttribute("loginUser");
+      return "redirect:../auth/form";
     } else {
       throw new Exception("해당 번호의 회원이 없습니다.");
     }

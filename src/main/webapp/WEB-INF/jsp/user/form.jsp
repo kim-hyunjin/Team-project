@@ -29,6 +29,18 @@
 		</select><br>
 		<button>완료</button>
 	</form>
+	<script type="text/javascript">
+	  @SuppressWarnings("unused")
+	  private static boolean validationPasswd(String password) {
+	    Pattern p = Pattern.compile("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$");
+	    Matcher m = p.matcher(password);
+	    
+	    if(m.matches()) {
+	      return true;
+	    }
+	    return false;
+	  }
+	</script>
 </body>
 </html>
 

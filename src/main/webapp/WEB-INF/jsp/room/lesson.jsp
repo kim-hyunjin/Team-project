@@ -42,7 +42,7 @@
 	  content += `<div class="lesson_contents">` + 
 	  `<div class="lesson_contents__header">`;
   if(item.hasOwnProperty(QUESTION)) {
-	  content += `<span class="lesson_contents__category"><i class="fas fa-pen-square"></i></span>`
+	  content += `<span class="lesson_contents__category"><i class="fas fa-question-circle"></i></span>`
           + `<span class="lesson_contents__title"><a href="../question/detail?qno=`+ item.questionNo +`">` + item.title + `</a></span>`;
   } else if(item.hasOwnProperty(ASSIGNMENT)) {
       content += `<span class="lesson_contents__category"><i class="fas fa-pen-square"></i></span>`

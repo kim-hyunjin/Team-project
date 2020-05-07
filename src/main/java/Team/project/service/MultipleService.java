@@ -7,7 +7,7 @@ public interface MultipleService {
 
   void add(Multiple mulitple) throws Exception;
 
-  List<Multiple> list() throws Exception;
+  List<Multiple> list(int qno) throws Exception;
 
   int delete(int no) throws Exception;
 
@@ -15,5 +15,5 @@ public interface MultipleService {
 
   int update(Multiple multiple) throws Exception;
 
-  Multiple get(int questionNo, int multipleNo) throws Exception;
+  Multiple getAnswer(int questionNo, int multipleNo) throws Exception;
 }

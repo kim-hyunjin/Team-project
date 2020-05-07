@@ -11,7 +11,14 @@
     <result column="content"  property="content"/>
   </resultMap>
   
-  <select id="get" resultMap="MultipleMap" parameterType="map">
+  <select id="findAll" resultMap="MultipleMap" parameterType="int">
+    select * from multiple
+    where question_no = #{qno}
+  
+  </select>
+  
+  
+  <select id="getAnswer" resultMap="MultipleMap" parameterType="map">
     select
       *
     from 
@@ -19,6 +26,7 @@
     where 
       question_no = #{qNO} and multiple_no = #{mNo}
   </select>
+  
   
   
 </mapper>

@@ -8,7 +8,7 @@ public interface MultipleDao {
 
   public int insert(Multiple mulitple) throws Exception;
 
-  public List<Multiple> findAll() throws Exception;
+  public List<Multiple> findAll(int qno) throws Exception;
 
   public Multiple findByNo(int no) throws Exception;
 
@@ -16,7 +16,7 @@ public interface MultipleDao {
 
   public int delete(int no) throws Exception;
 
-  public Multiple get(HashMap<String, Integer> map) throws Exception;
+  public Multiple getAnswer(HashMap<String, Integer> map) throws Exception;
 
 }
 

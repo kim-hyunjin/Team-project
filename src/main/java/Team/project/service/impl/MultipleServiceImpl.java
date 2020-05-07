@@ -22,8 +22,8 @@ public class MultipleServiceImpl implements MultipleService {
   }
 
   @Override
-  public List<Multiple> list() throws Exception {
-    return multipleDao.findAll();
+  public List<Multiple> list(int qno) throws Exception {
+    return multipleDao.findAll(qno);
   }
 
   @Override
@@ -42,11 +42,11 @@ public class MultipleServiceImpl implements MultipleService {
   }
 
   @Override
-  public Multiple get(int questionNo, int multipleNo) throws Exception {
+  public Multiple getAnswer(int questionNo, int multipleNo) throws Exception {
     HashMap<String, Integer> map = new HashMap<>();
     map.put("qNO", questionNo);
     map.put("mNo", multipleNo);
-    return multipleDao.get(map);
+    return multipleDao.getAnswer(map);
   }
 
 

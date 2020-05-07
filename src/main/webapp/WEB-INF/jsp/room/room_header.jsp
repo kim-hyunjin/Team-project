@@ -17,7 +17,6 @@
                 <a href="../../clazz/list"><span>${clazzNow.name}</span></a>
             </div>
             <div class="room_header__column">
-                <a href="../timeline/list?room_no=${clazzNow.classNo}"><span class="room_header__menu">타임라인</span></a>
                 <a href="../lesson/list?room_no=${clazzNow.classNo}"><span class="room_header__menu">수업</span></a>
                 <a href="../user/list?room_no=${clazzNow.classNo}"><span class="room_header__menu">사용자</span></a>
                 <a href="../grade/list?room_no=${clazzNow.classNo}"><span class="room_header__menu">성적</span></a>

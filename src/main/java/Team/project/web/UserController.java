@@ -37,16 +37,7 @@ public class UserController {
     return "/WEB-INF/jsp/user/form.jsp";
   }
 
-  @SuppressWarnings("unused")
-  private static boolean validationPasswd(String password) {
-    Pattern p = Pattern.compile("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$");
-    Matcher m = p.matcher(password);
-    
-    if(m.matches()) {
-      return true;
-    }
-    return false;
-  }
+
   
   @RequestMapping("/user/add")
   public String add(User user, MultipartFile photo) throws Exception {

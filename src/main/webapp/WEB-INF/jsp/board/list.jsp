@@ -17,7 +17,7 @@
 				 <c:forEach items="${list}" var="item">
 				    <tr>
 				      <td>${item.boardNo}</td> 
-				      <td><a href='list?bno=${item.boardNo}' target=postList>${item.title}</a>
+				      <td><a href='../post/list?bno=${item.boardNo}' target=postList>${item.title}</a>
 				      <a href="delete?no=${item.boardNo}"><span class="board_delete"></span></a>
 				      <a href="updateForm?no=${item.boardNo}"><span class="board_update"></span></a></td> 
 				    </tr>
@@ -26,7 +26,10 @@
 			   </div>
 			   </div>
 			   <div class="post_part">
-		      <iframe src="" name="postList" class="post_part__content"></iframe>
+		      <iframe name="postList" class="post_part__content">
+
+		      </iframe>
+		   
 		   </div>
 
 </div>

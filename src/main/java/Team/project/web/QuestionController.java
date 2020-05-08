@@ -1,6 +1,7 @@
 package Team.project.web;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import javax.servlet.ServletContext;
@@ -62,6 +63,7 @@ public class QuestionController {
     model.addAttribute("question", questionService.get(qno));
     model.addAttribute("multiple", multipleService.list(qno));
 
+    // 답변 찾아 model에 담는 부분
     List<Answer> answerList = answerService.findAll(qno);
     HashMap<Integer, Multiple> multipleMap = new HashMap<>();
     for (Answer a : answerList) {
@@ -78,8 +80,45 @@ public class QuestionController {
 
 
   @PostMapping("update")
-  public String update(Question question, HttpSession session) throws Exception {
+  public String update(Question question, HttpSession session, Integer[] multipleNo, Integer[] no,
+      String[] multipleContent, Integer[] deleteNo, MultipartFile partfile) throws Exception {
+    // 넘어온 no와 multipleContent배열을 가지고 ArrayList<Multiple> 생성하여 update 실행
+    if (multipleNo != null) {
+      ArrayList<Multiple> multipleList = new ArrayList<>();
+      for (int i = 0; i < multipleNo.length; i++) {
+        System.out.println("multipleNo 번호 =====>" + multipleNo[i]);
+        System.out.println("객관식 번호 =====>" + no[i]);
+        System.out.println("객관식 내용 =====>" + multipleContent[i]);
+        Multiple temp = new Multiple();
+        temp.setMultipleNo(multipleNo[i]);
+        temp.setQuestionNo(question.getQuestionNo());
+        temp.setNo(no[i]);
+        temp.setMultipleContent(multipleContent[i]);
+        multipleList.add(temp);
+      }
+      multipleService.update(multipleList);
+    }
+    // int배열 deleteNo로 넘어온 값을 가지고 객관식 항목 삭제
+    if (deleteNo != null) {
+      for (int delNo : deleteNo) {
+        System.out.println("삭제할 객관식 번호 ==> " + delNo);
+        multipleService.delete(delNo);
+      }
+    }
+
+    // 넘어온 question에 정보 추가 후 update 실행
+    int memberNo = ((ClazzMember) session.getAttribute("nowMember")).getMemberNo();
+    question.setMemberNo(memberNo);
+    if (partfile.getSize() > 0) {
+      String dirPath = servletContext.getRealPath("/upload/lesson/question");
+      String originalName = partfile.getOriginalFilename();
+      // String extention = originalName.substring(originalName.lastIndexOf(".") + 1);
+      partfile.transferTo(new File(dirPath + "/" + originalName));
+      question.setFilePath(originalName);
+    }
+    System.out.println("!!!!!퀘스쳔 정보!!!!!" + question);
     questionService.update(question);
+
     return "redirect:../lesson/list?room_no=" + session.getAttribute("clazzNowNo");
   }
 

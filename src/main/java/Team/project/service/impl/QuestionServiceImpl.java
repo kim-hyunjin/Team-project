@@ -2,6 +2,7 @@ package Team.project.service.impl;
 
 import java.util.List;
 import org.springframework.stereotype.Component;
+import Team.project.dao.MultipleDao;
 import Team.project.dao.QuestionDao;
 import Team.project.domain.Question;
 import Team.project.service.QuestionService;
@@ -10,9 +11,11 @@ import Team.project.service.QuestionService;
 public class QuestionServiceImpl implements QuestionService {
 
   QuestionDao questionDao;
+  MultipleDao multipleDao;
 
-  public QuestionServiceImpl(QuestionDao questionDao) {
+  public QuestionServiceImpl(QuestionDao questionDao, MultipleDao multipleDao) {
     this.questionDao = questionDao;
+    this.multipleDao = multipleDao;
   }
 
   @Override
@@ -36,8 +39,8 @@ public class QuestionServiceImpl implements QuestionService {
   }
 
   @Override
-  public int update(Question question) throws Exception {
-    return questionDao.update(question);
+  public void update(Question question) throws Exception {
+    questionDao.update(question);
   }
 
   @Override

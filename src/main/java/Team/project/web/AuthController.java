@@ -29,6 +29,7 @@ public class AuthController {
     session.removeAttribute("loginUser");
     User user = userService.get(email, password);
     if (user != null) {
+      // 로그인 시 유저 정보가 세션에 "loginUser"로 저장됨.
       session.setAttribute("loginUser", user);
       return "redirect:../clazz/list";
     } else {

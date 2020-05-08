@@ -68,8 +68,7 @@ public class AssignmentController {
   }
   
   @GetMapping("detail")
-  public String detail(HttpServletRequest request,HttpServletResponse response,
-      int no, Model model) throws Exception{
+  public String detail(int no, Model model) throws Exception{
   Assignment assignment = assignmentService.get(no);
     System.out.println(assignment);
   model.addAttribute("assignment", assignment);
@@ -83,6 +82,7 @@ public class AssignmentController {
     ClazzMember member = (ClazzMember) session.getAttribute("nowMember");
     assignment.setClassNo(clazz.getClassNo());
     assignment.setMemberNo(member.getMemberNo());
+    // 파일첨부 아직 미해결
 //    if (partfile.getSize() > 0) {
 //      String dirPath = servletContext.getRealPath("/upload/lesson/assignment");
 //      String originalName = UUID.randomUUID().toString();

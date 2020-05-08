@@ -18,6 +18,7 @@
       <span style="font-weight:600; font-size:1.5em;">BTS</span>
     </div>
     <div class="main_header__column">
+      <span><a href= "#">수업 참여</a></span>
       <span><a href="form">수업 추가</a></span>
         <c:if test="${not empty loginUser}">
         <div class="header__user">
@@ -26,10 +27,11 @@
           </c:if>
           <c:if test="${empty loginUser.profilePhoto}">
             <i class="far fa-user" style="font-size:1.5em; margin-right: 0.3em;"></i>
-          </c:if>cd
+          </c:if>
           <span><a href="${pageContext.servletContext.contextPath}/app/user/detail?no=${loginUser.userNo}">${loginUser.name}</a></span>
         </div>
           <a href="../auth/logout">logout</a>
         </c:if>
     </div>
   </div>
+  

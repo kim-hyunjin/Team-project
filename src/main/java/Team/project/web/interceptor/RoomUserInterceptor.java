@@ -44,6 +44,7 @@ public class RoomUserInterceptor implements HandlerInterceptor {
         response.sendRedirect("/Team-project/app/clazz/list");
         return false;
       }
+      // clazz/list에서 수업 room에 들어갈 시 해당 수업의 멤버정보를 "nowMember"에 저장.
       request.getSession().setAttribute("nowMember", member);
 
     } catch (Exception e) {

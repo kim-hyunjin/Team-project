@@ -28,12 +28,21 @@
 		        로그인 방식: ${loginMethod}<br>
 		        회원가입일 : ${user.createDate}
 		        <p><button>변경</button>
-		        <a href='delete?no=${user.userNo}'>삭제</a></p>
-		        </form>
+            <input type="button" value="삭제하기" onclick="button_event();">
+</form>
 	</c:if>
-	
 	<c:if test="${empty user}">
 	   <p>해당 회원이 없습니다.</p>
 	</c:if>
+
+<script type="text/javascript">
+function button_event(){
+if (confirm("정말 삭제하시겠습니까??") == true){    //확인
+    location.href = "delete?no="+${user.userNo};
+}else{   //취소
+    return;
+}
+}
+</script>
 </body>
 </html>

@@ -11,6 +11,15 @@ public class Clazz implements Serializable {
   private String room;
   private String classCode;
   private Date createDate;
+  private ClazzMember clazzMember;
+
+  public ClazzMember getClazzMember() {
+    return clazzMember;
+  }
+
+  public void setClazzMember(ClazzMember clazzMember) {
+    this.clazzMember = clazzMember;
+  }
 
   public int getClassNo() {
     return classNo;

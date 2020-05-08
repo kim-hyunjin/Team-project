@@ -17,5 +17,4 @@ public interface PostDao {
 
   public List<Post> findAll(int no) throws Exception;
 
-  public List<Post> findList(int no) throws Exception;
 }

@@ -16,6 +16,7 @@ import Team.project.service.ClazzMemberService;
 import Team.project.service.ClazzService;
 
 @Controller
+@RequestMapping("/clazz")
 public class ClazzController {
 
   @Autowired
@@ -23,7 +24,7 @@ public class ClazzController {
   @Autowired
   ClazzMemberService clazzMemberService;
 
-  @GetMapping("/clazz/list")
+  @GetMapping("list")
   public String list(HttpSession session, Model model) throws Exception {
     int no = -1;
     if (session.getAttribute("loginUser") != null) {
@@ -36,12 +37,12 @@ public class ClazzController {
     return "/WEB-INF/jsp/clazz/list.jsp";
   }
 
-  @GetMapping("/clazz/form")
+  @GetMapping("form")
   public String form() {
     return "/WEB-INF/jsp/clazz/form.jsp";
   }
 
-  @PostMapping("/clazz/add")
+  @PostMapping("add")
   public String add(HttpSession session, Clazz clazz) throws Exception {
     // 랜덤 수업 코드 생성
     StringBuffer temp = new StringBuffer();
@@ -73,14 +74,16 @@ public class ClazzController {
     return "redirect:list";
   }
 
-  @GetMapping("/clazz/detail")
-  public String detail(int no, Model model) throws Exception {
-    Clazz clazz = clazzService.get(no);
+  @GetMapping("detail")
+  public String detail(Model model, HttpSession session) throws Exception {
+    
+    Clazz clazz = (Clazz) session.getAttribute("clazzNow");
+    
     model.addAttribute("clazz", clazz);
     return "/WEB-INF/jsp/clazz/detail.jsp";
   }
 
-  @PostMapping("/clazz/update")
+  @PostMapping("update")
   public String update(Clazz clazz, Model model) throws Exception {
     if (clazzService.update(clazz) > 0) {
       return "redirect:../room/timeline";
@@ -88,4 +91,21 @@ public class ClazzController {
       throw new Exception("수업 정보 변경에 실패했습니다.");
     }
   }
+  
+  // 클래스를 찾은 뒤에 수업 목록에 추가하기
+  @GetMapping("join")
+  public String join(HttpSession session, Model model, String code) throws Exception {
+    ClazzMember clazzMember = new ClazzMember();
+
+    Clazz clazz = (Clazz)clazzService.get(code);
+    clazzMember.setClazzNo(clazz.getClassNo());
+    
+    User user = (User) session.getAttribute("loginUser");
+    clazzMember.setUserNo(user.getUserNo());
+    clazzMember.setRole(1);
+    
+    clazzMemberService.add(clazzMember);
+    return "redirect:list";
+  }
+
 }// ClazzController

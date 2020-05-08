@@ -72,6 +72,9 @@ dependencies {
   //
   compileOnly 'javax.servlet:javax.servlet-api:4.0.1'
   
+  // Mail API
+  implementation 'javax.mail:mail:1.5.0-b01'
+  
   // JSTL API 및 구현 라이브러리
   implementation 'jstl:jstl:1.2'
   

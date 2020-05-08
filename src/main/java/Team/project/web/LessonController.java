@@ -42,6 +42,7 @@ public class LessonController {
 
   @RequestMapping("lesson/list")
   public String list(int room_no, Model model, HttpSession session) throws Exception {
+    // 현재 접속한 클래스룸의 정보를 세션에 "clazzNow"로 저장
     Clazz clazz = clazzService.get(room_no);
     session.removeAttribute("clazzNow");
     session.setAttribute("clazzNow", clazz);

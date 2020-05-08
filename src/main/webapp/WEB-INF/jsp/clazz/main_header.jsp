@@ -18,6 +18,7 @@
       <span style="font-weight:600; font-size:1.5em;">BTS</span>
     </div>
     <div class="main_header__column">
+      <span><a href= "#">수업 참여</a></span>
       <span><a href="form">수업 추가</a></span>
         <c:if test="${not empty loginUser}">
         <div class="header__user">
@@ -33,3 +34,4 @@
         </c:if>
     </div>
   </div>
+  

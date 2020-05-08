@@ -12,8 +12,11 @@ public interface ClazzService {
   int delete(int no) throws Exception;
 
   Clazz get(int no) throws Exception;
-
+  
   int update(Clazz clazz) throws Exception;
 
   List<Clazz> list(int no) throws Exception;
+
+  // 수업코드로 참여하기
+  Clazz get(String code) throws Exception;
 }

@@ -45,6 +45,10 @@ public class ClazzServiceImpl implements ClazzService {
     return clazzDao.findByUserNo(no);
   }
 
+  @Override
+  public Clazz get(String code) throws Exception {
+  return clazzDao.findByCode(code);
+  }
 
 
 }

@@ -16,5 +16,8 @@ public interface ClazzDao {
   public int delete(int no) throws Exception;
 
   public List<Clazz> findByUserNo(int userNo) throws Exception;
+  
+  // 수업참여코드
+  public Clazz findByCode(String code) throws Exception;
 }
 

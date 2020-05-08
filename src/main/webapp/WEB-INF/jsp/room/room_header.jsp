@@ -23,7 +23,7 @@
                 <a href="../board/"><span class="room_header__menu">게시판</span></a>
             </div>
             <div class="room_header__column">
-                <a href="../clazz/detail"><i class="fas fa-cog" style="font-size: 1.2em;"></i></a>
+                <a href="../../clazz/detail"><i class="fas fa-cog" style="font-size: 1.2em;"></i></a>
                 <c:if test="${not empty loginUser}">
                     <div class="header__user">
                         <c:if test="${not empty loginUser.profilePhoto}">

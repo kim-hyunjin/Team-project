@@ -75,8 +75,10 @@ public class ClazzController {
   }
 
   @GetMapping("detail")
-  public String detail(int no, Model model) throws Exception {
-    Clazz clazz = clazzService.get(no);
+  public String detail(Model model, HttpSession session) throws Exception {
+    
+    Clazz clazz = (Clazz) session.getAttribute("clazzNow");
+    
     model.addAttribute("clazz", clazz);
     return "/WEB-INF/jsp/clazz/detail.jsp";
   }

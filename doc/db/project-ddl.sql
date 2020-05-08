@@ -229,15 +229,15 @@ insert into answer(member_no, question_no, content)
 insert into answer(member_no, question_no, content)
   values(15, 7, '정규형에는 단계가 있는데, 높은 단계로 갈수록 중복이 적은 릴레이션으로 설계됩니다.');
 insert into answer(member_no, question_no, multiple_no)
-  values(16, 8, 1);
+  values(16, 8, 6);
 insert into answer(member_no, question_no, multiple_no) 
-  values(17, 8, 3);    
+  values(17, 8, 7);    
 insert into answer(member_no, question_no, multiple_no) 
-  values(18, 8, 2);   
+  values(18, 8, 8);   
 insert into answer(member_no, question_no, multiple_no) 
-  values(19, 8, 5);   
+  values(19, 8, 9);   
 insert into answer(member_no, question_no, multiple_no) 
-  values(20, 8, 5); 
+  values(20, 8, 10); 
 
   
 -- 쪽지

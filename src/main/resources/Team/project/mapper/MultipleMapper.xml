@@ -7,11 +7,19 @@
 
   <resultMap type="Multiple" id="MultipleMap">
     <id column="multiple_no"  property="multipleNo"/>
+    <result column="question_no" property="questionNo"/>
     <result column="no"  property="no"/>
-    <result column="content"  property="content"/>
+    <result column="content"  property="multipleContent"/>
   </resultMap>
   
-  <select id="get" resultMap="MultipleMap" parameterType="map">
+  <select id="findAll" resultMap="MultipleMap" parameterType="int">
+    select * from multiple
+    where question_no = #{qno}
+  
+  </select>
+  
+  
+  <select id="getAnswer" resultMap="MultipleMap" parameterType="map">
     select
       *
     from 
@@ -19,6 +27,26 @@
     where 
       question_no = #{qNO} and multiple_no = #{mNo}
   </select>
+  
+  <insert id="insert" parameterType="Multiple">
+    insert into multiple(question_no, no, content)
+    values(#{questionNo}, #{no}, #{multipleContent})
+  </insert>
+
+  <update id="update" parameterType="Multiple">
+    update multiple
+    <set>
+      <if test="no != null and no !=''">no=#{no},</if>
+      <if test="multipleContent != null and multipleContent !=''">content=#{multipleContent}</if>
+    </set>
+    where multiple_no=#{multipleNo}
+  </update>
+  
+  <delete id="delete" parameterType="int">
+    delete from multiple
+    where multiple_no = #{multipleNo}
+  </delete>
+  
   
   
 </mapper>

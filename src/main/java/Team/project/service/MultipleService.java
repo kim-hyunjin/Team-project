@@ -5,15 +5,17 @@ import Team.project.domain.Multiple;
 
 public interface MultipleService {
 
-  void add(Multiple mulitple) throws Exception;
+  List<Multiple> list(int qno) throws Exception;
 
-  List<Multiple> list() throws Exception;
+  void insert(Multiple multiple) throws Exception;
 
-  int delete(int no) throws Exception;
+  void update(Multiple multiple) throws Exception;
 
   Multiple get(int no) throws Exception;
 
-  int update(Multiple multiple) throws Exception;
+  Multiple getAnswer(int questionNo, int multipleNo) throws Exception;
 
-  Multiple get(int questionNo, int multipleNo) throws Exception;
+  void update(List<Multiple> multiples) throws Exception;
+
+  void delete(int multipleNo) throws Exception;
 }

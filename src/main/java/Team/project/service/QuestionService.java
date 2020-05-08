@@ -15,5 +15,5 @@ public interface QuestionService {
 
   Question get(int no) throws Exception;
 
-  int update(Question question) throws Exception;
+  void update(Question question) throws Exception;
 }

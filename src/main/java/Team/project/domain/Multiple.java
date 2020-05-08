@@ -7,9 +7,9 @@ public class Multiple implements Serializable {
   private static final long serialVersionUID = 1L;
 
   private int multipleNo;
+  private int questionNo;
   private int no;
-  private String content;
-
+  private String multipleContent;
 
   public int getMultipleNo() {
     return multipleNo;
@@ -19,12 +19,12 @@ public class Multiple implements Serializable {
     this.multipleNo = multipleNo;
   }
 
-  public String getContent() {
-    return content;
+  public int getQuestionNo() {
+    return questionNo;
   }
 
-  public void setContent(String content) {
-    this.content = content;
+  public void setQuestionNo(int questionNo) {
+    this.questionNo = questionNo;
   }
 
   public int getNo() {
@@ -34,6 +34,15 @@ public class Multiple implements Serializable {
   public void setNo(int no) {
     this.no = no;
   }
+
+  public String getMultipleContent() {
+    return multipleContent;
+  }
+
+  public void setMultipleContent(String multipleContent) {
+    this.multipleContent = multipleContent;
+  }
+
 
 
 }

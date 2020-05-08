@@ -25,7 +25,7 @@
                 자기소개${user.introduce}<br>
                 회원가입일 : ${user.createDate}
         </p>
-        <a href='../../user/delete?no=${user.userNo}&room_no=${room_no}'>삭제</a>
+        <a href='delete?member_no=${member_no}&room_no=${room_no}'>삭제</a>
 	</c:if>
     <c:if test="${empty user}">
        <p>해당 회원이 없습니다.</p>

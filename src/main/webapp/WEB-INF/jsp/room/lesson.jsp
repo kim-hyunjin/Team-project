@@ -6,13 +6,23 @@
 <jsp:include page="../room/room_header.jsp"/>
   
   <div class="room_contents">
-  <a href="../assignment/form">과제 추가</a>
-  <a href="../question/form">질문 추가</a>
+  <a href="../assignment/form" id="assignment_add_btn">과제 추가</a>
+  <a href="../question/form" id="question_add_btn">질문 추가</a>
   <div id="lesson_contents">
   </div>
   </div>
   
   <script>
+  const role = ${nowMember.role};
+  const assignmentAddBtn = document.getElementById("assignment_add_btn");
+  const questionAddBtn = document.getElementById("question_add_btn");
+  if(role !== 0) {
+    assignmentAddBtn.setAttribute("style", "display:none;");
+    questionAddBtn.setAttribute("style", "display:none;");
+  }
+
+  
+  
   let questions = eval('('+ '${questionJson}' +')');
   let assignments = eval('('+ '${assignmentJson}' +')');
   
@@ -32,7 +42,7 @@
 	  content += `<div class="lesson_contents">` + 
 	  `<div class="lesson_contents__header">`;
   if(item.hasOwnProperty(QUESTION)) {
-	  content += `<span class="lesson_contents__category"><i class="fas fa-pen-square"></i></span>`
+	  content += `<span class="lesson_contents__category"><i class="fas fa-question-circle"></i></span>`
           + `<span class="lesson_contents__title"><a href="../question/detail?qno=`+ item.questionNo +`">` + item.title + `</a></span>`;
   } else if(item.hasOwnProperty(ASSIGNMENT)) {
       content += `<span class="lesson_contents__category"><i class="fas fa-pen-square"></i></span>`

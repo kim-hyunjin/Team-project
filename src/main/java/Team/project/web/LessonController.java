@@ -9,10 +9,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import Team.project.domain.Answer;
-import Team.project.domain.Assignment;
 import Team.project.domain.Clazz;
 import Team.project.domain.Multiple;
-import Team.project.domain.Question;
 import Team.project.service.AnswerService;
 import Team.project.service.AssignmentService;
 import Team.project.service.AssignmentSubmitService;
@@ -48,14 +46,15 @@ public class LessonController {
     Clazz clazz = clazzService.get(room_no);
     session.removeAttribute("clazzNow");
     session.setAttribute("clazzNow", clazz);
-    
+    session.setAttribute("clazzNowNo", clazz.getClassNo());
+
     ObjectMapper mapper = new ObjectMapper();
     String questionJson = mapper.writeValueAsString(questionService.list(room_no));
     String assignmentJson = mapper.writeValueAsString(assignmentService.list(room_no));
-    
+
     model.addAttribute("questionJson", questionJson);
     model.addAttribute("assignmentJson", assignmentJson);
-    
+
     return "/WEB-INF/jsp/room/lesson.jsp";
   }
 
@@ -63,11 +62,11 @@ public class LessonController {
   public String detail(int qno, Model model) throws Exception {
     List<Answer> answerList = answerService.findAll(qno); // 한 질문에 대한 여러 답변들
 
-      for (Answer a : answerList) {
-        System.out.println("============>" + a.getUser().getName());
-        System.out.println("===========>" + a.getContent());
-        System.out.println("===========>" + a.getMultipleNo());
-      }
+    for (Answer a : answerList) {
+      System.out.println("============>" + a.getUser().getName());
+      System.out.println("===========>" + a.getContent());
+      System.out.println("===========>" + a.getMultipleNo());
+    }
     HashMap<Integer, Multiple> multiples = new HashMap<>();
     for (Answer a : answerList) {
       int multipleNo = a.getMultipleNo();

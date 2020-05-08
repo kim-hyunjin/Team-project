@@ -4,6 +4,8 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +37,8 @@ public class UserController {
     return "/WEB-INF/jsp/user/form.jsp";
   }
 
+
+  
   @RequestMapping("/user/add")
   public String add(User user, MultipartFile photo) throws Exception {
     if (photo.getSize() > 0) {
@@ -53,24 +57,42 @@ public class UserController {
   }
 
   @RequestMapping("/room/user/form")
-  public String studentForm() {
+  public String studentForm(Model model, int class_no, int role) {
+    model.addAttribute("class_no", class_no);
+    model.addAttribute("role", role);
     return "/WEB-INF/jsp/room/user/form.jsp";
   }
   
   @RequestMapping("/room/user/add")
-  public String add(User user) throws Exception {
-    if (userService.add(user) > 0) {
-      return "redirect:../user/list";
-    } else {
-      throw new Exception("회원을 추가할 수 없습니다.");
-    }
+  public String add(String email, int class_no, int role) throws Exception {
+    User result = userService.get(email);
+      if(result != null) {
+        ClazzMember clazzMember = new ClazzMember();
+        clazzMember.setUserNo(result.getUserNo());
+        clazzMember.setClazzNo(class_no);
+        clazzMember.setRole(role);
+        clazzMemberService.add(clazzMember);
+        return "redirect:list?room_no="+class_no;
+      } else {
+        throw new Exception("회원을 추가할 수 없습니다.");
+      }
   }
   
   @RequestMapping("/user/delete")
-  public String delete(int no, int room_no) throws Exception {
+  public String delete(HttpSession session, int no) throws Exception {
     if (userService.delete(no) > 0) { // 삭제했다면,
-      if (room_no != 0) {
-        return "redirect:../room/user/list?room_no="+room_no;
+      session.removeAttribute("loginUser");
+      return "redirect:../auth/form";
+    } else {
+      throw new Exception("해당 번호의 회원이 없습니다.");
+    }
+  }
+  
+  @RequestMapping("room/user/delete")
+  public String delete(int member_no, int room_no, Model model) throws Exception {
+    if (clazzMemberService.delete(member_no) > 0) { // 삭제했다면,
+      if (member_no != 0) {
+        return "redirect:list?room_no="+room_no;
       } else {
         return "redirect:list";
       }
@@ -78,6 +100,8 @@ public class UserController {
       throw new Exception("해당 번호의 회원이 없습니다.");
     }
   }
+  
+  
   
 
   @RequestMapping("/user/detail")
@@ -103,15 +127,15 @@ public class UserController {
   }
   
   @RequestMapping("/room/user/detail")
-  public String roomDetail(int no, int room_no, Model model) throws Exception {
+  public String roomDetail(int no, int room_no, Model model,int member_no) throws Exception {
     User user = userService.get(no);
    
     model.addAttribute("user", user);
     model.addAttribute("room_no", room_no);
+    model.addAttribute("no", no);
+    model.addAttribute("member_no", member_no);
     return "/WEB-INF/jsp/room/user/detail.jsp";
   }
-  
-  
 
   @RequestMapping("/room/user/list")
   public String list(int room_no, Model model) throws Exception {

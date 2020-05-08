@@ -19,6 +19,9 @@
         </div>
     </c:forEach>
     </c:if>
+    <form action='join' method='get'>
+수업코드입력: <input name='code' type='text'>
+<button>등록</button>
   </div>
 </div>
 </body>

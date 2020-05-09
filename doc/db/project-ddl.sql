@@ -1,44 +1,46 @@
 -- 학생 데이터 
 insert into user(email, name, password, tel, major, introduce, login_method)
-  values('asdzxc9395@naver.com', '채진호선생님', 1111, '1515', '조리과', '하기싫어요', 1);
+  values('asdzxc9395@naver.com', '채진호선생님', password('1111'), '1515', '조리과', '하기싫어요', 1);
 insert into user(email, name, password, tel, major, introduce, login_method)
-  values('asdzx@naver.com', '조이', 1111, 23423, '조리과', '하기싫어요', 1);
+  values('asdzx@naver.com', '조이', password('1111'), 23423, '조리과', '하기싫어요', 1);
 insert into user(email, name, password, tel, major, introduce, login_method)
-  values('9395@naver.com', '아이번', 1111, 234234, '조리과.', '하기싫어요', 1);
+  values('9395@naver.com', '아이번', password('1111'), 234234, '조리과.', '하기싫어요', 1);
 insert into user(email, name, password, tel, major, introduce, login_method)
-  values('asdwd395@naver.com', '갈리오', 1111, 343432, '조리과.', '하기싫어요', 0);
+  values('asdwd395@naver.com', '갈리오', password('1111'), 343432, '조리과.', '하기싫어요', 0);
 insert into user(email, name, password, tel, major, introduce, login_method)
-  values('sdwdw@test.com', '아무무', 1111, 234234, '조리과', '하기싫어요', 0);
+  values('sdwdw@test.com', '아무무', password('1111'), 234234, '조리과', '하기싫어요', 0);
   insert into user(email, name, password, tel, major, introduce, login_method)
-  values('linus@kakao.com', '리누스', 'sdofijn', '010-1234-5678', '조리과', '노잼', 1);
+  values('linus@kakao.com', '리누스', password('1111'), '010-1234-5678', '조리과', '노잼', 1);
 insert into user(email, name, password, tel, major, introduce, login_method)
-  values('koreano@gmail.com', '세종대왕', 'ffdv', '010-1231-1231', '조리과', '나랏말싸미', 2);
+  values('koreano@gmail.com', '세종대왕', password('1111'), '010-1231-1231', '조리과', '나랏말싸미', 2);
 insert into user(email, name, password, tel, major, introduce, login_method)
-  values('james@kako.com', 'James', 'asdas', '010-4243-7567', '조리과', 'hello~!', 1);
+  values('james@kako.com', 'James', password('1111'), '010-4243-7567', '조리과', 'hello~!', 1);
 insert into user(email, name, password, tel, major, introduce, login_method)
-  values('asdwd395@gmail.com', '이타치', 'sdf!asd', '010-3466-4454', '조리과', '아리가또', 2);
+  values('asdwd395@gmail.com', '이타치', password('1111'), '010-3466-4454', '조리과', '아리가또', 2);
 insert into user(email, name, password, tel, major, introduce, login_method)
-  values('sdwdw@naver.com', '클레오파트라', '123123', '010-1233-5657', '조리과', '청청이 어울림', 0);
+  values('sdwdw@naver.com', '클레오파트라', password('1111'), '010-1233-5657', '조리과', '청청이 어울림', 0);
   insert into user(email, name, password, tel, major, introduce, login_method)
-  values('qwertrtt9395@naver.com', '신지섭', 1111, 010-1234-5678, '컴퓨터공학', '안녕하세요', 1);
+  values('qwertrtt9395@naver.com', '신지섭', password('1111'), 010-1234-5678, '컴퓨터공학', '안녕하세요', 1);
 insert into user(email, name, password, tel, major, introduce, login_method)
-  values('wltjq2006@naver.com', '가야', 1111, 010-5412-4471, '컴퓨터공학', '반갑습니다', 1);
+  values('wltjq2006@naver.com', '가야', password('1111'), 010-5412-4471, '컴퓨터공학', '반갑습니다', 1);
 insert into user(email, name, password, tel, major, introduce, login_method)
-  values('11541_1@naver.com', '고기', 1111, 010-4415-5574, '컴퓨터공학.', '홧팅', 1);
+  values('11541_1@naver.com', '고기', password('1111'), 010-4415-5574, '컴퓨터공학.', '홧팅', 1);
 insert into user(email, name, password, tel, major, introduce, login_method)
-  values('qwqwexzxc395@naver.com', '가지마', 1111, 010-7415-5412, '컴퓨터공학.', '잘부탁드려요', 0);
+  values('qwqwexzxc395@naver.com', '가지마', password('1111'), 010-7415-5412, '컴퓨터공학.', '잘부탁드려요', 0);
 insert into user(email, name, password, tel, major, introduce, login_method)
-  values('dsdccc@daum.com', '오징어', 1111, 010-8742-4512, '컴퓨터공학', 'ㅎㅎ', 0);
+  values('dsdccc@daum.com', '오징어', password('1111'), 010-8742-4512, '컴퓨터공학', 'ㅎㅎ', 0);
 insert into user(email, name, password, major, introduce, login_method, create_date)
-  values('ha@gamil.com', '하정우', 'a1111', '컴퓨터공학', '안녕하세요', '0', '2020-4-20');
+  values('ha@gamil.com', '하정우', password('1111'), '컴퓨터공학', '안녕하세요', '0', '2020-4-20');
 insert into user(email, name, password, tel, major, introduce, profile_photo, login_method, create_date)
-  values('kim@gamil.com', '김사랑', 'k1111', '010-1111-2222', '수학', '안녕', 'b.gif', '1', '2020-4-21');
+  values('kim@gamil.com', '김사랑', password('1111'), '010-1111-2222', '수학', '안녕', 'b.gif', '1', '2020-4-21');
 insert into user(email, name, password, tel, introduce, profile_photo, login_method, create_date)
-  values('lim@gamil.com', '임윤아', 'l1111', '010-1111-3333', '하이', 'c.gif', '1', '2020-4-22');
+  values('lim@gamil.com', '임윤아', password('1111'), '010-1111-3333', '하이', 'c.gif', '1', '2020-4-22');
 insert into user(email, name, password, tel, major, introduce, profile_photo, login_method, create_date)
-  values('son@gamil.com', '손흥민', 's1111', '010-1111-4444', '사회', '할룽', 'd.gif', '0', '2020-4-23');
+  values('son@gamil.com', '손흥민', password('1111'), '010-1111-4444', '사회', '할룽', 'd.gif', '0', '2020-4-23');
 insert into user(email, name, password, tel, major, profile_photo, login_method, create_date)
-  values('naldo@gamil.com', '호날두', 'n1111', '010-1111-5555', '역사', 'e.gif', '0', '2020-4-24');
+  values('naldo@gamil.com', '호날두', password('1111'), '010-1111-5555', '역사', 'e.gif', '0', '2020-4-24');
+insert into user(email, name, password, tel, major, profile_photo, login_method, create_date)
+  values('123@123', '테스트', password('123'), '010-1111-5555', '역사', 'e.gif', '0', '2020-4-24');
   
   
 -- 클래스 생성
@@ -101,6 +103,12 @@ insert into class_member(user_no, class_no, role)
   values(19, 3, 1);
 insert into class_member(user_no, class_no, role) 
   values(20, 3, 1);
+insert into class_member(user_no, class_no, role) 
+  values(21, 1, 0);
+insert into class_member(user_no, class_no, role) 
+  values(21, 3, 0);
+insert into class_member(user_no, class_no, role) 
+  values(21, 2, 1);
   
   
 -- 과제 입력

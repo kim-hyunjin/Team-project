@@ -41,8 +41,10 @@ public class ClazzController {
   public String form() {
     return "/WEB-INF/jsp/clazz/form.jsp";
   }
-
-  @PostMapping("add")
+  
+ 
+  
+    @PostMapping("add")
   public String add(HttpSession session, Clazz clazz) throws Exception {
     // 랜덤 수업 코드 생성
     StringBuffer temp = new StringBuffer();

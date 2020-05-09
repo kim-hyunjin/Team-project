@@ -4,8 +4,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -78,6 +76,8 @@ public class UserController {
       }
   }
   
+  
+  
   @RequestMapping("/user/delete")
   public String delete(HttpSession session, int no) throws Exception {
     if (userService.delete(no) > 0) { // 삭제했다면,
@@ -100,8 +100,6 @@ public class UserController {
       throw new Exception("해당 번호의 회원이 없습니다.");
     }
   }
-  
-  
   
 
   @RequestMapping("/user/detail")

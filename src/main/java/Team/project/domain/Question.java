@@ -73,5 +73,13 @@ public class Question implements Serializable {
   }
 
 
+  @Override
+  public String toString() {
+    return "Question [questionNo=" + questionNo + ", memberNo=" + memberNo + ", title=" + title
+        + ", content=" + content + ", filePath=" + filePath + ", deadline=" + deadline
+        + ", createDate=" + createDate;
+  }
+
+
 
 }

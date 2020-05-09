@@ -9,17 +9,14 @@
 <title>수업 상세 정보</title>
 </head>
 <body>
-	<h1>수업 상세정보</h1>
+	<h1>수업 코드 변경</h1>
 	<form action='update' method='post'>
-		  번호 : <input name='classNo' type='number' readonly value='${clazz.classNo}'><br>
-		  수업명 : <input name='description' type='text' value='${clazz.name}'><br>
-		  설명<br>
-		  <textarea name='description'>${clazz.description}</textarea><br>
-		  강의실 : <input name='room' type='text' value='${clazz.room}'><br>
+		 <input name='classNo' type='hidden' readonly value='${clazz.classNo}'><br>
+		 <input name='description' type='hidden' value='${clazz.name}'><br>
+		 <!--  <input name ='description' type ='hideen' value='${clazz.description}'><br> -->
+		  <input name='room' type='hidden' value='${clazz.room}'><br>
 		  수업코드 : <input name='room' type='text' value='${clazz.classCode}'><br>
-		  시작일 : ${clazz.createDate}<br>
 		  <button>변경</button>
 	</form>
-
 </body>
 </html>

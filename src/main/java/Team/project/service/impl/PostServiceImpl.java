@@ -17,7 +17,7 @@ public class PostServiceImpl implements PostService {
 
   @Override
   public void add(Post post) throws Exception {
-
+    postDao.insert(post);
   }
 
   @Override
@@ -28,20 +28,17 @@ public class PostServiceImpl implements PostService {
 
   @Override
   public int delete(int no) throws Exception {
-    // TODO Auto-generated method stub
-    return 0;
+    return postDao.delete(no);
   }
 
   @Override
   public Post get(int no) throws Exception {
-    // TODO Auto-generated method stub
-    return null;
+    return postDao.findByNo(no);
   }
 
   @Override
   public int update(Post post) throws Exception {
-    // TODO Auto-generated method stub
-    return 0;
+    return postDao.update(post);
   }
 
   @Override

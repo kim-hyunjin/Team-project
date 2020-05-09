@@ -21,8 +21,9 @@
     </c:if>
     <form action='join' method='get'>
 수업코드입력: <input name='code' type='text'>
-<button>등록</button>
+<button>등록</button><br>
+
+  <a href="../calendar/calendar">캘린더 제발 열려라 참깨!</a>
   </div>
-</div>
 </body>
 </html>

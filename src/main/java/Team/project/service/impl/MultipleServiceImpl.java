@@ -17,18 +17,8 @@ public class MultipleServiceImpl implements MultipleService {
   }
 
   @Override
-  public void add(Multiple mulitple) throws Exception {
-    multipleDao.insert(mulitple);
-  }
-
-  @Override
-  public List<Multiple> list() throws Exception {
-    return multipleDao.findAll();
-  }
-
-  @Override
-  public int delete(int no) throws Exception {
-    return multipleDao.delete(no);
+  public List<Multiple> list(int qno) throws Exception {
+    return multipleDao.findAll(qno);
   }
 
   @Override
@@ -37,18 +27,42 @@ public class MultipleServiceImpl implements MultipleService {
   }
 
   @Override
-  public int update(Multiple multiple) throws Exception {
-    return multipleDao.update(multiple);
-  }
-
-  @Override
-  public Multiple get(int questionNo, int multipleNo) throws Exception {
+  public Multiple getAnswer(int questionNo, int multipleNo) throws Exception {
     HashMap<String, Integer> map = new HashMap<>();
     map.put("qNO", questionNo);
     map.put("mNo", multipleNo);
-    return multipleDao.get(map);
+    return multipleDao.getAnswer(map);
   }
 
+  @Override
+  public void insert(Multiple multiple) throws Exception {
+    multipleDao.insert(multiple);
+  }
+
+  @Override
+  public void update(List<Multiple> multiples) throws Exception {
+    if (multiples != null) {
+      for (Multiple m : multiples) {
+        if (m.getMultipleNo() > 0) {
+          multipleDao.update(m);
+        } else {
+          multipleDao.insert(m);
+        }
+      }
+    }
+  }
+
+  @Override
+  public void update(Multiple multiple) throws Exception {
+    // TODO Auto-generated method stub
+
+  }
+
+  @Override
+  public void delete(int multipleNo) throws Exception {
+    multipleDao.delete(multipleNo);
+
+  }
 
 
 }

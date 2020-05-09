@@ -13,9 +13,11 @@ public class Post implements Serializable {
   private String title;
   private String content;
   private Date createDate;
-  private String filePath;
-  private Board board;
+  private String file;
   // association
+  private Board board;
+  private User user;
+
 
   public int getPostNo() {
     return postNo;
@@ -65,20 +67,36 @@ public class Post implements Serializable {
     this.createDate = createDate;
   }
 
-  public String getFilePath() {
-    return filePath;
-  }
-
-  public void setFilePath(String filePath) {
-    this.filePath = filePath;
-  }
-
   public Board getBoard() {
     return board;
   }
 
   public void setBoard(Board board) {
     this.board = board;
+  }
+
+  public String getFile() {
+    return file;
+  }
+
+  public void setFile(String file) {
+    this.file = file;
+  }
+
+
+  public User getUser() {
+    return user;
+  }
+
+  public void setUser(User user) {
+    this.user = user;
+  }
+
+  @Override
+  public String toString() {
+    return "Post [postNo=" + postNo + ", boardNo=" + boardNo + ", memberNo=" + memberNo + ", title="
+        + title + ", content=" + content + ", createDate=" + createDate + ", file=" + file
+        + ", board=" + board + ", user=" + user + "]";
   }
 
 

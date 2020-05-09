@@ -41,8 +41,10 @@ public class ClazzController {
   public String form() {
     return "/WEB-INF/jsp/clazz/form.jsp";
   }
-
-  @PostMapping("add")
+  
+ 
+  
+    @PostMapping("add")
   public String add(HttpSession session, Clazz clazz) throws Exception {
     // 랜덤 수업 코드 생성
     StringBuffer temp = new StringBuffer();
@@ -75,8 +77,10 @@ public class ClazzController {
   }
 
   @GetMapping("detail")
-  public String detail(int no, Model model) throws Exception {
-    Clazz clazz = clazzService.get(no);
+  public String detail(Model model, HttpSession session) throws Exception {
+    
+    Clazz clazz = (Clazz) session.getAttribute("clazzNow");
+    
     model.addAttribute("clazz", clazz);
     return "/WEB-INF/jsp/clazz/detail.jsp";
   }

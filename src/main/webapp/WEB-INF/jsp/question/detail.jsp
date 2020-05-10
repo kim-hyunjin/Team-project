@@ -51,27 +51,28 @@
 	</c:if>
 
 	<script>
-		const addRow = document.getElementById("addMultiple");
-		addRow.addEventListener("click", function(event){
+		// 객관식 항목 추가 버튼 클릭시 #multipleBox 밑에 .multipleRow추가
+		const addMultiple = document.getElementById("addMultiple");
+		addMultiple.addEventListener("click", function(event){
 			event.preventDefault();
 			let rowDiv = document.createElement("div");
 			rowDiv.setAttribute("class", "multipleRow")
-			let multipleNoInput = '<input type="number" name="multipleNo" value="0" style="display:none">';
+			let multipleNoInput = '<input type="number" name="multipleNo" value="0" style="display:none">'; // 새로 추가되는 multipleNo 인풋태그는 기본값으로 0 할당
 			let noInput = '<input type="number" name="no" placeholder="번호">';
 			let contentInput = '<input type="text" name="multipleContent" placeholder="내용">';
 			let deleteIcon = '<span class="multipleDelete" onclick="deleteEvent(event)"><i class="fas fa-times"></i></span>';
 			rowDiv.innerHTML = multipleNoInput + noInput + contentInput + deleteIcon;
-			addRow.parentNode.appendChild(rowDiv);
+			addMultiple.parentNode.appendChild(rowDiv);
 		});
 
+		// .multipleRow에서 X버튼 클릭시 해당 객관식 항목을 안보이게 숨김.
 		let el = document.getElementsByClassName("multipleDelete");
 		for (let row of el) {
 				row.addEventListener("click", deleteEvent);
 		}
 		function deleteEvent(event) {
 				event.currentTarget.parentNode.setAttribute("style", "display:none");
-				event.currentTarget.parentNode.children[0].setAttribute("name", "deleteNo");
-				//event.currentTarget.parentNode.parentNode.removeChild(event.currentTarget.parentNode);
+				event.currentTarget.parentNode.children[0].setAttribute("name", "deleteNo"); // multipleNo값을 deleteNo로 컨트롤러에 보냄 -> 삭제 작업 수행
 		}
 		
 

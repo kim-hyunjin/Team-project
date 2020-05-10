@@ -42,7 +42,8 @@ public class QuestionController {
   }
 
   @PostMapping("add")
-  public String add(Question question, HttpSession session, MultipartFile partfile)
+  public String add(Question question, HttpSession session, Integer[] no,
+	      String[] multipleContent, MultipartFile partfile)
       throws Exception {
     int memberNo = ((ClazzMember) session.getAttribute("nowMember")).getMemberNo();
     question.setMemberNo(memberNo);
@@ -53,8 +54,18 @@ public class QuestionController {
       partfile.transferTo(new File(dirPath + "/" + originalName));
       question.setFilePath(originalName);
     }
-
     questionService.add(question);
+    //객관식 항목이 있다면 for문을 돌며 insert 수행
+    if (no != null) {
+        for (int i = 0; i < no.length; i++) {
+          Multiple multiple = new Multiple();
+          multiple.setQuestionNo(question.getQuestionNo());
+          multiple.setNo(no[i]);
+          multiple.setMultipleContent(multipleContent[i]);
+          multipleService.insert(multiple);
+        }
+    }
+    
     return "redirect:../lesson/list?room_no=" + session.getAttribute("clazzNowNo");
   }
 

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
+    pageEncoding="UTF-8"
+    trimDirectiveWhitespaces="true"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
 
 <!DOCTYPE html>
 <html>
@@ -31,9 +32,49 @@ document.addEventListener('DOMContentLoaded', function() {
 	});
 </script>
 
+<script>
+  let questions = eval('('+ '${questionJson}' +')');
+  let assignments = eval('('+ '${assignmentJson}' +')');
+  
+  let all = questions.concat(assignments);
+  let = sortingField = "createDate";
+  all.sort(function(a,b) {
+    return b[sortingField] - a[sortingField];
+  });
+  console.log(all);
+  
+  
+  const contentbox = document.getElementById("lesson_contents");
+  let content = "";
+  const ASSIGNMENT = "assignmentNo";
+  const QUESTION = "questionNo";
+  for (let item of all) {
+    content += `<div class="lesson_contents">` + 
+    `<div class="lesson_contents__header">`;
+  if(item.hasOwnProperty(QUESTION)) {
+    content += `<span class="lesson_contents__category"><i class="fas fa-question-circle"></i></span>`
+          + `<span class="lesson_contents__title"><a href="../question/detail?qno=`+ item.questionNo +`">` + item.title + `</a></span>`;
+  } else if(item.hasOwnProperty(ASSIGNMENT)) {
+      content += `<span class="lesson_contents__category"><i class="fas fa-pen-square"></i></span>`
+          + `<span class="lesson_contents__title"><a href="../assignment/detail?no=`+ item.assignmentNo +`">` + item.title + `</a></span>`;
+        }
+  + `<span class="lesson_contents__more"><i class="fas fa-ellipsis-v"></i></span>` // more버튼
+  +`</div>`
+  + `<div class="lesson_contents__date">`;
+    let date = new Date(item.createDate);
+    content += date.toLocaleString() + `</div>`
++`</div>`;
+}
+ console.log(content);
+ console.log(contentbox);
+contentbox.innerHTML = content;
+
+
+  </script>
+
 <body>
  
-<div id='calendar'></div>
+<div id='calendar' style="width: 60%;, height: 60%;"></div>
  
 </body>
 </html>

@@ -1,5 +1,6 @@
 package Team.project.service.impl;
 
+import java.sql.Date;
 import java.util.List;
 import org.springframework.stereotype.Component;
 import Team.project.dao.ClazzDao;
@@ -50,5 +51,9 @@ public class ClazzServiceImpl implements ClazzService {
   return clazzDao.findByCode(code);
   }
 
+  @Override
+	public Clazz get(Date date) throws Exception {
+		return clazzDao.findByDate(date);
+	}
 
 }

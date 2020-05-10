@@ -30,6 +30,10 @@
   from class;
 </select>
 
+<select id="findByDate" resultMap="ClazzMap" parameterType="date">
+select * form class;
+</select>
+
 <select id="findByUserNo" resultMap="ClazzMap" parameterType="int">
   select c.class_no, name, description, room, class_code, create_date
   from class c

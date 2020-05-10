@@ -25,7 +25,7 @@
     
   </select>
   
-  <insert id="insert" parameterType="Question">
+  <insert id="insert" useGeneratedKeys="true" keyProperty="questionNo" parameterType="Question">
     insert into question(member_no, title, content, file, deadline)
     values(#{memberNo}, #{title}, #{content}, #{filePath}, #{deadline})
   </insert>

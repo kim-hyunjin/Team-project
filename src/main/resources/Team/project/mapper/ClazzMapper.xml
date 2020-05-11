@@ -58,7 +58,7 @@
       <if test="name != null and name != ''">name=#{name},</if>
       <if test="description != null and description != ''">description=#{description},</if> 
       <if test="room != null and room != ''">room=#{room},</if>
-      <if test="class_code != null and class_code != ''">class_code=#{classCode}</if>
+      <if test="classCode != null and classCode != ''">class_code=#{classCode}</if>
     </set>
     where class_no=#{classNo}
   </update>

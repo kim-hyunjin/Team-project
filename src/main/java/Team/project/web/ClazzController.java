@@ -86,12 +86,9 @@ public class ClazzController {
   }
 
   @PostMapping("update")
-  public String update(Clazz clazz, Model model) throws Exception {
-    if (clazzService.update(clazz) > 0) {
-      return "redirect:../room/timeline";
-    } else {
-      throw new Exception("수업 정보 변경에 실패했습니다.");
-    }
+  public String update(HttpSession session, Clazz clazz) throws Exception {
+    clazzService.update(clazz);
+    return "redirect:../room/lesson/list?room_no=" + session.getAttribute("clazzNowNo");
   }
   
   // 클래스를 찾은 뒤에 수업 목록에 추가하기

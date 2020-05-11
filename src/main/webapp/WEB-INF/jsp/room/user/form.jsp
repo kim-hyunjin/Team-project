@@ -14,5 +14,10 @@
           <input name="role" type="hidden" value="${role}"><br>
 		<button>완료</button>
 	</form>
+	
+	<script>
+	   
+	
+	</script>
 </body>
 </html>

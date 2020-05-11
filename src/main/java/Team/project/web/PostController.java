@@ -1,6 +1,6 @@
 package Team.project.web;
 
-import java.io.File;
+import java.util.HashMap;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,14 +51,14 @@ public class PostController {
     System.out.println("memberNo========>" + memberNo);
     post.setMemberNo(memberNo);
 
-    if (partFile.getSize() > 0) {
-      String dirPath = servletContext.getRealPath("/upload/post");
-      String originalName = partFile.getOriginalFilename();
-      System.out.println("origianlName=============>" + originalName);
-      // String extention = originalName.substring(originalName.lastIndexOf(".") + 1);
-      partFile.transferTo(new File(dirPath + "/" + originalName));
-      post.setFile(originalName);
-    }
+    // if (partFile.getSize() > 0) {
+    // String dirPath = servletContext.getRealPath("/upload/post");
+    // String originalName = partFile.getOriginalFilename();
+    // System.out.println("origianlName=============>" + originalName);
+    // // String extention = originalName.substring(originalName.lastIndexOf(".") + 1);
+    // partFile.transferTo(new File(dirPath + "/" + originalName));
+    // post.setFile(originalName);
+    // }
     postService.add(post);
     model.addAttribute("bno", post.getBoardNo());
     return "redirect:list";
@@ -86,6 +86,26 @@ public class PostController {
     model.addAttribute("bno", bno);
 
     return "redirect:list";
+  }
+
+  @GetMapping("search")
+  public String search(Post post, String name, Model model) throws Exception {
+
+    HashMap<String, Object> map = new HashMap<>();
+    map.put("boardNo", post.getBoardNo());
+
+    if (post.getTitle().length() > 0) {
+      map.put("title", post.getTitle());
+    }
+    if (post.getContent().length() > 0) {
+      map.put("content", post.getContent());
+    }
+    if (name.length() > 0) {
+      map.put("name", name);
+    }
+
+    model.addAttribute("list", postService.search(map));
+    return "/WEB-INF/jsp/post/search.jsp";
   }
 }
 

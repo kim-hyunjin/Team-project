@@ -1,5 +1,6 @@
 package Team.project.service;
 
+import java.util.HashMap;
 import java.util.List;
 import Team.project.domain.Post;
 
@@ -17,4 +18,5 @@ public interface PostService {
 
   List<Post> list(int no) throws Exception;
 
+  List<Post> search(HashMap<String, Object> params) throws Exception;
 }

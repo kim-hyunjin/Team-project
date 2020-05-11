@@ -1,5 +1,6 @@
 package Team.project.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
 import org.springframework.stereotype.Component;
 import Team.project.dao.PostDao;
@@ -44,6 +45,11 @@ public class PostServiceImpl implements PostService {
   @Override
   public List<Post> list(int no) throws Exception {
     return postDao.findAll(no);
+  }
+
+  @Override
+  public List<Post> search(HashMap<String, Object> params) throws Exception {
+    return postDao.findByKeyword(params);
   }
 
 

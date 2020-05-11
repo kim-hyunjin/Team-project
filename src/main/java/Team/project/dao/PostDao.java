@@ -1,6 +1,7 @@
 package Team.project.dao;
 
 import java.util.List;
+import java.util.Map;
 import Team.project.domain.Post;
 
 public interface PostDao {
@@ -17,4 +18,5 @@ public interface PostDao {
 
   public List<Post> findAll(int no) throws Exception;
 
+  public List<Post> findByKeyword(Map<String, Object> params) throws Exception;
 }

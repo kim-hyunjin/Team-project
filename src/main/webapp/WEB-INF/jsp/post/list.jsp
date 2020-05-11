@@ -21,17 +21,30 @@
 	    </tr>
 	</c:forEach>
    </table>
+  
+  <hr>
+  
+  <hr>
+  <form action='search' method='get'>
+  <input name='boardNo' type='hidden' value='${boardNo}'>
+  제목: <input name='title' type='text'><br>
+  내용: <input name='content' type='text'><br>
+  이름: <input name='name' type='text'><br> 
+  <button>검색</button>
+  </form>
 </c:if>
 
+<!-- 
+<form action='search' method='get'>
+ -->
 
-
-
-
-
-
-
-
-
-
-
-
+ <!-- 
+  <form action='search' method='post'>
+    <select name="searchKey">
+      <option value="title">제목</option>
+      <option value="content">내용</option>
+      <option value="이름">이름</option>
+    </select> 
+  <button>검색</button>
+  </form>
+  -->

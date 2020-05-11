@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
+import com.google.gson.Gson;
 import Team.project.domain.Answer;
 import Team.project.domain.ClazzMember;
 import Team.project.domain.Multiple;
@@ -42,9 +43,8 @@ public class QuestionController {
   }
 
   @PostMapping("add")
-  public String add(Question question, HttpSession session, Integer[] no,
-	      String[] multipleContent, MultipartFile partfile)
-      throws Exception {
+  public String add(Question question, HttpSession session, Integer[] no, String[] multipleContent,
+      MultipartFile partfile) throws Exception {
     int memberNo = ((ClazzMember) session.getAttribute("nowMember")).getMemberNo();
     question.setMemberNo(memberNo);
     if (partfile.getSize() > 0) {
@@ -55,22 +55,22 @@ public class QuestionController {
       question.setFilePath(originalName);
     }
     questionService.add(question);
-    //객관식 항목이 있다면 for문을 돌며 insert 수행
+    // 객관식 항목이 있다면 for문을 돌며 insert 수행
     if (no != null) {
-        for (int i = 0; i < no.length; i++) {
-          Multiple multiple = new Multiple();
-          multiple.setQuestionNo(question.getQuestionNo());
-          multiple.setNo(no[i]);
-          multiple.setMultipleContent(multipleContent[i]);
-          multipleService.insert(multiple);
-        }
+      for (int i = 0; i < no.length; i++) {
+        Multiple multiple = new Multiple();
+        multiple.setQuestionNo(question.getQuestionNo());
+        multiple.setNo(no[i]);
+        multiple.setMultipleContent(multipleContent[i]);
+        multipleService.insert(multiple);
+      }
     }
-    
+
     return "redirect:../lesson/list?room_no=" + session.getAttribute("clazzNowNo");
   }
 
   @GetMapping("detail")
-  public String detail(int qno, Model model) throws Exception {
+  public String detail(int qno, Model model, HttpSession session) throws Exception {
     model.addAttribute("question", questionService.get(qno));
     model.addAttribute("multiple", multipleService.list(qno));
 
@@ -86,7 +86,19 @@ public class QuestionController {
     }
     model.addAttribute("multipleAnswers", multipleMap);
     model.addAttribute("answers", answerList);
-    return "/WEB-INF/jsp/question/detail.jsp";
+    ClazzMember clazzMember = (ClazzMember) session.getAttribute("nowMember");
+    int role = clazzMember.getRole();
+    if (role == 0) { // 선생인 경우와 학생인 경우 보여주는 detail화면을 다르게 함
+      return "/WEB-INF/jsp/question/detail.jsp";
+    } else {
+      // 학생인 경우 답변이 있는 지 찾아 있다면 모델에 담아준다.
+      Answer answer = answerService.get(clazzMember.getMemberNo(), qno);
+      if (answer != null) {
+        Gson gson = new Gson();
+        model.addAttribute("answer", gson.toJson(answer));
+      }
+      return "/WEB-INF/jsp/question/detail_student.jsp";
+    }
   }
 
 
@@ -97,9 +109,6 @@ public class QuestionController {
     if (multipleNo != null) {
       ArrayList<Multiple> multipleList = new ArrayList<>();
       for (int i = 0; i < multipleNo.length; i++) {
-        System.out.println("multipleNo 번호 =====>" + multipleNo[i]);
-        System.out.println("객관식 번호 =====>" + no[i]);
-        System.out.println("객관식 내용 =====>" + multipleContent[i]);
         Multiple temp = new Multiple();
         temp.setMultipleNo(multipleNo[i]);
         temp.setQuestionNo(question.getQuestionNo());
@@ -112,7 +121,6 @@ public class QuestionController {
     // int배열 deleteNo로 넘어온 값을 가지고 객관식 항목 삭제
     if (deleteNo != null) {
       for (int delNo : deleteNo) {
-        System.out.println("삭제할 객관식 번호 ==> " + delNo);
         multipleService.delete(delNo);
       }
     }
@@ -127,7 +135,6 @@ public class QuestionController {
       partfile.transferTo(new File(dirPath + "/" + originalName));
       question.setFilePath(originalName);
     }
-    System.out.println("!!!!!퀘스쳔 정보!!!!!" + question);
     questionService.update(question);
 
     return "redirect:../lesson/list?room_no=" + session.getAttribute("clazzNowNo");
@@ -136,6 +143,21 @@ public class QuestionController {
   @GetMapping("delete")
   public String delete(int no, HttpSession session) throws Exception {
     questionService.delete(no);
+    return "redirect:../lesson/list?room_no=" + session.getAttribute("clazzNowNo");
+  }
+
+  @PostMapping("submit")
+  // 퀴즈 디테일에서 학생인 경우 바로 답변을 제출할 수 있도록 함
+  public String submit(HttpSession session, Answer answer) throws Exception {
+    answer.setMemberNo(((ClazzMember) session.getAttribute("nowMember")).getMemberNo());
+    answerService.add(answer);
+    return "redirect:../lesson/list?room_no=" + session.getAttribute("clazzNowNo");
+  }
+
+  @PostMapping("updateAnswer")
+  public String updateAnswer(Answer answer, HttpSession session) throws Exception {
+    answer.setMemberNo(((ClazzMember) session.getAttribute("nowMember")).getMemberNo());
+    answerService.update(answer);
     return "redirect:../lesson/list?room_no=" + session.getAttribute("clazzNowNo");
   }
 }

@@ -8,11 +8,11 @@ public interface AssignmentSubmitDao {
 
   public int insert(AssignmentSubmit assignmentSubmit) throws Exception;
 
-  public List<AssignmentSubmit> findAll(int no) throws Exception;
-  
-  public List<AssignmentSubmit> findAllByUserNo(Map<String,Object> params) throws Exception;
-  
-  public AssignmentSubmit findByNo(int no) throws Exception;
+  public List<AssignmentSubmit> findAll(int assignmentNo) throws Exception;
+
+  public List<AssignmentSubmit> findAllByUserNo(Map<String, Object> params) throws Exception;
+
+  public AssignmentSubmit findByAssignmentNoAndMemberNo(Map<String, Integer> map) throws Exception;
 
   public int update(AssignmentSubmit assignmentSubmit) throws Exception;
 

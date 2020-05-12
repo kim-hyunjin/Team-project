@@ -8,7 +8,7 @@
   <div class="room_contents">
   <a href="../assignment/form" id="assignment_add_btn">과제 추가</a>
   <a href="../question/form" id="question_add_btn">질문 추가</a>
-  <div id="lesson_contents">
+  <div id="lesson_contents"></div>
   </div>
   </div>
   
@@ -46,7 +46,7 @@
           + `<span class="lesson_contents__title"><a href="../question/detail?qno=`+ item.questionNo +`">` + item.title + `</a></span>`;
   } else if(item.hasOwnProperty(ASSIGNMENT)) {
       content += `<span class="lesson_contents__category"><i class="fas fa-pen-square"></i></span>`
-          + `<span class="lesson_contents__title"><a href="../assignment/detail?no=`+ item.assignmentNo +`">` + item.title + `</a></span>`;
+          + `<span class="lesson_contents__title"><a href="../assignment/detail?assignmentNo=`+ item.assignmentNo +`">` + item.title + `</a></span>`;
         }
   + `<span class="lesson_contents__more"><i class="fas fa-ellipsis-v"></i></span>` // more버튼
   +`</div>`

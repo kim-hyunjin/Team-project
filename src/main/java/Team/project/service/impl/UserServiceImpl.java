@@ -63,4 +63,13 @@ public class UserServiceImpl implements UserService {
   public User get(String email) throws Exception {
     return userDao.findByEmail(email);
   }
+
+  @Override
+  public User get(int roomNo, String email) throws Exception {
+    HashMap<String, Object> map = new HashMap<>();
+    map.put("roomNo", roomNo);
+    map.put("email", email);
+    
+    return userDao.findByRoomNoAndEmail(map);
+  }
 }

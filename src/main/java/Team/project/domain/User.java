@@ -79,7 +79,15 @@ public class User implements Serializable {
   public void setCreateDate(Date createDate) {
     this.createDate = createDate;
   }
+  @Override
+  public String toString() {
+    return "User [userNo=" + userNo + ", email=" + email + ", name=" + name + ", password="
+        + password + ", tel=" + tel + ", major=" + major + ", introduce=" + introduce
+        + ", profilePhoto=" + profilePhoto + ", loginMethod=" + loginMethod + ", createDate="
+        + createDate + "]";
+  }
 
+  
 
 
 }

@@ -11,6 +11,8 @@ public interface UserDao {
 
   public List<User> findByClassNo(int no) throws Exception;
 
+  public User findByRoomNoAndEmail(Map<String, Object> map) throws Exception;
+  
   public User findByNo(int no) throws Exception;
 
   public User findByEmail(String email) throws Exception;

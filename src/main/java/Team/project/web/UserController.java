@@ -182,20 +182,18 @@ public class UserController {
   
   @GetMapping("/room/user/check")
   public void check(HttpSession session, HttpServletResponse response, String email) throws Exception {
-    int roomNo = (int) session.getAttribute("clazzNowNo");
-    System.out.println("check: roomNo =====> " + roomNo);
-    System.out.println("check: email ======>" + email);
-    User user = userService.get(roomNo, email);
-    System.out.println("user============>"+user);
-    response.setCharacterEncoding("utf-8");
-    response.setContentType("text");
-    PrintWriter out = response.getWriter();
-    if(user == null) {
-      response.setStatus(404);
-      out.write("");
-      out.flush();
-    } 
-    out.close();
+    User isUser = userService.get(email); // 유효한 이메일인지 확인한다.
+    if(isUser == null) {
+    	response.setStatus(404); // 유효한 이메일이 아니면 404으로 응답
+    } else {
+    	int roomNo = (int) session.getAttribute("clazzNowNo");
+        User isMember = userService.get(roomNo, email); // 이메일이 유효한 경우 클래스룸 소속인지 확인한다.
+    	if(isMember != null) {
+    		response.setStatus(200); // 클래스룸 소속이면 200으로 응답
+    	} else {
+    		response.setStatus(204); // 클래스룸 소속이 아니면 204로 응답
+    	}
+    }
   }
 
 }

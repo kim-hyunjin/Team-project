@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 <body>
  
-<div id='calendar'></div>
+<div id='calendar' style="width: 60%;, height: 60%;"></div>
  
 </body>
 </html>

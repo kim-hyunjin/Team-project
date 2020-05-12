@@ -32,7 +32,7 @@
                         <c:if test="${empty loginUser.profilePhoto}">
                             <i class="far fa-user" style="font-size:1.5em; margin-right: 0.3em;"></i>
                         </c:if>
-                        <span><a href="${pageContext.servletContext.contextPath}/app/user/detail?no=${loginUser.userNo}">${loginUser.name}</a></span>
+                        <span><a href="${pageContext.servletContext.contextPath}/app/user/detail?userNo=${loginUser.userNo}">${loginUser.name}</a></span>
                     </div>
 	                <a href="../../auth/logout">logout</a>
 	            </c:if>

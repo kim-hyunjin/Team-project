@@ -103,8 +103,8 @@ public class UserController {
   
 
   @RequestMapping("/user/detail")
-  public String detail(int no, Model model) throws Exception {
-    User user = userService.get(no);
+  public String detail(int userNo, Model model) throws Exception {
+    User user = userService.get(userNo);
     String login = "";
     switch (user.getLoginMethod()) {
       case 0:

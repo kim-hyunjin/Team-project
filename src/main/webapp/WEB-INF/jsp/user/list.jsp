@@ -22,7 +22,7 @@
 						<c:if test="${empty teacher.user.profilePhoto}">
 							<span class="user_list__profile"><i class="far fa-user"></i></span>
 						</c:if>
-						<a href='detail?no=${teacher.user.userNo}&room_no=${room_no}&member_no=${teacher.memberNo}'>${teacher.user.name}</a>
+						<a href='detail?user_no=${teacher.user.userNo}&room_no=${room_no}&member_no=${teacher.memberNo}'>${teacher.user.name}</a>
 					</li>
 				</c:forEach>
 			</ul>
@@ -43,7 +43,7 @@
 					<c:if test="${empty student.user.profilePhoto}">
 						<span class="user_list__profile"><i class="far fa-user"></i></span>
 					</c:if>
-						<a href='detail?no=${student.user.userNo}&room_no=${room_no}&member_no=${student.memberNo}'>${student.user.name}</a>
+						<a href='detail?user_no=${student.user.userNo}&room_no=${room_no}&member_no=${student.memberNo}'>${student.user.name}</a>
 				</li>
 				</c:forEach>
 			</ul>

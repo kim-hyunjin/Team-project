@@ -9,8 +9,9 @@
 내용: ${assignment.content}<br>
 첨부파일: <a href="download?file=${assignment.file}">${assignment.file}</a><br>
 <div id="updateDiv">
-<p><a href='delete?no=${assignment.assignmentNo}'>삭제</a></p> 
-<p><a href='updateForm?no=${assignment.assignmentNo}'>변경</a></p>
+	<p><a href='delete?no=${assignment.assignmentNo}'>삭제</a></p> 
+	<p><a href='updateForm?no=${assignment.assignmentNo}'>변경</a></p>
+	<button onclick="location.href='submitted?assignmentNo=${assignment.assignmentNo}'">제출된 과제 보기</button>
 </div>
 </c:if>
 <c:if test="${empty assignment}">
@@ -23,8 +24,10 @@
 </div>
 
 <script>
+// 학생인 경우와 선생인 경우를 나누어 과제 detail 화면 출력
 if(${nowMember.role} != 0) {
 	document.getElementById("updateDiv").setAttribute("style", "display:none");
+	// 과제 제출하기 클릭시 과제에 대한 정보를 request body에 담아 post로 요청
 	document.querySelector("#submitBtn").onclick = () => {
 		let form = document.createElement('form');
 		form.setAttribute('method', 'post');
@@ -44,13 +47,14 @@ if(${nowMember.role} != 0) {
 		form.submit();
 	};
 	
+	// 기존에 과제물을 제출한 적이 있다면 해당 정보를 출력해주고 변경할 수 있도록 해줌
 	if(`${assignmentSubmit}` != '') {
 		let pTag = document.createElement("p");
 		pTag.innerHTML = "과제 제출 여부 : Yes (제출일: " + `${assignmentSubmit.createDate}` + ")";
 		document.getElementsByClassName("room_contents")[0].appendChild(pTag);
 		document.getElementById("submitBtn").setAttribute("style", "display:none");
 		let submitUpdateBtn = document.createElement("button");
-		submitUpdateBtn.setAttribute("onclick", "location.href = '../assignmentSubmit/updateForm?assignmentNo=" + `${assignmentSubmit.assignmentNo}` + "'");
+		submitUpdateBtn.setAttribute("onclick", "location.href = '../assignmentSubmit/detail?assignmentNo=" + `${assignmentSubmit.assignmentNo}`'");
 		submitUpdateBtn.innerHTML = "제출 과제 변경하기";
 		document.getElementsByClassName("room_contents")[0].appendChild(submitUpdateBtn);
 	}

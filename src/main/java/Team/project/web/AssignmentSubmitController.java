@@ -50,15 +50,16 @@ public class AssignmentSubmitController {
         + ((Clazz) session.getAttribute("clazzNow")).getClassNo();
   }
 
-  @GetMapping("updateForm")
-  public String updateForm(int assignmentNo, HttpSession session, Model model) throws Exception {
+  @GetMapping("detail")
+  public String detailByStudent(int assignmentNo, HttpSession session, Model model)
+      throws Exception {
     AssignmentSubmit submit = assignmentSubmitService.get(assignmentNo,
         ((ClazzMember) session.getAttribute("nowMember")).getMemberNo());
     Assignment assignment = assignmentService.get(assignmentNo);
 
     model.addAttribute("assignmentSubmit", submit);
     model.addAttribute("assignmentTitle", assignment.getTitle());
-    return "/WEB-INF/jsp/assignmentSubmit/updateForm.jsp";
+    return "/WEB-INF/jsp/assignmentSubmit/detail_student.jsp";
   }
 
   @PostMapping("update")
@@ -74,6 +75,25 @@ public class AssignmentSubmitController {
     assignmentSubmitService.update(assignmentSubmit);
     return "redirect:../lesson/list?room_no="
         + ((Clazz) session.getAttribute("clazzNow")).getClassNo();
+  }
+
+  // 선생이 submitted 목록에서 제출된 과제물 보기를 클릭시 호출됨
+  @GetMapping("review")
+  public String detailByTeacher(int assignmentNo, int memberNo, HttpSession session, Model model)
+      throws Exception {
+    AssignmentSubmit submit = assignmentSubmitService.get(assignmentNo, memberNo);
+    Assignment assignment = assignmentService.get(assignmentNo);
+
+    model.addAttribute("assignmentSubmit", submit);
+    model.addAttribute("assignmentTitle", assignment.getTitle());
+    return "/WEB-INF/jsp/assignmentSubmit/detail_teacher.jsp";
+  }
+
+  // 선생이 제출된 과제물 상세보기에서 평가시 호출됨
+  @PostMapping("evaluation")
+  public String evaluation(AssignmentSubmit assignmentSubmit) throws Exception {
+    assignmentSubmitService.update(assignmentSubmit);
+    return "redirect:../assignment/submitted?assignmentNo=" + assignmentSubmit.getAssignmentNo();
   }
 
 

@@ -9,6 +9,7 @@ public class Board implements Serializable {
   private String title;
   private int classNo;
   private boolean notice;
+  //
 
   public int getBoardNo() {
     return boardNo;

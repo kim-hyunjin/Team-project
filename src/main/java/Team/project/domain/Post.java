@@ -14,6 +14,7 @@ public class Post implements Serializable {
   private String content;
   private Date createDate;
   private String file;
+
   // association
   private Board board;
   private User user;

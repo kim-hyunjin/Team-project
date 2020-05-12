@@ -13,7 +13,10 @@
       <result column="title" property="title"/>
       <result column="content" property="content"/>
       <result column="create_date" property="createDate"/>
-      <result column="file" property="file"/>   
+      <result column="file" property="file"/>  
+          
+      <result column="mod" property="mod"/>
+       
     <association property="board" javaType="Board">
       <id column="board_no" property="boardNo"/>
       <result column="title" property="title"/>
@@ -43,7 +46,7 @@
       from post p join class_member cm on cm.member_no = p.member_no
       join user u on cm.user_no = u.user_no
       join board b on b.board_no = p.board_no 
-      where p.board_no = #{bno}   
+      where p.board_no = #{bno}
     </select>
 
   <!-- ///////////////////////////////////////////////////////////////////////////////// -->
@@ -96,7 +99,7 @@
   
   <insert id="insert" parameterType="Post">
  insert into 
- post (board_no, member_no, title, content, file)
+ post (board_no, member_no, title, content, file) 
  values (#{boardNo}, #{memberNo}, #{title}, #{content}, #{file}); 
   </insert>
   

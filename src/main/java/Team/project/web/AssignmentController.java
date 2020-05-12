@@ -1,13 +1,7 @@
 package Team.project.web;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
-import java.util.UUID;
 import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,9 +11,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 import Team.project.domain.Assignment;
+import Team.project.domain.AssignmentSubmit;
 import Team.project.domain.Clazz;
 import Team.project.domain.ClazzMember;
 import Team.project.service.AssignmentService;
+import Team.project.service.AssignmentSubmitService;
 
 @Controller
 @RequestMapping("/room/assignment")
@@ -29,17 +25,20 @@ public class AssignmentController {
 
   @Autowired
   AssignmentService assignmentService;
+  @Autowired
+  AssignmentSubmitService assignmentSubmitService;
 
   @GetMapping("form")
   public String form() {
     return "/WEB-INF/jsp/assignment/form.jsp";
   }
+
   @GetMapping("updateForm")
   public String updateForm(int no, Model model) {
     model.addAttribute("no", no);
     return "/WEB-INF/jsp/assignment/updateForm.jsp";
   }
-  
+
   @PostMapping("add")
   public String add(HttpSession session, Assignment assignment, MultipartFile partfile)
       throws Exception {
@@ -57,6 +56,7 @@ public class AssignmentController {
     assignmentService.add(assignment);
     return "redirect:../lesson/list?room_no=" + clazz.getClassNo();
   }
+
   @GetMapping("delete")
   public String delete(HttpSession session, int no) throws Exception {
     Clazz clazz = (Clazz) session.getAttribute("clazzNow");
@@ -66,36 +66,37 @@ public class AssignmentController {
       throw new Exception("삭제할 과제 번호가 유효하지 않습니다.");
     }
   }
-  
+
   @GetMapping("detail")
-  public String detail(int no, Model model) throws Exception{
-  Assignment assignment = assignmentService.get(no);
-    System.out.println(assignment);
-  model.addAttribute("assignment", assignment);
-  return "/WEB-INF/jsp/assignment/detail.jsp";
+  public String detail(int assignmentNo, Model model, HttpSession session) throws Exception {
+    Assignment assignment = assignmentService.get(assignmentNo);
+    model.addAttribute("assignment", assignment);
+    AssignmentSubmit submit = assignmentSubmitService.get(assignmentNo,
+        ((ClazzMember) session.getAttribute("nowMember")).getMemberNo());
+    model.addAttribute("assignmentSubmit", submit);
+    return "/WEB-INF/jsp/assignment/detail.jsp";
   }
-  
-  @PostMapping("update") 
-  public String update(HttpSession session,
-      Assignment assignment) throws Exception{
+
+  @PostMapping("update")
+  public String update(HttpSession session, Assignment assignment) throws Exception {
     Clazz clazz = (Clazz) session.getAttribute("clazzNow");
     ClazzMember member = (ClazzMember) session.getAttribute("nowMember");
     assignment.setClassNo(clazz.getClassNo());
     assignment.setMemberNo(member.getMemberNo());
     // 파일첨부 아직 미해결
-//    if (partfile.getSize() > 0) {
-//      String dirPath = servletContext.getRealPath("/upload/lesson/assignment");
-//      String originalName = UUID.randomUUID().toString();
-//      partfile.transferTo(new File(dirPath + "/" + originalName));
-//      assignment.setFile(originalName);
-//    }
-    
+    // if (partfile.getSize() > 0) {
+    // String dirPath = servletContext.getRealPath("/upload/lesson/assignment");
+    // String originalName = UUID.randomUUID().toString();
+    // partfile.transferTo(new File(dirPath + "/" + originalName));
+    // assignment.setFile(originalName);
+    // }
+
     if (assignmentService.update(assignment) > 0) {
-      return "redirect:../lesson/list?room_no="+ clazz.getClassNo();
+      return "redirect:../lesson/list?room_no=" + clazz.getClassNo();
     } else {
       throw new Exception("변경할 회원 번호가 유효하지 않습니다.");
     }
   }
-  
-  
+
+
 }

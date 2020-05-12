@@ -32,28 +32,27 @@
 		  <button id="submit_btn">제출</button>
 	</form>
   <script>
-	const answer = ${answer};
+	const answer = ${answer}; // 이전에 과제를 제출한 적 있다면 제출form을 변경form으로 바꾼다.
 	if(answer !== null) {
 	    let form = document.submit_form;
 	    form.action = "updateAnswer";
 	    const multipleNo = answer.multipleNo;
-	    console.log("답변한 객관식 번호 : " + multipleNo);
 	    const content = answer.content;
-	    console.log("주관식 답변 : " + content)
-	    if(multipleNo !== null) {
+	    if(multipleNo !== null) { // 이전에 객관식 답변을 했다면 해당 객관식 번호 radio에 체크표시함
 	      const checkMultiple = document.getElementsByClassName("checkMultiple");
 	      for(let i of checkMultiple) {
-	        console.log(i.value);
 	        if(i.value == multipleNo) {
-	        	console.log("매칭!" + i.value);
 	          i.setAttribute("checked", "checked");
 	        }
 	      }
 	    }
-	    if(content !== undefined) {
+	    if(content !== undefined) { // 이전에 객관식 답변을 했다면 출력함
 	      document.getElementById("submit_content").value = content;
 	    }
 	    document.getElementById("submit_btn").innerHTML = "변경";
+	    let submitDate = document.createElement("p");
+	    submitDate.innerHTML = "과제 제출일 : " + answer.createDate;
+	    form.appendChild(submitDate);
 	  }
   </script>
 </body>

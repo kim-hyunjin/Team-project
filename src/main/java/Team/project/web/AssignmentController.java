@@ -1,6 +1,7 @@
 package Team.project.web;
 
 import java.io.File;
+import java.util.ArrayList;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
+import com.google.gson.Gson;
 import Team.project.domain.Assignment;
 import Team.project.domain.AssignmentSubmit;
 import Team.project.domain.Clazz;
@@ -67,6 +69,7 @@ public class AssignmentController {
     }
   }
 
+  // 현재 접속자가 과제에 대해 detail 요청을 할 시 과제에 대한 제출물이 있다면 함께 보여줌
   @GetMapping("detail")
   public String detail(int assignmentNo, Model model, HttpSession session) throws Exception {
     Assignment assignment = assignmentService.get(assignmentNo);
@@ -96,6 +99,17 @@ public class AssignmentController {
     } else {
       throw new Exception("변경할 회원 번호가 유효하지 않습니다.");
     }
+  }
+
+  // 선생이 해당 과제에 대한 학생 제출물을 볼 때 호출됨
+  @GetMapping("submitted")
+  public String submitted(int assignmentNo, Model model) throws Exception {
+    ArrayList<AssignmentSubmit> submittedList =
+        (ArrayList<AssignmentSubmit>) assignmentSubmitService.list(assignmentNo);
+    Gson gson = new Gson();
+    System.out.println(gson.toJson(submittedList));
+    model.addAttribute("submittedList", gson.toJson(submittedList));
+    return "/WEB-INF/jsp/assignmentSubmit/submittedList.jsp";
   }
 
 

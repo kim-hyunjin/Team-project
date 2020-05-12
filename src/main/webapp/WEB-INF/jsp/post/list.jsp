@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
-
-
+    
+  <h2>${boardTitle}</h2>
   <a href="../post/form?bno=${boardNo}">게시글 추가</a>
 <c:if test="${not empty posts}">
    <table border='1'>
@@ -21,8 +21,7 @@
 	    </tr>
 	</c:forEach>
    </table>
-  
-  <hr>
+
   
   <hr>
   <form action='search' method='get'>
@@ -34,9 +33,9 @@
   </form>
 </c:if>
 
-<!-- 
-<form action='search' method='get'>
- -->
+<!--  -->
+  
+
 
  <!-- 
   <form action='search' method='post'>

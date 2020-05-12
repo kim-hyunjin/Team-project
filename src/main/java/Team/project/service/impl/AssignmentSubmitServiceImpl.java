@@ -25,10 +25,10 @@ public class AssignmentSubmitServiceImpl implements AssignmentSubmitService {
   public List<AssignmentSubmit> list(int classNo) throws Exception {
     return assignmentSubmitDao.findAll(classNo);
   }
-  
+
   @Override
   public List<AssignmentSubmit> list(int classNo, int userNo) throws Exception {
-    HashMap<String,Object> params = new HashMap<>();
+    HashMap<String, Object> params = new HashMap<>();
     params.put("classNo", classNo);
     params.put("userNo", userNo);
     return assignmentSubmitDao.findAllByUserNo(params);
@@ -40,9 +40,11 @@ public class AssignmentSubmitServiceImpl implements AssignmentSubmitService {
   }
 
   @Override
-  public AssignmentSubmit get(int no) throws Exception {
-
-    return assignmentSubmitDao.findByNo(no);
+  public AssignmentSubmit get(int assignmentNo, int memberNo) throws Exception {
+    HashMap<String, Integer> map = new HashMap<>();
+    map.put("assignmentNo", assignmentNo);
+    map.put("memberNo", memberNo);
+    return assignmentSubmitDao.findByAssignmentNoAndMemberNo(map);
   }
 
   @Override

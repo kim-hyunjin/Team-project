@@ -26,10 +26,8 @@ html, body {
 	<div class="center-container">
 		<div class="login_box">
 			<div class="social_login">
-				<a href="#" class="social_login__box google"><i
-					class="fab fa-google"></i>Continue with Google</a> <a href="#"
-					class="social_login__box kakao"><i class="fas fa-comment fa-lg"></i>Continue
-					with Kakao</a>
+				<a href="#" class="social_login__box google"><i class="fab fa-google"></i>Continue with Google</a>
+				<a href="https://kauth.kakao.com/oauth/authorize?client_id=b2421e263082325965158a3fe73ffd67&redirect_uri=http://localhost:9999/Team-project/app/auth/kakao/login&response_type=code" class="social_login__box kakao"><i class="fas fa-comment fa-lg"></i>Continue with Kakao</a>
 			</div>
 			<div class="email_login">
 				<form id="loginForm" name="loginForm" method="post" action="login">
@@ -51,8 +49,8 @@ html, body {
 				</a>
 			</div>
 		</div>
-    </div>
+	</div>
 
-<script src="/Team-project/script/loginForm.js"></script>
+	<script src="/Team-project/script/loginForm.js"></script>
 </body>
 </html>

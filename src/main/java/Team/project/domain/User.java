@@ -2,7 +2,6 @@ package Team.project.domain;
 
 import java.io.Serializable;
 import java.sql.Date;
-import java.util.List;
 
 public class User implements Serializable {
 

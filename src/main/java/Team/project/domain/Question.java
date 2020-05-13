@@ -11,7 +11,7 @@ public class Question implements Serializable {
   private int memberNo;
   private String title;
   private String content;
-  private String filePath;
+  private String filePath; // 실제론 UUID로 생성된 파일 ID가 들어감
   private Date deadline;
   private Date createDate;
 

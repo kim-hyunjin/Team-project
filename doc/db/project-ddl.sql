@@ -9,7 +9,7 @@ insert into user(email, name, password, tel, major, introduce, login_method)
   values('asdwd395@naver.com', '갈리오', password('1111'), 343432, '조리과.', '하기싫어요', 0);
 insert into user(email, name, password, tel, major, introduce, login_method)
   values('sdwdw@test.com', '아무무', password('1111'), 234234, '조리과', '하기싫어요', 0);
-  insert into user(email, name, password, tel, major, introduce, login_method)
+insert into user(email, name, password, tel, major, introduce, login_method)
   values('linus@kakao.com', '리누스', password('1111'), '010-1234-5678', '조리과', '노잼', 1);
 insert into user(email, name, password, tel, major, introduce, login_method)
   values('koreano@gmail.com', '세종대왕', password('1111'), '010-1231-1231', '조리과', '나랏말싸미', 2);
@@ -19,7 +19,7 @@ insert into user(email, name, password, tel, major, introduce, login_method)
   values('asdwd395@gmail.com', '이타치', password('1111'), '010-3466-4454', '조리과', '아리가또', 2);
 insert into user(email, name, password, tel, major, introduce, login_method)
   values('sdwdw@naver.com', '클레오파트라', password('1111'), '010-1233-5657', '조리과', '청청이 어울림', 0);
-  insert into user(email, name, password, tel, major, introduce, login_method)
+insert into user(email, name, password, tel, major, introduce, login_method)
   values('qwertrtt9395@naver.com', '신지섭', password('1111'), 010-1234-5678, '컴퓨터공학', '안녕하세요', 1);
 insert into user(email, name, password, tel, major, introduce, login_method)
   values('wltjq2006@naver.com', '가야', password('1111'), 010-5412-4471, '컴퓨터공학', '반갑습니다', 1);
@@ -106,9 +106,9 @@ insert into class_member(user_no, class_no, role)
 insert into class_member(user_no, class_no, role) 
   values(21, 1, 0);
 insert into class_member(user_no, class_no, role) 
-  values(21, 3, 0);
-insert into class_member(user_no, class_no, role) 
   values(21, 2, 1);
+insert into class_member(user_no, class_no, role) 
+  values(21, 3, 1);
   
   
 -- 과제 입력

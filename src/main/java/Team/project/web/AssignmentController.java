@@ -2,6 +2,7 @@ package Team.project.web;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.UUID;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,8 +17,10 @@ import Team.project.domain.Assignment;
 import Team.project.domain.AssignmentSubmit;
 import Team.project.domain.Clazz;
 import Team.project.domain.ClazzMember;
+import Team.project.domain.FileVO;
 import Team.project.service.AssignmentService;
 import Team.project.service.AssignmentSubmitService;
+import Team.project.service.FileService;
 
 @Controller
 @RequestMapping("/room/assignment")
@@ -27,8 +30,12 @@ public class AssignmentController {
 
   @Autowired
   AssignmentService assignmentService;
+
   @Autowired
   AssignmentSubmitService assignmentSubmitService;
+
+  @Autowired
+  FileService fileService;
 
   @GetMapping("form")
   public String form() {
@@ -36,8 +43,11 @@ public class AssignmentController {
   }
 
   @GetMapping("updateForm")
-  public String updateForm(int no, Model model) {
-    model.addAttribute("no", no);
+  public String updateForm(int no, Model model) throws Exception {
+    Assignment assignment = assignmentService.get(no);
+    FileVO file = fileService.get(assignment.getFile());
+    model.addAttribute("assignment", assignment);
+    model.addAttribute("file", file);
     return "/WEB-INF/jsp/assignment/updateForm.jsp";
   }
 
@@ -48,12 +58,12 @@ public class AssignmentController {
     ClazzMember member = (ClazzMember) session.getAttribute("nowMember");
     assignment.setClassNo(clazz.getClassNo());
     assignment.setMemberNo(member.getMemberNo());
-    if (partfile.getSize() > 0) {
+
+    if (partfile.getSize() > 0) { // 파일 업로드 처리
+      String fileId = UUID.randomUUID().toString();
       String dirPath = servletContext.getRealPath("/upload/lesson/assignment");
-      String originalName = partfile.getOriginalFilename();
-      // String extention = originalName.substring(originalName.lastIndexOf(".") + 1);
-      partfile.transferTo(new File(dirPath + "/" + originalName));
-      assignment.setFile(originalName);
+      fileService.add(partfile, fileId, dirPath);
+      assignment.setFile(fileId);
     }
     assignmentService.add(assignment);
     return "redirect:../lesson/list?room_no=" + clazz.getClassNo();
@@ -73,6 +83,9 @@ public class AssignmentController {
   @GetMapping("detail")
   public String detail(int assignmentNo, Model model, HttpSession session) throws Exception {
     Assignment assignment = assignmentService.get(assignmentNo);
+    FileVO file = fileService.get(assignment.getFile());
+    System.out.println(file);
+    model.addAttribute("file", file);
     model.addAttribute("assignment", assignment);
     AssignmentSubmit submit = assignmentSubmitService.get(assignmentNo,
         ((ClazzMember) session.getAttribute("nowMember")).getMemberNo());
@@ -81,18 +94,28 @@ public class AssignmentController {
   }
 
   @PostMapping("update")
-  public String update(HttpSession session, Assignment assignment) throws Exception {
+  public String update(HttpSession session, Assignment assignment, MultipartFile partfile)
+      throws Exception {
     Clazz clazz = (Clazz) session.getAttribute("clazzNow");
     ClazzMember member = (ClazzMember) session.getAttribute("nowMember");
     assignment.setClassNo(clazz.getClassNo());
     assignment.setMemberNo(member.getMemberNo());
-    // 파일첨부 아직 미해결
-    // if (partfile.getSize() > 0) {
-    // String dirPath = servletContext.getRealPath("/upload/lesson/assignment");
-    // String originalName = UUID.randomUUID().toString();
-    // partfile.transferTo(new File(dirPath + "/" + originalName));
-    // assignment.setFile(originalName);
-    // }
+
+    if (partfile.getSize() > 0) { // 파일 업로드 처리
+      String fileId = UUID.randomUUID().toString();
+      String dirPath = servletContext.getRealPath("/upload/lesson/assignment");
+      fileService.add(partfile, fileId, dirPath);
+
+      // 파일 업데이트 시 기존 파일을 삭제한다.
+      String oldFile = assignment.getFile();
+      if (oldFile != null) {
+        File deleteFile = new File(dirPath + "/" + oldFile);
+        deleteFile.deleteOnExit();
+        fileService.delete(oldFile);
+      }
+
+      assignment.setFile(fileId);
+    }
 
     if (assignmentService.update(assignment) > 0) {
       return "redirect:../lesson/list?room_no=" + clazz.getClassNo();

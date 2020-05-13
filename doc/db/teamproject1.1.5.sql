@@ -46,6 +46,9 @@ DROP TABLE IF EXISTS `question_tag` RESTRICT;
 -- 게시글태그
 DROP TABLE IF EXISTS `board_tag` RESTRICT;
 
+-- 파일
+DROP TABLE IF EXISTS `file` RESTRICT;
+
 -- 과제
 CREATE TABLE `assignment` (
   `assignment_no` INTEGER      NOT NULL COMMENT '과제번호', -- 과제번호
@@ -369,6 +372,23 @@ ALTER TABLE `board_tag`
     PRIMARY KEY (
       `post_no`, -- 게시글번호
       `tag_no`   -- 태그번호
+    );
+
+-- 파일
+CREATE TABLE `file` (
+  `file_id`       CHAR(36)     NOT NULL COMMENT '파일ID', -- 파일ID
+  `original_name` VARCHAR(255) NULL     COMMENT '파일명', -- 파일명
+  `extension`     CHAR(5)      NULL     COMMENT '확장자', -- 확장자
+  `path`          VARCHAR(255) NULL     COMMENT '경로', -- 경로
+  `size`          BIGINT       NULL     COMMENT '사이즈' -- 사이즈
+)
+COMMENT '파일';
+
+-- 파일
+ALTER TABLE `file`
+  ADD CONSTRAINT `PK_file` -- 파일 기본키
+    PRIMARY KEY (
+      `file_id` -- 파일ID
     );
 
 -- 과제

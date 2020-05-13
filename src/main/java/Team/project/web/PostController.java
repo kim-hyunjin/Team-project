@@ -68,32 +68,21 @@ public class PostController {
     return "redirect:list";
   }
 
-  //////////////////////////////////////////////////////////////////////
-
 
   @GetMapping("detail") // postNo가 넘어온다. => detail.jsp
-  public String detail(Model model, int no) throws Exception {
+  public String detail(Post post, HttpSession session, Model model, int no) throws Exception {
+
+    ClazzMember member = (ClazzMember) session.getAttribute("nowMember");
+    int cmNo = member.getMemberNo();
+
+    model.addAttribute("classMember", cmNo);
+    System.out.println("memberNo========>" + cmNo);
+
+    session.getAttribute(Integer.toString(cmNo));
+
     model.addAttribute("post", postService.get(no));
     return "/WEB-INF/jsp/post/detail.jsp";
   }
-
-  //////////////////////////////////////////////////////////////////////
-
-
-  // @GetMapping("detail") // postNo가 넘어온다. => detail.jsp
-  // public String detail(Post post, HttpSession session, Model model, int no) throws Exception {
-  //
-  // ClazzMember member = (ClazzMember) session.getAttribute("nowMember");
-  // int cmNo = member.getMemberNo();
-  //
-  // model.addAttribute("classMember", cmNo);
-  // System.out.println("memberNo========>" + cmNo);
-  //
-  // session.getAttribute(Integer.toString(cmNo));
-  //
-  // model.addAttribute("post", postService.get(no));
-  // return "/WEB-INF/jsp/post/detail.jsp";
-  // }
 
   //////////////////////////////////////////////////////////////////////
 

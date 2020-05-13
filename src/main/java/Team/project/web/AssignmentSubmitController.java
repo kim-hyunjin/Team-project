@@ -1,6 +1,7 @@
 package Team.project.web;
 
 import java.io.File;
+import java.util.UUID;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import Team.project.domain.Clazz;
 import Team.project.domain.ClazzMember;
 import Team.project.service.AssignmentService;
 import Team.project.service.AssignmentSubmitService;
+import Team.project.service.FileService;
 
 @Controller
 @RequestMapping("/room/assignmentSubmit")
@@ -28,6 +30,8 @@ public class AssignmentSubmitController {
 
   @Autowired
   AssignmentSubmitService assignmentSubmitService;
+  @Autowired
+  FileService fileService;
 
   @PostMapping("form")
   public String form(Assignment assignment, Model model) {
@@ -38,12 +42,12 @@ public class AssignmentSubmitController {
   @PostMapping("add")
   public String add(HttpSession session, AssignmentSubmit assignmentSubmit, MultipartFile partfile)
       throws Exception {
+
     if (partfile.getSize() > 0) {
+      String fileId = UUID.randomUUID().toString();
       String dirPath = servletContext.getRealPath("/upload/lesson/assignmentSubmit");
-      String originalName = partfile.getOriginalFilename();
-      // String extention = originalName.substring(originalName.lastIndexOf(".") + 1);
-      partfile.transferTo(new File(dirPath + "/" + originalName));
-      assignmentSubmit.setFile(originalName);
+      fileService.add(partfile, fileId, dirPath);
+      assignmentSubmit.setFile(fileId);
     }
     assignmentSubmitService.add(assignmentSubmit);
     return "redirect:../lesson/list?room_no="
@@ -56,7 +60,7 @@ public class AssignmentSubmitController {
     AssignmentSubmit submit = assignmentSubmitService.get(assignmentNo,
         ((ClazzMember) session.getAttribute("nowMember")).getMemberNo());
     Assignment assignment = assignmentService.get(assignmentNo);
-
+    model.addAttribute("file", fileService.get(submit.getFile()));
     model.addAttribute("assignmentSubmit", submit);
     model.addAttribute("assignmentTitle", assignment.getTitle());
     return "/WEB-INF/jsp/assignmentSubmit/detail_student.jsp";
@@ -66,11 +70,19 @@ public class AssignmentSubmitController {
   public String update(HttpSession session, AssignmentSubmit assignmentSubmit,
       MultipartFile partfile) throws Exception {
     if (partfile.getSize() > 0) {
+      String fileId = UUID.randomUUID().toString();
       String dirPath = servletContext.getRealPath("/upload/lesson/assignmentSubmit");
-      String originalName = partfile.getOriginalFilename();
-      // String extention = originalName.substring(originalName.lastIndexOf(".") + 1);
-      partfile.transferTo(new File(dirPath + "/" + originalName));
-      assignmentSubmit.setFile(originalName);
+      fileService.add(partfile, fileId, dirPath);
+
+      // 파일 업데이트 시 기존 파일을 삭제하고 새로 추가한다.
+      String oldFile = assignmentSubmit.getFile();
+      if (oldFile != null) {
+        File deleteFile = new File(dirPath + "/" + oldFile);
+        deleteFile.deleteOnExit();
+        fileService.delete(oldFile);
+      }
+
+      assignmentSubmit.setFile(fileId);
     }
     assignmentSubmitService.update(assignmentSubmit);
     return "redirect:../lesson/list?room_no="
@@ -83,7 +95,7 @@ public class AssignmentSubmitController {
       throws Exception {
     AssignmentSubmit submit = assignmentSubmitService.get(assignmentNo, memberNo);
     Assignment assignment = assignmentService.get(assignmentNo);
-
+    model.addAttribute("file", fileService.get(submit.getFile()));
     model.addAttribute("assignmentSubmit", submit);
     model.addAttribute("assignmentTitle", assignment.getTitle());
     return "/WEB-INF/jsp/assignmentSubmit/detail_teacher.jsp";

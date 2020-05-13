@@ -5,28 +5,27 @@
 <jsp:include page="../room/room_header.jsp"></jsp:include>
 <div class="room_contents">
 
-<h3>과제명 : ${assignmentTitle}</h3>
+<h4>과제명 : ${assignmentTitle}</h4>
 <h4>제출자 : ${assignmentSubmit.user.name}</h4>
 <p>내용</p>
-<textarea readonly name="content">${assignmentSubmit.content}</textarea>
-<p>제출된 파일 : <a href="download?file=${assignmentSubmit.file}">${assignmentSubmit.file}</a></p>
-<form action='evaluation' method='post' enctype='multipart/form-data'>
+<textarea readonly name="content" style="height:20%; resize:none">${assignmentSubmit.content}</textarea>
+<p>제출된 파일 : <span id="download" title="다운로드" style="cursor:pointer;">${file.originalName}</span> </p>
+
+<form action='evaluation' method='post' enctype='multipart/form-data' style="height:50%;">
 	<input name="assignmentNo" type="hidden" value="${assignmentSubmit.assignmentNo}" >
 	<input name="memberNo" type="hidden" value="${assignmentSubmit.clazzMember.memberNo}">
-	<p>점수</p>
+	<h4>점수
 	<c:if test="${not empty assignmentSubmit.score}">
 	<input name="score" type="number" value="${assignmentSubmit.score}">
 	</c:if>
 	<c:if test="${empty assignmentSubmit.score}">
 	<input name="score" type="number">
 	</c:if>
-	<p>피드백</p>
-	<c:if test="${not empty assignmentSubmit.feedback}">
-	<textarea name="feedback">${assignmentSubmit.feedback}</textarea>
-	</c:if>
-	<c:if test="${empty assignmentSubmit.feedback}">
-	<textarea name="feedback"></textarea>
-	</c:if>
+	</h4>
+	<h4>피드백</h4>	
+	<textarea name="feedback" style="width:100%; height:50%; resize:none;">
+	<c:if test="${not empty assignmentSubmit.feedback}">${assignmentSubmit.feedback}</c:if>
+	</textarea>
 	<button id="evalBtn">평가</button>
 </form>
 
@@ -42,6 +41,9 @@ document.getElementById("evalBtn").addEventListener("click", function(event){
 	}
 });
 
+document.getElementById("download").onclick = () => {
+	  window.location = '../download?fileId='+`${file.fileId}`;
+}
 </script>
 </body>
 </html> 

@@ -58,7 +58,8 @@ update assignment
       <if test="title != null and title != ''">title=#{title},</if>
       <if test="content != null and content != ''">content=#{content},</if>
       <if test="deadline != null">deadline=#{deadline},</if>
-      createDate = current_timestamp();
+      <if test="file != null and file != ''">file = #{file},</if>
+      create_date = current_timestamp()
     </set>
     where 
   assignment_no=#{assignmentNo}

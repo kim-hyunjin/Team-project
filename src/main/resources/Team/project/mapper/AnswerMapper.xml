@@ -37,7 +37,34 @@
 from answer a
       join class_member cm on a.member_no = cm.member_no
       join user u on cm.user_no = u.user_no
-    where question_no=#{1231231};
+    where question_no=#{qno};
   </select>
+  
+  <select id="findbyMemberNoAndQuestionNo" resultMap="AnswerMap" parameterType="map">
+    select *
+    from answer
+    where member_no = #{memberNo} and question_no = #{questionNo}
+  </select>
+  
+  <insert id="insert" parameterType="Answer">
+    insert into answer(member_no, question_no, content<if test="multipleNo != null and multipleNo != ''">, multiple_no</if>)
+    values (
+    #{memberNo}, 
+    #{questionNo}, 
+    #{content}<if test="multipleNo != null and multipleNo != ''">, 
+    #{multipleNo}</if>)
+  </insert>
+  
+  <update id="update" parameterType="Answer">
+    update answer
+    <set>
+      content=#{content}
+      <if test="multipleNo != null and multipleNo != ''">,
+      multiple_no=#{multipleNo}</if>
+    </set>
+    where 
+  question_no=#{questionNo} and member_no = #{memberNo}
+  
+  </update>
 
 </mapper>

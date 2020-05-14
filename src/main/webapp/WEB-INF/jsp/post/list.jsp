@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
-
-
+    
+  <h2>${boardTitle}</h2>
   <a href="../post/form?bno=${boardNo}">게시글 추가</a>
 <c:if test="${not empty posts}">
    <table border='1'>
@@ -21,17 +21,29 @@
 	    </tr>
 	</c:forEach>
    </table>
+
+  
+  <hr>
+  <form action='search' method='get'>
+  <input name='boardNo' type='hidden' value='${boardNo}'>
+  제목: <input name='title' type='text'><br>
+  내용: <input name='content' type='text'><br>
+  이름: <input name='name' type='text'><br> 
+  <button>검색</button>
+  </form>
 </c:if>
 
+<!--  -->
+  
 
 
-
-
-
-
-
-
-
-
-
-
+ <!-- 
+  <form action='search' method='post'>
+    <select name="searchKey">
+      <option value="title">제목</option>
+      <option value="content">내용</option>
+      <option value="이름">이름</option>
+    </select> 
+  <button>검색</button>
+  </form>
+  -->

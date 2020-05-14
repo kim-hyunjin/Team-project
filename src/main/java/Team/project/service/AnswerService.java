@@ -19,5 +19,5 @@ public interface AnswerService {
 
   List<Answer> list(int no) throws Exception;
 
-
+  Answer get(int memberNo, int questionNo) throws Exception;
 }

@@ -8,6 +8,42 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="/Team-project/css/style.css" />
     <script src="https://kit.fontawesome.com/764f0503e3.js" crossorigin="anonymous"></script>
+    <script src="/Team-project/script/kakao.js"></script>
+    <script>
+        Kakao.init('e42d7bc3930faad4ef83d4fb783cf136');
+        console.log(Kakao.isInitialized());
+        function kakaoLogout() {
+        if (!Kakao.Auth.getAccessToken()) {
+          return
+        }
+        Kakao.Auth.logout(function() {
+          window.location.href="../../auth/logout";
+        })
+      }
+    </script>
+
+    <!-- 라이브러리 추가 -->
+<script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script>
+
+<!-- 구글 메타 태그 추가 -->
+<meta name = "google-signin-client_id"
+content = "360175730868-7161sh4v73h0hsufdvgmoa9u3o25oi21.apps.googleusercontent.com">  
+    <script>
+    function signOut() {
+        var auth2 = gapi.auth2.getAuthInstance();
+        auth2.signOut().then(function () {
+          console.log('User signed out.');
+          auth2.disconnect();
+          window.location.href="../../auth/logout";
+        });
+      }
+    
+    function onLoad() {
+        gapi.load('auth2', function() {
+          gapi.auth2.init();
+        });
+      }
+      </script>
     </head>
     <body>
     <div class="container">
@@ -27,14 +63,27 @@
                 <c:if test="${not empty loginUser}">
                     <div class="header__user">
                         <c:if test="${not empty loginUser.profilePhoto}">
-                            <span class="header__user__photo"><img src='${pageContext.servletContext.contextPath}/upload/user/thumbnail.${loginUser.profilePhoto}.jpg'></span>
+				            <c:if test="${loginUser.loginMethod > 0}">
+				                <span class="header__user__photo"><img src='${loginUser.profilePhoto}'></span>
+				            </c:if>
+				            <c:if test="${loginUser.loginMethod == 0}">
+				                <span class="header__user__photo"><img src='${pageContext.servletContext.contextPath}/upload/user/thumbnail.${loginUser.profilePhoto}.jpg'></span>
+				            </c:if>
                         </c:if>
                         <c:if test="${empty loginUser.profilePhoto}">
                             <i class="far fa-user" style="font-size:1.5em; margin-right: 0.3em;"></i>
                         </c:if>
-                        <span><a href="${pageContext.servletContext.contextPath}/app/user/detail?no=${loginUser.userNo}">${loginUser.name}</a></span>
+                        <span><a href="${pageContext.servletContext.contextPath}/app/user/detail?userNo=${loginUser.userNo}">${loginUser.name}</a></span>
                     </div>
-	                <a href="../../auth/logout">logout</a>
+                  <c:if test="${loginUser.loginMethod == 2}">
+                    <a href="#" onclick="signOut();">Sign out</a>
+                  </c:if>
+                  <c:if test="${loginUser.loginMethod == 0}">
+	                   <a href="../../auth/logout">logout</a>
+	                </c:if>
+	                <c:if test="${loginUser.loginMethod == 1}">
+	                   <button class="api-btn" onclick="kakaoLogout()">logout</button>
+	                </c:if>
 	            </c:if>
             </div>
         </div>

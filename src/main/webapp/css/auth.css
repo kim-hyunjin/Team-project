@@ -40,23 +40,12 @@
   border-radius: 1em;
 }
 
-.social_login__box.google {
-  background-color: aliceblue;
-  color: #4B89DC;
-}
-
-.social_login__box.kakao {
-  margin-top: 1em;
-  background-color: #f7e600;
-  color: rgb(60, 30, 30);
-}
-
 .email_login {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  width: 70%;
+  width: 80%;
 }
 
 #loginForm {

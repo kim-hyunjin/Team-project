@@ -12,6 +12,8 @@ public interface UserService {
   
   int delete(int no) throws Exception;
 
+  User get(int roomNo, String email) throws Exception;
+  
   User get(int no) throws Exception;
 
   User get(String email) throws Exception;

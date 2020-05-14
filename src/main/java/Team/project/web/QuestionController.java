@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.UUID;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,11 +14,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
+import com.google.gson.Gson;
 import Team.project.domain.Answer;
 import Team.project.domain.ClazzMember;
+import Team.project.domain.FileVO;
 import Team.project.domain.Multiple;
 import Team.project.domain.Question;
 import Team.project.service.AnswerService;
+import Team.project.service.FileService;
 import Team.project.service.MultipleService;
 import Team.project.service.QuestionService;
 import Team.project.service.TagService;
@@ -35,6 +39,8 @@ public class QuestionController {
   TagService tagService;
   @Autowired
   MultipleService multipleService;
+  @Autowired
+  FileService fileService;
 
   @GetMapping("form")
   public String form() {
@@ -42,25 +48,41 @@ public class QuestionController {
   }
 
   @PostMapping("add")
-  public String add(Question question, HttpSession session, MultipartFile partfile)
-      throws Exception {
+  public String add(Question question, HttpSession session, Integer[] no, String[] multipleContent,
+      MultipartFile partfile) throws Exception {
     int memberNo = ((ClazzMember) session.getAttribute("nowMember")).getMemberNo();
     question.setMemberNo(memberNo);
+
+    // 파일 처리 부분
     if (partfile.getSize() > 0) {
+      String fileId = UUID.randomUUID().toString();
       String dirPath = servletContext.getRealPath("/upload/lesson/question");
-      String originalName = partfile.getOriginalFilename();
-      // String extention = originalName.substring(originalName.lastIndexOf(".") + 1);
-      partfile.transferTo(new File(dirPath + "/" + originalName));
-      question.setFilePath(originalName);
+      fileService.add(partfile, fileId, dirPath);
+      question.setFilePath(fileId);
     }
 
     questionService.add(question);
+    // 객관식 항목이 있다면 for문을 돌며 insert 수행
+    if (no != null) {
+      for (int i = 0; i < no.length; i++) {
+        Multiple multiple = new Multiple();
+        multiple.setQuestionNo(question.getQuestionNo());
+        multiple.setNo(no[i]);
+        multiple.setMultipleContent(multipleContent[i]);
+        multipleService.insert(multiple);
+      }
+    }
+
     return "redirect:../lesson/list?room_no=" + session.getAttribute("clazzNowNo");
   }
 
   @GetMapping("detail")
-  public String detail(int qno, Model model) throws Exception {
-    model.addAttribute("question", questionService.get(qno));
+  public String detail(int qno, Model model, HttpSession session) throws Exception {
+    Question question = questionService.get(qno);
+    FileVO file = fileService.get(question.getFilePath());
+
+    model.addAttribute("question", question);
+    model.addAttribute("file", file);
     model.addAttribute("multiple", multipleService.list(qno));
 
     // 답변 찾아 model에 담는 부분
@@ -75,7 +97,21 @@ public class QuestionController {
     }
     model.addAttribute("multipleAnswers", multipleMap);
     model.addAttribute("answers", answerList);
-    return "/WEB-INF/jsp/question/detail.jsp";
+
+    // 선생인 경우와 학생인 경우 보여주는 detail화면을 다르게 함
+    ClazzMember clazzMember = (ClazzMember) session.getAttribute("nowMember");
+    int role = clazzMember.getRole();
+    if (role == 0) {
+      return "/WEB-INF/jsp/question/detail.jsp";
+    } else {
+      // 학생인 경우 답변이 있는 지 찾아 있다면 모델에 담아준다.
+      Answer answer = answerService.get(clazzMember.getMemberNo(), qno);
+      if (answer != null) {
+        Gson gson = new Gson();
+        model.addAttribute("answer", gson.toJson(answer));
+      }
+      return "/WEB-INF/jsp/question/detail_student.jsp";
+    }
   }
 
 
@@ -86,9 +122,6 @@ public class QuestionController {
     if (multipleNo != null) {
       ArrayList<Multiple> multipleList = new ArrayList<>();
       for (int i = 0; i < multipleNo.length; i++) {
-        System.out.println("multipleNo 번호 =====>" + multipleNo[i]);
-        System.out.println("객관식 번호 =====>" + no[i]);
-        System.out.println("객관식 내용 =====>" + multipleContent[i]);
         Multiple temp = new Multiple();
         temp.setMultipleNo(multipleNo[i]);
         temp.setQuestionNo(question.getQuestionNo());
@@ -101,7 +134,6 @@ public class QuestionController {
     // int배열 deleteNo로 넘어온 값을 가지고 객관식 항목 삭제
     if (deleteNo != null) {
       for (int delNo : deleteNo) {
-        System.out.println("삭제할 객관식 번호 ==> " + delNo);
         multipleService.delete(delNo);
       }
     }
@@ -109,14 +141,23 @@ public class QuestionController {
     // 넘어온 question에 정보 추가 후 update 실행
     int memberNo = ((ClazzMember) session.getAttribute("nowMember")).getMemberNo();
     question.setMemberNo(memberNo);
+
     if (partfile.getSize() > 0) {
+      String fileId = UUID.randomUUID().toString();
       String dirPath = servletContext.getRealPath("/upload/lesson/question");
-      String originalName = partfile.getOriginalFilename();
-      // String extention = originalName.substring(originalName.lastIndexOf(".") + 1);
-      partfile.transferTo(new File(dirPath + "/" + originalName));
-      question.setFilePath(originalName);
+      fileService.add(partfile, fileId, dirPath);
+
+      // 파일 업데이트 시 기존 파일을 삭제하고 새로 추가한다.
+      String oldFile = question.getFilePath();
+      if (oldFile != null) {
+        File deleteFile = new File(dirPath + "/" + oldFile);
+        deleteFile.deleteOnExit();
+        fileService.delete(oldFile);
+      }
+
+      question.setFilePath(fileId);
     }
-    System.out.println("!!!!!퀘스쳔 정보!!!!!" + question);
+
     questionService.update(question);
 
     return "redirect:../lesson/list?room_no=" + session.getAttribute("clazzNowNo");
@@ -125,6 +166,21 @@ public class QuestionController {
   @GetMapping("delete")
   public String delete(int no, HttpSession session) throws Exception {
     questionService.delete(no);
+    return "redirect:../lesson/list?room_no=" + session.getAttribute("clazzNowNo");
+  }
+
+  @PostMapping("submit")
+  // 퀴즈 디테일에서 학생인 경우 바로 답변을 제출할 수 있도록 함
+  public String submit(HttpSession session, Answer answer) throws Exception {
+    answer.setMemberNo(((ClazzMember) session.getAttribute("nowMember")).getMemberNo());
+    answerService.add(answer);
+    return "redirect:../lesson/list?room_no=" + session.getAttribute("clazzNowNo");
+  }
+
+  @PostMapping("updateAnswer")
+  public String updateAnswer(Answer answer, HttpSession session) throws Exception {
+    answer.setMemberNo(((ClazzMember) session.getAttribute("nowMember")).getMemberNo());
+    answerService.update(answer);
     return "redirect:../lesson/list?room_no=" + session.getAttribute("clazzNowNo");
   }
 }

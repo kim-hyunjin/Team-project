@@ -1,8 +1,6 @@
 package Team.project.dao;
 
-import java.sql.Date;
 import java.util.List;
-
 import Team.project.domain.Clazz;
 
 public interface ClazzDao {
@@ -21,8 +19,5 @@ public interface ClazzDao {
   
   // 수업참여코드
   public Clazz findByCode(String code) throws Exception;
-  
-  // 캘린더 과제 표시
-  public Clazz findByDate(Date date) throws Exception;
 }
 

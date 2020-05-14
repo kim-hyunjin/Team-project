@@ -30,10 +30,6 @@
   from class;
 </select>
 
-<select id="findByDate" resultMap="ClazzMap" parameterType="date">
-select * form class;
-</select>
-
 <select id="findByUserNo" resultMap="ClazzMap" parameterType="int">
   select c.class_no, name, description, room, class_code, create_date
   from class c
@@ -62,7 +58,7 @@ select * form class;
       <if test="name != null and name != ''">name=#{name},</if>
       <if test="description != null and description != ''">description=#{description},</if> 
       <if test="room != null and room != ''">room=#{room},</if>
-      <if test="class_code != null and class_code != ''">class_code=#{classCode}</if>
+      <if test="classCode != null and classCode != ''">class_code=#{classCode}</if>
     </set>
     where class_no=#{classNo}
   </update>

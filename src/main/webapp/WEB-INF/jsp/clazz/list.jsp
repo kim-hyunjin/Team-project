@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 
-	<jsp:include page="main_header.jsp"/>
+<jsp:include page="main_header.jsp"/>
 
   <div class="main_list">
   <c:if test="${not empty clazzList}">
@@ -19,11 +19,22 @@
         </div>
     </c:forEach>
     </c:if>
-    <form action='join' method='get'>
-수업코드입력: <input name='code' type='text'>
-<button>등록</button><br>
-
-  <a href="../calendar/calendar">캘린더 제발 열려라 참깨!</a>
   </div>
+  
+<script>
+document.getElementById("assignClass").onclick = () => {
+	let inputString = prompt('수업참여', '수업코드를 입력하세요.');
+	let form = document.createElement("form");
+	form.setAttribute("action", "join");
+	form.setAttribute("method", "get");
+	let codeInput = document.createElement("input");
+	codeInput.setAttribute("name", "code");
+	codeInput.value = inputString;
+	form.appendChild(codeInput);
+	document.body.appendChild(form);
+	form.submit();
+}
+
+</script>  
 </body>
 </html>

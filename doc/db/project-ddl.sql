@@ -9,7 +9,7 @@ insert into user(email, name, password, tel, major, introduce, login_method)
   values('asdwd395@naver.com', '갈리오', password('1111'), 343432, '조리과.', '하기싫어요', 0);
 insert into user(email, name, password, tel, major, introduce, login_method)
   values('sdwdw@test.com', '아무무', password('1111'), 234234, '조리과', '하기싫어요', 0);
-  insert into user(email, name, password, tel, major, introduce, login_method)
+insert into user(email, name, password, tel, major, introduce, login_method)
   values('linus@kakao.com', '리누스', password('1111'), '010-1234-5678', '조리과', '노잼', 1);
 insert into user(email, name, password, tel, major, introduce, login_method)
   values('koreano@gmail.com', '세종대왕', password('1111'), '010-1231-1231', '조리과', '나랏말싸미', 2);
@@ -19,7 +19,7 @@ insert into user(email, name, password, tel, major, introduce, login_method)
   values('asdwd395@gmail.com', '이타치', password('1111'), '010-3466-4454', '조리과', '아리가또', 2);
 insert into user(email, name, password, tel, major, introduce, login_method)
   values('sdwdw@naver.com', '클레오파트라', password('1111'), '010-1233-5657', '조리과', '청청이 어울림', 0);
-  insert into user(email, name, password, tel, major, introduce, login_method)
+insert into user(email, name, password, tel, major, introduce, login_method)
   values('qwertrtt9395@naver.com', '신지섭', password('1111'), 010-1234-5678, '컴퓨터공학', '안녕하세요', 1);
 insert into user(email, name, password, tel, major, introduce, login_method)
   values('wltjq2006@naver.com', '가야', password('1111'), 010-5412-4471, '컴퓨터공학', '반갑습니다', 1);
@@ -106,9 +106,9 @@ insert into class_member(user_no, class_no, role)
 insert into class_member(user_no, class_no, role) 
   values(21, 1, 0);
 insert into class_member(user_no, class_no, role) 
-  values(21, 3, 0);
-insert into class_member(user_no, class_no, role) 
   values(21, 2, 1);
+insert into class_member(user_no, class_no, role) 
+  values(21, 3, 1);
   
   
 -- 과제 입력
@@ -134,39 +134,39 @@ insert into assignment(class_no, member_no, title, content, file, deadline, crea
   
 -- 과제 제출 입력
 
-insert into assignment_submmit(member_no, assignment_no, file, score, content, feedback)
-  values(2, 3, '짜장면레시피1.pdf', 30, '춘장볶는게 어려워요.', '연습해야죠.');
-insert into assignment_submmit(member_no, assignment_no, file, score, content, feedback)
-  values(3, 3, '짜장면레시피2.pdf', 40, '미원을 너무 많이넣었어요.', '네 짜네요.');
-insert into assignment_submmit(member_no, assignment_no, file, score, content, feedback)
-  values(4, 3, '짜장면레시피3.pdf', 100, '완벽합니다.', '구라치지마세요.');
-insert into assignment_submmit(member_no, assignment_no, file, score, content, feedback)
-  values(5, 3, '짜장면레시피4.pdf', 90, '뭐가 잘못된지모르겠씁니다..', '저도몰라요.');
-insert into assignment_submmit(member_no, assignment_no, file, score, content, feedback)
-  values(6, 3, '짜장면레시피5.pdf', 90, '열심히해왔습니다.', '네 그래요.');
-insert into assignment_submmit(member_no, assignment_no, file, score, content, feedback)
-  values(7, 3, '짜장면레시피6.pdf', 90, '먹어보세요.', '싫어요.');
-insert into assignment_submmit(member_no, assignment_no, file, score, content, feedback)
-  values(8, 3, '짜장면레시피7.pdf', 90, '속옷준비해오세요.', '갈아입기 귀찮아요.');
-insert into assignment_submmit(member_no, assignment_no, file, score, content, feedback)
-  values(9, 3, '짜장면레시피8.pdf', 90, '아무노래나일단틀어.', '분위기겁나싸해.');
-insert into assignment_submmit(member_no, assignment_no, file, score, content, feedback)
-  values(10, 3, '짜장면레시피9.pdf', 90, '뭐가문제야 saysomething.', '아무노래나일단틀어.');
-insert into assignment_submmit(member_no, assignment_no, file, score, content, feedback)
+insert into assignment_submit(member_no, assignment_no, file, score, content, feedback)
+  values(2, 1, '짜장면레시피1.pdf', 30, '춘장볶는게 어려워요.', '연습해야죠.');
+insert into assignment_submit(member_no, assignment_no, file, score, content, feedback)
+  values(3, 1, '짜장면레시피2.pdf', 40, '미원을 너무 많이넣었어요.', '네 짜네요.');
+insert into assignment_submit(member_no, assignment_no, file, score, content, feedback)
+  values(4, 1, '짜장면레시피3.pdf', 100, '완벽합니다.', '구라치지마세요.');
+insert into assignment_submit(member_no, assignment_no, file, score, content, feedback)
+  values(5, 1, '짜장면레시피4.pdf', 90, '뭐가 잘못된지모르겠씁니다..', '저도몰라요.');
+insert into assignment_submit(member_no, assignment_no, file, score, content, feedback)
+  values(6, 1, '짜장면레시피5.pdf', 90, '열심히해왔습니다.', '네 그래요.');
+insert into assignment_submit(member_no, assignment_no, file, score, content, feedback)
+  values(7, 1, '짜장면레시피6.pdf', 90, '먹어보세요.', '싫어요.');
+insert into assignment_submit(member_no, assignment_no, file, score, content, feedback)
+  values(8, 1, '짜장면레시피7.pdf', 90, '속옷준비해오세요.', '갈아입기 귀찮아요.');
+insert into assignment_submit(member_no, assignment_no, file, score, content, feedback)
+  values(9, 1, '짜장면레시피8.pdf', 90, '아무노래나일단틀어.', '분위기겁나싸해.');
+insert into assignment_submit(member_no, assignment_no, file, score, content, feedback)
+  values(10, 1, '짜장면레시피9.pdf', 90, '뭐가문제야 saysomething.', '아무노래나일단틀어.');
+insert into assignment_submit(member_no, assignment_no, file, score, content, feedback)
   values(12, 4, 'c.pdf', 40, '열심히해왔습니다.', 'UI UX가 조금 아쉽네요.');
-insert into assignment_submmit(member_no, assignment_no, file, score, content, feedback)
+insert into assignment_submit(member_no, assignment_no, file, score, content, feedback)
   values(13, 5, 'f.pdf', 100, '열심히해왔습니다.', '멋져요!');
-insert into assignment_submmit(member_no, assignment_no, file, score, content, feedback)
+insert into assignment_submit(member_no, assignment_no, file, score, content, feedback)
   values(14, 6, 'g.doc', 90, '열심히해왔습니다.', '참 잘했어요.');
-insert into assignment_submmit(member_no, assignment_no, file, score, feedback, create_date) 
+insert into assignment_submit(member_no, assignment_no, file, score, feedback, create_date) 
   values(15, 7, 'assignment.hwp', 100, '잘했습니다.', '2020-04-23' );  
-insert into assignment_submmit(member_no, assignment_no, file, content) 
+insert into assignment_submit(member_no, assignment_no, file, content) 
   values(16, 8, 'b.doc', '시간이 빠듯해 힘들었어요'); 
-insert into assignment_submmit(member_no, assignment_no, file, score, content, create_date) 
+insert into assignment_submit(member_no, assignment_no, file, score, content, create_date) 
   values(17, 3, 'db.exerd', 40, '과제 제출합니다.' '2020-04-23' ); 
-insert into assignment_submmit(member_no, assignment_no, file, score, feedback, create_date) 
+insert into assignment_submit(member_no, assignment_no, file, score, feedback, create_date) 
   values(18, 4, 'url.txt', 20, '시간이 부족했나요?', '2020-04-23' ); 
-insert into assignment_submmit(member_no, assignment_no, file, score, content, feedback)
+insert into assignment_submit(member_no, assignment_no, file, score, content, feedback)
   values(19, 3, 'b.pdf', 30, '열심히해왔습니다.', '부족합니다.');
 
   

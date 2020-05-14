@@ -1,52 +1,4 @@
 -- 과제
-DROP TABLE `assignment` RESTRICT;
-
--- 질문
-DROP TABLE `question` RESTRICT;
-
--- 태그
-DROP TABLE `tag` RESTRICT;
-
--- 클래스
-DROP TABLE `class` RESTRICT;
-
--- 수업참여
-DROP TABLE `class_member` RESTRICT;
-
--- 사용자
-DROP TABLE `user` RESTRICT;
-
--- 과제제출
-DROP TABLE `assignment_submmit` RESTRICT;
-
--- 쪽지
-DROP TABLE `message` RESTRICT;
-
--- 게시글
-DROP TABLE `post` RESTRICT;
-
--- 객관식
-DROP TABLE `multiple` RESTRICT;
-
--- 게시판
-DROP TABLE `board` RESTRICT;
-
--- 클래스
-DROP TABLE `class_tag` RESTRICT;
-
--- 과제태그
-DROP TABLE `assignment_tag` RESTRICT;
-
--- 답변
-DROP TABLE `answer` RESTRICT;
-
--- 질문태그
-DROP TABLE `question_tag` RESTRICT;
-
--- 게시글태그
-DROP TABLE `board_tag` RESTRICT;
-
--- 과제
 DROP TABLE IF EXISTS `assignment` RESTRICT;
 
 -- 질문
@@ -65,7 +17,7 @@ DROP TABLE IF EXISTS `class_member` RESTRICT;
 DROP TABLE IF EXISTS `user` RESTRICT;
 
 -- 과제제출
-DROP TABLE IF EXISTS `assignment_submmit` RESTRICT;
+DROP TABLE IF EXISTS `assignment_submit` RESTRICT;
 
 -- 쪽지
 DROP TABLE IF EXISTS `message` RESTRICT;
@@ -93,6 +45,9 @@ DROP TABLE IF EXISTS `question_tag` RESTRICT;
 
 -- 게시글태그
 DROP TABLE IF EXISTS `board_tag` RESTRICT;
+
+-- 파일
+DROP TABLE IF EXISTS `file` RESTRICT;
 
 -- 과제
 CREATE TABLE `assignment` (
@@ -242,7 +197,7 @@ ALTER TABLE `user`
   MODIFY COLUMN `user_no` INTEGER NOT NULL AUTO_INCREMENT COMMENT '사용자번호';
 
 -- 과제제출
-CREATE TABLE `assignment_submmit` (
+CREATE TABLE `assignment_submit` (
   `member_no`     INTEGER      NOT NULL COMMENT '수업참여자번호', -- 수업참여자번호
   `assignment_no` INTEGER      NOT NULL COMMENT '과제번호', -- 과제번호
   `file`          VARCHAR(255) NULL     COMMENT '제출자료', -- 제출자료
@@ -254,8 +209,8 @@ CREATE TABLE `assignment_submmit` (
 COMMENT '과제제출';
 
 -- 과제제출
-ALTER TABLE `assignment_submmit`
-  ADD CONSTRAINT `PK_assignment_submmit` -- 과제제출 기본키
+ALTER TABLE `assignment_submit`
+  ADD CONSTRAINT `PK_assignment_submit` -- 과제제출 기본키
     PRIMARY KEY (
       `member_no`,     -- 수업참여자번호
       `assignment_no`  -- 과제번호
@@ -419,6 +374,23 @@ ALTER TABLE `board_tag`
       `tag_no`   -- 태그번호
     );
 
+-- 파일
+CREATE TABLE `file` (
+  `file_id`       CHAR(36)     NOT NULL COMMENT '파일ID', -- 파일ID
+  `original_name` VARCHAR(255) NULL     COMMENT '파일명', -- 파일명
+  `extension`     CHAR(5)      NULL     COMMENT '확장자', -- 확장자
+  `path`          VARCHAR(255) NULL     COMMENT '경로', -- 경로
+  `size`          BIGINT       NULL     COMMENT '사이즈' -- 사이즈
+)
+COMMENT '파일';
+
+-- 파일
+ALTER TABLE `file`
+  ADD CONSTRAINT `PK_file` -- 파일 기본키
+    PRIMARY KEY (
+      `file_id` -- 파일ID
+    );
+
 -- 과제
 ALTER TABLE `assignment`
   ADD CONSTRAINT `FK_class_TO_assignment` -- 클래스 -> 과제
@@ -475,8 +447,8 @@ ALTER TABLE `class_member`
     ON DELETE CASCADE;
 
 -- 과제제출
-ALTER TABLE `assignment_submmit`
-  ADD CONSTRAINT `FK_class_member_TO_assignment_submmit` -- 수업참여 -> 과제제출
+ALTER TABLE `assignment_submit`
+  ADD CONSTRAINT `FK_class_member_TO_assignment_submit` -- 수업참여 -> 과제제출
     FOREIGN KEY (
       `member_no` -- 수업참여자번호
     )
@@ -486,8 +458,8 @@ ALTER TABLE `assignment_submmit`
     ON DELETE CASCADE;
 
 -- 과제제출
-ALTER TABLE `assignment_submmit`
-  ADD CONSTRAINT `FK_assignment_TO_assignment_submmit` -- 과제 -> 과제제출
+ALTER TABLE `assignment_submit`
+  ADD CONSTRAINT `FK_assignment_TO_assignment_submit` -- 과제 -> 과제제출
     FOREIGN KEY (
       `assignment_no` -- 과제번호
     )
@@ -678,5 +650,3 @@ ALTER TABLE `board_tag`
       `post_no` -- 게시글번호
     )
     ON DELETE CASCADE;
-    
-    

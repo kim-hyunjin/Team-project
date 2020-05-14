@@ -28,9 +28,6 @@
     where class_no = #{no}
   </select>
   
-  <insert id="insert" parameterType="Board">
- insert into board (title, notice, class_no) values (#{title}, #{notice}, #{classNo});
-  </insert>
   
   <update id="update" parameterType="Board">
  update board
@@ -46,5 +43,21 @@
     where board_no=#{boardNo}
   </delete>
 
+  <insert id="insert" parameterType="Board">
+ insert into board (title, notice, class_no) values (#{title}, #{notice}, #{classNo});
+  </insert>
+
 
 </mapper>
+
+
+
+
+
+<!-- 
+
+  <insert id="insert" parameterType="Board">
+ insert into board (title, notice, class_no) values (#{title}, #{notice}, #{classNo});
+  </insert>
+  
+ -->

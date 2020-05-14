@@ -5,11 +5,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.multipart.MultipartFile;
 import Team.project.domain.ClazzMember;
 import Team.project.domain.User;
@@ -36,10 +39,11 @@ public class UserController {
   }
 
 
-  
+
   @RequestMapping("/user/add")
-  public String add(User user, MultipartFile photo) throws Exception {
-    if (photo.getSize() > 0) {
+  public String add(User user, @RequestPart(value = "photo", required = false) MultipartFile photo)
+      throws Exception {
+    if (photo != null) {
       String dirPath = servletContext.getRealPath("/upload/user");
       String filename = UUID.randomUUID().toString();
       photo.transferTo(new File(dirPath + "/" + filename));
@@ -47,8 +51,9 @@ public class UserController {
           .toFiles(Rename.PREFIX_DOT_THUMBNAIL);
       user.setProfilePhoto(filename);
     }
+    System.out.println("user==============>"+user);
     if (userService.add(user) > 0) {
-      return "redirect:../auth/form";
+      return "redirect:../auth/login?email=" + user.getEmail() + "&password=" + user.getPassword();
     } else {
       throw new Exception("회원을 추가할 수 없습니다.");
     }
@@ -60,24 +65,24 @@ public class UserController {
     model.addAttribute("role", role);
     return "/WEB-INF/jsp/room/user/form.jsp";
   }
-  
+
   @RequestMapping("/room/user/add")
   public String add(String email, int class_no, int role) throws Exception {
     User result = userService.get(email);
-      if(result != null) {
-        ClazzMember clazzMember = new ClazzMember();
-        clazzMember.setUserNo(result.getUserNo());
-        clazzMember.setClazzNo(class_no);
-        clazzMember.setRole(role);
-        clazzMemberService.add(clazzMember);
-        return "redirect:list?room_no="+class_no;
-      } else {
-        throw new Exception("회원을 추가할 수 없습니다.");
-      }
+    if (result != null) {
+      ClazzMember clazzMember = new ClazzMember();
+      clazzMember.setUserNo(result.getUserNo());
+      clazzMember.setClazzNo(class_no);
+      clazzMember.setRole(role);
+      clazzMemberService.add(clazzMember);
+      return "redirect:list?room_no=" + class_no;
+    } else {
+      throw new Exception("회원을 추가할 수 없습니다.");
+    }
   }
-  
-  
-  
+
+
+
   @RequestMapping("/user/delete")
   public String delete(HttpSession session, int no) throws Exception {
     if (userService.delete(no) > 0) { // 삭제했다면,
@@ -87,12 +92,12 @@ public class UserController {
       throw new Exception("해당 번호의 회원이 없습니다.");
     }
   }
-  
+
   @RequestMapping("room/user/delete")
   public String delete(int member_no, int room_no, Model model) throws Exception {
     if (clazzMemberService.delete(member_no) > 0) { // 삭제했다면,
       if (member_no != 0) {
-        return "redirect:list?room_no="+room_no;
+        return "redirect:list?room_no=" + room_no;
       } else {
         return "redirect:list";
       }
@@ -100,11 +105,11 @@ public class UserController {
       throw new Exception("해당 번호의 회원이 없습니다.");
     }
   }
-  
+
 
   @RequestMapping("/user/detail")
-  public String detail(int no, Model model) throws Exception {
-    User user = userService.get(no);
+  public String detail(int userNo, Model model) throws Exception {
+    User user = userService.get(userNo);
     String login = "";
     switch (user.getLoginMethod()) {
       case 0:
@@ -123,14 +128,12 @@ public class UserController {
     model.addAttribute("loginMethod", login);
     return "/WEB-INF/jsp/user/detail.jsp";
   }
-  
+
   @RequestMapping("/room/user/detail")
-  public String roomDetail(int no, int room_no, Model model,int member_no) throws Exception {
-    User user = userService.get(no);
-   
+  public String roomDetail(int user_no, int room_no, Model model, int member_no) throws Exception {
+    User user = userService.get(user_no);
     model.addAttribute("user", user);
     model.addAttribute("room_no", room_no);
-    model.addAttribute("no", no);
     model.addAttribute("member_no", member_no);
     return "/WEB-INF/jsp/room/user/detail.jsp";
   }
@@ -176,6 +179,23 @@ public class UserController {
       return "redirect:../clazz/list";
     } else {
       throw new Exception("유저 정보 변경에 실패했습니다.");
+    }
+  }
+
+  @GetMapping("/room/user/check")
+  public void check(HttpSession session, HttpServletResponse response, String email)
+      throws Exception {
+    User isUser = userService.get(email); // 유효한 이메일인지 확인한다.
+    if (isUser == null) {
+      response.setStatus(404); // 유효한 이메일이 아니면 404으로 응답
+    } else {
+      int roomNo = (int) session.getAttribute("clazzNowNo");
+      User isMember = userService.get(roomNo, email); // 이메일이 유효한 경우 클래스룸 소속인지 확인한다.
+      if (isMember != null) {
+        response.setStatus(200); // 클래스룸 소속이면 200으로 응답
+      } else {
+        response.setStatus(204); // 클래스룸 소속이 아니면 204로 응답
+      }
     }
   }
 

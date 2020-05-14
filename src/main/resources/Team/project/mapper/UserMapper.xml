@@ -103,6 +103,12 @@
   select * from user
   where email=#{email} 
   </select>
+  
+  <select id="findByRoomNoAndEmail" resultMap="UserMap" parameterType="map">
+    select * from user u
+    join class_member cm on u.user_no = cm.user_no
+    where email=#{email} and class_no = #{roomNo}
+  </select>
 </mapper>
 
 

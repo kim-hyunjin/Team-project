@@ -11,25 +11,44 @@
     <link rel="stylesheet" href="../../css/style.css" />
 <script src="https://kit.fontawesome.com/764f0503e3.js" crossorigin="anonymous"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<style>
+html, body {
+	margin: 0px;
+	padding: 0px;
+	width: 100%;
+	height: 100%;
+}
+input {
+	font-size:1em;
+  margin-top: 1em;
+  width: 100%;
+  height: 2.5em;
+}
+button {
+margin-top: 1.3em;
+  font-weight: 700;
+  font-size: 1em;
+  width: 5em;
+  height: 2em;
+  margin-left:5em;
+}
+</style>
 </head>
 <body>
+<div class="center-container">
+<div class="login_box">
 	<h1>회원 가입</h1>
+	<div style="width:70%;">
 	<form action='add' method='post' enctype='multipart/form-data'>
-		이메일: <input id = "emailInput" name='email' type='email'><br>
-		이름: <input id = "nameInput" name='name' type='text'><br>
-		암호: <input id="passwordInput" name='password' type='password'><label id="passwordLabel" for="passwordInput"></label><br>
-		전화: <input name='tel' type='tel'><br>
-		전공: <input name='major' type='text'><br>
-		자기소개<br><textarea name='introduce' rows='5' cols='60'></textarea><br>
-		사진: <input name='photo' type='file'><br>
-		로그인 방식
-		<select name="loginMethod">
-		    <option value="0">이메일</option>
-		    <option value="1">카카오</option>
-		    <option value="2">구글</option>
-		</select><br>
+		<input id = "emailInput" name='email' type='email' placeholder="   이메일"><br>
+		<input id = "nameInput" name='name' type='text' placeholder="   이름"><br>
+		<input id="passwordInput" name='password' type='password' placeholder="   비밀번호"><br>
+		<input name="loginMethod" type="hidden" value="0">
 		<button id="completeBtn">완료</button>
 	</form>
+	</div>
+	</div>
+	</div>
 	<script>
 	const reg = /^(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
 	const passwordBox = document.getElementById("passwordInput");

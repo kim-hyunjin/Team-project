@@ -47,9 +47,9 @@ html, body {
 			<div class="email_login">
 				<form id="loginForm" name="loginForm" method="post" action="login">
 					<input class="email_login__input" type="text" name="email"
-						placeholder="이메일 입력" onkeyup="enterkey();"> <input
+						placeholder="  email" onkeyup="enterkey();"> <input
 						class="email_login__input" type="password" name="password"
-						placeholder="비밀번호 입력" onkeyup="enterkey();">
+						placeholder="  password" onkeyup="enterkey();">
 					</td>
 					<div style="margin-top: 1em;">
 						<input type="checkbox" name="idsave" value="saveOk">아이디 저장

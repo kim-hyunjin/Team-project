@@ -19,6 +19,13 @@
         // SDK 초기화 여부를 판단합니다.
         console.log(Kakao.isInitialized());
     </script>
+<!-- 라이브러리 추가 -->
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+
+<!-- 구글 메타 태그 추가 -->
+<meta name = "google-signin-client_id"
+content = "360175730868-7161sh4v73h0hsufdvgmoa9u3o25oi21.apps.googleusercontent.com">    
+
 <title>BTS-로그인</title>
 <style>
 html, body {
@@ -34,7 +41,7 @@ html, body {
 	<div class="center-container">
 		<div class="login_box">
 			<div class="social_login">
-
+        <button id="btnGoogle"><div class="g-signin2" data-onsuccess="onSignIn"></div></button>
 				<button id="kakao_login_btn"></button>
 			</div>
 			<div class="email_login">
@@ -67,6 +74,7 @@ if(errorMsg.length > 0) {
 </script>
 <script src="/Team-project/script/loginForm.js"></script>
 <script>
+//카카오 로그인 script
 Kakao.Auth.createLoginButton({
   container: '#kakao_login_btn',
   success: function(authObj) {
@@ -75,10 +83,11 @@ Kakao.Auth.createLoginButton({
 		    success: function(user) {
 		        console.log(user);
 		        console.log(user.properties.profile_image);
-		       window.location.href="kakao?email="+user.kakao_account.email
+		       window.location.href="social?email="+user.kakao_account.email
 		        		+"&id="+user.id
 		        		+"&nickname="+encodeURI(user.properties.nickname, "UTF-8")
-		        		+"&image="+user.properties.profile_image;
+		        		+"&image="+user.properties.profile_image
+		        		+"&loginMethod=1";
 		    },
 		    fail: function(error) {
 		        console.log(error);
@@ -89,6 +98,36 @@ Kakao.Auth.createLoginButton({
     console.log(error);
   },
 });
+</script>
+<script>
+//구글로그인 script
+function onSignIn(googleUser) {
+    var profile = googleUser.getBasicProfile();
+      
+    console.log('ID: ' + profile.getId());
+    console.log('Name: ' + profile.getName());
+    console.log('Image URL: ' + profile.getImageUrl());
+    console.log('Email: ' + profile.getEmail());
+    window.location.href="social?email="+profile.getEmail()
+    +"&id="+profile.getId()
+    +"&nickname="+encodeURI(profile.getName(), "UTF-8")
+    +"&image="+profile.getImageUrl()
+    +"&loginMethod=2";
+    
+    var _auth2
+
+    var _onGoogleLoad = function () {
+      gapi.load('auth2', function () {
+        _auth2 = gapi.auth2.init({
+          client_id: '360175730868-7161sh4v73h0hsufdvgmoa9u3o25oi21.apps.googleusercontent.com',
+          scope: 'email',
+          fetch_basic_profile: true
+        })
+        _enableGoogleButton()
+      })
+    }
+  }
+
 </script>
 </body>
 </html>

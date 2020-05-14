@@ -22,6 +22,28 @@
         })
       }
     </script>
+    <!-- 라이브러리 추가 -->
+<script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script>
+
+<!-- 구글 메타 태그 추가 -->
+<meta name = "google-signin-client_id"
+content = "360175730868-7161sh4v73h0hsufdvgmoa9u3o25oi21.apps.googleusercontent.com">  
+    <script>
+    function signOut() {
+        var auth2 = gapi.auth2.getAuthInstance();
+        auth2.signOut().then(function () {
+          console.log('User signed out.');
+          auth2.disconnect();
+          window.location.href="../auth/logout";
+        });
+      }
+    
+    function onLoad() {
+        gapi.load('auth2', function() {
+          gapi.auth2.init();
+        });
+      }
+      </script>
 </head>
 <body>
 <div class="container">
@@ -37,7 +59,7 @@
         <c:if test="${not empty loginUser}">
         <div class="header__user">
           <c:if test="${not empty loginUser.profilePhoto}">
-            <c:if test="${loginUser.loginMethod == 1}">
+            <c:if test="${loginUser.loginMethod > 0}">
                 <span class="header__user__photo"><img src='${loginUser.profilePhoto}'></span>
             </c:if>
             <c:if test="${loginUser.loginMethod == 0}">
@@ -49,6 +71,9 @@
           </c:if>
           <span><a href="${pageContext.servletContext.contextPath}/app/user/detail?userNo=${loginUser.userNo}">${loginUser.name}</a></span>
         </div>
+          <c:if test="${loginUser.loginMethod == 2}">
+              <a href="#" onclick="signOut();">Sign out</a>
+            </c:if>
           <c:if test="${loginUser.loginMethod == 0}">
              <a href="../auth/logout">logout</a>
           </c:if>

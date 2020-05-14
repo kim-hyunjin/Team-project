@@ -24,15 +24,39 @@
 <script>
 document.getElementById("assignClass").onclick = () => {
 	let inputString = prompt('수업참여', '수업코드를 입력하세요.');
-	let form = document.createElement("form");
-	form.setAttribute("action", "join");
-	form.setAttribute("method", "get");
-	let codeInput = document.createElement("input");
-	codeInput.setAttribute("name", "code");
-	codeInput.value = inputString;
-	form.appendChild(codeInput);
-	document.body.appendChild(form);
-	form.submit();
+  if(inputString != null) {
+    let xhr = new XMLHttpRequest();
+    xhr.open("GET", "join?code="+inputString, true);
+    xhr.onreadystatechange = () => {
+      if(xhr.readyState == 4) {
+        if(xhr.status == 200) {
+          location.reload(true);
+        }else {
+          alert("유효하지 않는 수업코드입니다.");
+        }
+      }
+    }
+    xhr.send();
+  }
+	
+}
+
+function add_popup() {
+  let popupWidth = 400;
+  let popupHeight = 300;
+
+  let popupX = (window.screen.width / 2) - (popupWidth / 2);
+  // 만들 팝업창 width 크기의 1/2 만큼 보정값으로 빼주었음
+
+  let popupY= (window.screen.height / 2) - (popupHeight / 2);
+  // 만들 팝업창 height 크기의 1/2 만큼 보정값으로 빼주었음
+
+  let url = "form";
+  let name = "clazz add";
+  let option = "width=400, height=300, top="+popupY+", left="+popupX+", toolbar=no, menubar=no, status=no, location=no, resizable=no, titlebar=no"
+  let popup = window.open(url, name, option);
+
+
 }
 
 </script>  

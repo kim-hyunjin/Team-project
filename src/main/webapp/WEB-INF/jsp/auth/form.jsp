@@ -20,7 +20,7 @@
         console.log(Kakao.isInitialized());
     </script>
 <!-- 라이브러리 추가 -->
-<script src="https://apis.google.com/js/platform.js" async defer></script>
+<script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
 
 <!-- 구글 메타 태그 추가 -->
 <meta name = "google-signin-client_id"
@@ -41,8 +41,8 @@ html, body {
 	<div class="center-container">
 		<div class="login_box">
 			<div class="social_login">
-        <button id="btnGoogle"><div class="g-signin2" data-onsuccess="onSignIn"></div></button>
-				<button id="kakao_login_btn"></button>
+        <div id="my-signin2"></div>
+				<button id="kakao_login_btn" style="margin-top:1em; border:none; background-color:white;"></button>
 			</div>
 			<div class="email_login">
 				<form id="loginForm" name="loginForm" method="post" action="login">
@@ -101,7 +101,7 @@ Kakao.Auth.createLoginButton({
 </script>
 <script>
 //구글로그인 script
-function onSignIn(googleUser) {
+function onSuccess(googleUser) {
     var profile = googleUser.getBasicProfile();
       
     console.log('ID: ' + profile.getId());
@@ -113,21 +113,23 @@ function onSignIn(googleUser) {
     +"&nickname="+encodeURI(profile.getName(), "UTF-8")
     +"&image="+profile.getImageUrl()
     +"&loginMethod=2";
+}
+
+    function onFailure(error) {
+        console.log(error);
+      }
     
-    var _auth2
-
-    var _onGoogleLoad = function () {
-      gapi.load('auth2', function () {
-        _auth2 = gapi.auth2.init({
-          client_id: '360175730868-7161sh4v73h0hsufdvgmoa9u3o25oi21.apps.googleusercontent.com',
-          scope: 'email',
-          fetch_basic_profile: true
-        })
-        _enableGoogleButton()
-      })
-    }
-  }
-
+      function renderButton() {
+        gapi.signin2.render('my-signin2', {
+          'scope': 'profile email',
+          'width': 220,
+          'height': 50,
+          'longtitle': true,
+          'theme': 'light',
+          'onsuccess': onSuccess,
+          'onfailure': onFailure
+        });
+      }
 </script>
 </body>
 </html>

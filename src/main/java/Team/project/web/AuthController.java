@@ -2,7 +2,6 @@ package Team.project.web;
 
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
-import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +27,8 @@ public class AuthController {
   }
 
   @RequestMapping("/auth/login")
-  public String login(HttpSession session, String email, String password, Model model) throws Exception {
+  public String login(HttpSession session, String email, String password, Model model)
+      throws Exception {
     session.removeAttribute("loginUser");
     User user = userService.get(email, password);
     if (user != null) {
@@ -40,7 +40,6 @@ public class AuthController {
       model.addAttribute("loginError", "로그인에 실패했습니다!");
       return "/WEB-INF/jsp/auth/form.jsp";
     }
-
   }
 
   @RequestMapping("/auth/logout")
@@ -49,16 +48,17 @@ public class AuthController {
     return "/WEB-INF/jsp/auth/form.jsp";
   }
 
-  @RequestMapping("/auth/kakao")
-  public String kakao(String email, String id, String nickname, String image) throws Exception {
-    System.out.println("image=========>"+image);
+  @RequestMapping("/auth/social")
+  public String kakao(String email, String id, String nickname, String image, int loginMethod)
+      throws Exception {
+    System.out.println("image=========>" + image);
     if (userService.get(email) != null) {
       return "redirect:login?email=" + email + "&password=" + id;
     } else {
       return "redirect:../user/add?email=" + email + "&password=" + id + "&name="
           + URLEncoder.encode(nickname, StandardCharsets.UTF_8) + "&profilePhoto=" + image
-          + "&loginMethod=1";
+          + "&loginMethod=" + loginMethod;
     }
   }
-
 }
+

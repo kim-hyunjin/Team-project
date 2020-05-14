@@ -37,7 +37,12 @@
         <c:if test="${not empty loginUser}">
         <div class="header__user">
           <c:if test="${not empty loginUser.profilePhoto}">
-            <span class="header__user__photo"><img src='${pageContext.servletContext.contextPath}/upload/user/thumbnail.${loginUser.profilePhoto}.jpg'></span>
+            <c:if test="${loginUser.loginMethod == 1}">
+                <span class="header__user__photo"><img src='${loginUser.profilePhoto}'></span>
+            </c:if>
+            <c:if test="${loginUser.loginMethod == 0}">
+                <span class="header__user__photo"><img src='${pageContext.servletContext.contextPath}/upload/user/thumbnail.${loginUser.profilePhoto}.jpg'></span>
+            </c:if>
           </c:if>
           <c:if test="${empty loginUser.profilePhoto}">
             <i class="far fa-user" style="font-size:1.5em; margin-right: 0.3em;"></i>

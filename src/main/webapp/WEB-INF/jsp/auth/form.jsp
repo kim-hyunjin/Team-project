@@ -59,6 +59,12 @@ html, body {
 		</div>
     </div>
 
+<script>
+let errorMsg = `${loginError}`;
+if(errorMsg.length > 0) {
+    alert("로그인에 실패했습니다!");
+}
+</script>
 <script src="/Team-project/script/loginForm.js"></script>
 <script>
 Kakao.Auth.createLoginButton({
@@ -68,10 +74,10 @@ Kakao.Auth.createLoginButton({
 		    url: '/v2/user/me',
 		    success: function(user) {
 		        console.log(user);
-		        console.log(encodeURI(user.properties.nickname), "UTF-8");
-		        window.location.href="kakao?email="+user.kakao_account.email
+		        console.log(user.properties.profile_image);
+		       window.location.href="kakao?email="+user.kakao_account.email
 		        		+"&id="+user.id
-		        		+"&nickname="+encodeURI(user.properties.nickname, "UTF-8");
+		        		+"&nickname="+encodeURI(user.properties.nickname, "UTF-8")
 		        		+"&image="+user.properties.profile_image;
 		    },
 		    fail: function(error) {

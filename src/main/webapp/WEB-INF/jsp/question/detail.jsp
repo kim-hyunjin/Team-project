@@ -2,20 +2,15 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
     
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>질문 상세 정보</title>
-<script src="https://kit.fontawesome.com/764f0503e3.js" crossorigin="anonymous"></script>
-</head>
-<body>
-	<h1>질문 상세정보</h1>
+<jsp:include page="../room/room_header.jsp"></jsp:include>
+<div class="room_contents">
+  <div id="question_detail">
 	<form action='update' method='post' enctype='multipart/form-data'>
-		  번호 : <input name='questionNo' type='number' readonly value='${question.questionNo}'><br>
-		  <input name='memberNo' type='hidden' value='${question.memberNo}'><br>
-		  제목 : <input name="title" type="text" value="${question.title}">
-		  <label>내용</label><textarea name='content'>${question.content}</textarea><br>
+		  <input name='questionNo' type='hidden' value='${question.questionNo}'>
+		  <input name='memberNo' type='hidden' value='${question.memberNo}'>
+		  <h4>제목</h4><input name="title" type="text" value="${question.title}">
+		  <h4>내용</h4><textarea name='content'>${question.content}</textarea>
+		  <h4>객관식 항목</h4>
 			<div id="multipleBox">
 		  	<c:if test="${not empty multiple}">
 		  	  <c:forEach items="${multiple}" var="m">
@@ -27,16 +22,17 @@
 						</div>
 					</c:forEach>
 		  	</c:if>
-				<button id="addMultiple">객관식 항목 추가</button>
+				<button id="addMultiple">항목 추가</button>
 			</div>
-		  파일 : ${question.filePath} 
-		  <input name='partfile' type='file'><br>
-		  마감일 : <input name='deadline' type='date' value='${question.deadline}'><br>
-		  생성일 : ${question.createDate}<br>
+		  <h4>파일</h4><span id="download" title="다운로드" style="cursor:pointer;">${file.originalName}</span> 
+		  <input name='partfile' type='file'>
+		  <h4>마감일</h4><input name='deadline' type='date' value='${question.deadline}'>
+		  <h5>생성일</h5>${question.createDate}
 		  <button>변경</button>
 	</form>
 	<a href="delete?no=${question.questionNo}">삭제</a>
-	
+	</div>
+	<div id="answer_detail">
 	<h1>학생 답변 목록</h1>
 	<c:if test="${not empty answers}">
 	   <c:forEach items="${answers}" var="a">
@@ -49,6 +45,9 @@
           </c:if>
 	   </c:forEach>
 	</c:if>
+	</div>
+</div>
+</div>
 
 	<script>
 		// 객관식 항목 추가 버튼 클릭시 #multipleBox 밑에 .multipleRow추가
@@ -74,6 +73,12 @@
 				event.currentTarget.parentNode.setAttribute("style", "display:none");
 				event.currentTarget.parentNode.children[0].setAttribute("name", "deleteNo"); // multipleNo값을 deleteNo로 컨트롤러에 보냄 -> 삭제 작업 수행
 		}
+		
+		// 파일 다운로드 스크립트 부분
+		document.getElementById("download").onclick = () => {
+			  window.location = '../download?fileId='+`${file.fileId}`;
+			  
+			}
 		
 
 	</script>

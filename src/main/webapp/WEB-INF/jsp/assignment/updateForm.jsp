@@ -4,16 +4,23 @@
     
 <jsp:include page="../room/room_header.jsp"></jsp:include>
 <div class="room_contents">
-<form action='update' method='post'>
-<input name="assignmentNo" readonly type="number" value="${no}" ><br>
-제목: <input name="title" type="text" ><br>
-내용: <input name='content' type='text'><br>
-마감일: <input name='deadline' type='date' ><br>
-<p><button>변경</button>
+<form action='update' method='post' enctype="multipart/form-data">
+<input name="assignmentNo" readonly type="hidden" value="${assignment.assignmentNo}" >
+<h4>제목</h4><input name="title" type="text" value="${assignment.title}" style="width:50%; font-size:2em;">
+<h4>내용</h4><textarea name='content' style="width:100%; height:30%; resize:none;" >${assignment.content}</textarea><br>
+<h4>마감일</h4><input name='deadline' type='date' value="${assignment.deadline}"><br>
+<h4>파일</h4><span id="download" title="다운로드" style="cursor:pointer;">${file.originalName}</span><br><br>
+<input name="partfile" type="file"><br><br>
+<button style="margin-left:50%; font-size:1em; width:4em;">변경</button>
 </form>
 </div>
-<c:if test="${empty assignment}">
-<p>해당 회원이 없습니다.</p>
-</c:if>
+</div>
+<script>
+//파일 다운로드 스크립트
+document.getElementById("download").onclick = () => {
+	window.location = '../download?fileId='+`${file.fileId}`;
+	
+}
+</script>
 </body>
 </html> 

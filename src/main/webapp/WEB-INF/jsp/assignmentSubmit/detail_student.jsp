@@ -12,12 +12,17 @@
 	<input name="memberNo" type="hidden" value="${nowMember.memberNo}">
 	<p>내용</p>
 	<textarea name="content">${assignmentSubmit.content}</textarea>
-	<p>제출한 파일 : <a href="download?file=${assignmentSubmit.file}">${assignmentSubmit.file}</a></p>
+	<p>제출한 파일 : <span id="download" title="다운로드" style="cursor:pointer;">${file.originalName}</span></p>
 	<input name='partfile' type='file'><br>
 	<button>변경</button>
 </form>
 
 </div>
 </div>
+<script>
+document.getElementById("download").onclick = () => {
+    window.location = '../download?fileId='+`${file.fileId}`;
+}
+</script>
 </body>
 </html> 

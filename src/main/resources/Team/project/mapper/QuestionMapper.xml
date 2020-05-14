@@ -41,7 +41,7 @@
     <set>
       <if test="title != null and title != ''">title=#{title},</if>
       <if test="content != null and content != ''">content=#{content},</if> 
-      <if test="filePath != null and filePath != ''">filePath=#{filePath},</if>
+      <if test="filePath != null and filePath != ''">file=#{filePath},</if>
       <if test="deadline != null">deadline=#{deadline}</if>
     </set>
     where question_no=#{questionNo}

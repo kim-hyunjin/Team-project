@@ -34,7 +34,7 @@ btn.addEventListener("click", function(event){
 		var xhr = new XMLHttpRequest();
 	    xhr.open("GET", "check?email="+email, false);
 	    xhr.send();
-	    // get요쳥으로 이메일 체크
+	    // get요쳥으로 이메일 체크 
 	    if(xhr.status == 404) { // 입력한 이메일을 가진 유저가 없으면 404
 	    	event.preventDefault();
 	    	alert("유효하지 않는 이메일입니다!");

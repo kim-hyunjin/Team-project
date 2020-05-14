@@ -14,9 +14,9 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  width: 30%;
+  width: 20%;
   height: 40%;
-  min-width:25%;
+  min-width:20%;
 }
 
 .social_login {
@@ -27,25 +27,12 @@
   flex-direction: column;
 }
 
-.social_login__box>i {
-  margin-right: 0.5em;
-}
-
-.social_login__box {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 70%;
-  height: 2.5em;
-  border-radius: 1em;
-}
-
 .email_login {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  width: 80%;
+  width: 60%;
 }
 
 #loginForm {
@@ -57,6 +44,7 @@
 }
 
 .email_login__input {
+	font-size:1em;
   margin-top: 1em;
   width: 100%;
   height: 2.5em;
@@ -64,7 +52,7 @@
 
 .login_btn {
   margin-top: 1em;
-  background-color: red;
+  background-color: #ff0000;
   color: white;
   font-weight: 700;
   font-size: 1em;

@@ -41,6 +41,24 @@ document.getElementById("assignClass").onclick = () => {
 	
 }
 
+function add_popup() {
+  let popupWidth = 400;
+  let popupHeight = 300;
+
+  let popupX = (window.screen.width / 2) - (popupWidth / 2);
+  // 만들 팝업창 width 크기의 1/2 만큼 보정값으로 빼주었음
+
+  let popupY= (window.screen.height / 2) - (popupHeight / 2);
+  // 만들 팝업창 height 크기의 1/2 만큼 보정값으로 빼주었음
+
+  let url = "form";
+  let name = "clazz add";
+  let option = "width=400, height=300, top="+popupY+", left="+popupX+", toolbar=no, menubar=no, status=no, location=no, resizable=no, titlebar=no"
+  let popup = window.open(url, name, option);
+
+
+}
+
 </script>  
 </body>
 </html>

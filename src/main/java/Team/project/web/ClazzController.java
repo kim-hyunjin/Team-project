@@ -5,12 +5,14 @@ import java.util.Random;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
 import Team.project.domain.Clazz;
 import Team.project.domain.ClazzMember;
 import Team.project.domain.User;
@@ -47,7 +49,7 @@ public class ClazzController {
  
   
     @PostMapping("add")
-  public String add(HttpSession session, Clazz clazz) throws Exception {
+  public void add(HttpSession session, HttpServletResponse response, Clazz clazz) throws Exception {
     // 랜덤 수업 코드 생성
     StringBuffer temp = new StringBuffer();
     Random rnd = new Random();
@@ -68,6 +70,7 @@ public class ClazzController {
           break;
       }
     }
+    try {
     clazz.setClassCode(temp.toString());
     ClazzMember member = new ClazzMember();
     clazzService.add(clazz);
@@ -75,7 +78,11 @@ public class ClazzController {
     member.setUserNo(((User) session.getAttribute("loginUser")).getUserNo());
     member.setRole(0);
     clazzMemberService.add(member);
-    return "redirect:list";
+    response.setStatus(200);
+    }catch(Exception e) {
+    	response.setStatus(404);
+    	e.printStackTrace();
+    }
   }
 
   @GetMapping("detail")

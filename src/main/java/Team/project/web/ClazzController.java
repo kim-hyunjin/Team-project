@@ -2,6 +2,8 @@ package Team.project.web;
 
 import java.util.List;
 import java.util.Random;
+
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -93,18 +95,24 @@ public class ClazzController {
   
   // 클래스를 찾은 뒤에 수업 목록에 추가하기
   @GetMapping("join")
-  public String join(HttpSession session, Model model, String code) throws Exception {
+  public void join(HttpSession session, Model model, HttpServletResponse response, String code) throws Exception {
     ClazzMember clazzMember = new ClazzMember();
 
     Clazz clazz = (Clazz)clazzService.get(code);
-    clazzMember.setClazzNo(clazz.getClassNo());
+    if(clazz != null) {
+    	clazzMember.setClazzNo(clazz.getClassNo());
+        
+        User user = (User) session.getAttribute("loginUser");
+        clazzMember.setUserNo(user.getUserNo());
+        clazzMember.setRole(1);
+        
+        clazzMemberService.add(clazzMember);
+        response.setStatus(200);
+    } else {
+    	response.setStatus(204);
+    }
     
-    User user = (User) session.getAttribute("loginUser");
-    clazzMember.setUserNo(user.getUserNo());
-    clazzMember.setRole(1);
     
-    clazzMemberService.add(clazzMember);
-    return "redirect:list";
   }
 
 }// ClazzController

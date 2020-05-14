@@ -24,15 +24,21 @@
 <script>
 document.getElementById("assignClass").onclick = () => {
 	let inputString = prompt('수업참여', '수업코드를 입력하세요.');
-	let form = document.createElement("form");
-	form.setAttribute("action", "join");
-	form.setAttribute("method", "get");
-	let codeInput = document.createElement("input");
-	codeInput.setAttribute("name", "code");
-	codeInput.value = inputString;
-	form.appendChild(codeInput);
-	document.body.appendChild(form);
-	form.submit();
+  if(inputString != null) {
+    let xhr = new XMLHttpRequest();
+    xhr.open("GET", "join?code="+inputString, true);
+    xhr.onreadystatechange = () => {
+      if(xhr.readyState == 4) {
+        if(xhr.status == 200) {
+          location.reload(true);
+        }else {
+          alert("유효하지 않는 수업코드입니다.");
+        }
+      }
+    }
+    xhr.send();
+  }
+	
 }
 
 </script>  

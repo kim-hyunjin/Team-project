@@ -11,6 +11,14 @@
 <link rel="stylesheet" href="../../css/style.css" />
 <script src="https://kit.fontawesome.com/764f0503e3.js"
 	crossorigin="anonymous"></script>
+<script src="/Team-project/script/kakao.js"></script>
+    <script>
+        // SDK를 초기화 합니다. 사용할 앱의 JavaScript 키를 설정해 주세요.
+        Kakao.init('e42d7bc3930faad4ef83d4fb783cf136');
+
+        // SDK 초기화 여부를 판단합니다.
+        console.log(Kakao.isInitialized());
+    </script>
 <title>BTS-로그인</title>
 <style>
 html, body {
@@ -26,10 +34,8 @@ html, body {
 	<div class="center-container">
 		<div class="login_box">
 			<div class="social_login">
-				<a href="#" class="social_login__box google"><i
-					class="fab fa-google"></i>Continue with Google</a> <a href="#"
-					class="social_login__box kakao"><i class="fas fa-comment fa-lg"></i>Continue
-					with Kakao</a>
+
+				<button id="kakao_login_btn"></button>
 			</div>
 			<div class="email_login">
 				<form id="loginForm" name="loginForm" method="post" action="login">
@@ -54,5 +60,29 @@ html, body {
     </div>
 
 <script src="/Team-project/script/loginForm.js"></script>
+<script>
+Kakao.Auth.createLoginButton({
+  container: '#kakao_login_btn',
+  success: function(authObj) {
+	  Kakao.API.request({
+		    url: '/v2/user/me',
+		    success: function(user) {
+		        console.log(user);
+		        console.log(encodeURI(user.properties.nickname), "UTF-8");
+		        window.location.href="kakao?email="+user.kakao_account.email
+		        		+"&id="+user.id
+		        		+"&nickname="+encodeURI(user.properties.nickname, "UTF-8");
+		        		+"&image="+user.properties.profile_image;
+		    },
+		    fail: function(error) {
+		        console.log(error);
+		    }
+		});
+  },
+  fail: function(error) {
+    console.log(error);
+  },
+});
+</script>
 </body>
 </html>

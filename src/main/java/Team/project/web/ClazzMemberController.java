@@ -2,12 +2,15 @@ package Team.project.web;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import Team.project.domain.ClazzMember;
 import Team.project.domain.User;
@@ -30,16 +33,17 @@ public class ClazzMemberController {
   }
 
   @RequestMapping("add")
-  public String add(String email, int class_no, int role) throws Exception {
-    User result = userService.get(email);
+  public void add(@RequestBody Map<String, Object> json, HttpServletResponse response) throws Exception {
+    User result = userService.get(json.get("email").toString());
     if (result != null) {
       ClazzMember clazzMember = new ClazzMember();
       clazzMember.setUserNo(result.getUserNo());
-      clazzMember.setClazzNo(class_no);
-      clazzMember.setRole(role);
+      clazzMember.setClazzNo(Integer.parseInt(json.get("classNo").toString()));
+      clazzMember.setRole(Integer.parseInt(json.get("role").toString()));
       clazzMemberService.add(clazzMember);
-      return "redirect:list?room_no=" + class_no;
+      response.setStatus(200);
     } else {
+    	response.setStatus(404);
       throw new Exception("회원을 추가할 수 없습니다.");
     }
   }

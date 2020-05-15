@@ -10,7 +10,8 @@ public interface AssignmentSubmitDao {
 
   public List<AssignmentSubmit> findAll(int assignmentNo) throws Exception;
 
-  public List<AssignmentSubmit> findAllByUserNo(Map<String, Object> params) throws Exception;
+  public List<AssignmentSubmit> findAllByClassNoAndUserNo(Map<String, Object> params)
+      throws Exception;
 
   public AssignmentSubmit findByAssignmentNoAndMemberNo(Map<String, Integer> map) throws Exception;
 

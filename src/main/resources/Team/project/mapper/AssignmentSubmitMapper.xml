@@ -20,6 +20,12 @@
   <association property="clazzMember" javaType="ClazzMember">
     <id column="member_no" property="memberNo"/>
   </association>
+  <association property="assignment" javaType="Assignment">
+    <id column="assignment_no" property="assignmentNo"/>
+    <result column="title" property="title"/>
+    <result column="content" property="content"/>
+    <result column="deadline" property="deadline"/>
+</association>
   </resultMap>
 
   <select id="findAll" resultMap="AssignmentSubmitMap" parameterType="int">
@@ -30,14 +36,17 @@
     where assignment_no = #{assignmentNo}
   </select>
 
-  <select id="findAllByUserNo" resultMap="AssignmentSubmitMap" parameterType="map">
+  <select id="findAllByClassNoAndUserNo" resultMap="AssignmentSubmitMap" parameterType="map">
   select
     c.class_no,
     a.assignment_no,
     a.title,
     cm.member_no,
     cm.user_no,
-    ass.score
+    ass.score,
+    ass.assignment_no,
+    ass.content,
+    ass.create_date
   from
     class c
     left outer join assignment a on c.class_no = a.class_no

@@ -23,7 +23,7 @@
 	     </span>
 	     <span v-if="item.hasOwnProperty('assignmentNo')">
 	     <a v-bind:href="`../assignment/detail?assignmentNo=`+ item.assignmentNo">
-        <i class="fas fa-question-circle"></i><span>{{ item["title"] }}</span>
+        <i class="fas fa-pen-square"></i><span>{{ item["title"] }}</span>
        </a>
        </span>
 	   </li>
@@ -37,6 +37,7 @@
       <option value="2">질문</option>
     </select>
   </form>
+  
 <div id="lesson_box">
 	<ul id="lesson_contents">
 	  <li v-for="item in items" v-if="item.hasOwnProperty('questionNo')">
@@ -95,7 +96,7 @@ var alarm_contents = new Vue({
     },
     methods: {
     	dateConfigure(createDate) {
-    	    if(new Date().getMilliseconds() - createDate < 1720000) {
+    	    if(new Date().getMilliseconds() - createDate < 172800000) {
     	      return true;
     	    } else {
     	      return false;
@@ -111,14 +112,12 @@ function activeFilter(value) {
 		lesson_contents.items = all;
 	}
 	if(value == 1) {
-		lesson_contents.items = all;
-		lesson_contents.items = lesson_contents.items.filter(function (item) {
+		lesson_contents.items = all.filter(function (item) {
 		    return item.hasOwnProperty('assignmentNo');
 		  })
 	}
 	if(value == 2) {
-		lesson_contents.items = all;
-		lesson_contents.items = lesson_contents.items.filter(function (item) {
+		lesson_contents.items = all.filter(function (item) {
 			  		return item.hasOwnProperty('questionNo');
 	      })
 	}

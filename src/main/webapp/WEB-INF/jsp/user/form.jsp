@@ -42,7 +42,8 @@ margin-top: 1.3em;
 	<form action='add' method='post' enctype='multipart/form-data'>
 		<input id = "emailInput" name='email' type='email' placeholder="   이메일"><br>
 		<input id = "nameInput" name='name' type='text' placeholder="   이름"><br>
-		<input id="passwordInput" name='password' type='password' placeholder="   비밀번호"><br>
+		<input id="passwordInput" name='password' type='password' placeholder="   비밀번호">
+		<label id="passwordLabel"></label><br>
 		<input name="loginMethod" type="hidden" value="0">
 		<button id="completeBtn">완료</button>
 	</form>
@@ -54,30 +55,23 @@ margin-top: 1.3em;
 	const passwordBox = document.getElementById("passwordInput");
 	const emailBox = document.getElementById("emailInput");
 	const nameBox = document.getElementById("nameInput");
+	let label = document.getElementById("passwordLabel");
 	document.getElementById("completeBtn").addEventListener("click", function(event) {
-		if(emailBox.value === "") {
-			emailBox.setAttribute("style", "border-color:red");
-		}
-		if(nameBox.value === "") {
-			nameBox.setAttribute("style", "border-color:red");
-		}
-		if(passwordBox.value === "") {
-			passwordBox.setAttribute("style", "border-color:red");
+			event.preventDefault();
+		if(emailBox.value == "" || nameBox.value == "" || passwordBox.value == "") {
+			  	label.innerHTML = "모든 정보를 입력해주세요.";
+        } else {
+        	let password = passwordBox.value;
+            console.log(password);
+            console.log(reg.test(password));
+          if(false === reg.test(password)) {
+            event.preventDefault();
+            passwordBox.focus();
+            label.innerHTML = "비밀번호는 8자 이상이어야 하며, 숫자/소문자/특수문자를 모두 포함해야 합니다.";
+          }
         }
 		
-	let password = passwordBox.value;
-		console.log(password);
-		console.log(reg.test(password));
-	if(false === reg.test(password)) {
-		event.preventDefault();
-		passwordBox.setAttribute("style", "border-color:red");
-		
-		let label = document.getElementById("passwordLabel");
-		label.innerHTML = "비밀번호는 8자 이상이어야 하며, 숫자/소문자/특수문자를 모두 포함해야 합니다.";
-		
-		
-	  // alert('비밀번호는 8자 이상이어야 하며, 숫자/소문자/특수문자를 모두 포함해야 합니다.');
-	}
+	
 	});
 	</script>
 </body>

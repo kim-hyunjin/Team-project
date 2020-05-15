@@ -9,6 +9,7 @@
   width: 100%;
   height: 4.2em;
   border-bottom: thin solid rgba(0, 0, 0, 0.1);
+  min-width:720px;
 }
 
 .header__user {

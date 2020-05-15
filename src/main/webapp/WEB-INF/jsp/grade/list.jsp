@@ -68,19 +68,21 @@ var filter_list = new Vue({
   
   function activeFilter(value) {
 	  if(value == "미제출"){
-		  
-		  return;
+		  grade_list.submits = ${userAssignmentSubmits};
+	    grade_list.submits = grade_list.submits.filter(function (submit) {
+	        return submit.assignment.title.match(value);
+	      })
 	  }
 	  if(value == "제출"){
-		  
-		  return;
+		  grade_list.submits = ${userAssignmentSubmits};
+	    grade_list.submits = grade_list.submits.filter(function (submit) {
+	        return submit.assignment.title.match(value);
+	      })
 	  }
 	  if(value == "전체") {
-		  grade_list.users = ${clazzMembers};
 		  grade_list.submits = ${userAssignmentSubmits};
 		  return;
 	  }
-	  grade_list.users = ${clazzMembers};
 	  grade_list.submits = ${userAssignmentSubmits};
 	  grade_list.submits = grade_list.submits.filter(function (submit) {
 	        return submit.assignment.title.match(value);

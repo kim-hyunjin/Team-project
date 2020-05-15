@@ -19,7 +19,7 @@
 
 <select id="findByClassNo" resultMap="AssignmentMap" parameterType="int">
   select *
-  from assignment 
+  from assignment a, class c
   where class_no=#{no}
   order by assignment_no
 </select>

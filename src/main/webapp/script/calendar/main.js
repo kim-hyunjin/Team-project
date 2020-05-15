@@ -16,27 +16,27 @@ function getDisplayEventDate(event) {
   return displayEventDate;
 }
 
-//function filtering(event) {
-//  var show_title = true;
-//  var show_type = true;
-//
-//  var title = $('input:checkbox.filter:checked').map(function () {
-//    return $(this).val();
-//  }).get();
-//  var types = $('#type_filter').val();
-//
-//  show_title = title.indexOf(event.title) >= 0;
-//
-//  if (types && types.length > 0) {
-//    if (types[0] == "all") {
-//      show_type = true;
-//    } else {
-//      show_type = types.indexOf(event.type) >= 0;
-//    }
-//  }
-//
-//  return show_title && show_type;
-//}
+function filtering(event) {
+	 var show_title = true;
+	  var show_type = true;
+
+	  var title = $('input:checkbox.filter:checked').map(function () {
+	    return $(this).val();
+	  }).get();
+	  var types = $('#type_filter').val();
+
+	  show_title = title.indexOf(event.title) >= 0;
+
+	  if (types && types.length > 0) {
+	    if (types[0] == "all") {
+	      show_type = true;
+	    } else {
+	      show_type = types.indexOf(event.type) >= 0;
+	    }
+	  }
+
+	  return show_title && show_type;
+	}
 
 function calDateWhenResize(event) {
 
@@ -93,23 +93,16 @@ function calDateWhenDragnDrop(event) {
 
 var calendar = $('#calendar').fullCalendar({
 
-  eventRender: function (event, element, view) {
-
-    //일정에 hover시 요약
+	eventRender: function (event, element, view) {
+	//일정에 hover시 요약
     element.popover({
       title: $('<div />', {
         class: 'popoverTitleCalendar',
         text: event.title
-      }).css({
-        'background': event.backgroundColor,
-        'color': event.textColor
       }),
       content: $('<div />', {
           class: 'popoverInfoCalendar'
-        }).append('<p><strong>등록자:</strong> ' + event.username + '</p>')
-        .append('<p><strong>구분:</strong> ' + event.type + '</p>')
-        .append('<p><strong>시간:</strong> ' + getDisplayEventDate(event) + '</p>')
-        .append('<div class="popoverDescCalendar"><strong>설명:</strong> ' + event.description + '</div>'),
+        }).append('<p><strong>내용:</strong> ' + event.content + '</p>'),
       delay: {
         show: "800",
         hide: "50"
@@ -122,6 +115,19 @@ var calendar = $('#calendar').fullCalendar({
 
     return filtering(event);
 
+  },
+
+  //주말 숨기기 & 보이기 버튼
+  customButtons: {
+    viewWeekends: {
+      text: '주말',
+      click: function () {
+        activeInactiveWeekends ? activeInactiveWeekends = false : activeInactiveWeekends = true;
+        $('#calendar').fullCalendar('option', {
+          weekends: activeInactiveWeekends
+        });
+      }
+    }
   },
 
   //주말 숨기기 & 보이기 버튼
@@ -164,37 +170,29 @@ var calendar = $('#calendar').fullCalendar({
    *  일정 받아옴 
    * ************** */
   events: function (start, end, timezone, callback) {
-
     $.ajax({
       type: "get",
-      url: "/Team-project/app/calendar/data",
+      url: "data2",
       data: {
         // 실제 사용시, 날짜를 전달해 일정기간 데이터만 받아오기를 권장
       },
-      success: function (response) {
-    	  console.log(response);
-    	  
+      success: function (data) {
+    	  console.log(data);
+    	  console.log(data[1].deadline);
     	  var events = [];
-    	  console.log(1);
-    	  for(var i=1;i<response.length;i++){
-    		  console.log(i);
-    		  var evt={
-    			title:response[i].title,
-    			deadline:response[i].end
-    		  };
-    		  events.push(evt);
+    	  for(var i=0;i<data.length;i++) {
+    		var evt={
+    				title: data[i].title,
+    				end: data[i].deadline,
+    				start: data[i].createDate,
+    				content: data[i].content,
+    				classNo: data[i].assignmentNo || data[i].questionNo
+    		};
+    		events.push(evt);
     	  }
+    	  console.log(events);
     	  callback(events);
       }
-//        var fixedDate = response.map(function (array) {
-//          if (array.allDay && array.start !== array.end) {
-//            // 이틀 이상 AllDay 일정인 경우 달력에 표기시 하루를 더해야 정상출력
-//           array.end = moment(array.end).add(1, 'days');
-//        }
-//          return array;
-//        })
-//        
-//        callback(fixedDate);
     });
   },
 
@@ -340,7 +338,6 @@ var calendar = $('#calendar').fullCalendar({
   },
   eventLimitClick: 'week', //popover
   navLinks: true,
-  defaultDate: moment('2019-05'), //실제 사용시 삭제
   timeFormat: 'HH:mm',
   defaultTimedEventDuration: '01:00:00',
   editable: true,

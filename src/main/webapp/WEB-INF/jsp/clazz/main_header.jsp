@@ -55,7 +55,7 @@ content = "360175730868-7161sh4v73h0hsufdvgmoa9u3o25oi21.apps.googleusercontent.
     <div class="main_header__column">
       <span><a href="../calendar/calendar">캘린더</a></span>
       <span id="assignClass" style="cursor:pointer;">수업 참여</span>
-      <span onclick="add_popup()" style="cursor: pointer;">수업 만들기</span>
+      <span onclick="popup()" style="cursor: pointer;">수업 만들기</span>
         <c:if test="${not empty loginUser}">
         <div class="header__user">
           <c:if test="${not empty loginUser.profilePhoto}">

@@ -5,30 +5,44 @@
 <head>
 <meta charset="UTF-8">
 <title>이메일 추가</title>
-        <!-- 이메일 입력 해야만 확인이 활성화 되어 등록가능하게 하는 코드 -->
+<style>
+#input_text {
+  font-size: large;
+  width: 100%;
+  height:3em;
+}
 
+button {
+  margin-top: 1em;
+  margin-left: 6em;
+  font-size: large;
+  font-weight: 500;
+  width: 40%;
+  height: 10%
+}
+</style>
 </head>
 <body>
     
-	<h1>이메일로 추가</h1>
 	<form id='form' action='add' method='post'>
 		<input name="class_no" type="hidden" value="${class_no}"><br>
 		<input name="role" type="hidden" value="${role}"><br>
 
-		이메일: <input type="email" name="email" id="input_text" />
+		<input type="email" name="email" id="input_text" placeholder="초대 대상의 이메일을 입력하세요." />
 
-		<button type="button" id="btn">완료</button>
+		<button type="button" id="btn">초대 보내기</button>
     </form>
 		
 <script>
 let btn = document.getElementById("btn");
 // 버튼 클릭시 유효성 검사 시작(type="button"인 경우 버튼을 클릭해도 submit을 수행하지 않는다.)
 btn.addEventListener("click", function(event){
-	const email = document.getElementById("input_text").value;
+	const input = document.getElementById("input_text");
+	const email = input.value;
 	// 입력값이 없으면 경고창 띄움
 	if(email.length == 0) {
 	    event.preventDefault();
-		alert("email을 입력해주세요!");
+	    input.focus();
 		return;
 	} else {
 		var xhr = new XMLHttpRequest();
@@ -37,12 +51,16 @@ btn.addEventListener("click", function(event){
 	    // get요쳥으로 이메일 체크 
 	    if(xhr.status == 404) { // 입력한 이메일을 가진 유저가 없으면 404
 	    	event.preventDefault();
-	    	alert("유효하지 않는 이메일입니다!");
+	    	input.value = "";
+	    	input.setAttribute("placeholder", "유효하지 않는 이메일입니다!");
+	    	input.focus();
 	    	return;
 	    }
 	    if(xhr.status == 200) { // 이메일이 유효하고, 클래스룸의 소속이면 200
 	    	event.preventDefault();
-	    	alert("이미 클래스의 멤버입니다!");
+	    	input.value = "";
+	    	input.setAttribute("placeholder", "이미 클래스의 멤버입니다!");
+	    	input.focus();
 	    	return;
 	    }
 	    if(xhr.status == 204) { // 이메일은 유효하나 클래스룸의 소속이 아니면 204

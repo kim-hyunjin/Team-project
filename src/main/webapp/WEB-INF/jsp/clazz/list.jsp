@@ -41,7 +41,7 @@ document.getElementById("assignClass").onclick = () => {
 	
 }
 
-function add_popup() {
+function popup() {
   let popupWidth = 400;
   let popupHeight = 300;
 

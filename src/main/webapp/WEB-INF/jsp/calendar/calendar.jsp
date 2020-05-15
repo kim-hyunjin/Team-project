@@ -9,7 +9,7 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>FullCalendar Example</title>
+    <title>수업 일정</title>
     <link rel=" shortcut icon" href="image/favicon.ico">
 
     <link rel="stylesheet" href="../../css/calendar/fullcalendar.min.css" />
@@ -23,6 +23,7 @@
     <link rel="stylesheet" href="../../css/calendar/main.css">
 
 </head>
+
 
 <body>
     <div class="container">
@@ -151,13 +152,13 @@
                     </div>
                 </div>
 
-                <div class="col-lg-6">
+               <div class="col-lg-6">
                     <label for="calendar_view">클래스별</label>
                     <div class="input-group">
                     <c:forEach items="${clazzList}" var="item">
                         <label class="checkbox-inline">
-                        <input class='filter' type="checkbox" checked>
-                        ${item.name}<br>
+                        <input class='filter' type="checkbox" value="${item.name}">${item.name}
+                        <br>
                         </label>
                     </c:forEach>
                     </div>

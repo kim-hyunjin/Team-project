@@ -16,27 +16,27 @@ function getDisplayEventDate(event) {
   return displayEventDate;
 }
 
-//function filtering(event) {
-//  var show_title = true;
-//  var show_type = true;
-//
-//  var title = $('input:checkbox.filter:checked').map(function () {
-//    return $(this).val();
-//  }).get();
-//  var types = $('#type_filter').val();
-//
-//  show_title = title.indexOf(event.title) >= 0;
-//
-//  if (types && types.length > 0) {
-//    if (types[0] == "all") {
-//      show_type = true;
-//    } else {
-//      show_type = types.indexOf(event.type) >= 0;
-//    }
-//  }
-//
-//  return show_title && show_type;
-//}
+function filtering(event) {
+  var show_username = true;
+  var show_type = true;
+
+  var username = $('input:checkbox.filter:checked').map(function () {
+    return $(this).val();
+  }).get();
+  var types = $('#type_filter').val();
+
+  show_username = username.indexOf(event.username) >= 0;
+
+  if (types && types.length > 0) {
+    if (types[0] == "all") {
+      show_type = true;
+    } else {
+      show_type = types.indexOf(event.type) >= 0;
+    }
+  }
+
+  return show_username && show_type;
+}
 
 function calDateWhenResize(event) {
 
@@ -164,40 +164,30 @@ var calendar = $('#calendar').fullCalendar({
    *  일정 받아옴 
    * ************** */
   events: function (start, end, timezone, callback) {
-
     $.ajax({
       type: "get",
-      url: "/Team-project/app/calendar/data",
+      url: "data2",
       data: {
         // 실제 사용시, 날짜를 전달해 일정기간 데이터만 받아오기를 권장
       },
-      success: function (response) {
-    	  console.log(response);
-    	  
-    	  var events = [];
-    	  console.log(1);
-    	  for(var i=1;i<response.length;i++){
-    		  console.log(i);
-    		  var evt={
-    			title:response[i].title,
-    			deadline:response[i].end
-    		  };
-    		  events.push(evt);
-    	  }
-    	  callback(events);
+      success: function (data) {
+         console.log(data);
+         console.log(data[1].deadline);
+         var events = [];
+         for(var i=0;i<data.length;i++) {
+          var evt={
+                title: data[i].title,
+                end: data[i].deadline,
+                start: data[i].createDate
+          };
+          events.push(evt);
+         }
+         console.log(events);
+         callback(events);
       }
-//        var fixedDate = response.map(function (array) {
-//          if (array.allDay && array.start !== array.end) {
-//            // 이틀 이상 AllDay 일정인 경우 달력에 표기시 하루를 더해야 정상출력
-//           array.end = moment(array.end).add(1, 'days');
-//        }
-//          return array;
-//        })
-//        
-//        callback(fixedDate);
     });
   },
-
+//  "/Team-project/script/calendar/data.json"
   eventAfterAllRender: function (view) {
     if (view.name == "month") {
       $(".fc-content").css('height', 'auto');

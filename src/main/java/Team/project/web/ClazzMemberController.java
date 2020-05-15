@@ -1,0 +1,103 @@
+package Team.project.web;
+
+import java.util.ArrayList;
+import java.util.List;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import Team.project.domain.ClazzMember;
+import Team.project.domain.User;
+import Team.project.service.ClazzMemberService;
+import Team.project.service.UserService;
+
+@Controller
+@RequestMapping("/room/user/")
+public class ClazzMemberController {
+  @Autowired
+  UserService userService;
+  @Autowired
+  ClazzMemberService clazzMemberService;
+
+  @RequestMapping("form")
+  public String studentForm(Model model, int class_no, int role) {
+    model.addAttribute("class_no", class_no);
+    model.addAttribute("role", role);
+    return "/WEB-INF/jsp/room/user/form.jsp";
+  }
+
+  @RequestMapping("add")
+  public String add(String email, int class_no, int role) throws Exception {
+    User result = userService.get(email);
+    if (result != null) {
+      ClazzMember clazzMember = new ClazzMember();
+      clazzMember.setUserNo(result.getUserNo());
+      clazzMember.setClazzNo(class_no);
+      clazzMember.setRole(role);
+      clazzMemberService.add(clazzMember);
+      return "redirect:list?room_no=" + class_no;
+    } else {
+      throw new Exception("회원을 추가할 수 없습니다.");
+    }
+  }
+
+  @RequestMapping("delete")
+  public String delete(int member_no, int room_no, Model model) throws Exception {
+    if (clazzMemberService.delete(member_no) > 0) { // 삭제했다면,
+      if (member_no != 0) {
+        return "redirect:list?room_no=" + room_no;
+      } else {
+        return "redirect:list";
+      }
+    } else {
+      throw new Exception("해당 번호의 회원이 없습니다.");
+    }
+  }
+
+  @RequestMapping("detail")
+  public String roomDetail(int user_no, int room_no, Model model, int member_no) throws Exception {
+    User user = userService.get(user_no);
+    model.addAttribute("user", user);
+    model.addAttribute("room_no", room_no);
+    model.addAttribute("member_no", member_no);
+    return "/WEB-INF/jsp/room/user/detail.jsp";
+  }
+
+  @RequestMapping("list")
+  public String list(int room_no, Model model) throws Exception {
+    List<ClazzMember> memberList = clazzMemberService.findAllByClassNo(room_no);
+    List<ClazzMember> teachers = new ArrayList<>();
+    List<ClazzMember> students = new ArrayList<>();
+    for (ClazzMember member : memberList) {
+      if (member.getRole() == 0) {
+        teachers.add(member);
+      } else {
+        students.add(member);
+      }
+    }
+    model.addAttribute("teachers", teachers);
+    model.addAttribute("students", students);
+    model.addAttribute("room_no", room_no);
+    return "/WEB-INF/jsp/room/user/list.jsp";
+  }
+
+  @GetMapping("check")
+  public void check(HttpSession session, HttpServletResponse response, String email)
+      throws Exception {
+    User isUser = userService.get(email); // 유효한 이메일인지 확인한다.
+    if (isUser == null) {
+      response.setStatus(404); // 유효한 이메일이 아니면 404으로 응답
+    } else {
+      int roomNo = (int) session.getAttribute("clazzNowNo");
+      User isMember = userService.get(roomNo, email); // 이메일이 유효한 경우 클래스룸 소속인지 확인한다.
+      if (isMember != null) {
+        response.setStatus(200); // 클래스룸 소속이면 200으로 응답
+      } else {
+        response.setStatus(204); // 클래스룸 소속이 아니면 204로 응답
+      }
+    }
+  }
+}

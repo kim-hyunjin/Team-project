@@ -195,7 +195,7 @@ var calendar = $('#calendar').fullCalendar({
       }
     });
   },
-
+//  "/Team-project/script/calendar/data.json"
   eventAfterAllRender: function (view) {
     if (view.name == "month") {
       $(".fc-content").css('height', 'auto');

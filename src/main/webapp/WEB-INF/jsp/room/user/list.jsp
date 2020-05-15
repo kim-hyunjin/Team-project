@@ -3,14 +3,13 @@
     trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<jsp:include page="../room/room_header.jsp"/>
+<jsp:include page="../../room/room_header.jsp"/>
 
 		<div class="user_content">
 		<div class="teacher">
 			<div class="teacher__header">
 				<div style="font-size: x-large; font-weight: bold;">선생</div>
-				<a href="../../room/user/form?class_no=${room_no}&role=0">
-				<div><i class="fas fa-user-plus"></i></div></a>
+				<span onclick="popup(0)" style="cursor: pointer;"><i class="fas fa-user-plus"></i></span>
 			</div>
 			<hr>
 			<ul class="teacher_list user_list">
@@ -31,7 +30,7 @@
 		<div class="student" style="margin-top: 10em;">
 			<div class="student__header">
 				<div style="font-size: x-large; font-weight: bold;">학생</div>
-				<a href="../../room/user/form?class_no=${room_no}&role=1"><div><i class="fas fa-user-plus"></i></div></a>
+				<span onclick="popup(1)" style="cursor: pointer;"><i class="fas fa-user-plus"></i></span>
 			</div>
 			<hr>
 			<ul class="student_list user_list">
@@ -50,6 +49,26 @@
 		</div>
 
 		</div>
+		<script>
+		
+		function popup(role) {
+  let popupWidth = 400;
+  let popupHeight = 250;
+
+  let popupX = (window.screen.width / 2) - (popupWidth / 2);
+  // 만들 팝업창 width 크기의 1/2 만큼 보정값으로 빼주었음
+
+  let popupY= (window.screen.height / 2) - (popupHeight / 2);
+  // 만들 팝업창 height 크기의 1/2 만큼 보정값으로 빼주었음
+
+  let url = "../../room/user/form?class_no="+${room_no}+"&role="+role;
+  let name = "class member add";
+  let option = "width=400, height=200, top="+popupY+", left="+popupX;
+  let popup = window.open(url, name, option);
+
+
+}
+		</script>
 	</body>
 </html>
 

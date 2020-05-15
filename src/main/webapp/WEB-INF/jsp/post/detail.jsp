@@ -19,7 +19,7 @@
      번호: <input name='postNo' type='number' readonly value='${post.postNo}'><br>
      제목: <input name='title' type='text' value='${post.title}'><br>
      내용: <input name='content' type='text' style="text-align:left; width:500px; height:300px;" value='${post.content}'><br>
-     파일 : ${post.file}
+     파일 : <span id="download" title="다운로드" style="cursor:pointer;">${file.originalName}</span>
      <input name='partFile' type='file'><br>
      작성일: <input name='createDate' type='date' readonly value='${post.createDate}'><br>
      <button>변경</button>
@@ -34,44 +34,19 @@
      번호: <input name='postNo' type='number' readonly value='${post.postNo}'><br>
      제목: <input name='title' type='text' value='${post.title}'><br>
      내용: <input name='content' type='text' style="text-align:left; width:500px; height:300px;" value='${post.content}'><br>
-     파일 : ${post.file}
+     파일 : <span id="download" title="다운로드" style="cursor:pointer;">${file.originalName}</span>
      <input name='partFile' type='file'><br>
      작성일: <input name='createDate' type='date' readonly value='${post.createDate}'><br>
    </form>
     </c:otherwise>
   </c:choose>
+  <script>
+  document.getElementById("download").onclick = () => {
+  window.location = '../download?fileId='+`${file.fileId}`;
+  }
+  </script>
 </body>
-
-
-
-
-
 </html>
-
-<!-- 
-<html>
-<head>
-<title>detail/update</title>
-</head>
-
-   <form action='update' method='post' enctype='multipart/form-data'>
-     <input name='memberNo' style='display:none'  value='${post.memberNo}'>
-     <input name='boardNo' type='hidden' value='${post.boardNo}'>    
-     번호: <input name='postNo' type='number' readonly value='${post.postNo}'><br>
-     제목: <input name='title' type='text' value='${post.title}'><br>
-     내용: <input name='content' type='text' style="text-align:left; width:500px; height:300px;" value='${post.content}'><br>
-     파일 : ${post.file}
-     <input name='partFile' type='file'><br>
-     작성일: <input name='createDate' type='date' readonly value='${post.createDate}'><br>
-     <button>변경</button>
-   </form>
-   <a href="delete?no=${post.postNo}&bno=${post.boardNo}">삭제</a>
-</html>
--->
-
-
-
-
 
 
 

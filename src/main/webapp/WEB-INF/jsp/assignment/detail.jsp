@@ -62,7 +62,7 @@ if(${nowMember.role} != 0) {
 }
 
 document.getElementById("download").onclick = () => {
-	window.location = '../download?fileId='+`${file.fileId}`;
+	window.location = '../../download?fileId='+`${file.fileId}`;
 	}
 </script>
 </body>

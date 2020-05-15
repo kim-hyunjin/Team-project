@@ -27,7 +27,7 @@
   let assignments = eval('('+ '${assignmentJson}' +')');
   
   let all = questions.concat(assignments);
-  let = sortingField = "createDate";
+  let sortingField = "createDate";
   all.sort(function(a,b) {
 	  return b[sortingField] - a[sortingField];
   });

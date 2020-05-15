@@ -8,7 +8,7 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>FullCalendar Example</title>
+    <title>수업 일정</title>
     <link rel=" shortcut icon" href="image/favicon.ico">
 
     <link rel="stylesheet" href="../../css/calendar/fullcalendar.min.css" />
@@ -138,22 +138,16 @@
             </div>
 
             <div class="panel-body">
+               
 
-<!--                 <div class="col-lg-6">
-                    <label for="calendar_view">구분별</label>
-                    <div class="input-group">
-                        <select class="filter" id="type_filter" multiple="multiple">
-                            <option value="3">클래스3</option>
-                        </select>
-                    </div>
-                </div> -->
-                
-                   <div class="col-lg-6">
-                    <label for="calendar_view">과제별</label>
+               <div class="col-lg-6">
+                    <label for="calendar_view">과제, 질문별</label>
                     <div class="input-group">
                     <c:forEach items="${assignmentList}" var="item">
                         <label class="checkbox-inline">
                         <input class='filter' type="checkbox" value="${item.title}" checked>${item.title}
+                        <input class='filter' type="checkbox" value="${item.name}">${item.name}
+                        <br>
                         </label>
                     </c:forEach>
                      <c:forEach items="${questionList}" var="item">

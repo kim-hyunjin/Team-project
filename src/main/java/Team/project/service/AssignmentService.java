@@ -17,4 +17,8 @@ public interface AssignmentService {
 
   int update(Assignment assignment) throws Exception;
   
+  // 캘린더 에대한 정보 출력
+
+  List<Assignment> allList(int no) throws Exception;
+  
 }

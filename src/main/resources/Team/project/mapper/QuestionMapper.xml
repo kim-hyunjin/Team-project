@@ -36,6 +36,17 @@
     where question_no = #{no}
   </select>
   
+  <select id="findByNoOfClass" resultMap="QuestionMap" parameterType="int">
+select 
+*
+from 
+  question q, class_member cm, class c
+where 
+  cm.member_no = q.member_no and
+   c.class_no = cm.class_no and  
+  c.class_no = #{no}  
+  </select>
+  
   <update id="update" parameterType="Question">
     update question
     <set>

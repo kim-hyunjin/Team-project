@@ -146,7 +146,6 @@
                     <c:forEach items="${assignmentList}" var="item">
                         <label class="checkbox-inline">
                         <input class='filter' type="checkbox" value="${item.title}" checked>${item.title}
-                        <input class='filter' type="checkbox" value="${item.name}">${item.name}
                         <br>
                         </label>
                     </c:forEach>

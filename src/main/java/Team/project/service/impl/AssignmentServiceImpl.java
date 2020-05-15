@@ -33,7 +33,6 @@ public class AssignmentServiceImpl implements AssignmentService {
 
   @Override
   public Assignment get(int no) throws Exception {
-
     return assignmentDao.findByNo(no);
   }
 
@@ -45,6 +44,10 @@ public class AssignmentServiceImpl implements AssignmentService {
   @Override
   public List<Assignment> list(int no) throws Exception {
     return assignmentDao.findByClassNo(no);
+  }
+  @Override
+  public List<Assignment> allList(int no) throws Exception {
+    return assignmentDao.findByNoOfClass(no);
   }
 
 }

@@ -46,10 +46,23 @@ public class CalendarController {
     List<Clazz> clazzList = clazzService.list(user.getUserNo());
     List<Assignment> assignmentList = new ArrayList<>();
     List<Question> questionList = new ArrayList<>();
+    
+    // 문제점: 클래스 개수로만 반복문을 돌려서.
+    // 클래스를 돌릴 때 안에 갯수 만큼 돌려야 한다.
+    
+    
+    
     for(Clazz c : clazzList) {
-      assignmentList.add(assignmentService.get(c.getClassNo()));
-      questionList.add(questionService.get(c.getClassNo()));
+      List<Assignment> assignmentTempList = assignmentService.allList(c.getClassNo());
+      for(int i = 0; i < assignmentTempList.size(); i++) {
+        assignmentList.add(assignmentTempList.get(i));
+      }
+      List<Question> questionTempList = questionService.allList(c.getClassNo());
+      for(int i = 0; i < questionTempList.size(); i++) {
+        questionList.add(questionTempList.get(i));
+      }
     }
+    System.out.println(assignmentList);
     model.addAttribute("clazzList", clazzList);
     model.addAttribute("assignmentList", assignmentList);
     model.addAttribute("questionList", questionList);
@@ -69,11 +82,21 @@ public class CalendarController {
     
     // 과제, 질문 번호 List 출력
     List<Object> list = new ArrayList<>();
+    
+    
     for(Clazz c : clazzList) {
-      list.add(assignmentService.get(c.getClassNo()));
-      list.add(questionService.get(c.getClassNo()));
+      List<Assignment> assignmentTempList = assignmentService.allList(c.getClassNo());
+      for(int i = 0; i < assignmentTempList.size(); i++) {
+        list.add(assignmentTempList.get(i));
+      }
+      List<Question> questionTempList = questionService.allList(c.getClassNo());
+      for(int i = 0; i < questionTempList.size(); i++) {
+        list.add(questionTempList.get(i));
+      }
     }
     
+    
+    System.out.println(list);
     return new GsonBuilder().setDateFormat("yyyy-MM-dd").create().toJson(list);
   }
 

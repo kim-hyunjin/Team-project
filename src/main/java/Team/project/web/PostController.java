@@ -2,6 +2,7 @@ package Team.project.web;
 
 import java.io.File;
 import java.util.HashMap;
+import java.util.UUID;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import Team.project.domain.ClazzMember;
 import Team.project.domain.Post;
 import Team.project.service.BoardService;
+import Team.project.service.FileService;
 import Team.project.service.PostService;
 
 @Controller
@@ -28,6 +30,9 @@ public class PostController {
 
   @Autowired
   PostService postService;
+
+  @Autowired
+  FileService fileService;
 
   @RequestMapping("list")
   public String list(int bno, Model model, String bTitle) throws Exception {
@@ -57,11 +62,9 @@ public class PostController {
 
     if (partFile.getSize() > 0) {
       String dirPath = servletContext.getRealPath("/upload/post");
-      String originalName = partFile.getOriginalFilename();
-      System.out.println("origianlName=============>" + originalName);
-      // String extention = originalName.substring(originalName.lastIndexOf(".") + 1);
-      partFile.transferTo(new File(dirPath + "/" + originalName));
-      post.setFile(originalName);
+      String fileId = UUID.randomUUID().toString();
+      fileService.add(partFile, fileId, dirPath);
+      post.setFile(fileId);
     }
     postService.add(post);
     model.addAttribute("bno", post.getBoardNo());
@@ -70,7 +73,7 @@ public class PostController {
 
 
   @GetMapping("detail") // postNo가 넘어온다. => detail.jsp
-  public String detail(Post post, HttpSession session, Model model, int no) throws Exception {
+  public String detail(HttpSession session, Model model, int no) throws Exception {
 
     ClazzMember member = (ClazzMember) session.getAttribute("nowMember");
     int cmNo = member.getMemberNo();
@@ -79,8 +82,10 @@ public class PostController {
     System.out.println("memberNo========>" + cmNo);
 
     session.getAttribute(Integer.toString(cmNo));
-
-    model.addAttribute("post", postService.get(no));
+    Post post = postService.get(no);
+    String fileId = post.getFile();
+    model.addAttribute("file", fileService.get(fileId));
+    model.addAttribute("post", post);
     return "/WEB-INF/jsp/post/detail.jsp";
   }
 
@@ -92,11 +97,15 @@ public class PostController {
 
     if (partFile.getSize() > 0) {
       String dirPath = servletContext.getRealPath("/upload/post");
-      String originalName = partFile.getOriginalFilename();
-      System.out.println("origianlName=============>" + originalName);
-      // String extention = originalName.substring(originalName.lastIndexOf(".") + 1);
-      partFile.transferTo(new File(dirPath + "/" + originalName));
-      post.setFile(originalName);
+      String fileId = UUID.randomUUID().toString();
+      fileService.add(partFile, fileId, dirPath);
+      String oldFile = post.getFile();
+      if (oldFile != null) {
+        File deleteFile = new File(dirPath + "/" + oldFile);
+        deleteFile.deleteOnExit();
+        fileService.delete(oldFile);
+      }
+      post.setFile(fileId);
     }
 
     postService.update(post);

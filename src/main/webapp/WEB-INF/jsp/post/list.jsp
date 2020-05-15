@@ -32,18 +32,3 @@
   <button>검색</button>
   </form>
 </c:if>
-
-<!--  -->
-  
-
-
- <!-- 
-  <form action='search' method='post'>
-    <select name="searchKey">
-      <option value="title">제목</option>
-      <option value="content">내용</option>
-      <option value="이름">이름</option>
-    </select> 
-  <button>검색</button>
-  </form>
-  -->

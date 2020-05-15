@@ -53,7 +53,7 @@ function add_popup() {
 
   let url = "form";
   let name = "clazz add";
-  let option = "width=400, height=300, top="+popupY+", left="+popupX+", toolbar=no, menubar=no, status=no, location=no, resizable=no, titlebar=no"
+  let option = "width=400, height=300, top="+popupY+", left="+popupX;
   let popup = window.open(url, name, option);
 
 

@@ -16,10 +16,15 @@
 	<ul id="alarm_contents">
 	   <li v-for="item in items" v-if="dateConfigure(item.createDate)">
 	     <span v-if="item.hasOwnProperty('questionNo')">
-	       <i class="fas fa-question-circle"></i><span>{{ item["title"] }}</span>
+         <a v-bind:href="`../question/detail?qno=`+item.questionNo">
+         <i class="fas fa-question-circle"></i>
+	         <span>{{ item["title"] }}</span>
+	       </a>
 	     </span>
 	     <span v-if="item.hasOwnProperty('assignmentNo')">
+	     <a v-bind:href="`../assignment/detail?assignmentNo=`+ item.assignmentNo">
         <i class="fas fa-question-circle"></i><span>{{ item["title"] }}</span>
+       </a>
        </span>
 	   </li>
 	</ul>
@@ -35,10 +40,14 @@
 <div id="lesson_box">
 	<ul id="lesson_contents">
 	  <li v-for="item in items" v-if="item.hasOwnProperty('questionNo')">
-	    <i class="fas fa-question-circle"></i><span>{{ item["title"] }}</span>
+      <a v-bind:href="`../question/detail?qno=`+item.questionNo">	   
+  	    <i class="fas fa-question-circle"></i><span>{{ item["title"] }}</span>
+	    </a>
 	  </li>
 	  <li v-for="item in items" v-if="item.hasOwnProperty('assignmentNo')">
-      <i class="fas fa-pen-square"></i><span>{{ item["title"] }}</span>
+	   <a v-bind:href="`../assignment/detail?assignmentNo=`+ item.assignmentNo">
+        <i class="fas fa-pen-square"></i><span>{{ item["title"] }}</span>
+     </a>
     </li>
   </ul>
 </div>

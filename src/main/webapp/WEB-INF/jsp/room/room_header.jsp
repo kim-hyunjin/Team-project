@@ -7,6 +7,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="/Team-project/css/style.css" />
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="https://kit.fontawesome.com/764f0503e3.js" crossorigin="anonymous"></script>
     <script src="/Team-project/script/kakao.js"></script>
     <script>

@@ -44,44 +44,20 @@ public class CalendarController {
     User user = (User) session.getAttribute("loginUser");
     // 클래스 리스트를 출력
     List<Clazz> clazzList = clazzService.list(user.getUserNo());
-    model.addAttribute("clazzList", clazzList);
-
-    return "/WEB-INF/jsp/calendar/calendar.jsp";
-  }
-
-  @GetMapping("data")
-  public void data(HttpSession session, Model model, HttpServletResponse response) throws Exception {
-     
-    User user = (User) session.getAttribute("loginUser");
-    // 클래스 리스트를 출력
-    List<Clazz> clazzList = clazzService.list(user.getUserNo());
-    
-    // 과제, 질문 번호 List 출력
     List<Assignment> assignmentList = new ArrayList<>();
     List<Question> questionList = new ArrayList<>();
-    List<Object> list = new ArrayList<>();
     for(Clazz c : clazzList) {
       assignmentList.add(assignmentService.get(c.getClassNo()));
       questionList.add(questionService.get(c.getClassNo()));
     }
+    model.addAttribute("clazzList", clazzList);
+    model.addAttribute("assignmentList", assignmentList);
+    model.addAttribute("questionList", questionList);
     
-    // 과제 + 질문 합치기
-    list.addAll(assignmentList);
-    list.addAll(questionList);
-    System.out.println(list);
-    
-    
-    // json으로 파일 출력
-    File file = new File("C:\\Users\\user\\git\\Team-project\\src\\main\\webapp\\script\\calendar/data.json");
-    System.out.println(file.getAbsolutePath());
-    try (FileWriter out = new FileWriter(file)) {
-      out.write(new Gson().toJson(list));
-    } catch (Exception e) {
-      System.out.println("파일 쓰기 중 오류 발생! - " + e.getMessage());
-    }
-    
-    
+
+    return "/WEB-INF/jsp/calendar/calendar.jsp";
   }
+
   
   @GetMapping(value="data2", produces = "application/json;charset=UTF-8")
   @ResponseBody

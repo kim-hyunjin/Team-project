@@ -12,7 +12,21 @@ public class Clazz implements Serializable {
   private String classCode;
   private Date createDate;
   private ClazzMember clazzMember;
+  private Assignment assignment;
+  private Question question;
   
+  public Assignment getAssignment() {
+    return assignment;
+  }
+  public void setAssignment(Assignment assignment) {
+    this.assignment = assignment;
+  }
+  public Question getQuestion() {
+    return question;
+  }
+  public void setQuestion(Question question) {
+    this.question = question;
+  }
   public int getClassNo() {
     return classNo;
   }

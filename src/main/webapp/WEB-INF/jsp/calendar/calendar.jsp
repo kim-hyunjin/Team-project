@@ -1,8 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" 
     pageEncoding="UTF-8"
     trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
-
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -139,31 +138,25 @@
             </div>
 
             <div class="panel-body">
-
-                <div class="col-lg-6">
-                    <label for="calendar_view">구분별</label>
-                    <div class="input-group">
-                        <select class="filter" id="type_filter" multiple="multiple">
-                            <option value="카테고리1">카테고리1</option>
-                            <option value="카테고리2">카테고리2</option>
-                            <option value="카테고리3">카테고리3</option>
-                            <option value="카테고리4">카테고리4</option>
-                        </select>
-                    </div>
-                </div>
+               
 
                <div class="col-lg-6">
-                    <label for="calendar_view">클래스별</label>
+                    <label for="calendar_view">과제, 질문별</label>
                     <div class="input-group">
-                    <c:forEach items="${clazzList}" var="item">
+                    <c:forEach items="${assignmentList}" var="item">
                         <label class="checkbox-inline">
+                        <input class='filter' type="checkbox" value="${item.title}" checked>${item.title}
                         <input class='filter' type="checkbox" value="${item.name}">${item.name}
                         <br>
                         </label>
                     </c:forEach>
+                     <c:forEach items="${questionList}" var="item">
+                        <label class="checkbox-inline">
+                        <input class='filter' type="checkbox" value="${item.title}" checked>${item.title}
+                        </label>
+                    </c:forEach> 
                     </div>
-                </div>
-
+                    </div>
             </div>
         </div>
         <!-- /.filter panel -->

@@ -22,13 +22,18 @@
 	display:flex;
 	flex-direction:column;
 	align-items:center;
-	justify-content: flex-start;
+	justify-content: center;
 	margin-right:3em;
 	width:7em;
-	height:80%;
+	height:5em;
 	border:thin solid rgba(0, 0, 0, 0.1);
 	cursor:pointer;
 }
 
-.assignments_info>a{
+.assignments_info.green{
+	background-color: rgb(204, 255, 204);
+}
+
+.assignments_info.red{
+	background-color: rgb(255, 204, 204);
 }

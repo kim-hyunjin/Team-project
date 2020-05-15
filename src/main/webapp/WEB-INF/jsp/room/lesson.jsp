@@ -112,14 +112,12 @@ function activeFilter(value) {
 		lesson_contents.items = all;
 	}
 	if(value == 1) {
-		lesson_contents.items = all;
-		lesson_contents.items = lesson_contents.items.filter(function (item) {
+		lesson_contents.items = all.filter(function (item) {
 		    return item.hasOwnProperty('assignmentNo');
 		  })
 	}
 	if(value == 2) {
-		lesson_contents.items = all;
-		lesson_contents.items = lesson_contents.items.filter(function (item) {
+		lesson_contents.items = all.filter(function (item) {
 			  		return item.hasOwnProperty('questionNo');
 	      })
 	}

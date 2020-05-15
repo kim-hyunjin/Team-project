@@ -20,11 +20,17 @@
   <ul id="grade_list">
     <li v-for="user in users" v-if="user.role != 0">
 	    <span class="user_info">{{user.user.name}}</span>
-	    <div v-for="submit in submits" v-if="submit.user.userNo == user.userNo" class="assignments_info" >
-	      <a v-bind:href="`../assignmentSubmit/review?assignmentNo=`+submit.assignmentNo+`&memberNo=`+submit.memberNo">
-  	       <div>{{ submit.assignment.title }}</div>
-	      </a>
-       <div>{{ submit.score }}</div>
+	    <div v-for="submit in submits" >
+	    	<div v-if="submit.user.userNo == user.userNo && submit.hasOwnProperty('createDate')" class="assignments_info green" >
+			    <a v-bind:href="`../assignmentSubmit/review?assignmentNo=`+submit.assignmentNo+`&memberNo=`+submit.memberNo">
+		  	      <div>{{ submit.assignment.title }}</div>
+			    </a>
+		       	<div>{{ submit.score }}</div>
+	       	</div>
+		    <div v-if="submit.user.userNo == user.userNo && !submit.hasOwnProperty('createDate')" class="assignments_info red">
+		    	<div>{{ submit.assignment.title }}</div>
+		    	<div>{{ submit.score }}</div>
+		    </div>
 	    </div>
     </li>
   </ul>
@@ -33,15 +39,18 @@
 </div>
 </div>
 <script>
+const clazzMembersJson = eval('('+ '${clazzMembers}' +')');
+const submitsJson = eval('('+ '${userAssignmentSubmits}' +')');
+const assignmentsJson = eval('('+ '${assignments}' +')');
 
 
 //성적 템플릿
-console.log(`${userAssignmentSubmits}`);
+console.log(submitsJson);
 var grade_list = new Vue({
     el: '#grade_list',
     data: {
-      users: ${clazzMembers},
-      submits: ${userAssignmentSubmits}
+      users: clazzMembersJson,
+      submits: submitsJson
     }
   })
 
@@ -49,12 +58,12 @@ var grade_list = new Vue({
 var filter_list = new Vue({
     el: '#filter_list',
     data: {
-      assignments: ${assignments}
+      assignments: assignmentsJson
     }
   })
   
   //과목 div에 링크를 달기 위한 부분
-  let linkbox = document.getElementsByClassName("assignments_info");
+  let linkbox = document.getElementsByClassName("assignments_info green");
   for(let l of linkbox) {
 	  l.addEventListener("click", function() {
 		  var myEvent = new MouseEvent("click", {
@@ -66,30 +75,27 @@ var filter_list = new Vue({
 	  })
   }
   
+  //필터 기능
   function activeFilter(value) {
 	  if(value == "미제출"){
-		  grade_list.submits = ${userAssignmentSubmits};
-	    grade_list.submits = grade_list.submits.filter(function (submit) {
-	        return submit.assignment.title.match(value);
+		grade_list.submits = submitsJson.filter(function (item) {
+		        return !item.hasOwnProperty("createDate");
 	      })
-	  }
-	  if(value == "제출"){
-		  grade_list.submits = ${userAssignmentSubmits};
-	    grade_list.submits = grade_list.submits.filter(function (submit) {
-	        return submit.assignment.title.match(value);
+	  } else if(value == "제출"){
+	    grade_list.submits = submitsJson.filter(function (item) {
+	        return item.hasOwnProperty('createDate');
 	      })
-	  }
-	  if(value == "전체") {
-		  grade_list.submits = ${userAssignmentSubmits};
+	  } else if(value == "전체") {
+		  grade_list.submits = submitsJson;
 		  return;
-	  }
-	  grade_list.submits = ${userAssignmentSubmits};
-	  grade_list.submits = grade_list.submits.filter(function (submit) {
-	        return submit.assignment.title.match(value);
+	  } else {
+	  		grade_list.submits = submitsJson.filter(function (item) {
+	        return item.assignment.title.match(value);
 	      })
+	  }
   }
 
-
+	  
 </script>
 </body>
 </html>

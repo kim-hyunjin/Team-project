@@ -44,7 +44,9 @@
     cm.member_no,
     cm.user_no,
     ass.score,
-    ass.assignment_no
+    ass.assignment_no,
+    ass.content,
+    ass.create_date
   from
     class c
     left outer join assignment a on c.class_no = a.class_no

@@ -24,4 +24,8 @@ public interface UserDao {
   public int delete(int no) throws Exception;
 
   List<User> findByKeyword(String keyword) throws Exception;
+  
+  // 가입시 이메일 체크
+  public int checkEmail(String email) throws Exception;
+  
 }

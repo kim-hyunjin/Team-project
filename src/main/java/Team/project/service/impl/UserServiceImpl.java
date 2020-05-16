@@ -72,4 +72,10 @@ public class UserServiceImpl implements UserService {
     
     return userDao.findByRoomNoAndEmail(map);
   }
+
+  @Override
+  public int checkEmail(String email) throws Exception {
+    int result = userDao.checkEmail(email);
+    return result;
+  }
 }

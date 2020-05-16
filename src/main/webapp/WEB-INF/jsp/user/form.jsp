@@ -5,11 +5,13 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="../../css/style.css" />
 <script src="https://kit.fontawesome.com/764f0503e3.js" crossorigin="anonymous"></script>
+<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <style>
 html, body {
@@ -34,6 +36,7 @@ margin-top: 1.3em;
 }
 </style>
 </head>
+        
 <body>
 <div class="center-container">
 <div class="login_box">
@@ -41,6 +44,7 @@ margin-top: 1.3em;
 	<div style="width:70%;">
 	<form action='add' method='post' enctype='multipart/form-data'>
 		<input id = "emailInput" name='email' type='email' placeholder="   이메일"><br>
+		<button class="checkEmail" type="button" id="checkEamil" onclick="checkEmail();" value="N">중복확인</button>
 		<input id = "nameInput" name='name' type='text' placeholder="   이름"><br>
 		<input id="passwordInput" name='password' type='password' placeholder="   비밀번호">
 		<label id="passwordLabel"></label><br>
@@ -70,10 +74,27 @@ margin-top: 1.3em;
             label.innerHTML = "비밀번호는 8자 이상이어야 하며, 숫자/소문자/특수문자를 모두 포함해야 합니다.";
           }
         }
-		
-	
 	});
-	</script>
+	
+    function checkEmail(){
+    	     $.ajax({
+    	       type: 'POST',
+    	       datatype: "json",
+    	       data: {email : $("#email").val()},
+    	       url: "checkEmail",
+    	       success : function(result){
+    	           if (result == 0){
+    	               alert('사용가능합니다');
+    	           } else {
+    	               idck = 1;
+    	               alert('중복입니다');
+    	           }
+    	       }
+    	       });
+    	     };
+	</script>   
+	
+	
 </body>
 </html>
 

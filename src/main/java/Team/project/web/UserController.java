@@ -1,14 +1,18 @@
 package Team.project.web;
 
 import java.io.File;
+import java.util.Map;
 import java.util.UUID;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestPart;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import Team.project.domain.User;
 import Team.project.service.UserService;
@@ -30,6 +34,14 @@ public class UserController {
     return "/WEB-INF/jsp/user/form.jsp";
   }
 
+  
+  @ResponseBody
+  @RequestMapping(value = "checkEmail", method = RequestMethod.POST)
+  public int checkid(String email) throws Exception {
+    int count = userService.checkEmail(email);
+    return count;
+  }
+  
   @RequestMapping("add")
   public String add(User user, @RequestPart(value = "photo", required = false) MultipartFile photo)
       throws Exception {

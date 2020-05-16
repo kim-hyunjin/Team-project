@@ -109,6 +109,12 @@
     join class_member cm on u.user_no = cm.user_no
     where email=#{email} and class_no = #{roomNo}
   </select>
+  
+  <select id="checkEmail" parameterType="String" resultType="int">
+      select count(*) from user
+      where email = #{email}
+</select>
+
 </mapper>
 
 

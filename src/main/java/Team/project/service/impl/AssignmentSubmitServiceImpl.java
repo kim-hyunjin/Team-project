@@ -31,7 +31,7 @@ public class AssignmentSubmitServiceImpl implements AssignmentSubmitService {
     HashMap<String, Object> params = new HashMap<>();
     params.put("classNo", classNo);
     params.put("userNo", userNo);
-    return assignmentSubmitDao.findAllByUserNo(params);
+    return assignmentSubmitDao.findAllByClassNoAndUserNo(params);
   }
 
   @Override

@@ -47,7 +47,10 @@ public class QuestionServiceImpl implements QuestionService {
   public List<Question> list(int no) throws Exception {
     return questionDao.findAll(no);
   }
-
+@Override
+public List<Question> allList(int no) throws Exception {
+  return questionDao.findByNoOfClass(no);
+}
 
 
 }

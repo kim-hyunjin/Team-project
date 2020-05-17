@@ -178,7 +178,6 @@ var calendar = $('#calendar').fullCalendar({
       },
       success: function (data) {
     	  console.log(data);
-    	  console.log(data[1].deadline);
     	  var events = [];
     	  for(var i=0;i<data.length;i++) {
     		var evt={
@@ -186,7 +185,9 @@ var calendar = $('#calendar').fullCalendar({
     				end: data[i].deadline,
     				start: data[i].createDate,
     				content: data[i].content,
-    				classNo: data[i].assignmentNo || data[i].questionNo
+    				// Question은 classNo가 없어서 list 필터링을 적용할때 클래스구분하기가 힘듬.
+    				assignmentNo: data[i].assignmentNo, 
+    				QuestionNo: data[i].questionNo
     		};
     		events.push(evt);
     	  }
@@ -195,7 +196,6 @@ var calendar = $('#calendar').fullCalendar({
       }
     });
   },
-//  "/Team-project/script/calendar/data.json"
   eventAfterAllRender: function (view) {
     if (view.name == "month") {
       $(".fc-content").css('height', 'auto');

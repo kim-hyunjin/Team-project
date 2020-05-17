@@ -52,6 +52,17 @@ where
   assignment_no=#{no}
 </select>
 
+<select id="findByNoOfClass" resultMap="AssignmentMap" parameterType="int">
+select 
+*
+from class c, assignment a
+where
+  c.class_no = a.class_no and
+  c.class_no = #{no};
+</select>
+
+
+
 <update id="update" parameterType="Assignment">
 update assignment
     <set>

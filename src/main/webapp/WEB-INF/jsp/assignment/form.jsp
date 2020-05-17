@@ -8,6 +8,7 @@
 		        <input name="title" type="text" placeholder="제목">
 		        <textarea name="content" placeholder="내용"></textarea>
 		        <input name="partfile" type="file">
+		        <input name="createDate" type="date" placeholder="마감기한">
 		        <input name="deadline" type="date" placeholder="마감기한">
 		        <textarea name="standard" placeholder="평가기준"></textarea>
 		        <button>생성</button>

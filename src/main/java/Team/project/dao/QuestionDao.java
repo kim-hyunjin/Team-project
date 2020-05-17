@@ -17,6 +17,8 @@ public interface QuestionDao {
   // List<ClassMember> findByKeyword(String keyword) throws Exception;
 
   public List<Question> findAll(int no) throws Exception;
+  
+  public List<Question> findByNoOfClass(int no) throws Exception;
 }
 
 

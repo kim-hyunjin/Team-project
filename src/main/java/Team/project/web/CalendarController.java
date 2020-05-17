@@ -36,8 +36,6 @@ public class CalendarController {
   @Autowired
   AssignmentService assignmentService;
 
-
-
   @RequestMapping("calendar")
   public String calendar(HttpSession session, Model model) throws Exception{
 
@@ -46,10 +44,18 @@ public class CalendarController {
     List<Clazz> clazzList = clazzService.list(user.getUserNo());
     List<Assignment> assignmentList = new ArrayList<>();
     List<Question> questionList = new ArrayList<>();
+    
     for(Clazz c : clazzList) {
-      assignmentList.add(assignmentService.get(c.getClassNo()));
-      questionList.add(questionService.get(c.getClassNo()));
+      List<Assignment> assignmentTempList = assignmentService.allList(c.getClassNo());
+      for(int i = 0; i < assignmentTempList.size(); i++) {
+        assignmentList.add(assignmentTempList.get(i));
+      }
+      List<Question> questionTempList = questionService.allList(c.getClassNo());
+      for(int i = 0; i < questionTempList.size(); i++) {
+        questionList.add(questionTempList.get(i));
+      }
     }
+    System.out.println(assignmentList);
     model.addAttribute("clazzList", clazzList);
     model.addAttribute("assignmentList", assignmentList);
     model.addAttribute("questionList", questionList);
@@ -69,12 +75,29 @@ public class CalendarController {
     
     // 과제, 질문 번호 List 출력
     List<Object> list = new ArrayList<>();
+    
+    
     for(Clazz c : clazzList) {
-      list.add(assignmentService.get(c.getClassNo()));
-      list.add(questionService.get(c.getClassNo()));
+      List<Assignment> assignmentTempList = assignmentService.allList(c.getClassNo());
+      for(int i = 0; i < assignmentTempList.size(); i++) {
+        list.add(assignmentTempList.get(i));
+      }
+      List<Question> questionTempList = questionService.allList(c.getClassNo());
+      for(int i = 0; i < questionTempList.size(); i++) {
+        list.add(questionTempList.get(i));
+      }
     }
     
+    System.out.println(list);
     return new GsonBuilder().setDateFormat("yyyy-MM-dd").create().toJson(list);
+  }
+  
+  // 날짜에서 입력을 했을때 해당 과제의 해당 클래스의 정보로 이동할게요 !
+  @GetMapping("/detail")
+  public String detail(Model model,HttpSession session) throws Exception{
+	    Clazz clazz = (Clazz) session.getAttribute("clazzNow");
+	    model.addAttribute("calendar", clazz);
+	    return "/WEB-INF/jsp/calendar/calendar.jsp";
   }
 
 

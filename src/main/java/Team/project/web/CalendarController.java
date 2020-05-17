@@ -36,8 +36,6 @@ public class CalendarController {
   @Autowired
   AssignmentService assignmentService;
 
-
-
   @RequestMapping("calendar")
   public String calendar(HttpSession session, Model model) throws Exception{
 

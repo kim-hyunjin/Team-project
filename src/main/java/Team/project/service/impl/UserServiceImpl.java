@@ -74,8 +74,7 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
-  public int checkEmail(String email) throws Exception {
-    int result = userDao.checkEmail(email);
-    return result;
+  public Integer checkid(String inputId) throws Exception {
+    return userDao.checkid(inputId);
   }
 }

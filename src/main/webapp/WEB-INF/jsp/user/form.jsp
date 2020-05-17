@@ -43,8 +43,8 @@ margin-top: 1.3em;
 	<h1>회원 가입</h1>
 	<div style="width:70%;">
 	<form action='add' method='post' enctype='multipart/form-data'>
-		<input id = "emailInput" name='email' type='email' placeholder="   이메일"><br>
-		<button class="checkEmail" type="button" id="checkEamil" onclick="checkEmail();" value="N">중복확인</button>
+		<input id = "email" name='email' type='email' placeholder="   이메일"><br>
+		  <input type='button' id='idck' value="email중복확인" onclick='checkid()'>
 		<input id = "nameInput" name='name' type='text' placeholder="   이름"><br>
 		<input id="passwordInput" name='password' type='password' placeholder="   비밀번호">
 		<label id="passwordLabel"></label><br>
@@ -57,7 +57,7 @@ margin-top: 1.3em;
 	<script>
 	const reg = /^(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
 	const passwordBox = document.getElementById("passwordInput");
-	const emailBox = document.getElementById("emailInput");
+	const emailBox = document.getElementById("email");
 	const nameBox = document.getElementById("nameInput");
 	let label = document.getElementById("passwordLabel");
 	document.getElementById("completeBtn").addEventListener("click", function(event) {
@@ -76,23 +76,27 @@ margin-top: 1.3em;
         }
 	});
 	
-    function checkEmail(){
-    	     $.ajax({
-    	       type: 'POST',
-    	       datatype: "json",
-    	       data: {email : $("#email").val()},
-    	       url: "checkEmail",
-    	       success : function(result){
-    	           if (result == 0){
-    	               alert('사용가능합니다');
-    	           } else {
-    	               idck = 1;
-    	               alert('중복입니다');
-    	           }
-    	       }
-    	       });
-    	     };
-	</script>   
+	function checkid(){
+	     $.ajax({
+	       type: 'POST',
+	       datatype: "json",
+	       data: {email : $("#email").val()},
+	       url: "checkid",
+	       success : function(result){
+	           if (result == 0){
+	               console.log("넘어온 값 : " + result);
+	               alert('사용가능합니다');
+	           } else {
+	               idck = 201;
+	             console.log("넘어온 값 : " + result);
+	               alert('중복입니다');
+	           }
+	       }
+	       });
+	     };
+	     
+	 
+	</script>
 	
 	
 </body>

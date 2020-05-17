@@ -110,7 +110,7 @@
     where email=#{email} and class_no = #{roomNo}
   </select>
   
-  <select id="checkEmail" parameterType="String" resultType="int">
+  <select id="checkid" parameterType="String" resultType="Integer">
       select count(*) from user
       where email = #{email}
 </select>

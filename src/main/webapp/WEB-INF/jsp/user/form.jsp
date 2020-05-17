@@ -5,11 +5,13 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="../../css/style.css" />
 <script src="https://kit.fontawesome.com/764f0503e3.js" crossorigin="anonymous"></script>
+<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <style>
 html, body {
@@ -34,13 +36,15 @@ margin-top: 1.3em;
 }
 </style>
 </head>
+        
 <body>
 <div class="center-container">
 <div class="login_box">
 	<h1>회원 가입</h1>
 	<div style="width:70%;">
 	<form action='add' method='post' enctype='multipart/form-data'>
-		<input id = "emailInput" name='email' type='email' placeholder="   이메일"><br>
+		<input id = "email" name='email' type='email' placeholder="   이메일"><br>
+		  <input type='button' id='idck' value="email중복확인" onclick='checkid()'>
 		<input id = "nameInput" name='name' type='text' placeholder="   이름"><br>
 		<input id="passwordInput" name='password' type='password' placeholder="   비밀번호">
 		<label id="passwordLabel"></label><br>
@@ -53,7 +57,7 @@ margin-top: 1.3em;
 	<script>
 	const reg = /^(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
 	const passwordBox = document.getElementById("passwordInput");
-	const emailBox = document.getElementById("emailInput");
+	const emailBox = document.getElementById("email");
 	const nameBox = document.getElementById("nameInput");
 	let label = document.getElementById("passwordLabel");
 	document.getElementById("completeBtn").addEventListener("click", function(event) {
@@ -70,10 +74,31 @@ margin-top: 1.3em;
             label.innerHTML = "비밀번호는 8자 이상이어야 하며, 숫자/소문자/특수문자를 모두 포함해야 합니다.";
           }
         }
-		
-	
 	});
+	
+	function checkid(){
+	     $.ajax({
+	       type: 'POST',
+	       datatype: "json",
+	       data: {email : $("#email").val()},
+	       url: "checkid",
+	       success : function(result){
+	           if (result == 0){
+	               console.log("넘어온 값 : " + result);
+	               alert('사용가능합니다');
+	           } else {
+	               idck = 201;
+	             console.log("넘어온 값 : " + result);
+	               alert('중복입니다');
+	           }
+	       }
+	       });
+	     };
+	     
+	 
 	</script>
+	
+	
 </body>
 </html>
 

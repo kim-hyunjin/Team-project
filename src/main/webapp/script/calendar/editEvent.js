@@ -24,11 +24,11 @@ var editEvent = function (event, element, view) {
         editEnd.val(event.end.format('YYYY-MM-DD HH:mm'));
     }
 
-    modalTitle.html('일정 수정');
+    modalTitle.html('일정보기');
     editTitle.val(event.title);
     editStart.val(event.start.format('YYYY-MM-DD HH:mm'));
     editType.val(event.type);
-    editDesc.val(event.description);
+    editDesc.val(event.content);
     editColor.val(event.backgroundColor).css('color', event.backgroundColor);
 
     addBtnContainer.hide();

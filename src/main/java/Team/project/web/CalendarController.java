@@ -47,11 +47,6 @@ public class CalendarController {
     List<Assignment> assignmentList = new ArrayList<>();
     List<Question> questionList = new ArrayList<>();
     
-    // 문제점: 클래스 개수로만 반복문을 돌려서.
-    // 클래스를 돌릴 때 안에 갯수 만큼 돌려야 한다.
-    
-    
-    
     for(Clazz c : clazzList) {
       List<Assignment> assignmentTempList = assignmentService.allList(c.getClassNo());
       for(int i = 0; i < assignmentTempList.size(); i++) {
@@ -95,9 +90,16 @@ public class CalendarController {
       }
     }
     
-    
     System.out.println(list);
     return new GsonBuilder().setDateFormat("yyyy-MM-dd").create().toJson(list);
+  }
+  
+  // 날짜에서 입력을 했을때 해당 과제의 해당 클래스의 정보로 이동할게요 !
+  @GetMapping("/detail")
+  public String detail(Model model,HttpSession session) throws Exception{
+	    Clazz clazz = (Clazz) session.getAttribute("clazzNow");
+	    model.addAttribute("calendar", clazz);
+	    return "/WEB-INF/jsp/calendar/calendar.jsp";
   }
 
 

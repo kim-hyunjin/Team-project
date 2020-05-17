@@ -47,7 +47,7 @@
 
 
         <!-- 일정 추가 MODAL -->
-        <div class="modal fade" tabindex="-1" role="dialog" id="eventModal">
+        <div class="modal fade" tabindex="-1" role="dialog" id="eventModal" >
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -59,31 +59,24 @@
 
                         <div class="row">
                             <div class="col-xs-12">
-                                <label class="col-xs-4" for="edit-allDay">하루종일</label>
-                                <input class='allDayNewEvent' id="edit-allDay" type="checkbox"></label>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-xs-12">
                                 <label class="col-xs-4" for="edit-title">일정명</label>
                                 <input class="inputModal" type="text" name="edit-title" id="edit-title"
-                                    required="required" />
+                                    required="required" readonly/>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-xs-12">
-                                <label class="col-xs-4" for="edit-start">시작</label>
-                                <input class="inputModal" type="text" name="edit-start" id="edit-start" />
+                                <label class="col-xs-4" for="edit-start">제출 시작일</label>
+                                <input class="inputModal" type="text" name="edit-start" id="edit-start" readonly/>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-xs-12">
-                                <label class="col-xs-4" for="edit-end">끝</label>
-                                <input class="inputModal" type="text" name="edit-end" id="edit-end" />
+                                <label class="col-xs-4" for="edit-end">제출 마감일</label>
+                                <input class="inputModal" type="text" name="edit-end" id="edit-end" readonly/>
                             </div>
                         </div>
-                        <div class="row">
+<!--                         <div class="row">
                             <div class="col-xs-12">
                                 <label class="col-xs-4" for="edit-type">구분</label>
                                 <select class="inputModal" type="text" name="edit-type" id="edit-type">
@@ -93,8 +86,8 @@
                                     <option value="카테고리4">카테고리4</option>
                                 </select>
                             </div>
-                        </div>
-                        <div class="row">
+                        </div> -->
+<!--                         <div class="row">
                             <div class="col-xs-12">
                                 <label class="col-xs-4" for="edit-color">색상</label>
                                 <select class="inputModal" name="color" id="edit-color">
@@ -109,12 +102,12 @@
                                     <option value="#495057" style="color:#495057;">검정색</option>
                                 </select>
                             </div>
-                        </div>
+                        </div> -->
                         <div class="row">
                             <div class="col-xs-12">
                                 <label class="col-xs-4" for="edit-desc">설명</label>
                                 <textarea rows="4" cols="50" class="inputModal" name="edit-desc"
-                                    id="edit-desc"></textarea>
+                                    id="edit-desc" style="resize: none;" readonly></textarea>
                             </div>
                         </div>
                     </div>
@@ -124,14 +117,19 @@
                     </div>
                     <div class="modal-footer modalBtnContainer-modifyEvent">
                         <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
-                        <button type="button" class="btn btn-danger" id="deleteEvent">삭제</button>
-                        <button type="button" class="btn btn-primary" id="updateEvent">저장</button>
+                        <!--<button type="button" class="btn btn-danger" id="deleteEvent">삭제</button>  -->
+                        
+                        
+                        <button type="button" class="btn btn-primary"
+                         onclick="location.href='../room/lesson/list?room_no=${clazz.classNo}'">클래스로 이동</button>
+                        
+                    
                     </div>
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
         </div><!-- /.modal -->
 
-        <div class="panel panel-default">
+        <div class="panel panel-default" style="display:none">
 
             <div class="panel-heading">
                 <h3 class="panel-title">필터</h3>
@@ -140,7 +138,7 @@
             <div class="panel-body">
                
 
-               <div class="col-lg-6">
+               <div class="col-lg-6" style="display:none">
                     <label for="calendar_view">과제, 질문별</label>
                     <div class="input-group">
                     <c:forEach items="${assignmentList}" var="item">

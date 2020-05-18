@@ -21,7 +21,7 @@
 			</div>
 		  <h4>파일</h4><span id="download" title="다운로드" style="cursor:pointer;">${file.originalName}</span>
 		  <h4>마감일</h4>${question.deadline}
-		  <h4>생성일</h4>${question.createDate}
+		  <h4>시작일</h4>${question.startDate}
 		</div>
 		<div id="answer_part" style="width:50%;">
 		  <h4>답변</h4>

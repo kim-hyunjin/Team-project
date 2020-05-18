@@ -22,7 +22,7 @@ insert into user(email, name, password, tel, major, introduce, login_method)
 insert into user(email, name, password, tel, major, introduce, login_method)
   values('qwertrtt9395@naver.com', '신지섭', password('1111'), 010-1234-5678, '컴퓨터공학', '안녕하세요', 1);
 insert into user(email, name, password, tel, major, introduce, login_method)
-  values('wltjq2006@naver.com', '가야', password('1111'), 010-5412-4471, '컴퓨터공학', '반갑습니다', 1);
+  values('wltjq202206@naver.com', '가야', password('1111'), 010-5412-4471, '컴퓨터공학', '반갑습니다', 1);
 insert into user(email, name, password, tel, major, introduce, login_method)
   values('11541_1@naver.com', '고기', password('1111'), 010-4415-5574, '컴퓨터공학.', '홧팅', 1);
 insert into user(email, name, password, tel, major, introduce, login_method)

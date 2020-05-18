@@ -1,5 +1,6 @@
 package Team.project.dao;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import Team.project.domain.User;
@@ -14,6 +15,8 @@ public interface UserDao {
   public User findByRoomNoAndEmail(Map<String, Object> map) throws Exception;
   
   public User findByNo(int no) throws Exception;
+  
+  public int join(User user) throws Exception;
 
   public User findByEmail(String email) throws Exception;
 
@@ -25,7 +28,9 @@ public interface UserDao {
 
   List<User> findByKeyword(String keyword) throws Exception;
   
-  // 가입시 이메일 체크
-  public int checkid(String email) throws Exception;
+  int alterKey(Map<String, Object> params); // 유저 인증키 생성 메서드
   
+  int alterUserKey(Map<String, Object> params); //유저 인증키 Y로 바꿔주는 메서드
+  
+  void updatePassword(HashMap<String, Object> params) throws Exception;
 }

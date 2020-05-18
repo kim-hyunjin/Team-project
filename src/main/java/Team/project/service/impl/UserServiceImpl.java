@@ -2,12 +2,12 @@ package Team.project.service.impl;
 
 import java.util.HashMap;
 import java.util.List;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 import Team.project.dao.UserDao;
 import Team.project.domain.User;
 import Team.project.service.UserService;
 
-@Component
+@Repository
 public class UserServiceImpl implements UserService {
 
   UserDao userDao;
@@ -74,7 +74,8 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
-  public Integer checkid(String inputId) throws Exception {
-    return userDao.checkid(inputId);
+  public int join(User user) throws Exception {
+    return userDao.join(user);
   }
+
 }

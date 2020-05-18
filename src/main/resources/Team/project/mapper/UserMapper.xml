@@ -16,6 +16,7 @@
     <result column="profile_photo"    property="profilePhoto"/>
     <result column="login_method" property="loginMethod"/>
     <result column="create_date" property="createDate"/>
+    <result column="alterkey" property="alterkey"/>
   </resultMap>
   
   <sql id="select1">
@@ -109,11 +110,14 @@
     join class_member cm on u.user_no = cm.user_no
     where email=#{email} and class_no = #{roomNo}
   </select>
-  
-  <select id="checkid" parameterType="String" resultType="Integer">
-      select count(*) from user
-      where email = #{email}
-</select>
+
+<update id="alterUserKey" parameterType="Map">
+        update nm_member set alterkey = 'Y' where email = #{email} and alterkey = #{key}
+</update>
+
+ <update id="alterKey" parameterType="map">
+        update nm_member set alterkey = #{alterkey} where email = #{email}
+    </update> 
 
 </mapper>
 

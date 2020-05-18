@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 import com.google.gson.Gson;
 import Team.project.domain.Answer;
+import Team.project.domain.Clazz;
 import Team.project.domain.ClazzMember;
 import Team.project.domain.FileVO;
 import Team.project.domain.Multiple;
@@ -50,9 +51,11 @@ public class QuestionController {
   @PostMapping("add")
   public String add(Question question, HttpSession session, Integer[] no, String[] multipleContent,
       MultipartFile partfile) throws Exception {
-    int memberNo = ((ClazzMember) session.getAttribute("nowMember")).getMemberNo();
-    question.setMemberNo(memberNo);
-
+    Clazz clazz = (Clazz) session.getAttribute("clazzNow");
+    ClazzMember member = (ClazzMember) session.getAttribute("nowMember");
+    question.setClassNo(clazz.getClassNo());
+    question.setMemberNo(member.getMemberNo());
+    
     // 파일 처리 부분
     if (partfile.getSize() > 0) {
       String fileId = UUID.randomUUID().toString();
@@ -73,7 +76,7 @@ public class QuestionController {
       }
     }
 
-    return "redirect:../lesson/list?room_no=" + session.getAttribute("clazzNowNo");
+    return "redirect:../lesson/list?room_no="+ clazz.getClassNo();
   }
 
   @GetMapping("detail")
@@ -139,8 +142,10 @@ public class QuestionController {
     }
 
     // 넘어온 question에 정보 추가 후 update 실행
-    int memberNo = ((ClazzMember) session.getAttribute("nowMember")).getMemberNo();
-    question.setMemberNo(memberNo);
+    Clazz clazz = (Clazz) session.getAttribute("clazzNow");
+    ClazzMember member = (ClazzMember) session.getAttribute("nowMember");
+    question.setClassNo(clazz.getClassNo());
+    question.setMemberNo(member.getMemberNo());
 
     if (partfile.getSize() > 0) {
       String fileId = UUID.randomUUID().toString();
@@ -160,7 +165,7 @@ public class QuestionController {
 
     questionService.update(question);
 
-    return "redirect:../lesson/list?room_no=" + session.getAttribute("clazzNowNo");
+    return "redirect:../lesson/list?room_no=" + clazz.getClassNo();
   }
 
   @GetMapping("delete")

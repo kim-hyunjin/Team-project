@@ -7,7 +7,6 @@
   <div id="question_detail">
 	<form action='update' method='post' enctype='multipart/form-data'>
 		  <input name='questionNo' type='hidden' value='${question.questionNo}'>
-		  <input name='memberNo' type='hidden' value='${question.memberNo}'>
 		  <h4>제목</h4><input name="title" type="text" value="${question.title}">
 		  <h4>내용</h4><textarea name='content'>${question.content}</textarea>
 		  <h4>객관식 항목</h4>
@@ -26,8 +25,8 @@
 			</div>
 		  <h4>파일</h4><span id="download" title="다운로드" style="cursor:pointer;">${file.originalName}</span> 
 		  <input name='partfile' type='file'>
+		  <h4>시작일</h4><input name='startDate' type='date' value='${question.startDate}'>
 		  <h4>마감일</h4><input name='deadline' type='date' value='${question.deadline}'>
-		  <h5>생성일</h5>${question.createDate}
 		  <button>변경</button>
 	</form>
 	<a href="delete?no=${question.questionNo}">삭제</a>

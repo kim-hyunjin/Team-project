@@ -22,7 +22,7 @@
 	    <span class="user_info">{{user.user.name}}</span>
 	    <div v-for="submit in submits" >
 	    	<div v-if="submit.user.userNo == user.userNo && submit.hasOwnProperty('createDate')" class="assignments_info green" >
-			    <a v-bind:href="`../assignmentSubmit/review?assignmentNo=`+submit.assignmentNo+`&memberNo=`+submit.memberNo">
+			    <a v-bind:href="`../assignmentSubmit/review?assignmentNo=`+submit.assignmentNo+`&memberNo=`+submit.memberNo" title="제출 과제 확인 및 평가하기">
 		  	      <div>{{ submit.assignment.title }}</div>
 			    </a>
 		       	<div>{{ submit.score }}</div>

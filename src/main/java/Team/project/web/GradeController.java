@@ -15,6 +15,7 @@ import Team.project.AppConfig;
 import Team.project.domain.Assignment;
 import Team.project.domain.AssignmentSubmit;
 import Team.project.domain.ClazzMember;
+import Team.project.domain.User;
 import Team.project.service.AssignmentService;
 import Team.project.service.AssignmentSubmitService;
 import Team.project.service.ClazzMemberService;
@@ -41,10 +42,10 @@ public class GradeController {
   public String list(@RequestParam("room_no") int classNo, Model model, HttpSession session)
       throws Exception {
     int role = ((ClazzMember) session.getAttribute("nowMember")).getRole();
+    Gson gson = new Gson();
     if (role == 0) {
       // 수업 참여자 목록 얻기
       List<ClazzMember> clazzMembers = clazzMemberService.list(classNo);
-      Gson gson = new Gson();
 
       model.addAttribute("clazzMembers", gson.toJson(clazzMembers));
 
@@ -64,6 +65,9 @@ public class GradeController {
 
       return "/WEB-INF/jsp/grade/list.jsp";
     } else {
+      model.addAttribute("userAssignmentSubmits", gson.toJson(assignmentSubmitService.list(classNo,
+          ((User) session.getAttribute("loginUser")).getUserNo())));
+
       return "/WEB-INF/jsp/grade/list_student.jsp";
     }
 

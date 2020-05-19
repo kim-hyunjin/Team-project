@@ -6,7 +6,7 @@ public interface MailSendService {
 
   String getKey(boolean authkey, int size);
   
-  void mailSendWithKey(String email, String name, HttpServletRequest request);
+  void mailSendWithKey(String email, String name, String password, HttpServletRequest request);
   
   int alterUserKey(String email, String key);
   

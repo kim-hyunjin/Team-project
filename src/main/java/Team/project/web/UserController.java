@@ -3,6 +3,7 @@ package Team.project.web;
 import java.io.File;
 import java.util.UUID;
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.multipart.MultipartFile;
 import Team.project.domain.User;
+import Team.project.service.MailSendService;
 import Team.project.service.UserService;
 import net.coobird.thumbnailator.Thumbnails;
 import net.coobird.thumbnailator.name.Rename;
@@ -20,16 +22,30 @@ import net.coobird.thumbnailator.name.Rename;
 public class UserController {
 
   @Autowired
+  private MailSendService mailsender;
+  
+  @Autowired
   ServletContext servletContext;
 
   @Autowired
   UserService userService;
-
+  
   @RequestMapping("form")
   public String form() {
     return "/WEB-INF/jsp/user/form.jsp";
   }
-
+  
+  @RequestMapping("signup")
+  public String signup(User user, Model model, HttpServletRequest request) throws Exception {
+    if (userService.join(user) > 0) {
+      // 인증 메일 보내기 메서드
+      mailsender.mailSendWithKey(user.getEmail(), user.getName(), user.getPassword(), request);
+      return "redirect:../auth/form";
+    } else {
+      throw new Exception("회원을 추가할 수 없습니다.");
+    }
+  }
+  
   @RequestMapping("add")
   public String add(User user, @RequestPart(value = "photo", required = false) MultipartFile photo)
       throws Exception {

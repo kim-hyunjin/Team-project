@@ -5,6 +5,9 @@
 <jsp:include page="main_header.jsp"/>
 
   <div class="main_list">
+  <c:if test="${loginUser.alterKey != 'Y' }">
+    <h3>이메일 인증을 완료해주세요!</h3>
+  </c:if>
   <c:if test="${not empty clazzList}">
     <c:forEach items="${clazzList}" var="clazz">
         <div class="main_card">

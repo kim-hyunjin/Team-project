@@ -53,9 +53,11 @@ content = "360175730868-7161sh4v73h0hsufdvgmoa9u3o25oi21.apps.googleusercontent.
       <span style="font-weight:600; font-size:1.5em;">BTS</span>
     </div>
     <div class="main_header__column">
+      <c:if test="${loginUser.alterKey == 'Y' }">
       <span><a href="../calendar/calendar">캘린더</a></span>
       <span id="assignClass" style="cursor:pointer;">수업 참여</span>
       <span onclick="popup()" style="cursor: pointer;">수업 만들기</span>
+      </c:if>
         <c:if test="${not empty loginUser}">
         <div class="header__user">
           <c:if test="${not empty loginUser.profilePhoto}">

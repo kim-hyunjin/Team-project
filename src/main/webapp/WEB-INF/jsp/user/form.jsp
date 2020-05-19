@@ -39,7 +39,7 @@ margin-top: 1.3em;
 <div class="login_box">
     <h1>회원 가입</h1>
     <div style="width:70%;">
-    <form id="addForm" action='add' method='post' enctype='multipart/form-data'>
+    <form id="addForm" action='signup' method='post' enctype='multipart/form-data'>
         <input id = "emailInput" name='email' type='email' placeholder="   이메일"><br>
         <input id = "nameInput" name='name' type='text' placeholder="   이름"><br>
         <input id="passwordInput" name='password' type='password' placeholder="   비밀번호">

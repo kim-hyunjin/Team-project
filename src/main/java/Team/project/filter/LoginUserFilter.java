@@ -10,6 +10,7 @@ import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import Team.project.domain.User;
 
 @WebFilter("/app/*")
 public class LoginUserFilter implements Filter {
@@ -33,12 +34,13 @@ public class LoginUserFilter implements Filter {
       throws IOException, ServletException {
     HttpServletRequest req = (HttpServletRequest) request;
     HttpServletResponse res = (HttpServletResponse) response;
-    if (req.getSession().getAttribute("loginUser") != null) {
+    User user = (User)req.getSession().getAttribute("loginUser");
+    if (user != null) {
       chain.doFilter(req, res);
       return;
     }
     String path = req.getRequestURI();
-    if (path.contains("/auth") || path.contains("/user/form") || path.contains("/user/add")) {
+    if (path.contains("/auth") || path.contains("/user/form") || path.contains("/user/add") || path.contains("signup")) {
       chain.doFilter(req, res);
       return;
     }

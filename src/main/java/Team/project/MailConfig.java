@@ -33,8 +33,9 @@ public class MailConfig {
     mailSender.setJavaMailProperties(mailProperties);
     mailSender.setHost("smtp.gmail.com");
     mailSender.setPort(587);
-    mailSender.setUsername("wltjq12345678@gmail.com");
-    mailSender.setPassword("roal12345678!!A");
+    mailSender.setUsername("01049236753a@gmail.com");
+    mailSender.setPassword("roal12455!!A");
+    
     mailSender.setDefaultEncoding("utf-8");
     return mailSender;
   }

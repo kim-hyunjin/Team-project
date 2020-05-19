@@ -30,24 +30,7 @@
 
   </resultMap>
   
-  <select id="findAll" resultMap="PostMap" parameterType="int">
-    select
-      p.post_no,
-      p.board_no,
-      p.member_no,
-      p.title,
-      p.content,
-      p.create_date,
-      p.file,
-      b.title,
-      b.class_no,
-      u.user_no,
-      u.name
-      from post p join class_member cm on cm.member_no = p.member_no
-      join user u on cm.user_no = u.user_no
-      join board b on b.board_no = p.board_no 
-      where p.board_no = #{bno}
-    </select>
+  
 
   <!-- ///////////////////////////////////////////////////////////////////////////////// -->
 
@@ -124,8 +107,6 @@
     where post_no=#{postNo}
   </delete>
   
-  <!-- [postNo=0, boardNo=0, memberNo=0, 
-  title=sd, content=, createDate=null, file=null, board=null, user=null], -->
   <select id="findByKeyword" resultMap="PostMap" parameterType="map">
   select
       p.*,
@@ -141,15 +122,52 @@
       and p.board_no = #{boardNo}
   </select>
   
-<!-- where no = controller 에서 받는 no -->
-<!-- select * from board where class_no = 1 and title = "공지사항"; -->
-  
+<!-- criteria 를 적용한 게시판 페이징 조회 -->
+<select id="list" resultMap="PostMap" parameterType="map">
+select
+      p.post_no,
+      p.title,
+      p.content,
+      p.create_date,
+      b.class_no,
+      u.name
+    from post p join class_member cm on cm.member_no = p.member_no
+      join user u on cm.user_no = u.user_no
+      join board b on b.board_no = p.board_no 
+where p.board_no = #{bno} and p.post_no > 0
+order by p.post_no desc
+limit #{rowStart}, #{rowEnd}
+</select>
 
+<select id="listCount" resultType="int" parameterType="int">
+    select
+     count(*)
+      from post p join class_member cm on cm.member_no = p.member_no
+      join user u on cm.user_no = u.user_no
+      join board b on b.board_no = p.board_no 
+      where p.board_no = #{bno}
+    </select>
+
+<select id="findAll" resultMap="PostMap" parameterType="int">
+    select
+      p.post_no,
+      p.board_no,
+      p.member_no,
+      p.title,
+      p.content,
+      p.create_date,
+      p.file,
+      b.title,
+      b.class_no,
+      u.user_no,
+      u.name
+      from post p join class_member cm on cm.member_no = p.member_no
+      join user u on cm.user_no = u.user_no
+      join board b on b.board_no = p.board_no 
+      where p.board_no = #{bno}
+    </select>
+    
 </mapper>
-
-
-
-
 
 
 

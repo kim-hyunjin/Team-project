@@ -11,8 +11,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import Team.project.domain.ClazzMember;
+import Team.project.domain.PageMaker;
 import Team.project.domain.Post;
 import Team.project.service.BoardService;
 import Team.project.service.FileService;
@@ -34,15 +36,6 @@ public class PostController {
   @Autowired
   FileService fileService;
 
-  @RequestMapping("list")
-  public String list(int bno, Model model, String bTitle) throws Exception {
-    model.addAttribute("posts", postService.list(bno));
-    model.addAttribute("boardNo", bno);
-    model.addAttribute("boardTitle", bTitle);
-
-    System.out.println("=========================================>" + bTitle);
-    return "/WEB-INF/jsp/post/list.jsp";
-  }
 
   @GetMapping("form")
   public String form(String bno, Model model) throws Exception {
@@ -141,6 +134,23 @@ public class PostController {
     model.addAttribute("list", postService.search(map));
     return "/WEB-INF/jsp/post/search.jsp";
   }
+
+  @RequestMapping("list")
+  public String list(@RequestParam(value = "page", defaultValue = "1") int page, int bno,
+      Model model, String bTitle) throws Exception {
+    System.out.println("pageNum=====>" + page);
+    System.out.println("bno=======>" + bno);
+    System.out.println("bTitle=======>" + bTitle);
+    model.addAttribute("posts", postService.list(bno, page));
+    int totalCount = postService.listCount(bno);
+    model.addAttribute("pageMaker", new PageMaker(page, 10, totalCount));
+    model.addAttribute("boardNo", bno);
+    model.addAttribute("boardTitle", bTitle);
+
+    System.out.println("=========================================>" + bTitle);
+    return "/WEB-INF/jsp/post/list.jsp";
+  }
+
 }
 
 

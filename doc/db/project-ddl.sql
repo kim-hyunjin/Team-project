@@ -22,7 +22,7 @@ insert into user(email, name, password, tel, major, introduce, login_method)
 insert into user(email, name, password, tel, major, introduce, login_method)
   values('qwertrtt9395@naver.com', '신지섭', password('1111'), 010-1234-5678, '컴퓨터공학', '안녕하세요', 1);
 insert into user(email, name, password, tel, major, introduce, login_method)
-  values('wltjq2006@naver.com', '가야', password('1111'), 010-5412-4471, '컴퓨터공학', '반갑습니다', 1);
+  values('wltjq202206@naver.com', '가야', password('1111'), 010-5412-4471, '컴퓨터공학', '반갑습니다', 1);
 insert into user(email, name, password, tel, major, introduce, login_method)
   values('11541_1@naver.com', '고기', password('1111'), 010-4415-5574, '컴퓨터공학.', '홧팅', 1);
 insert into user(email, name, password, tel, major, introduce, login_method)
@@ -113,24 +113,24 @@ insert into class_member(user_no, class_no, role)
   
 -- 과제 입력
 
-insert into assignment(class_no, member_no, title, content, file, deadline, standard)
-  values(1, 1, '짜장면만들기', '춘장잘볶아야해요', '첨부파일', '2020-04-01 23:50:14', '많이해오세요');
-insert into assignment(class_no, member_no, title, content, file, deadline, standard)
-  values(2, 1, '신선로만들기', '재료의 배치를 잘 두어야 해요', 'a.txt', '2020-04-01 23:50:14', '9ood');
-insert into assignment(class_no, member_no, title, content, file, deadline, standard)
-  values(3, 11, '디비숙제', '잘해오세요', '첨부파일', '2020-04-01 23:50:14', '많이해오세요');
-insert into assignment(class_no, member_no, title, content, file, deadline)
-  values(3, 11, '프로토타입', '이쁘게만들기', 'a.txt', '2020-04-01 23:50:14');
-insert into assignment(class_no, member_no, title, file, deadline, standard, create_date) 
-  values(3, 11, '근의공식', 'a.gif', '2020-04-21', '유래,기원', '2020-03-26');
-insert into assignment(class_no, member_no, title, content, file, deadline, standard, create_date) 
-  values(3, 11, '자바프로그래밍', 'Java로 프로그래밍해오기', 'b.gif', '2020-04-21', '객체지향을 얼마나 잘 했나', '2020-03-26');
-insert into assignment(class_no, member_no, title, content, deadline, standard, create_date) 
-  values(3, 11, 'DB모델링', 'DB모델링 해오기', '2020-04-21', '정규화 정도, 무결성 규칙이 잘 지켜졌는가', '2020-03-26');
-insert into assignment(class_no, member_no, title, content, file, deadline, standard, create_date) 
-  values(3, 11, '객체지향', '객체지향 개념 정리해오기', 'd.gif', '2020-04-21', '표절 시 0점', '2020-03-26');
-insert into assignment(class_no, member_no, title, content, file, deadline, create_date) 
-  values(3, 11, '알고리즘', '알고리즘 문제 풀기', 'e.gif', '2020-04-21', '2020-03-26');
+insert into assignment(class_no, member_no, title, content, file, start_date, deadline, standard)
+  values(1, 1, '짜장면만들기', '춘장잘볶아야해요', '첨부파일', '2020-04-01 23:50:14', '2020-04-06 23:50:14', '많이해오세요');
+insert into assignment(class_no, member_no, title, content, file, start_date, deadline, standard)
+  values(2, 1, '신선로만들기', '재료의 배치를 잘 두어야 해요', 'a.txt', '2020-04-01 23:50:14', '2020-04-04 23:50:14', '9ood');
+insert into assignment(class_no, member_no, title, content, file, start_date, deadline, standard)
+  values(3, 11, '디비숙제', '잘해오세요', '첨부파일', '2020-04-01 23:50:14', '2020-04-03 23:50:14', '많이해오세요');
+insert into assignment(class_no, member_no, title, content, file, start_date, deadline)
+  values(3, 11, '프로토타입', '이쁘게만들기', 'a.txt', '2020-05-01 23:50:14', '2020-05-01 23:50:14');
+insert into assignment(class_no, member_no, title, file, start_date, deadline, standard) 
+  values(3, 11, '근의공식', 'a.gif', '2020-04-21', '2020-04-23', '유래,기원');
+insert into assignment(class_no, member_no, title, content, file, start_date, deadline, standard) 
+  values(3, 11, '자바프로그래밍', 'Java로 프로그래밍해오기', 'b.gif', '2020-04-21', '2020-04-22', '객체지향을 얼마나 잘 했나');
+insert into assignment(class_no, member_no, title, content, start_date, deadline, standard) 
+  values(3, 11, 'DB모델링', 'DB모델링 해오기', '2020-04-21', '2020-04-21', '정규화 정도, 무결성 규칙이 잘 지켜졌는가');
+insert into assignment(class_no, member_no, title, content, file, start_date, deadline, standard) 
+  values(3, 11, '객체지향', '객체지향 개념 정리해오기', 'd.gif', '2020-04-21', '2020-04-21', '표절 시 0점');
+insert into assignment(class_no, member_no, title, content, file, start_date, deadline) 
+  values(3, 11, '알고리즘', '알고리즘 문제 풀기', 'e.gif', '2020-04-21', '2020-04-21');
   
 -- 과제 제출 입력
 
@@ -163,7 +163,7 @@ insert into assignment_submit(member_no, assignment_no, file, score, feedback, c
 insert into assignment_submit(member_no, assignment_no, file, content) 
   values(16, 8, 'b.doc', '시간이 빠듯해 힘들었어요'); 
 insert into assignment_submit(member_no, assignment_no, file, score, content, create_date) 
-  values(17, 3, 'db.exerd', 40, '과제 제출합니다.' '2020-04-23' ); 
+  values(17, 3, 'db.exerd', 40, '과제 제출합니다.', '2020-04-23' ); 
 insert into assignment_submit(member_no, assignment_no, file, score, feedback, create_date) 
   values(18, 4, 'url.txt', 20, '시간이 부족했나요?', '2020-04-23' ); 
 insert into assignment_submit(member_no, assignment_no, file, score, content, feedback)
@@ -172,22 +172,22 @@ insert into assignment_submit(member_no, assignment_no, file, score, content, fe
   
 -- 질문 입력
 
-insert into question(member_no, title, content, file, deadLine)
-  values(1, '춘장 잘볶는기준?', '뭘까요?', 'a.txt', '2020-04-01 20:49:32');
-insert into question(member_no, title, content, file, deadLine)
-  values(1, '파마생의 비율?', '몇대 몇일까요?', 'b.txt', '2020-04-01 20:49:32');
-insert into question(member_no, title, content, file, deadLine)
-  values(1, '미원하고 치킨스톡의 차이?', '10줄이상 적어오세요', 'c.txt', '2020-04-01 20:49:32');
-insert into question(member_no, title, content, file, deadLine)
-  values(1, '백짜장과 간짜장의 차이?', '간략하게 적으세요.', 'd.txt', '2020-04-01 20:49:32');
-insert into question(member_no, title, file, deadLine)
-  values(1, '동파육의 어원?(객관식)', '중국집.txt', '2020-04-01 20:49:32');
-insert into question(question_no, member_no, title, file, deadline, create_date) 
-  values(6, '11', '객체지향이란?', '참고.pdf', '2020-4-20', '2020-4-21');  
-insert into question(question_no, member_no, title, deadline, create_date) 
-  values(7, '11', '정규화란?',  '2020-4-20', '2020-4-21');  
-insert into question(question_no, member_no, title, content, deadline, create_date) 
-  values(8, '11', 'HTML 통신규칙이 아닌 것은?', '객관식 문제입니다.', '2020-4-20', '2020-4-21');  
+insert into question(class_no, member_no, title, content, file, start_date, deadLine)
+  values(1, 1, '춘장 잘볶는기준?', '뭘까요?', 'a.txt', '2020-04-01 20:49:32', '2020-04-03 20:49:32');
+insert into question(class_no, member_no, title, content, file, start_date, deadLine)
+  values(1, 1, '파마생의 비율?', '몇대 몇일까요?', 'b.txt', '2020-04-01 20:49:32', '2020-04-04 20:49:32');
+insert into question(class_no, member_no, title, content, file,start_date, deadLine)
+  values(1, 1, '미원하고 치킨스톡의 차이?', '10줄이상 적어오세요', 'c.txt', '2020-04-01 20:49:32', '2020-04-05 20:49:32');
+insert into question(class_no, member_no, title, content, file,start_date, deadLine)
+  values(1, 1, '백짜장과 간짜장의 차이?', '간략하게 적으세요.', 'd.txt', '2020-04-01 20:49:32', '2020-04-07 20:49:32');
+insert into question(class_no, member_no, title, file,start_date, deadLine)
+  values(1, 1, '동파육의 어원?(객관식)', '중국집.txt', '2020-04-01 20:49:32', '2020-04-08 20:49:32');
+insert into question(class_no, question_no, member_no, title, file, deadline, start_date) 
+  values(3, 6, '11', '객체지향이란?', '참고.pdf', '2020-4-21', '2020-4-20');  
+insert into question(class_no, question_no, member_no, title, deadline, start_date) 
+  values(3, 7, '11', '정규화란?', '2020-4-21', '2020-4-20');  
+insert into question(class_no, question_no, member_no, title, content, deadline, start_date) 
+  values(3, 8, '11', 'HTML 통신규칙이 아닌 것은?', '객관식 문제입니다.', '2020-4-5', '2020-4-1');  
  
   
 -- 객관식항목

@@ -52,6 +52,9 @@ dependencies {
   // Spring JDBC 관련 라이브러리
   implementation 'org.springframework:spring-jdbc:5.2.5.RELEASE'
   
+  // Spring WebSocket 관련 라이브러리 (쪽지)
+  implementation 'org.springframework:spring-websocket:5.2.5.RELEASE'
+  
   // Mybatis를 Spring IoC와 연결하는 어댑터 라이브러리
   implementation 'org.mybatis:mybatis-spring:2.0.4'
 
@@ -73,7 +76,17 @@ dependencies {
   compileOnly 'javax.servlet:javax.servlet-api:4.0.1'
   
   // Mail API
-  implementation 'javax.mail:mail:1.5.0-b01'
+  
+  compile "com.sun.mail:javax.mail"
+  
+  compile group: 'javax.mail', name: 'javax.mail-api', version: '1.6.0'
+  
+  implementation 'org.apache.commons:commons-email:1.5'
+  
+  implementation 'javax.mail:mailapi:1.4.3'
+  
+  // Reflection API를 좀 더 쉽게 사용하게 도와주는 유틸리티
+  implementation 'org.reflections:reflections:0.9.12'
   
   // JSTL API 및 구현 라이브러리
   implementation 'jstl:jstl:1.2'
@@ -94,6 +107,7 @@ dependencies {
   // json lib 추가
   implementation 'net.sf.json-lib:json-lib-ext-spring:1.0.2'
   
+  implementation 'org.springframework:spring-context-support:5.2.6.RELEASE'
     
   implementation 'com.google.guava:guava:28.1-jre'
   testImplementation 'junit:junit:4.12'

@@ -7,27 +7,25 @@
   <resultMap type="Question" id="QuestionMap">
     <id column="question_no"   property="questionNo"/>
     <result column="member_no" property="memberNo"/>
+    <result column="class_no" property="classNo"/>
     <result column="title"  property="title"/>
     <result column="content"  property="content"/>
     <result column="file"  property="filePath"/>
+    <result column="start_date" property="startDate"/>
     <result column="deadline"  property="deadline"/>
     <result column="create_date"  property="createDate"/>
   </resultMap>
   
   <select id="findAll" resultMap="QuestionMap" parameterType="int">
-    select
-      *
-    from 
-      question q
-    join class_member cm
-    on q.member_no = cm.member_no
-     where class_no = #{no}
-    
+  select *
+  from question q
+  where class_no=#{no}
+  order by question_no
   </select>
   
   <insert id="insert" useGeneratedKeys="true" keyProperty="questionNo" parameterType="Question">
-    insert into question(member_no, title, content, file, deadline)
-    values(#{memberNo}, #{title}, #{content}, #{filePath}, #{deadline})
+    insert into question(member_no, class_no, title, content, file, start_date, deadline)
+    values(#{memberNo}, #{classNo}, #{title}, #{content}, #{filePath}, #{startDate}, #{deadline})
   </insert>
   
   <select id="findByNo" resultMap="QuestionMap" parameterType="int">
@@ -53,6 +51,7 @@ where
       <if test="title != null and title != ''">title=#{title},</if>
       <if test="content != null and content != ''">content=#{content},</if> 
       <if test="filePath != null and filePath != ''">file=#{filePath},</if>
+      <if test="startDate != null">start_date=#{startDate},</if>
       <if test="deadline != null">deadline=#{deadline}</if>
     </set>
     where question_no=#{questionNo}

@@ -16,8 +16,10 @@
     <result column="profile_photo"    property="profilePhoto"/>
     <result column="login_method" property="loginMethod"/>
     <result column="create_date" property="createDate"/>
+    <result column="alterkey" property="alterKey"/>
   </resultMap>
   
+    
   <sql id="select1">
     select 
       user_no, 
@@ -30,7 +32,7 @@
     
   <insert id="insert" parameterType="User">
     insert into user
-    (email, name, password, tel, major, introduce, profile_photo, login_method) 
+    (email, name, password, tel, major, introduce, profile_photo, login_method, alterkey) 
     values(#{email}, 
     #{name}, 
     password(#{password}), 
@@ -38,7 +40,8 @@
     #{major}, 
     #{introduce}, 
     #{profilePhoto},
-    #{loginMethod}
+    #{loginMethod},
+    "Y"
     )
   </insert>
   
@@ -83,6 +86,17 @@
     where class_no=#{no}
   </delete>
   
+  <!-- 회원 가입 -->
+    <insert id="join" parameterType="User">
+    insert into user
+    (email, name, password, login_method)
+    values(#{email},
+    #{name},
+    password(#{password}),
+    #{loginMethod})
+    </insert>    
+  
+  
   <select id="findByKeyword" 
     resultMap="UserMap" 
     parameterType="string">
@@ -109,11 +123,15 @@
     join class_member cm on u.user_no = cm.user_no
     where email=#{email} and class_no = #{roomNo}
   </select>
-  
-  <select id="checkid" parameterType="String" resultType="Integer">
-      select count(*) from user
-      where email = #{email}
-</select>
+
+<update id="alterUserKey" parameterType="Map">
+        update user set alterkey = 'Y' where email = #{email} and alterkey = #{key}
+</update>
+
+ <update id="alterKey" parameterType="map">
+        update user set alterkey = #{key} where email = #{email}
+    </update> 
+
 
 </mapper>
 

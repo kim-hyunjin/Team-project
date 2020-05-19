@@ -24,9 +24,7 @@ public interface UserService {
 
   List<User> search(String keyword) throws Exception;
 
-  Integer checkid(String email) throws Exception;
-  
-  
+  int join(User user) throws Exception;
 
 
 }

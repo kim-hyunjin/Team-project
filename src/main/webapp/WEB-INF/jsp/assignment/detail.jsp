@@ -7,6 +7,7 @@
 <c:if test="${not empty assignment}">
 <h4>제목</h4>${assignment.title}<br>
 <h4>내용</h4>${assignment.content}<br>
+<h4>시작일</h4>${assignment.startDate}<br>
 <h4>마감일</h4>${assignment.deadline}<br>
 <h4>파일</h4><span id="download" title="다운로드" style="cursor:pointer;">${file.originalName}</span><br>
 <div id="updateDiv">

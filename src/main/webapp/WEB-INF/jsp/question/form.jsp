@@ -8,6 +8,7 @@
 		        <input name="title" type="text" placeholder="제목">
 		        <textarea name="content" placeholder="내용"></textarea>
 		        <input name="partfile" type="file">
+				<input name="startDate" type="date" placeholder="시작일">
 				<input name="deadline" type="date" placeholder="마감기한">
 				<div id="multipleBox">
 					<button id="addMultiple">객관식 항목 추가</button>

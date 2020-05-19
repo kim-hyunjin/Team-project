@@ -183,7 +183,7 @@ var calendar = $('#calendar').fullCalendar({
     		var evt={
     				title: data[i].title,
     				end: data[i].deadline,
-    				start: data[i].createDate,
+    				start: data[i].startDate,
     				content: data[i].content,
     				// Question은 classNo가 없어서 list 필터링을 적용할때 클래스구분하기가 힘듬.
     				assignmentNo: data[i].assignmentNo, 

@@ -8,7 +8,7 @@ public interface PostDao {
 
   public int insert(Post post) throws Exception;
 
-  public List<Post> findAll() throws Exception;
+  public List<Post> findAll(int boardNo) throws Exception;
 
   public Post findByNo(int no) throws Exception;
 
@@ -16,7 +16,11 @@ public interface PostDao {
 
   public int delete(int no) throws Exception;
 
-  public List<Post> findAll(int no) throws Exception;
+  public List<Post> list(Map<String, Integer> map) throws Exception; //
+
+  public int listCount(int boardNo) throws Exception; //
 
   public List<Post> findByKeyword(Map<String, Object> params) throws Exception;
+
 }
+

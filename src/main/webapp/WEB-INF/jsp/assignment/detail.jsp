@@ -23,7 +23,6 @@
   <button id="submitBtn">과제 제출하기</button>
 </c:if>
 </div>
-</div>
 
 <script>
 // 학생인 경우와 선생인 경우를 나누어 과제 detail 화면 출력

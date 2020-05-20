@@ -30,7 +30,6 @@
 </form>
 
 </div>
-</div>
 <script>
 // 점수를 정확히 입력하지 않을 경우 경고창 띄움
 document.getElementById("evalBtn").addEventListener("click", function(event){

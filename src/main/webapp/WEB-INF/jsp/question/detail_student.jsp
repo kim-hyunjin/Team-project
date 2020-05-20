@@ -30,7 +30,6 @@
 		</div>
 	</form>
 	</div>
-</div>
   <script>
 	const answer = ${answer}; // 이전에 과제를 제출한 적 있다면 제출form을 변경form으로 바꾼다.
 	if(answer !== null) {

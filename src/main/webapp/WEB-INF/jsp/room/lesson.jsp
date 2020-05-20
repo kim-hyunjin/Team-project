@@ -54,7 +54,6 @@
 </div>
 
 </div>
-</div>
 
 <script>
 // 버튼 정보

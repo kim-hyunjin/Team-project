@@ -46,7 +46,6 @@
 	</c:if>
 	</div>
 </div>
-</div>
 
 	<script>
 		// 객관식 항목 추가 버튼 클릭시 #multipleBox 밑에 .multipleRow추가

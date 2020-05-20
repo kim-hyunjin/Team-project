@@ -29,7 +29,6 @@
 		      </iframe>
 	       </div>
      </div>
-		 </div>
 
      <script>
      const role = ${nowMember.role};

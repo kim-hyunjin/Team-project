@@ -10,7 +10,6 @@
 		        <button>생성</button>
 		    </form>
     </div>
-  </div>  
 </body>
   <script>
   function formCheck(frm) {

@@ -10,7 +10,6 @@
 
   </div>
 
-</div>
 <script>
 const submittedList = ${submittedList};
 console.log(submittedList);

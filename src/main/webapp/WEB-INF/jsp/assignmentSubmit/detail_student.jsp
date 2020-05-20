@@ -29,7 +29,6 @@
 </c:if>
 
 </div>
-</div>
 <script>
 document.getElementById("download").onclick = () => {
     window.location = '../download?fileId='+`${file.fileId}`;

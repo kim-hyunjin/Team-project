@@ -14,7 +14,6 @@
 		  <button style="margin-left:45%;">과제제출</button>
 	  </form>
 	</div>
-</div>
 <script>
 	let status = 0;
 	document.getElementById('detail').onclick = (event) => {

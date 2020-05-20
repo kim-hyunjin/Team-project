@@ -15,7 +15,6 @@
 <button style="margin-left:50%; font-size:1em; width:4em;">변경</button>
 </form>
 </div>
-</div>
 <script>
 //파일 다운로드 스크립트
 document.getElementById("download").onclick = () => {

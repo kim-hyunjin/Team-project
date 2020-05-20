@@ -14,6 +14,5 @@
 		        <button>생성</button>
 		    </form>
     </div>
-  </div>  
 </body>
 </html>

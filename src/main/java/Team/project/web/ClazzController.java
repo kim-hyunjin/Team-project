@@ -28,14 +28,14 @@ public class ClazzController {
   ClazzMemberService clazzMemberService;
 
   @GetMapping("list")
-  public String list(HttpSession session, Model model) throws Exception {
+  public String list(HttpSession session) throws Exception {
     int no = -1;
     if (session.getAttribute("loginUser") != null) {
       no = ((User) session.getAttribute("loginUser")).getUserNo();
     }
     List<Clazz> clazzList = clazzService.list(no);
     if (clazzList != null) {
-      model.addAttribute("clazzList", clazzList);
+      session.setAttribute("clazzList", clazzList);
     }
     return "/WEB-INF/jsp/clazz/list.jsp";
   }
@@ -108,23 +108,31 @@ public class ClazzController {
   @GetMapping("join")
   public void join(HttpSession session, Model model, HttpServletResponse response, String code)
       throws Exception {
-    ClazzMember clazzMember = new ClazzMember();
-
+    // 사용자가 입력한 코드를 가진 수업이 있는지 확인
     Clazz clazz = clazzService.get(code);
     if (clazz != null) {
+      @SuppressWarnings("unchecked")
+      List<Clazz> clazzList = (List<Clazz>) session.getAttribute("clazzList");
+      // 사용자가 이미 가입한 수업이 아닌 경우에만 가입 성공
+      for (Clazz c : clazzList) {
+        if (c.getClassNo() == clazz.getClassNo()) {
+          response.setStatus(400);
+          return;
+        }
+      }
+      ClazzMember clazzMember = new ClazzMember();
       clazzMember.setClazzNo(clazz.getClassNo());
-
       User user = (User) session.getAttribute("loginUser");
       clazzMember.setUserNo(user.getUserNo());
       clazzMember.setRole(1);
 
       clazzMemberService.add(clazzMember);
       response.setStatus(200);
+      return;
     } else {
       response.setStatus(204);
+      return;
     }
-
-
   }
 
 }// ClazzController

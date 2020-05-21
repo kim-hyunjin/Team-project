@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import Team.project.domain.Clazz;
 import Team.project.domain.ClazzMember;
 import Team.project.domain.User;
@@ -90,10 +91,14 @@ public class ClazzController {
   }
 
   @GetMapping("detail")
-  public String detail(Model model, HttpSession session) throws Exception {
+  public String detail(Model model, HttpSession session, @RequestParam(value="class_no", defaultValue = "0")int classNo) throws Exception {
 
-    Clazz clazz = (Clazz) session.getAttribute("clazzNow");
-
+    Clazz clazz = null;
+    if(classNo == 0) {
+      clazz = (Clazz) session.getAttribute("clazzNow");
+    } else {
+      clazz = clazzService.get(classNo);
+    }
     model.addAttribute("clazz", clazz);
     return "/WEB-INF/jsp/clazz/detail.jsp";
   }

@@ -12,9 +12,14 @@
     <c:forEach items="${clazzList}" var="clazz">
         <div class="main_card">
             <div class="main_name">
-              <div>
-                <a class="main_name_title" href="../room/lesson/list?room_no=${clazz.classNo}">${clazz.name}</a>
-                <i class="fas fa-ellipsis-v js-main_name__menu"></i>
+              <div class="main_card__header" style="position:relative">
+                <a class="main_name_title" href="../room/lesson/list?room_no=${clazz.classNo}">
+                ${clazz.name}</a>
+                <span class="clazz-modal" style="cursor:pointer;"><i class="fas fa-ellipsis-v"></i></span>
+                <div class="clazz-detail-box" id="clazz-detail-box ${clazz.classNo}">
+                  <div onclick="location.href='detail?class_no=${clazz.classNo}'" style="cursor:pointer;">수정</div>
+                  <div onclick="location.href='delete?class_no=${clazz.classNo}'" style="cursor:pointer;">삭제</div>
+                </div>
               </div>
               <span>${clazz.room}</span>
             </div>
@@ -25,8 +30,26 @@
   </div>
   
 <script>
+let modalStatus = 0;
+	$(document).on('click', '.clazz-modal', function(event) {
+		var parentDiv = event.currentTarget.parentNode;
+		console.log(parentDiv);
+		var div = parentDiv.children[2];
+		console.log(div);
+		if(modalStatus == 0) {
+			div.setAttribute("style", "display:block");
+			   modalStatus = 1;
+		} else {
+			div.setAttribute("style", "display:none");
+            modalStatus = 0;
+		}
+	});
+
+
+
+
 document.getElementById("assignClass").onclick = () => {
-	let inputString = prompt('수업참여', '수업코드를 입력하세요.');
+    let inputString = prompt('수업참여', '수업코드를 입력하세요.');
   if(inputString != null) {
     let xhr = new XMLHttpRequest();
     xhr.open("GET", "join?code="+inputString, true);
@@ -41,7 +64,7 @@ document.getElementById("assignClass").onclick = () => {
     }
     xhr.send();
   }
-	
+    
 }
 
 function popup() {

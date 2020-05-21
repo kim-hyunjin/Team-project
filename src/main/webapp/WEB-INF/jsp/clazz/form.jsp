@@ -20,7 +20,7 @@ button {
 	width: 30%;
 	height: 10%
 }
-</style>
+</style> 
 </head>
 <body>
 	<form id="form" action='add' method='post'>

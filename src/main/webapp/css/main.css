@@ -59,5 +59,20 @@
     justify-content: space-between;
     align-items: center;
   }
+  
+  .clazz-detail-box {
+    display:none;
+    width:5em; 
+    height:4em; 
+    z-index:9999; 
+    background-color:white; 
+    color:black; 
+    position:absolute; 
+    margin-left:11em; 
+    margin-top:3em;
+    border:thin solid rgba(0,0,0,0.1);
+    text-align:center;
+    user-select:none;
+    }
 
   

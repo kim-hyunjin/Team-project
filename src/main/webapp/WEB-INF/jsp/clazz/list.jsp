@@ -66,9 +66,8 @@ $(function () {
       }
     }
     xhr.send();
-  }
-    
-}
+  });
+});
 
 
 </script>  

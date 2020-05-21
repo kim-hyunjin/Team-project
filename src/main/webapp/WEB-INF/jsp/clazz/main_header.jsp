@@ -58,8 +58,8 @@ content = "360175730868-7161sh4v73h0hsufdvgmoa9u3o25oi21.apps.googleusercontent.
     <div class="main_header__column">
       <c:if test="${loginUser.alterKey == 'Y' }">
       <span><a href="../calendar/calendar">캘린더</a></span>
-      <span id="assignClass" style="cursor:pointer;">수업 참여</span>
-      <span onclick="popup()" style="cursor: pointer;">수업 만들기</span>
+      <span data-toggle="modal" data-target="#classJoin" style="cursor:pointer;">수업 참여</span>
+      <span data-toggle="modal" data-target="#makeClass"  style="cursor: pointer;">수업 만들기</span>
       </c:if>
         <c:if test="${not empty loginUser}">
         <div class="header__user">
@@ -88,4 +88,50 @@ content = "360175730868-7161sh4v73h0hsufdvgmoa9u3o25oi21.apps.googleusercontent.
         </c:if>
     </div>
   </div>
+  
+  <!-- Modal -->
+<div class="modal fade" id="classJoin" tabindex="-1" role="dialog" aria-labelledby="classJoinLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="classJoinLabel">수업 참여</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          <input id="modal-code" name="code" type="text" placeholder="수업 코드를 입력하세요." style="width:100%;">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="join-modal-close">Close</button>
+        <button type="button" class="btn btn-primary" id="joinBtn">Join</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <!-- Modal -->
+<div class="modal fade" id="makeClass" tabindex="-1" role="dialog" aria-labelledby="makeClassLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="makeClassLabel">수업 만들기</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="createForm" action='add' method='post'>
+          <input id="modal-name" name='name' type='text' placeholder="수업명" style="width:100%;"> 
+          <input id="modal-description" name='description' type='text' placeholder="설명" style="width:100%;"> 
+          <input id="modal-room" name='room' type='text' placeholder="강의실" style="width:100%;">
+        </form>  
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="create-modal-close">Close</button>
+        <button type="button" class="btn btn-primary" id="createBtn">Create</button>
+      </div>
+    </div>
+  </div>
+</div>
   

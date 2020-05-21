@@ -20,13 +20,13 @@ import Team.project.service.UserService;
 public class AuthController {
   @Autowired
   private MailSendService mailsender;
-  
+
   @Autowired
   ServletContext servletContext;
 
   @Autowired
   UserService userService;
-  
+
 
   @RequestMapping("form")
   public String form(HttpSession session) {
@@ -36,7 +36,7 @@ public class AuthController {
     }
     return "/WEB-INF/jsp/auth/form.jsp";
   }
-  
+
   @RequestMapping("login")
   public String login(HttpSession session, String email, String password, Model model)
       throws Exception {
@@ -70,18 +70,18 @@ public class AuthController {
     } else {
       return "redirect:../user/add?email=" + email + "&password=" + id + "&name="
           + URLEncoder.encode(nickname, StandardCharsets.UTF_8) + "&profilePhoto=" + image
-          + "&loginMethod=" + loginMethod +"&alterKey=Y";
+          + "&loginMethod=" + loginMethod + "&alterKey=Y";
     }
   }
-  
+
   @GetMapping(value = "keyalter")
   public String keyalterConfirm(@RequestParam("email") String email, String password,
       @RequestParam("key") String key) throws Exception {
 
     mailsender.alterUserKey(email, key); // mailsender의 경우 @Autowired
-    User user = (User)userService.get(email);
+    User user = userService.get(email);
     String userEmail = user.getEmail();
-    return "redirect:login?email="+userEmail+"&password="+password;
+    return "redirect:login?email=" + userEmail + "&password=" + password;
   }
 }
 

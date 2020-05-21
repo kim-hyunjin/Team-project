@@ -74,5 +74,15 @@
     text-align:center;
     user-select:none;
     }
+    
+    .clazz-detail-box>div {
+      cursor:pointer;
+    }
+    
+    #updateForm>input {
+        width:100%;
+        height:2.5em;
+        margin-top: 0.5em;
+    }
 
   

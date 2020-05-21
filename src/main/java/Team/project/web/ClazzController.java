@@ -6,6 +6,9 @@ import java.util.Random;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +16,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import com.google.gson.Gson;
 import Team.project.domain.Clazz;
 import Team.project.domain.ClazzMember;
 import Team.project.domain.User;
@@ -91,7 +96,8 @@ public class ClazzController {
   }
 
   @GetMapping("detail")
-  public String detail(Model model, HttpSession session, @RequestParam(value="class_no", defaultValue = "0")int classNo) throws Exception {
+  @ResponseBody
+  public ResponseEntity<String> detail(Model model, HttpSession session, @RequestParam(defaultValue = "0")int classNo) throws Exception {
 
     Clazz clazz = null;
     if(classNo == 0) {
@@ -99,13 +105,19 @@ public class ClazzController {
     } else {
       clazz = clazzService.get(classNo);
     }
-    model.addAttribute("clazz", clazz);
-    return "/WEB-INF/jsp/clazz/detail.jsp";
+    Gson gson = new Gson();
+    String jsonData = gson.toJson(clazz);
+    HttpHeaders header = new HttpHeaders();
+    header.add("Content-Type", "text/html;charset=utf-8");
+    return new ResponseEntity<>(jsonData, header, HttpStatus.OK);
   }
 
   @PostMapping("update")
-  public String update(HttpSession session, Clazz clazz) throws Exception {
+  public String update(HttpSession session, Clazz clazz, String from) throws Exception {
     clazzService.update(clazz);
+    if(from.equals("main")) {
+      return "redirect:list";
+    }
     return "redirect:../room/lesson/list?room_no=" + session.getAttribute("clazzNowNo");
   }
 

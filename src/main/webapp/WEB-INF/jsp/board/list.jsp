@@ -25,10 +25,11 @@
 				 <c:forEach items="${list}" var="item">
 				      <input name="boardNo" type="hidden" value="${item.boardNo}">
 				    <tr>
-				      <td><a href='../post/list?bno=${item.boardNo}&bTitle=${item.title}' target=postList>${item.title}</a><hr>
+				      <td><a href='../post/list?bno=${item.boardNo}&bTitle=${item.title}' target=postList>${item.title}</a>
 				      <a href="updateForm?no=${item.boardNo}"><span class="board_update"></span></a>     
 				      <a href="delete?no=${item.boardNo}"><span class="board_delete"></span></a></td>
 				    </tr>
+				    <hr>
 				 </c:forEach>
 			   </div>
 			   </div>

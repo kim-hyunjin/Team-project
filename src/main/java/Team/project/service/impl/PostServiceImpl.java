@@ -50,7 +50,7 @@ public class PostServiceImpl implements PostService {
     if (pageNo > 0) {
       cri.setPage(pageNo);
     }
-    map.put("rowStart", cri.getRowStart());
+    map.put("rowStart", cri.getPageStart());
     map.put("rowEnd", 10);
     return postDao.list(map);
   }

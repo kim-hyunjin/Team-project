@@ -60,7 +60,7 @@ public class BoardController {
 
   @RequestMapping("updateForm")
   public String updateForm(int no, Model model) throws Exception {
-    model.addAttribute("boardNo", no);
+    model.addAttribute("board", boardService.get(no));
     return "/WEB-INF/jsp/board/updateForm.jsp";
   }
 

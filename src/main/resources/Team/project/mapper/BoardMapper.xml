@@ -28,12 +28,14 @@
     where class_no = #{no}
   </select>
   
+  <select id="findByNo" resultMap="BoardMap" parameterType="int">
+    select * from board where board_no = #{no}
+  </select>
   
   <update id="update" parameterType="Board">
  update board
     <set>
-      <if test="title != null and title != ''">title=#{title},</if>
-      <if test="notice != null and notice != ''">notice=#{notice}</if> 
+      <if test="title != null and title != ''">title=#{title}</if>
     </set>
   where board_no = #{boardNo}
   </update>

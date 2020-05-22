@@ -6,12 +6,18 @@ import java.util.Random;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import com.google.gson.Gson;
 import Team.project.domain.Clazz;
 import Team.project.domain.ClazzMember;
 import Team.project.domain.User;
@@ -28,14 +34,14 @@ public class ClazzController {
   ClazzMemberService clazzMemberService;
 
   @GetMapping("list")
-  public String list(HttpSession session, Model model) throws Exception {
+  public String list(HttpSession session) throws Exception {
     int no = -1;
     if (session.getAttribute("loginUser") != null) {
       no = ((User) session.getAttribute("loginUser")).getUserNo();
     }
     List<Clazz> clazzList = clazzService.list(no);
     if (clazzList != null) {
-      model.addAttribute("clazzList", clazzList);
+      session.setAttribute("clazzList", clazzList);
     }
     return "/WEB-INF/jsp/clazz/list.jsp";
   }
@@ -90,17 +96,28 @@ public class ClazzController {
   }
 
   @GetMapping("detail")
-  public String detail(Model model, HttpSession session) throws Exception {
+  @ResponseBody
+  public ResponseEntity<String> detail(Model model, HttpSession session, @RequestParam(defaultValue = "0")int classNo) throws Exception {
 
-    Clazz clazz = (Clazz) session.getAttribute("clazzNow");
-
-    model.addAttribute("clazz", clazz);
-    return "/WEB-INF/jsp/clazz/detail.jsp";
+    Clazz clazz = null;
+    if(classNo == 0) {
+      clazz = (Clazz) session.getAttribute("clazzNow");
+    } else {
+      clazz = clazzService.get(classNo);
+    }
+    Gson gson = new Gson();
+    String jsonData = gson.toJson(clazz);
+    HttpHeaders header = new HttpHeaders();
+    header.add("Content-Type", "text/html;charset=utf-8");
+    return new ResponseEntity<>(jsonData, header, HttpStatus.OK);
   }
 
   @PostMapping("update")
-  public String update(HttpSession session, Clazz clazz) throws Exception {
+  public String update(HttpSession session, Clazz clazz, String from) throws Exception {
     clazzService.update(clazz);
+    if(from.equals("main")) {
+      return "redirect:list";
+    }
     return "redirect:../room/lesson/list?room_no=" + session.getAttribute("clazzNowNo");
   }
 
@@ -108,23 +125,31 @@ public class ClazzController {
   @GetMapping("join")
   public void join(HttpSession session, Model model, HttpServletResponse response, String code)
       throws Exception {
-    ClazzMember clazzMember = new ClazzMember();
-
+    // 사용자가 입력한 코드를 가진 수업이 있는지 확인
     Clazz clazz = clazzService.get(code);
     if (clazz != null) {
+      @SuppressWarnings("unchecked")
+      List<Clazz> clazzList = (List<Clazz>) session.getAttribute("clazzList");
+      // 사용자가 이미 가입한 수업이 아닌 경우에만 가입 성공
+      for (Clazz c : clazzList) {
+        if (c.getClassNo() == clazz.getClassNo()) {
+          response.setStatus(400);
+          return;
+        }
+      }
+      ClazzMember clazzMember = new ClazzMember();
       clazzMember.setClazzNo(clazz.getClassNo());
-
       User user = (User) session.getAttribute("loginUser");
       clazzMember.setUserNo(user.getUserNo());
       clazzMember.setRole(1);
 
       clazzMemberService.add(clazzMember);
       response.setStatus(200);
+      return;
     } else {
       response.setStatus(204);
+      return;
     }
-
-
   }
 
 }// ClazzController

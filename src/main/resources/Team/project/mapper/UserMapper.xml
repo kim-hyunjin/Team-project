@@ -50,7 +50,7 @@
   </select>
   
   <select id="findByNo" resultMap="UserMap" parameterType="int">
-    select user_no, email, name, tel, major, introduce, profile_photo, login_method, create_date
+    select *
     from user
     where 
       user_no=#{no}
@@ -71,7 +71,8 @@
       <if test="tel != null and tel != ''">tel=#{tel},</if>
       <if test="major != null and major != ''">major=#{major},</if>
       <if test="introduce != null and introduce != ''">introduce=#{introduce},</if>
-      <if test="profilePhoto != null and profilePhoto != ''">profile_photo=#{profilePhoto}</if>
+      <if test="profilePhoto != null and profilePhoto != ''">profile_photo=#{profilePhoto},</if>
+      <if test="alterKey != null and alterKey != ''">alterkey=#{alterKey}</if>
     </set>
     where user_no=#{userNo}
   </update>

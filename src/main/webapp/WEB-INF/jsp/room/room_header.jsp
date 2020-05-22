@@ -48,6 +48,7 @@ content = "360175730868-7161sh4v73h0hsufdvgmoa9u3o25oi21.apps.googleusercontent.
         });
       }
       </script>
+      
       <link rel="stylesheet" href="/Team-project/css/style.css" />
     </head>
     <body>
@@ -79,7 +80,7 @@ content = "360175730868-7161sh4v73h0hsufdvgmoa9u3o25oi21.apps.googleusercontent.
                         <c:if test="${empty loginUser.profilePhoto}">
                             <i class="far fa-user" style="font-size:1.5em; margin-right: 0.3em;"></i>
                         </c:if>
-                        <span><a href="${pageContext.servletContext.contextPath}/app/user/detail?userNo=${loginUser.userNo}">${loginUser.name}</a></span>
+                        <div id="headerUserName" data-toggle="modal" data-target="#userDetailModal" style="cursor:pointer;">${loginUser.name}</div>
                     </div>
                   <c:if test="${loginUser.loginMethod == 2}">
                     <a href="#" onclick="signOut();">Sign out</a>
@@ -93,3 +94,86 @@ content = "360175730868-7161sh4v73h0hsufdvgmoa9u3o25oi21.apps.googleusercontent.
 	            </c:if>
             </div>
         </div>
+        
+        <!-- Modal -->
+<div class="modal fade" id="userDetailModal" tabindex="-1" role="dialog" aria-labelledby="userDetailModalTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="userDetailModalTitle">내 상세정보</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div id="modal-user-profile-div"><img id="modal-user-img" src=''></div>
+		<form id="modal-user-update" action='../user/update' method='post' enctype='multipart/form-data'>
+		        <input name='userNo' type='hidden'>
+		        <label>이메일</label><input name='email' type='email' readonly>
+		        <label>이름</label><input name='name' type='text'>
+		        <label>암호</label><input name='password' type='password' placeholder="변경하고자하는 비밀번호를 입력하세요.">
+		        <label>전화</label><input name='tel' type='tel' >
+		        <label>전공</label><input name='major' type='text'>
+		        <label>자기소개</label><textarea name='introduce' rows='5' cols='55' style="resize:none"></textarea>
+		        <label id="user-photo-label" for='user-photo-input'>프로필 사진 업로드</label>
+		        <input id='user-photo-input' name='photo' type='file'>
+		        <label>가입일</label><span id="user-createDate"></span><br>
+            	<button id="modal-user-delete-btn" type="button" style="background-color:red; color:white;">계정삭제</button>
+		</form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="user-update-closeBtn">Close</button>
+        <button type="button" class="btn btn-primary" id="user-update-updateBtn">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+	var userJson;
+    // 유저 정보 수정을 위한 스크립트
+    $('#headerUserName').click(function () {
+    	let xhr = new XMLHttpRequest();
+    	console.log(${loginUser.userNo});
+    	xhr.open("GET", "../../user/detail?userNo=${loginUser.userNo}", true);
+    	xhr.onreadystatechange = () => {
+            if(xhr.readyState == 4) {
+	            if(xhr.status == 200) {
+		          	userJson = JSON.parse(xhr.responseText);
+		           	console.log(userJson);
+		           	if(userJson.profilePhoto != undefined) {
+			    		document.getElementById('modal-user-img').setAttribute('src', '${pageContext.servletContext.contextPath}/upload/user/thumbnail.'+userJson.profilePhoto+'.jpg');
+	            	} else {
+	            	    $('#modal-user-profile-div').html('<i class="far fa-user"></i>');
+	            	}
+		    		let userUpdateForm = document.getElementById('modal-user-update');
+		    		userUpdateForm.userNo.value = userJson.userNo;
+		    		userUpdateForm.email.value = userJson.email;
+			    	userUpdateForm.name.value = userJson.name
+			    	if(userJson.tel != undefined) {
+			    		userUpdateForm.tel.value = userJson.tel;
+			    	}
+			    	if(userJson.major != undefined) {
+				   		userUpdateForm.major.value = userJson.major;
+			    	}
+			   		if(userJson.introduce != undefined) {
+			    		userUpdateForm.introduce.innerHTML = userJson.introduce;
+		    		}
+			   		$('#user-createDate').html(userJson.createDate);
+	   			}
+	   		}	
+	   }
+    	xhr.send();
+    });
+    $('#modal-user-delete-btn').click(() =>{
+		if (confirm("정말 삭제하시겠습니까??") == true){    //확인
+		    location.href = "../../user/delete?no="+userJson.userNo;
+		}else{   //취소
+		    return;
+		}
+	});
+    
+    $('#user-update-updateBtn').click(()=>{
+		$('#modal-user-update').submit();
+    });
+    </script>
+

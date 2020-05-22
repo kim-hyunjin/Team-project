@@ -39,8 +39,8 @@ insert into user(email, name, password, tel, major, introduce, profile_photo, lo
   values('son@gamil.com', '손흥민', password('1111'), '010-1111-4444', '사회', '할룽', 'd.gif', '0', '2020-4-23');
 insert into user(email, name, password, tel, major, profile_photo, login_method, create_date)
   values('naldo@gamil.com', '호날두', password('1111'), '010-1111-5555', '역사', 'e.gif', '0', '2020-4-24');
-insert into user(email, name, password, tel, major, profile_photo, login_method, create_date)
-  values('123@123', '테스트', password('123'), '010-1111-5555', '역사', 'e.gif', '0', '2020-4-24');
+insert into user(email, name, password, tel, major, login_method, create_date, alterkey)
+  values('123@123', '테스트', password('123'), '010-1111-5555', '역사', '0', '2020-4-24', 'Y');
   
   
 -- 클래스 생성
@@ -108,7 +108,10 @@ insert into class_member(user_no, class_no, role)
 insert into class_member(user_no, class_no, role) 
   values(21, 2, 1);
 insert into class_member(user_no, class_no, role) 
-  values(21, 3, 1);
+  values(21, 3, 0);
+insert into class_member(user_no, class_no, role) 
+  values(21, 4, 1);  
+  
   
   
 -- 과제 입력
@@ -397,7 +400,6 @@ insert into assignment_tag(assignment_no, tag_no) values (1, 5);
 
 insert into board_tag(post_no, tag_no) values (1, 1);
 insert into board_tag(post_no, tag_no) values (2, 2);
-insert into board_tag(post_no, tag_no) values (3, 3);
 insert into board_tag(post_no, tag_no) values (4, 4);
 insert into board_tag(post_no, tag_no) values (5, 5);
 insert into board_tag(post_no, tag_no) 

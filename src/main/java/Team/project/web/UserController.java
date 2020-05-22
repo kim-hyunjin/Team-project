@@ -23,18 +23,18 @@ public class UserController {
 
   @Autowired
   private MailSendService mailsender;
-  
+
   @Autowired
   ServletContext servletContext;
 
   @Autowired
   UserService userService;
-  
+
   @RequestMapping("form")
   public String form() {
     return "/WEB-INF/jsp/user/form.jsp";
   }
-  
+
   @RequestMapping("signup")
   public String signup(User user, Model model, HttpServletRequest request) throws Exception {
     if (userService.join(user) > 0) {
@@ -45,7 +45,7 @@ public class UserController {
       throw new Exception("회원을 추가할 수 없습니다.");
     }
   }
-  
+
   @RequestMapping("add")
   public String add(User user, @RequestPart(value = "photo", required = false) MultipartFile photo)
       throws Exception {
@@ -57,7 +57,7 @@ public class UserController {
           .toFiles(Rename.PREFIX_DOT_THUMBNAIL);
       user.setProfilePhoto(filename);
     }
-    System.out.println("user==============>"+user);
+    System.out.println("user==============>" + user);
     if (userService.add(user) > 0) {
       return "redirect:../auth/login?email=" + user.getEmail() + "&password=" + user.getPassword();
     } else {
@@ -116,13 +116,13 @@ public class UserController {
 
     if (userService.update(user) > 0) {
       session.removeAttribute("loginUser");
-      session.setAttribute("loginUser", user);
+      session.setAttribute("loginUser", userService.get(user.getUserNo()));
       return "redirect:../clazz/list";
     } else {
       throw new Exception("유저 정보 변경에 실패했습니다.");
     }
   }
 
-  
+
 
 }

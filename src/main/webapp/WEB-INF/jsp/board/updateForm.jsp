@@ -12,18 +12,15 @@
 
   <div class="form_title">
     <label for="titleUpdate" style="font-size:1.5em; ">게시판</label>
-    <input name="boardNo" type="hidden" value="${boardNo}">
-    <input name="title" type="text" class="form-control" id="boardTitleUpdate" aria-describedby="title_aria" style="width:25%;">
+    <input name="boardNo" type="hidden" value="${board.boardNo}">
+    <input name="title" type="text" class="form-control" id="boardTitleUpdate" value="${board.title}" aria-describedby="title_aria" style="width:25%;">
     <small id="titleHelp" class="form-text text-muted">수정할 게시판명을 입력해주세요.</small>
   </div><br/>  
-  <div class="form_check">
-    <label class="form-check-label" for="check1" style="font-size:1em;">공지사항 여부 &nbsp &nbsp &nbsp </label>
-    <input type="checkbox" name="notice" class="form-check-input" id="boardCheck">
-  </div><br/>
   <button type="submit" class="btn btn-primary" onclick="submitBtn();">수정</button>
 </form>
 </div>
 </body>
+
 
 <script>
 function formCheck(frm) {
@@ -40,7 +37,7 @@ function formCheck(frm) {
     }
 
 </script>
-
+ 
 </html>
 
 

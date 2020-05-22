@@ -61,6 +61,7 @@ public class PostController {
     }
     postService.add(post);
     model.addAttribute("bno", post.getBoardNo());
+    model.addAttribute("bTitle", boardService.get(post.getBoardNo()).getTitle());
     return "redirect:list";
   }
 

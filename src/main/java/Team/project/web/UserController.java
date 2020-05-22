@@ -1,16 +1,27 @@
 package Team.project.web;
 
 import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
+
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestPart;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.google.gson.Gson;
+
 import Team.project.domain.User;
 import Team.project.service.MailSendService;
 import Team.project.service.UserService;
@@ -76,25 +87,13 @@ public class UserController {
   }
 
   @RequestMapping("detail")
-  public String detail(int userNo, Model model) throws Exception {
+  @ResponseBody
+  public ResponseEntity<String> detail(int userNo, Model model) throws Exception {
     User user = userService.get(userNo);
-    String login = "";
-    switch (user.getLoginMethod()) {
-      case 0:
-        login = "이메일";
-        break;
-      case 1:
-        login = "카카오";
-        break;
-      case 2:
-        login = "구글";
-        break;
-      default:
-        login = "이메일";
-    }
-    model.addAttribute("user", user);
-    model.addAttribute("loginMethod", login);
-    return "/WEB-INF/jsp/user/detail.jsp";
+    Gson gson = new Gson();
+    HttpHeaders header = new HttpHeaders();
+    header.add("Content-Type", "application/json;charset=utf-8");
+    return new ResponseEntity<>(gson.toJson(user), header, HttpStatus.OK);
   }
 
   @RequestMapping("search")

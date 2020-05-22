@@ -41,6 +41,7 @@ margin-top: 1.3em;
     <div style="width:70%;">
     <form id="addForm" action='signup' method='post' enctype='multipart/form-data'>
         <input id = "emailInput" name='email' type='email' placeholder="   이메일"><br>
+        <label id="emailLabel"></label>
         <input id = "nameInput" name='name' type='text' placeholder="   이름"><br>
         <input id="passwordInput" name='password' type='password' placeholder="   비밀번호">
         <label id="passwordLabel"></label><br>
@@ -51,26 +52,32 @@ margin-top: 1.3em;
     </div>
     </div>
     <script>
-    const reg = /^(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
-    const passwordBox = document.getElementById("passwordInput");
+    const emailReg = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     const emailBox = document.getElementById("emailInput");
+    const emailLabel = document.getElementById("emailLabel");
+    const passwordReg = /^(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
+    const passwordBox = document.getElementById("passwordInput");
+    const passwordLabel = document.getElementById("passwordLabel");
     const nameBox = document.getElementById("nameInput");
-    let label = document.getElementById("passwordLabel");
     document.getElementById("completeBtn").addEventListener("click", function(event) {
             event.preventDefault();
         if(emailBox.value == "" || nameBox.value == "" || passwordBox.value == "") {
                 label.innerHTML = "모든 정보를 입력해주세요.";
         } else {
+            let email = emailBox.value;
             let password = passwordBox.value;
-            if(false === reg.test(password)) {
+            if(emailReg.test(String(email).toLowerCase()) == false) {
+        		emailBox.focus();
+        		emailLabel.innerHTML = "올바른 이메일 형식을 입력해주세요."
+            }
+            if(passwordReg.test(password) == false) {
 	            passwordBox.focus();
-	            label.innerHTML = "비밀번호는 8자 이상이어야 하며, 숫자/소문자/특수문자를 모두 포함해야 합니다.";
-	          } else {
+	            passwordLabel.innerHTML = "비밀번호는 8자 이상이어야 하며, 숫자/소문자/특수문자를 모두 포함해야 합니다.";
+	          } 
+            if(emailReg.test(String(email).toLowerCase()) == true && passwordReg.test(password) == true) {
 	            document.getElementById("addForm").submit();
 	          }
         }
-        
-    
     });
     </script>
 </body>

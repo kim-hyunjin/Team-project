@@ -30,6 +30,7 @@ public class BoardController {
   public String boardList(HttpSession session, Model model) throws Exception {
     int roomNo = ((Clazz) session.getAttribute("clazzNow")).getClassNo();
     model.addAttribute("list", boardService.list(roomNo));
+    System.out.println("---------------------------------------->" + roomNo);
     return "/WEB-INF/jsp/board/list.jsp";
   }
 

@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%> 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
     <!DOCTYPE html>
     <html lang="ko">
     <head>
@@ -34,79 +34,39 @@
   <br/>
   <br/>
 
+  
+  
    <c:if test="${not empty posts}">
  
    <table class="table table-hover" >
-
-    <tr>
-      <th scope="col">번호</th>
-	    <th scope="col">제목</th>
-	    <th scope="col">작성자</th>
-	    <th scope="col">작성일</th>
-	   </tr>
-	
-	<c:forEach items="${posts}" var="item">
-	
-  <style type="text/css">
-      li {list-style: none; float: left; padding: 6px;}
-    </style>
-	    <tr>
-	      <td>${item.postNo}</td> 
-	      <td><a href='detail?no=${item.postNo}'>${item.title}</a></td>
-	      <td>${item.user.name}</td>
-	      <td>${item.createDate}</td> 
-	    </tr>
-	</c:forEach>
-	
-   </table>
-   
-   
-    <nav class="pagination-nav">
-      <ul class="pagination paginoation-ul">
-		    <c:if test="${pageMaker.prev}">
-		       <!-- <li class="page-item"><a class="page-link" href="#">Previous</a></li> -->
-		      <li class="page-item"><a class="page-link" href="list${pageMaker.makeQuery(pageMaker.startPage - 1)}&bno=${boardNo}&bTitle=${boardTitle}">이전</a></li>
-		    </c:if> 
-		
-		    <c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="idx">
-		      <li class="page-item"><a class="page-link" href="list${pageMaker.makeQuery(idx)}&bno=${boardNo}&bTitle=${boardTitle}">${idx}</a></li>
-		    </c:forEach>
-		
-		    <c:if test="${pageMaker.next && pageMaker.endPage > 0}">
-		      <li class="page-item"><a class="page-link" href="list${pageMaker.makeQuery(pageMaker.endPage + 1)}&bno=${boardNo}&bTitle=${boardTitle}">다음</a></li>
-		    </c:if> 
-    </ul>
-  </nav>
-
-  <a class="btn btn-default pull-right" href="../post/form?bno=${boardNo}">글쓰기</a>
-
-  <hr>
-  <form action='search' method='get'>
-  <input name='boardNo' type='hidden' value='${boardNo}'>
-  제목: <input name='title' type='text'><br>
-  내용: <input name='content' type='text'><br>
-  이름: <input name='name' type='text'><br> 
-  <button>검색</button>
-  </form>
-
-</c:if>
-
-
-<c:if test="${empty posts}">
- 
-   <table class="table table-hover" >
-
+   <thead>
     <tr>
       <th scope="col">번호</th>
       <th scope="col">제목</th>
       <th scope="col">작성자</th>
       <th scope="col">작성일</th>
      </tr>
+   </thead>
 
+  
+  <tbody>
+  <c:forEach items="${posts}" var="item">
+  
+  <style type="text/css">
+      li {list-style: none; float: left; padding: 6px;}
+    </style>
+      <tr>
+        <td>${item.postNo}</td> 
+        <td><a href='detail?no=${item.postNo}'>${item.title}</a></td>
+        <td>${item.user.name}</td>
+        <td>${item.createDate}</td> 
+      </tr>
+  </c:forEach>
+  </tbody>
    </table>
-   <hr/>
    
-   <nav class="pagination-nav">
+   
+    <nav class="pagination-nav">
       <ul class="pagination paginoation-ul">
         <c:if test="${pageMaker.prev}">
            <!-- <li class="page-item"><a class="page-link" href="#">Previous</a></li> -->
@@ -135,6 +95,7 @@
   </form>
 
 </c:if>
+
 
 </body>
 

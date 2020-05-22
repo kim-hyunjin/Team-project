@@ -19,8 +19,6 @@ public class MailConfig {
     MailConfig.logger.info("[MailConfig.java] :: constructor called");
   }
 
-
-   
   @Bean
   public JavaMailSender mailSender() {
     JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
@@ -33,9 +31,12 @@ public class MailConfig {
     mailSender.setJavaMailProperties(mailProperties);
     mailSender.setHost("smtp.gmail.com");
     mailSender.setPort(587);
+
+    // 본인 이메일 적으세요.
     mailSender.setUsername("01049236753a@gmail.com");
+    // 본인 비밀번호 적으세요.
     mailSender.setPassword("roal12455!!A");
-    
+
     mailSender.setDefaultEncoding("utf-8");
     return mailSender;
   }

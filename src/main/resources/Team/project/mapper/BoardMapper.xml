@@ -40,7 +40,7 @@
   
   <delete id="delete" parameterType="int">
     delete from board
-    where board_no=#{boardNo}
+    where board_no = #{boardNo}
   </delete>
 
   <insert id="insert" parameterType="Board">

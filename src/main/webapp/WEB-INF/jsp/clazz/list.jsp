@@ -25,7 +25,8 @@
 								data-target="#updateClass">수정</div>
 							<div onMouseover="this.style.backgroundColor='gray';"
 								onMouseout="this.style.backgroundColor='white';"
-								onclick="location.href='delete?no=${clazz.classNo}'">삭제</div>
+								onclick="button_event(${clazz.classNo})">삭제</div>
+								
 						</div>
 					</div>
 					<span>${clazz.room}</span>
@@ -68,6 +69,8 @@
 </div>
 
 <script>
+
+
     // 수업 수정을 위한 스크립트
     $(document).on('click', '.class-update-btn', function (event) {
     	var parent = event.currentTarget.parentNode;
@@ -112,6 +115,16 @@
     $(document).on('mouseenter', '.main_card', function (e) {
         modalStatus = 0;
     });
+    
+
+ // 수업 삭제시 정말 삭제할지 묻는 코드
+    function button_event(no){
+         if (confirm("정말 삭제하시겠습니까??") == true){    //확인
+             location.href='delete?no='+no;
+        }else{   //취소
+          return;
+        }
+    }
     </script>
 
 

@@ -73,6 +73,11 @@
     where 
       class_code = #{code}
     </select>
+    
+    <delete id="delete" parameterType="int">
+        delete from class
+        where class_no = #{class_no}
+    </delete>
 
 </mapper>
 

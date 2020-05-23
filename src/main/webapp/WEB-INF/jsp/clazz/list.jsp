@@ -19,13 +19,13 @@
 							class="fas fa-ellipsis-v"></i></span>
 						<div class="clazz-detail-box"
 							id="clazz-detail-box ${clazz.classNo}">
-							<div onMouseover="this.style.backgroundColor='red';"
+							<div onMouseover="this.style.backgroundColor='gray';"
 								onMouseout="this.style.backgroundColor='white';"
 								class="class-update-btn" data-toggle="modal"
 								data-target="#updateClass">수정</div>
-							<div onMouseover="this.style.backgroundColor='red';"
+							<div onMouseover="this.style.backgroundColor='gray';"
 								onMouseout="this.style.backgroundColor='white';"
-								onclick="location.href='delete?class_no=${clazz.classNo}'">삭제</div>
+								onclick="location.href='delete?no=${clazz.classNo}'">삭제</div>
 						</div>
 					</div>
 					<span>${clazz.room}</span>

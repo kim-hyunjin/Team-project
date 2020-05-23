@@ -95,6 +95,15 @@ public class ClazzController {
     }
   }
 
+  @GetMapping("delete")
+  public String delete(int no) throws Exception {
+    
+    if (clazzService.delete(no) > 0) {
+      return "redirect:list";
+    } else {
+      throw new Exception("삭제할 수업 번호가 유효하지 않습니다.");
+    }
+  }
   @GetMapping("detail")
   @ResponseBody
   public ResponseEntity<String> detail(Model model, HttpSession session, @RequestParam(defaultValue = "0")int classNo) throws Exception {

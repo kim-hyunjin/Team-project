@@ -6,6 +6,7 @@
 @import 'user.css';
 @import 'board.css';
 @import 'grade.css';
+@import 'calendar.css';
 
 * {
   box-sizing: border-box;

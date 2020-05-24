@@ -1,175 +1,119 @@
-<%@ page language="java" 
-    pageEncoding="UTF-8"
-    trimDirectiveWhitespaces="true"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
-<!DOCTYPE html>
-<html lang="ko">
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>수업 일정</title>
-    <link rel=" shortcut icon" href="image/favicon.ico">
-
-    <link rel="stylesheet" href="../../css/calendar/fullcalendar.min.css" />
-    <link rel="stylesheet" href="../../css/calendar/bootstrap.min.css" />
-    <link rel="stylesheet" href='../../css/calendar/select2.min.css' />
-    <link rel="stylesheet" href='../../css/calendar/bootstrap-datetimepicker.min.css' />
-
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,500,600" >
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" >
-
-    <link rel="stylesheet" href="../../css/calendar/main.css">
-
-</head>
-
-
-<body>
-    <div class="container">
-
-        <!-- 일자 클릭시 메뉴오픈 -->
-        <div id="contextMenu" class="dropdown clearfix">
-            <ul class="dropdown-menu dropNewEvent" role="menu" aria-labelledby="dropdownMenu"
-                style="display:block;position:static;margin-bottom:5px;">
-                <li><a tabindex="-1" href="#">카테고리1</a></li>
-                <li><a tabindex="-1" href="#">카테고리2</a></li>
-                <li><a tabindex="-1" href="#">카테고리3</a></li>
-                <li><a tabindex="-1" href="#">카테고리4</a></li>
-                <li class="divider"></li>
-                <li><a tabindex="-1" href="#" data-role="close">Close</a></li>
-            </ul>
-        </div>
-
-        <div id="wrapper">
-            <div id="loading"></div>
-            <div id="calendar"></div>
-        </div>
+<jsp:include page="../clazz/main_header.jsp" />
+<div class='container' style="margin-top: 5em;">
+<div id='calendar'></div>
+</div>
+<div class="modal fade" id="calendarEventModal" tabindex="-1" role="dialog"
+	aria-labelledby="calendarEventModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="calendarEventModalLabel">상세 정보</h5>
+				<button type="button" class="close" data-dismiss="modal"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body" id="calendarEventModalBody">
+				<label>제목</label><input id='calendar-modal-title'readonly>
+				<label>설명</label><textarea rows="4" id='calendar-modal-dscription' readonly></textarea> 
+				<label>시작일</label><input id='calendar-modal-start' readonly> 
+				<label>종료일</label><input id='calendar-modal-end' readonly>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal"
+					id="calendar-modal-close">Close</button>
+				<button type="button" class="btn btn-primary" id="modal-moveToClass">클래스로 이동</button>
+			</div>
+		</div>
+	</div>
+</div>
 
 
-        <!-- 일정 추가 MODAL -->
-        <div class="modal fade" tabindex="-1" role="dialog" id="eventModal" >
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                                aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title"></h4>
-                    </div>
-                    <div class="modal-body">
+	<script src='${pageContext.servletContext.contextPath}/script/fullcalendar/packages/core/main.js'></script>
+	<script src='${pageContext.servletContext.contextPath}/script/fullcalendar/packages/interaction/main.js'></script>
+    <script src='${pageContext.servletContext.contextPath}/script/fullcalendar/packages/daygrid/main.js'></script>
+    
+    <script>
+      const assignmentsJson = JSON.parse(`${assignmentList}`);
+      const questionsJson = JSON.parse(`${questionList}`);
+      
+      let eventData = [];
+      for(let a of assignmentsJson) {
+    	  eventData.push({
+    		  title : a.title,
+    		  start : a.startDate,
+    		  end : a.deadline,
+    		  classNames : 'event-assignment',
+    		  id : a.assignmentNo
+    	  });
+      }
+      
+      for(let q of questionsJson) {
+    	  eventData.push({
+    		  title : q.title,
+    		  start : q.startDate,
+    		  end : q.deadline,
+    		  classNames : 'event-question',
+    		  id : q.questionNo
+    	  });
+      }
+    
+      document.addEventListener('DOMContentLoaded', function() {
+        var calendarEl = document.getElementById('calendar');
 
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <label class="col-xs-4" for="edit-title">일정명</label>
-                                <input class="inputModal" type="text" name="edit-title" id="edit-title"
-                                    required="required" readonly/>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <label class="col-xs-4" for="edit-start">제출 시작일</label>
-                                <input class="inputModal" type="text" name="edit-start" id="edit-start" readonly/>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <label class="col-xs-4" for="edit-end">제출 마감일</label>
-                                <input class="inputModal" type="text" name="edit-end" id="edit-end" readonly/>
-                            </div>
-                        </div>
-<!--                         <div class="row">
-                            <div class="col-xs-12">
-                                <label class="col-xs-4" for="edit-type">구분</label>
-                                <select class="inputModal" type="text" name="edit-type" id="edit-type">
-                                    <option value="카테고리1">카테고리1</option>
-                                    <option value="카테고리2">카테고리2</option>
-                                    <option value="카테고리3">카테고리3</option>
-                                    <option value="카테고리4">카테고리4</option>
-                                </select>
-                            </div>
-                        </div> -->
-<!--                         <div class="row">
-                            <div class="col-xs-12">
-                                <label class="col-xs-4" for="edit-color">색상</label>
-                                <select class="inputModal" name="color" id="edit-color">
-                                    <option value="#D25565" style="color:#D25565;">빨간색</option>
-                                    <option value="#9775fa" style="color:#9775fa;">보라색</option>
-                                    <option value="#ffa94d" style="color:#ffa94d;">주황색</option>
-                                    <option value="#74c0fc" style="color:#74c0fc;">파란색</option>
-                                    <option value="#f06595" style="color:#f06595;">핑크색</option>
-                                    <option value="#63e6be" style="color:#63e6be;">연두색</option>
-                                    <option value="#a9e34b" style="color:#a9e34b;">초록색</option>
-                                    <option value="#4d638c" style="color:#4d638c;">남색</option>
-                                    <option value="#495057" style="color:#495057;">검정색</option>
-                                </select>
-                            </div>
-                        </div> -->
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <label class="col-xs-4" for="edit-desc">설명</label>
-                                <textarea rows="4" cols="50" class="inputModal" name="edit-desc"
-                                    id="edit-desc" style="resize: none;" readonly></textarea>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer modalBtnContainer-addEvent">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
-                        <button type="button" class="btn btn-primary" id="save-event">저장</button>
-                    </div>
-                    <div class="modal-footer modalBtnContainer-modifyEvent">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
-                        <!--<button type="button" class="btn btn-danger" id="deleteEvent">삭제</button>  -->
-                        
-                        
-                        <button type="button" class="btn btn-primary"
-                         onclick="location.href='../room/lesson/list?room_no=${clazz.classNo}'">클래스로 이동</button>
-                        
-                    
-                    </div>
-                </div><!-- /.modal-content -->
-            </div><!-- /.modal-dialog -->
-        </div><!-- /.modal -->
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+        	plugins: [ 'interaction', 'dayGrid' ],
+            defaultView: 'dayGridMonth',
+            header: {
+              left: 'prev,next today',
+              center: 'title',
+              right: 'dayGridMonth dayGridWeek dayGridDay'
+            },
+            events: eventData,
+            eventTextColor: 'white',
+            eventClick: function(info) {
+                console.log('Event: ' + info.event.title);
+                console.log('id: '+info.event.id);
+                console.log('classNames: '+info.event.classNames);
+				$('#calendarEventModal').modal('toggle');
+                if(info.event.classNames == 'event-assignment') {
+                	jQuery.getJSON('eventDetail?no='+info.event.id+'&set=0', function(data) {
+                		console.log(data);
+                		jQuery('#calendar-modal-title').val(data.title);
+                		jQuery('#calendar-modal-dscription').val(data.content);
+                		jQuery('#calendar-modal-start').val(data.startDate);
+                		jQuery('#calendar-modal-end').val(data.deadline);
+                		jQuery('#modal-moveToClass').click(function() {
+                			location.href='../room/lesson/list?room_no='+data.classNo;
+                		})
+                	});
+                }
+                if(info.event.classNames == 'event-question') {
+                	jQuery.getJSON('eventDetail?no='+info.event.id+'&set=1', function(data) {
+                		console.log(data);
+                		jQuery('#calendar-modal-title').val(data.title);
+                		jQuery('#calendar-modal-dscription').val(data.content);
+                		jQuery('#calendar-modal-start').val(data.startDate);
+                		jQuery('#calendar-modal-end').val(data.deadline);
+                		jQuery('#modal-moveToClass').click(function() {
+                			location.href='../room/lesson/list?room_no='+data.classNo;
+                		})
+                	});
+                }
+                
+              },
+           eventMouseEnter: function(mouseEnterInfo) {
+        	   mouseEnterInfo.el.style.cursor = 'pointer';
+           }
+        });
 
-        <div class="panel panel-default" style="display:none">
+        calendar.render();
+      });
 
-            <div class="panel-heading">
-                <h3 class="panel-title">필터</h3>
-            </div>
-
-            <div class="panel-body">
-               
-
-               <div class="col-lg-6" style="display:none">
-                    <label for="calendar_view">과제, 질문별</label>
-                    <div class="input-group">
-                    <c:forEach items="${assignmentList}" var="item">
-                        <label class="checkbox-inline">
-                        <input class='filter' type="checkbox" value="${item.title}" checked>${item.title}
-                        <br>
-                        </label>
-                    </c:forEach>
-                     <c:forEach items="${questionList}" var="item">
-                        <label class="checkbox-inline">
-                        <input class='filter' type="checkbox" value="${item.title}" checked>${item.title}
-                        </label>
-                    </c:forEach> 
-                    </div>
-                    </div>
-            </div>
-        </div>
-        <!-- /.filter panel -->
-    </div>
-    <!-- /.container -->
-    <script src="../../script/calendar/jquery.min.js"></script>
-    <script src="../../script/calendar/bootstrap.min.js"></script>
-    <script src="../../script/calendar/moment.min.js"></script>
-    <script src="../../script/calendar/fullcalendar.min.js"></script>
-    <script src="../../script/calendar/ko.js"></script>
-    <script src="../../script/calendar/select2.min.js"></script>
-    <script src="../../script/calendar/bootstrap-datetimepicker.min.js"></script>
-    <script src="../../script/calendar/main.js"></script>
-    <script src="../../script/calendar/addEvent.js"></script>
-    <script src="../../script/calendar/editEvent.js"></script>
-    <script src="../../script/calendar/etcSetting.js"></script>
+    </script>
 </body>
-
 </html>

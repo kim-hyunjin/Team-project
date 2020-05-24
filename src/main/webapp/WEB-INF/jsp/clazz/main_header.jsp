@@ -7,7 +7,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
@@ -47,17 +47,21 @@ content = "360175730868-7161sh4v73h0hsufdvgmoa9u3o25oi21.apps.googleusercontent.
         });
       }
       </script>
-      <link rel="stylesheet" href="../../css/style.css" />
+      <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/css/style.css" />
+      <!-- 캘린더 -->
+    <link href='${pageContext.servletContext.contextPath}/script/fullcalendar/packages/core/main.css' rel='stylesheet' />
+    <link href='${pageContext.servletContext.contextPath}/script/fullcalendar/packages/daygrid/main.css' rel='stylesheet' />
+    
 </head>
 <body>
   <div class="header main_header">
     <div class="main_header__column">
       <a href="#"><i class="fas fa-bars" style="font-size:1.2em; margin-right: 0.8em;"></i></a>
-      <span style="font-weight:600; font-size:1.5em;">BTS</span>
+      <span style="font-weight:600; font-size:1.5em; cursor:pointer;" onclick="location.href='/Team-project/app/clazz/list'">BTS</span>
     </div>
     <div class="main_header__column">
       <c:if test="${loginUser.alterKey == 'Y' }">
-      <span><a href="../calendar/calendar">캘린더</a></span>
+      <span><a href="../calendar/main">캘린더</a></span>
       <span data-toggle="modal" data-target="#classJoin" style="cursor:pointer;">수업 참여</span>
       <span data-toggle="modal" data-target="#makeClass"  style="cursor: pointer;">수업 만들기</span>
       </c:if>

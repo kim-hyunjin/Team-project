@@ -1,0 +1,14 @@
+#calendarEventModalBody > label{
+	color: gray;
+	width : 13%;
+}
+
+#calendarEventModalBody > input{
+	width : 87%;
+	margin-bottom : 0.5em;
+}
+
+#calendarEventModalBody > textarea {
+	resize: none;
+	width: 100%;
+}

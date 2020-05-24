@@ -135,5 +135,4 @@ public class AssignmentController {
     return "/WEB-INF/jsp/assignmentSubmit/submittedList.jsp";
   }
 
-
 }

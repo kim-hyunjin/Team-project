@@ -106,7 +106,7 @@ public class ClazzController {
   }
   @GetMapping("detail")
   @ResponseBody
-  public ResponseEntity<String> detail(Model model, HttpSession session, @RequestParam(defaultValue = "0")int classNo) throws Exception {
+  public ResponseEntity<String> detail(HttpSession session, @RequestParam(defaultValue = "0")int classNo) throws Exception {
 
     Clazz clazz = null;
     if(classNo == 0) {

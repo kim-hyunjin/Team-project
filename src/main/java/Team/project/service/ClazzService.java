@@ -12,7 +12,7 @@ public interface ClazzService {
   int delete(int no) throws Exception;
 
   Clazz get(int no) throws Exception;
-  
+
   int update(Clazz clazz) throws Exception;
 
   List<Clazz> list(int no) throws Exception;

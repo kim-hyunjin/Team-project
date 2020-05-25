@@ -115,9 +115,9 @@
       join user u on cm.user_no = u.user_no
       join board b on b.board_no = p.board_no 
     <where>
-      <if test="title != null and title != ''">p.title like concat('%', #{title}, '%')</if>
-      <if test="content != null and content != ''">p.content like concat('%', #{content}, '%')</if>
-      <if test="name != null and name != ''">u.name like concat('%', #{name}, '%')</if>
+      <if test="type == 'title'">p.title like concat('%', #{keyword}, '%')</if>
+      <if test="type == 'content'">p.content like concat('%', #{keyword}, '%')</if>
+      <if test="type == 'name'">u.name like concat('%', #{keyword}, '%')</if>
     </where>
       and p.board_no = #{boardNo}
   </select>

@@ -18,7 +18,7 @@
     
     <style>
     .pagination-nav {
-      text-align: -webkit-center;
+      margin-left:3em;
     }
     .pagination-ul {
       display: inline-block;
@@ -61,9 +61,26 @@
   </c:forEach>
   
    </table>
-   
-   
-    <nav class="pagination-nav">
+
+</c:if>
+
+
+<c:if test="${empty posts}">
+ 
+   <table class="table table-hover" >
+
+    <tr>
+      <th scope="col">번호</th>
+      <th scope="col">제목</th>
+      <th scope="col">작성자</th>
+      <th scope="col">작성일</th>
+     </tr>
+
+   </table>
+
+</c:if>
+
+<nav class="pagination-nav">
       <ul class="pagination paginoation-ul">
         <c:if test="${pageMaker.prev}">
            <!-- <li class="page-item"><a class="page-link" href="#">Previous</a></li> -->
@@ -81,10 +98,10 @@
   </nav>
 
   <button type="button" class="btn btn-outline-dark btn-sm" onclick="location.href='../post/form?bno=${boardNo}'">글쓰기</button>
+  
+<hr>
 
-  <hr>
-
-      <form action='search' method='get'>
+      <form action='search' method='get' style="width:50%; margin-left:2em;">
   <div class="form-group row justify-content-left">
       <div class="w100" style="padding-right:10px">
         <input name='boardNo' type='hidden' value='${boardNo}'>
@@ -103,61 +120,7 @@
     </div>
       </form>
 
-<!-- 
-  <form action='search' method='get'>
-  <input name='boardNo' type='hidden' value='${boardNo}'>
-  제목: <input name='title' type='text'><br>
-  내용: <input name='content' type='text'><br>
-  이름: <input name='name' type='text'><br> 
-  <button>검색</button>
-  </form>
- -->
-</c:if>
 
-
-<c:if test="${empty posts}">
- 
-   <table class="table table-hover" >
-
-    <tr>
-      <th scope="col">번호</th>
-      <th scope="col">제목</th>
-      <th scope="col">작성자</th>
-      <th scope="col">작성일</th>
-     </tr>
-
-   </table>
-   <hr/>
-   
-   <nav class="pagination-nav">
-      <ul class="pagination paginoation-ul">
-        <c:if test="${pageMaker.prev}">
-           <!-- <li class="page-item"><a class="page-link" href="#">Previous</a></li> -->
-          <li class="page-item"><a class="page-link" href="list${pageMaker.makeQuery(pageMaker.startPage - 1)}&bno=${boardNo}&bTitle=${boardTitle}">이전</a></li>
-        </c:if> 
-    
-        <c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="idx">
-          <li class="page-item"><a class="page-link" href="list${pageMaker.makeQuery(idx)}&bno=${boardNo}&bTitle=${boardTitle}">${idx}</a></li>
-        </c:forEach>
-    
-        <c:if test="${pageMaker.next && pageMaker.endPage > 0}">
-          <li class="page-item"><a class="page-link" href="list${pageMaker.makeQuery(pageMaker.endPage + 1)}&bno=${boardNo}&bTitle=${boardTitle}">다음</a></li>
-        </c:if> 
-    </ul>
-  </nav>
-
-<button type="button" class="btn btn-outline-dark btn-sm" onclick="location.href='../post/form?bno=${boardNo}'">글쓰기</button>
-
-  <hr>
-  <form action='search' method='get'>
-  <input name='boardNo' type='hidden' value='${boardNo}'>
-  제목: <input name='title' type='text'><br>
-  내용: <input name='content' type='text'><br>
-  이름: <input name='name' type='text'><br> 
-  <button>검색</button>
-  </form>
-
-</c:if>
 
 </body>
 

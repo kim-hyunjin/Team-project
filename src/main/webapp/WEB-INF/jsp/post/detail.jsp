@@ -21,30 +21,43 @@
   <c:set var="b" value="${classMember}"/>
   <c:choose>
     <c:when test="${a == b}">
-      <form action='update' method='post' enctype='multipart/form-data'>
+     <form action='update' method='post' enctype='multipart/form-data'>
      <input name='memberNo' style='display:none'  value='${post.memberNo}'>
      <input name='boardNo' type='hidden' value='${post.boardNo}'>    
-     번호: <input name='postNo' type='number' readonly value='${post.postNo}'><br>
-     제목: <input name='title' type='text' value='${post.title}'><br>
-     내용: <input name='content' type='text' style="text-align:left; width:500px; height:300px;" value='${post.content}'><br>
-     파일 : <span id="download" title="다운로드" style="cursor:pointer;">${file.originalName}</span>
-     <input name='partFile' type='file'><br>
-     작성일: <input name='createDate' type='date' readonly value='${post.createDate}'><br>
-     <button>변경</button>
+     <!-- 번호 -->
+     <input name='postNo' type='hidden' readonly value='${post.postNo}' style="width: 50px;">
+     <br><br/>
+     <h6>제목</h6>
+     <input class="form-control" name='title' type='text' value='${post.title}' style="width: 200px"><br>
+     <h6>내용</h6>
+     <textarea class="form-control" name='content' rows='10' cols='15' type='text' style="text-align:left; width:700px; word-break: break-all;" value='${post.content}'></textarea><br>
+     <!-- 파일 -->
+     <input name='partFile' type='file'><br>     
+     <span id="download" title="다운로드" style="cursor:pointer;">${file.originalName}</span>
+     <!-- 작성일 -->
+     <input name='createDate' type='hidden' readonly value='${post.createDate}'><br></br>
+     <button type="button" class="btn btn-outline-dark btn-sm">변경</button> <button type="button" class="btn btn-outline-dark btn-sm" onclick="location.href='delete?no=${post.postNo}&bno=${post.boardNo}'">삭제</button>
    </form>
-   <a href="delete?no=${post.postNo}&bno=${post.boardNo}">삭제</a>
+   
+   <!-- <a href="delete?no=${post.postNo}&bno=${post.boardNo}">삭제</a> -->
     </c:when>
    
     <c:otherwise>
-       <form action='update' method='post' enctype='multipart/form-data'>
+  <form action='update' method='post' enctype='multipart/form-data'>
      <input name='memberNo' style='display:none'  value='${post.memberNo}'>
      <input name='boardNo' type='hidden' value='${post.boardNo}'>    
-     번호: <input name='postNo' type='number' readonly value='${post.postNo}'><br>
-     제목: <input name='title' type='text' value='${post.title}'><br>
-     내용: <input name='content' type='text' style="text-align:left; width:500px; height:300px;" value='${post.content}'><br>
-     파일 : <span id="download" title="다운로드" style="cursor:pointer;">${file.originalName}</span>
-     <input name='partFile' type='file'><br>
-     작성일: <input name='createDate' type='date' readonly value='${post.createDate}'><br>
+     <!-- 번호 -->
+     <input name='postNo' type='hidden' readonly value='${post.postNo}' style="width: 50px;">
+     <br><br/>
+     <h6>제목</h6>
+     <input class="form-control" name='title' type='text' readonly value='${post.title}' style="width: 200px"><br>
+     <h6>내용</h6>
+     <textarea class="form-control" name='content' rows='10' cols='15' type='text' style="text-align:left; width:700px; word-break: break-all;" readonly value='${post.content}'></textarea><br>
+     <!-- 파일 -->
+     <input name='partFile' type='file'><br>     
+     <span id="download" title="다운로드" style="cursor:pointer;">${file.originalName}</span>
+     <!-- 작성일 -->
+     <input name='createDate' type='hidden' readonly value='${post.createDate}'><br></br>
    </form>
     </c:otherwise>
   </c:choose>
@@ -55,6 +68,4 @@
   </script>
 </body>
 </html>
-
-
 

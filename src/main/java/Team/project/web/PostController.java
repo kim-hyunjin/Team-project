@@ -2,6 +2,7 @@ package Team.project.web;
 
 import java.io.File;
 import java.util.HashMap;
+import java.util.List;
 import java.util.UUID;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
@@ -116,26 +117,6 @@ public class PostController {
     return "redirect:list";
   }
 
-  @GetMapping("search")
-  public String search(Post post, String name, Model model) throws Exception {
-
-    HashMap<String, Object> map = new HashMap<>();
-    map.put("boardNo", post.getBoardNo());
-
-    if (post.getTitle().length() > 0) {
-      map.put("title", post.getTitle());
-    }
-    if (post.getContent().length() > 0) {
-      map.put("content", post.getContent());
-    }
-    if (name.length() > 0) {
-      map.put("name", name);
-    }
-
-    model.addAttribute("list", postService.search(map));
-    return "/WEB-INF/jsp/post/search.jsp";
-  }
-
   @RequestMapping("list")
   public String list(@RequestParam(value = "page", defaultValue = "1") int page, int bno,
       Model model, String bTitle) throws Exception {
@@ -151,6 +132,37 @@ public class PostController {
     System.out.println("=========================================>" + bTitle);
     return "/WEB-INF/jsp/post/list.jsp";
   }
+
+  @GetMapping("search")
+  public String search(int boardNo, String searchType, String keyword, Model model)
+      throws Exception {
+
+
+    HashMap<String, Object> map = new HashMap<>();
+    List<Post> posts = null;
+    if (searchType.equals("title")) {
+      map.put("type", "title");
+    }
+    if (searchType.equals("content")) {
+      map.put("type", "content");
+    }
+    if (searchType.equals("name")) {
+      map.put("type", "name");
+    }
+
+    map.put("keyword", keyword);
+    map.put("boardNo", boardNo);
+    posts = postService.search(map);
+
+    model.addAttribute("posts", posts);
+    int totalCount = posts.size();
+    model.addAttribute("pageMaker", new PageMaker(1, 10, totalCount));
+    model.addAttribute("boardNo", posts.get(0).getBoardNo());
+    model.addAttribute("boardTitle", posts.get(0).getBoard().getTitle());
+
+    return "/WEB-INF/jsp/post/list.jsp";
+  }
+
 
 }
 

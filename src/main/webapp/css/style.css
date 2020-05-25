@@ -8,9 +8,30 @@
 @import 'grade.css';
 @import 'calendar.css';
 @import 'lesson.css';
+@import 'question.css';
 
 a {
   color: inherit;
   text-decoration: none;
+}
+
+.inputGroup {
+  display:flex;
+  flex-direction:column;
+}
+
+.inputGroup input {
+	border:none;
+  border-bottom:thin solid #0073e6;
+  width:80%;
+  height:2em;
+  font-size:1.3em;
+  margin-bottom:1em;
+}
+
+.inputGroupText {
+  color:#66ccff;
+  font-weight: bold;
+	font-size:1.3em;
 }
 

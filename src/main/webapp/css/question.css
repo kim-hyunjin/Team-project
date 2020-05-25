@@ -1,0 +1,29 @@
+#multipleBox {
+  margin-bottom:1em;
+  user-select:none;	
+}
+
+#multipleBox i {
+	font-size: 1.5em;
+}
+
+#multipleBox input {
+	height:2.5em;
+}
+
+#multipleBox .multipleNoInput {
+	border:none;
+	width:2em;
+	border-right:thin solid rgba(0,0,0,0.1);
+	border-bottom:thin solid rgba(0,0,0,0.1);
+	text-align:center;
+}
+
+#multipleBox .multipleContentInput {
+	border:none;
+	border-bottom : thin solid rgba(0,0,0,0.1);
+}
+
+.multipleRow {
+	margin-left:2em;
+}

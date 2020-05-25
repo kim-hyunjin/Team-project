@@ -54,7 +54,7 @@ content = "360175730868-7161sh4v73h0hsufdvgmoa9u3o25oi21.apps.googleusercontent.
     
 </head>
 <body>
-  <div class="header main_header">
+  <nav class="header main_header">
     <div class="main_header__column">
       <a href="#"><i class="fas fa-bars" style="font-size:1.2em; margin-right: 0.8em;"></i></a>
       <span style="font-weight:600; font-size:1.5em; cursor:pointer;" onclick="location.href='/Team-project/app/clazz/list'">BTS</span>
@@ -91,7 +91,7 @@ content = "360175730868-7161sh4v73h0hsufdvgmoa9u3o25oi21.apps.googleusercontent.
           </c:if>
         </c:if>
     </div>
-  </div>
+  </nav>
   
   <!-- Modal -->
 <div class="modal fade" id="classJoin" tabindex="-1" role="dialog" aria-labelledby="classJoinLabel" aria-hidden="true">

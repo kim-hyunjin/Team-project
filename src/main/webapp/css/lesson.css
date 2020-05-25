@@ -1,0 +1,120 @@
+.alarm_box__icon {
+	width:1.5em;
+	color:#009973;
+}
+
+#alarm_box {
+	display:block;
+	border:thin solid rgba(0,0,0,0.1);
+	width: 15em;
+	height: 15em;
+	overflow:overlay;
+}
+
+#alarm_box > i {
+	font-size : 2em;
+	color : #ff9900;
+	position:absolute;
+	margin: -0.5em 0 0 -0.3em;
+}
+
+#alarm_box >ul {
+	padding:1em;
+}
+
+#alarm_contents > li {
+	display:inline-block;
+	overflow:hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 12em;
+	list-style-type : none;
+}
+
+.fa-plus-circle {
+	font-size: 2em;
+	color:#009973;
+}
+
+#lesson_aside {
+	display:flex;
+	margin: 0 3em 0 2em;
+	height:100%;
+	flex-direction:column;
+	align-items:center;
+}
+
+#lesson_aside select {
+	width: 10em;
+	margin-top: 2em;
+    padding: .5em .5em; /* 여백으로 높이 설정 */
+    font-family: inherit;  /* 폰트 상속 */
+    border: 1px solid #999;
+    border-radius: 0px; /* iOS 둥근모서리 제거 */
+}
+
+#lesson_section {
+	width: 70%;
+}
+
+#lesson_box {
+	margin-top: 2em;
+}
+
+#lesson_contents {
+	list-style-type : none;
+	font-size:1.5em;
+}
+
+#lesson_contents li {
+	margin-top : 0.5em;
+	border-bottom : thin solid rgba(0,0,0,0.1);
+}
+
+#lesson_contents i {
+	color:#009973;
+	margin-right:0.5em;
+}
+
+#lesson__create-div {
+	cursor:pointer;
+	border-radius : 0.8em;
+	width: 5em;
+	background-color: #009973;
+	color:white;
+	font-size:1.7em;
+	text-align:center;
+}
+
+#lesson__create-div > i {
+	color:white;
+	margin-right:0.3em;
+}
+
+#lessonAddActiveDiv {
+	width: 7em;
+	text-align: center;
+	user-select:none;
+	border:thin solid rgba(0,0,0,0.2);
+	font-size:1.2em;
+	position:fixed;
+	z-index:9999;
+	background-color:white;
+}
+
+#lessonAddActiveDiv i {
+	color:#009973;
+}
+
+#lessonAddActiveDiv > div {
+	display:flex;
+	justify-content:center;
+	height:2.3em;
+	cursor:pointer;
+	align-items:center;
+}
+
+#assignment_add_btn {
+	border-bottom:thin solid rgba(0,0,0,0.1);
+}
+

@@ -52,7 +52,7 @@ content = "360175730868-7161sh4v73h0hsufdvgmoa9u3o25oi21.apps.googleusercontent.
       <link rel="stylesheet" href="/Team-project/css/style.css" />
     </head>
     <body>
-        <div class="header room_header">
+        <nav class="header room_header">
             <div class="room_header__column">
                 <a href="#"><i class="fas fa-bars" style="font-size:1.2em; margin-right: 0.8em;"></i></a>
                 <a href="../../clazz/list"><span>${clazzNow.name}</span></a>
@@ -93,7 +93,7 @@ content = "360175730868-7161sh4v73h0hsufdvgmoa9u3o25oi21.apps.googleusercontent.
 	                </c:if>
 	            </c:if>
             </div>
-        </div>
+        </nav>
         
         <!-- Modal -->
 <div class="modal fade" id="userDetailModal" tabindex="-1" role="dialog" aria-labelledby="userDetailModalTitle" aria-hidden="true">

@@ -2,7 +2,12 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 
+<head>
 <jsp:include page="../room/room_header.jsp" />
+</head>
+
+
+<body>
 <div class="room_contents">
       <!-- 게시판 출력 사이즈 줄임 -->
 		  <div class="board_part" style="width:15%; float:left;">
@@ -25,7 +30,7 @@
 				 <c:forEach items="${list}" var="item">
 				      <input name="boardNo" type="hidden" value="${item.boardNo}">
 				    <tr>
-				      <td><a href='../post/list?bno=${item.boardNo}&bTitle=${item.title}' target=postList>${item.title}</a>
+				      <td><a onclick="postList()" href='../post/list?bno=${item.boardNo}&bTitle=${item.title}' target=postList>${item.title}</a>
 				      <a href="updateForm?no=${item.boardNo}"><span class="board_update"></span></a>     
 				      <a href="delete?no=${item.boardNo}"><span class="board_delete"></span></a></td>
 				    </tr>
@@ -35,8 +40,8 @@
 			   </div>
 			   
 			   <!-- iframe float -->
-			   <div class="post_part" style="position:absolute; position:static top; margin:0px 300px 0px 300px; overflow:hidden;">
-			     <iframe name="postList" class="post_part__content"></iframe>
+			   <div class="post_part" style="position:absolute; position:static top; margin:0px 300px 100px 350px; overflow:hidden;" width="200" height="100">
+			     <iframe name="postList" class="post_part__content" scrolling="no"></iframe>
 	       </div>
 	       
      </div>

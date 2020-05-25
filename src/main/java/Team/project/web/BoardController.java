@@ -26,11 +26,34 @@ public class BoardController {
   @Autowired
   PostService postService;
 
+  // @RequestMapping("list")
+  // public String boardList(HttpSession session, Model model, Board board, Clazz clazz)
+  // throws Exception {
+  // int roomNo = ((Clazz) session.getAttribute("clazzNow")).getClassNo();
+  // model.addAttribute("list", boardService.list(roomNo));
+  //
+  // int boardNo = ((Board) session.getAttribute("bno")).getBoardNo();
+  // Gson gson = new Gson();
+  // if (boardNo == 1) {
+  // List<Board> boardLists = boardService.list(boardNo);
+  // model.addAttribute("boardList", gson.toJson(boardLists));
+  //
+  // List<Clazz> clazzLists = ClazzService.list(clazz.getClassNo());
+  // model.addAttribute("clazzList", gson.toJson(clazzLists));
+  //
+  //
+  // }
+  //
+  // return "/WEB-INF/jsp/board/list.jsp";
+  // }
+
+  // 이전 소스
   @RequestMapping("list")
   public String boardList(HttpSession session, Model model) throws Exception {
     int roomNo = ((Clazz) session.getAttribute("clazzNow")).getClassNo();
     model.addAttribute("list", boardService.list(roomNo));
     System.out.println("---------------------------------------->" + roomNo);
+
     return "/WEB-INF/jsp/board/list.jsp";
   }
 

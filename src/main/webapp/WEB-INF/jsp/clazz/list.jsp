@@ -13,8 +13,7 @@
 			<div class="main_card">
 				<div class="main_name">
 					<div class="main_card__header" style="position: relative">
-						<a class="main_name_title"
-							href="../room/lesson/list?room_no=${clazz.classNo}">
+						<a class="main_name_title" href="../room/lesson/list?room_no=${clazz.classNo}">
 							${clazz.name}</a> <span class="clazz-modal" style="cursor: pointer;"><i
 							class="fas fa-ellipsis-v"></i></span>
 						<div class="clazz-detail-box"
@@ -51,12 +50,12 @@
 			</div>
 			<div class="modal-body">
 				<form id="updateForm" action='update' method='post'>
-					<input name='classNo' type='hidden'> <input name='from'
-						type='hidden' value='main'> <input name='name' type='text'
-						placeholder="수업명"> <input name='description' type='text'
-						placeholder="설명"> <input name='room' type='text'
-						placeholder="강의실"> <input name='classCode' type='text'
-						placeholder="수업코드">
+					<input name='classNo' type='hidden'> 
+					<input name='from' type='hidden' value='main'> 
+			        <input name='name' type='text' placeholder="수업명"> 
+					<input name='description' type='text' placeholder="설명"> 
+					<input name='room' type='text' placeholder="강의실"> 
+					<input name='classCode' type='text' placeholder="수업코드">
 				</form>
 			</div>
 			<div class="modal-footer">

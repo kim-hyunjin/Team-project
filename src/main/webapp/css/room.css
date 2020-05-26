@@ -34,4 +34,5 @@
     min-width:500px;
     justify-content: flex-start;
     flex-direction: column;
+    margin-bottom: 5em;
 }

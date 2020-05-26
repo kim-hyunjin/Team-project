@@ -4,26 +4,40 @@
     
 <jsp:include page="../room/room_header.jsp"></jsp:include>
 <div class="room_contents">
+  <span class="d-flex flex-row-reverse">
+    <i class="fas fa-times" onclick="location.href='../lesson/list?room_no=${clazzNow.classNo}'" style="font-size:2em; cursor:pointer"></i>
+  </span>
 <c:if test="${not empty assignment}">
-<h4>제목</h4>${assignment.title}<br>
-<h4>내용</h4>${assignment.content}<br>
-<h4>시작일</h4>${assignment.startDate}<br>
-<h4>마감일</h4>${assignment.deadline}<br>
-<h4>파일</h4><span id="download" title="다운로드" style="cursor:pointer;">${file.originalName}</span><br>
-<div id="updateDiv">
-	<p><a href='delete?no=${assignment.assignmentNo}'>삭제</a></p> 
-	<p><a href='updateForm?no=${assignment.assignmentNo}'>변경</a></p>
-	<button onclick="location.href='submitted?assignmentNo=${assignment.assignmentNo}'">제출된 과제 보기</button>
+<form class="inputGroup" action='update' method='post' enctype="multipart/form-data">
+<input name="assignmentNo" readonly type="hidden" value="${assignment.assignmentNo}" >
+<div><label class="inputGroupText">제목</label><input name="title" value="${assignment.title}"></div>
+<label class="inputGroupText">내용</label><textarea name='content' id="summernote" >${assignment.content}</textarea>
+<div><label class="inputGroupText">시작일</label><input name="startDate" value="${assignment.startDate}"></div>
+<div><label class="inputGroupText">마감일</label><input name="deadline" value="${assignment.deadline}"></div>
+<label class="inputGroupText">파일</label><span id="download" title="다운로드" style="cursor:pointer;">${file.originalName}</span>
+<input name="partfile" type="file" style="font-size:1em;">
+<div class="d-flex flex-row-reverse" id="updateDiv">
+	<button class="btn btn-primary">변경</button>
+	<button type="button" class="btn btn-danger mr-2" onclick='confirmDelete()'>삭제</button>
+	<button type="button" class="btn btn-success mr-2" onclick="location.href='submitted?assignmentNo=${assignment.assignmentNo}'">제출된 과제 보기</button>
 </div>
+</form>
 </c:if>
 <c:if test="${empty assignment}">
-<p>해당 게시물이 없습니다.</p>
+<h1>Oops! 과제를 불러오지 못했습니다.</h1>
 </c:if>
 <c:if test="${nowMember.role != 0 }">
   <button id="submitBtn">과제 제출하기</button>
 </c:if>
 </div>
 
+<script>
+$('#summernote').summernote({
+    placeholder: '내용',
+    tabsize: 2,
+    height: 300
+  });
+</script>
 <script>
 // 학생인 경우와 선생인 경우를 나누어 과제 detail 화면 출력
 if(${nowMember.role} != 0) {
@@ -37,7 +51,7 @@ if(${nowMember.role} != 0) {
 		let params={"assignmentNo":`${assignment.assignmentNo}`,"title":`${assignment.title}`,
 		"content":`${assignment.content}`,"file":`${assignment.file}`}
 
-		for ( let key in params) {
+		for (let key in params) {
 			let hiddenField = document.createElement('input');
 			hiddenField.setAttribute('type', 'hidden');
 			hiddenField.setAttribute('name', key);
@@ -65,6 +79,14 @@ document.getElementById("download").onclick = () => {
 	window.location = '../../download?fileId='+`${file.fileId}`;
 	}
 </script>
+	<script>
+	function confirmDelete() {
+	    if(confirm("정말 삭제하시겠습니까?")) {
+		    location.href="delete?no=${assignment.assignmentNo}";
+	    }
+	}
+	
+	</script>
 </body>
 </html>
 

@@ -51,24 +51,9 @@
   margin-right: 0.5em;
 }
 
-#user-photo-label {
-	cursor:pointer;
-	color:black;
-	width:30%;
-	border:thin solid rgb(0,0,0);
-	text-align:center;
-	display:block;
-	background-color: rgba(0, 0, 0, 0.1);
-}
-
-#modal-user-update > label:not(#user-photo-label){
-	width:15%;
-	color:gray;
-}
-
-#modal-user-update > input{
-	width:80%;
-	margin-left:1em;
+#modal-user-update label {
+	color:#66ccff;
+  font-weight: bold;
 }
 
 #modal-user-profile-div {
@@ -84,11 +69,7 @@
 	font-size:4em;
 }
 
-#user-photo-input {
-   opacity: 0;
-   position: absolute;
-   z-index: -1;
-}
+
 
 
 

@@ -20,9 +20,10 @@
 		  <textarea id='summernote' name='content' style="width:75%; margin-bottom:1em;">${question.content}</textarea >
 		</div>
 		  
-		  <span class="inputGroupText" >객관식항목</span>
+		  
 			<div id="multipleBox">
-			<button id="addMultiple">항목 추가</button>
+			<span class="inputGroupText" >객관식항목</span>
+			<button id="addMultiple" class="btn btn-light btn-sm">항목 추가</button>
 		  	<c:if test="${not empty multiple}">
 		  	  <c:forEach items="${multiple}" var="m">
 						<div class="multipleRow">

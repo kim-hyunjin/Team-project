@@ -3,28 +3,48 @@
 <jsp:include page="../room/room_header.jsp"></jsp:include>
 
     <div class="room_contents">
-		 <h1>질문추가하기</h1>
+    	  <span class="d-flex flex-row-reverse">
+		    <i class="fas fa-times" onclick="location.href='../lesson/list?room_no=${clazzNow.classNo}'" style="font-size:2em; cursor:pointer"></i>
+		  </span>
+		 <span class="inputGroupText">질문 추가하기</span>
 		    <form action='add' method='post' enctype='multipart/form-data'>
-		        <input name="title" type="text" placeholder="제목">
-		        <textarea name="content" placeholder="내용"></textarea>
-		        <input name="partfile" type="file">
-				<input name="startDate" type="date" placeholder="시작일">
-				<input name="deadline" type="date" placeholder="마감기한">
+		    <div class="inputGroup">
+		        <input id="titleInput" name="title" type="text" placeholder="제목">
+		        <textarea id="summernote" name="content"></textarea>
+		        <label for="partfile-input">파일 첨부하기</label><input id="partfile-input" name="partfile" type="file" style="font-size:1em;">
+		        <div class="d-flex justify-content-around">
+			        <span class="inputGroupSpan">
+			        	<label for="startdate">시작일</label><input id="startdate" name="startDate" type="date">
+			        </span>
+			        <span class="inputGroupSpan">
+			        	<label for="enddate">마감일</label><input id="enddate" name="deadline" type="date">
+			        </span>
+		        </div>
+		        </div>
 				<div id="multipleBox">
-					<button id="addMultiple">객관식 항목 추가</button>
+					<button type="button" id="addMultiple" class="btn btn-light btn-sm">객관식 항목 추가</button>
 				</div>
-		        <button>생성</button>
+				<div class="d-flex flex-row-reverse">
+		        <button class="btn btn-primary">생성</button>
+		        </div>
 		    </form>
     </div>
 
   <script>
+  $('#summernote').summernote({
+      placeholder: "질문 내용",
+      tabsize: 2,
+      height: 300
+    });
+  
 	// 객관식 항목 추가 버튼 클릭시 #multipleBox 밑에 .multipleRow추가
 	const addMultiple = document.getElementById("addMultiple");
 	addMultiple.addEventListener("click", function(event){
 		event.preventDefault();
+		let rowCount = document.getElementsByClassName("multipleRow").length + 1;
 		let rowDiv = document.createElement("div");
 		rowDiv.setAttribute("class", "multipleRow")
-		let noInput = '<input type="number" name="no" placeholder="번호">';
+		let noInput = '<input type="number" name="no" placeholder="번호" value="'+ rowCount +'">';
 		let contentInput = '<input type="text" name="multipleContent" placeholder="내용">';
 		let deleteIcon = '<span class="multipleDelete" onclick="deleteEvent(event)"><i class="fas fa-times"></i></span>';
 		rowDiv.innerHTML = noInput + contentInput + deleteIcon;

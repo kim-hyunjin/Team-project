@@ -1,9 +1,9 @@
 package Team.project.web;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +12,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import com.google.gson.Gson;
 import Team.project.domain.ClazzMember;
 import Team.project.domain.User;
 import Team.project.service.ClazzMemberService;
@@ -62,12 +64,13 @@ public class ClazzMemberController {
   }
 
   @RequestMapping("detail")
-  public String roomDetail(int user_no, int room_no, Model model, int member_no) throws Exception {
+  @ResponseBody
+  public Object roomDetail(int user_no, Model model, int member_no) throws Exception {
     User user = userService.get(user_no);
-    model.addAttribute("user", user);
-    model.addAttribute("room_no", room_no);
-    model.addAttribute("member_no", member_no);
-    return "/WEB-INF/jsp/room/user/detail.jsp";
+    HashMap<String, Object> map = new HashMap<>();
+    map.put("user", new Gson().toJson(user));
+    map.put("memberNo", member_no);
+    return map;
   }
 
   @RequestMapping("list")

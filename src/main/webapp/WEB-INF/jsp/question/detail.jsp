@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
     
 <jsp:include page="../room/room_header.jsp"></jsp:include>
-<div class="room_contents" style="margin-bottom:5em;">
+<div class="room_contents">
   <div class="container">
   <span class="d-flex flex-row-reverse">
     <i class="fas fa-times" onclick="location.href='../lesson/list?room_no=${clazzNow.classNo}'" style="font-size:2em; cursor:pointer"></i>
@@ -20,9 +20,10 @@
 		  <textarea id='summernote' name='content' style="width:75%; margin-bottom:1em;">${question.content}</textarea >
 		</div>
 		  
-		  <span class="inputGroupText" >객관식항목</span>
+		  
 			<div id="multipleBox">
-			<button id="addMultiple">항목 추가</button>
+			<span class="inputGroupText" >객관식항목</span>
+			<button id="addMultiple" class="btn btn-light btn-sm">항목 추가</button>
 		  	<c:if test="${not empty multiple}">
 		  	  <c:forEach items="${multiple}" var="m">
 						<div class="multipleRow">

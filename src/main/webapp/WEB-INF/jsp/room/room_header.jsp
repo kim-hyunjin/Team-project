@@ -59,8 +59,8 @@ content = "360175730868-7161sh4v73h0hsufdvgmoa9u3o25oi21.apps.googleusercontent.
     <body>
         <nav class="header room_header">
             <div class="room_header__column">
-                <a href="#"><i class="fas fa-bars" style="font-size:1.2em; margin-right: 0.8em;"></i></a>
-                <a href="../../clazz/list"><span>${clazzNow.name}</span></a>
+                <a class="navbar-brand" href="/Team-project/app/clazz/list"><i class="fas fa-home"></i></a>
+                <a href="../lesson/list?room_no=${clazzNow.classNo}""><span style="font-weight:bold; font-size:1.2em;">${clazzNow.name}</span></a>
             </div>
             <div class="room_header__column">
                 <a href="../lesson/list?room_no=${clazzNow.classNo}"><span class="room_header__menu">수업</span></a>
@@ -141,18 +141,22 @@ content = "360175730868-7161sh4v73h0hsufdvgmoa9u3o25oi21.apps.googleusercontent.
       </div>
       <div class="modal-body">
         <div id="modal-user-profile-div"><img id="modal-user-img" src=''></div>
-		<form id="modal-user-update" action='../user/update' method='post' enctype='multipart/form-data'>
+		<form class="d-flex flex-column" id="modal-user-update" action='../user/update' method='post' enctype='multipart/form-data'>
 		        <input name='userNo' type='hidden'>
-		        <label>이메일</label><input name='email' type='email' readonly>
-		        <label>이름</label><input name='name' type='text'>
-		        <label>암호</label><input name='password' type='password' placeholder="변경하고자하는 비밀번호를 입력하세요.">
-		        <label>전화</label><input name='tel' type='tel' >
-		        <label>전공</label><input name='major' type='text'>
-		        <label>자기소개</label><textarea name='introduce' rows='5' cols='55' style="resize:none"></textarea>
-		        <label id="user-photo-label" for='user-photo-input'>프로필 사진 업로드</label>
-		        <input id='user-photo-input' name='photo' type='file'>
-		        <label>가입일</label><span id="user-createDate"></span><br>
-            	<button id="modal-user-delete-btn" type="button" style="background-color:red; color:white;">계정삭제</button>
+		        <div class="form-group"><label>이메일</label><input class="form-control" name='email' type='email' readonly></div>
+		        <div class="form-group"><label>이름</label><input class="form-control" name='name' type='text'></div>
+		        <div class="form-group"><label>암호</label><input class="form-control" name='password' type='password' placeholder="변경하고자하는 비밀번호를 입력하세요."></div>
+		        <div class="form-group"><label>전화</label><input class="form-control" name='tel' type='tel' ></div>
+		        <div class="form-group"><label>전공</label><input class="form-control" name='major' type='text'></div>
+		        <div class="form-group"><label>자기소개</label><textarea name='introduce' rows='5' cols='55' style="resize:none"></textarea></div>
+		        <div class="form-group">
+			        <label for='user-photo-input'>프로필 사진 업로드</label>
+			        <input name='photo' type='file' class="btn btn-light btn-sm">
+		        </div>
+		        <div class="form-group"><label class="mr-3">가입일</label><span id="user-createDate"></span></div>
+		        <div class="d-flex">
+            	<button id="modal-user-delete-btn" type="button" class="btn btn-danger btn-sm">계정삭제</button>
+            	</div>
 		</form>
       </div>
       <div class="modal-footer">

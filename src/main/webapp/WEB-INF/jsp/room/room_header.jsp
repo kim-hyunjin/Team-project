@@ -141,7 +141,7 @@ content = "360175730868-7161sh4v73h0hsufdvgmoa9u3o25oi21.apps.googleusercontent.
       </div>
       <div class="modal-body">
         <div id="modal-user-profile-div"><img id="modal-user-img" src=''></div>
-		<form class="d-flex flex-column" id="modal-user-update" action='../user/update' method='post' enctype='multipart/form-data'>
+		<form class="d-flex flex-column" id="modal-user-update" action='../../user/update' method='post' enctype='multipart/form-data'>
 		        <input name='userNo' type='hidden'>
 		        <div class="form-group"><label>이메일</label><input class="form-control" name='email' type='email' readonly></div>
 		        <div class="form-group"><label>이름</label><input class="form-control" name='name' type='text'></div>

@@ -72,6 +72,7 @@
 	</div>
  -->	
 </div>
+
 <script>
 $('#summernote').summernote({
     placeholder: '내용',
@@ -79,6 +80,7 @@ $('#summernote').summernote({
     height: 300
   });
 </script>
+
 	<script>
 		// 객관식 항목 추가 버튼 클릭시 #multipleBox 밑에 .multipleRow추가
 		const addMultiple = document.getElementById("addMultiple");

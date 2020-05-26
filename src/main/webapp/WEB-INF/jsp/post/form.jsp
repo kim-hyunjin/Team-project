@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%> 
     <!DOCTYPE html>
     <html lang="ko">
     <head>
@@ -11,6 +12,11 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
     <script src="https://kit.fontawesome.com/764f0503e3.js" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    
+    <!-- summernote -->
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
     
 <style>
 
@@ -58,39 +64,44 @@ body {
   border: 1px solid #bbb;
 }
 
-
 </style>
 
-    
     </head>
+    
     <body>
      
      <h3>게시글 등록</h3>
-     </br>
+     <br>
      
 		    <form action='../post/add' method='post' enctype='multipart/form-data' onsubmit='return formCheck(this)'>
 			    <input name="boardNo" type="hidden" value="${boardNo}">
 			    <h6>제목</h6>
-		        <input class="form-control" id='titleInput' name='title' type='text' placeholder='제목을 입력하세요.' style='width: 200px'/>
+		        <input class="form-control" id='titleInput' name='title' type='text' placeholder='제목을 입력하세요.' style='width: 200px'/><br/>
 		      <h6>내용</h6>
-            <textarea class="form-control" name='content' rows='10' cols='15' placeholder='내용을 입력하세요.' style='width: 700px'></textarea><br>
+            <textarea id="summernote" name="content"></textarea><br>
         <input name='partFile' type='file'> 
         <br>
         <br>
-        <button type="button" class="btn btn-outline-dark btn-sm">확인</button>
-		    </form>
+        <button class="btn btn-outline-dark btn-sm">확인</button>
+        </form>
 		    
         <script>
-        
-        <!
         function formCheck(frm) {
         	if (frm.title.value == "") {
-        		alert("제목을 입력해 주세요.");
+        		swal("제목을 입력해 주세요.");
         		frm.title.focus();
         		return false;
         	}
         	return true;
         }
+        </script>
+        
+        <script>
+        	$('#summernote').summernote({
+        		height: 300,
+        		width: 800,
+        		placeholder: '내용을 입력하세요.'
+        	});   
         </script>  
 </body>
 </html>

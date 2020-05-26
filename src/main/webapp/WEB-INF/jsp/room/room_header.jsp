@@ -113,11 +113,11 @@ content = "360175730868-7161sh4v73h0hsufdvgmoa9u3o25oi21.apps.googleusercontent.
       <div class="modal-body">
 		<form class="inputGroup" id="modal-class-update" action='../../clazz/update?from=room' method='post' enctype='multipart/form-data'>
 		        <input name='classNo' type='hidden'>
-		        <label class="inputGroupText">수업명</label><input name='name' type='text'>
+		        <div><label class="inputGroupText">수업명</label><input name='name' type='text'></div>
 		        <label class="inputGroupText">설명</label><textarea rows="5" name='description' style="resize:none"></textarea>
-		        <label class="inputGroupText">강의실</label><input name='room' type='text'>
-		        <label class="inputGroupText">클래스 코드</label><input name='classCode' type='text'>
-		        <label class="inputGroupText">생성일</label><span id="class-createDate" style="font-size:1.2em;"></span><br>
+		        <div><label class="inputGroupText">강의실</label><input name='room' type='text'></div>
+		        <div><label class="inputGroupText">클래스코드</label><input name='classCode' type='text'></div>
+		        <div><label class="inputGroupText">생성일</label><span id="class-createDate" style="font-size:1.2em;"></span></div>
 		</form>
       </div>
       <div class="modal-footer">

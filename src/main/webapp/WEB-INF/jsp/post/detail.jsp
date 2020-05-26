@@ -13,11 +13,17 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
     <script src="https://kit.fontawesome.com/764f0503e3.js" crossorigin="anonymous"></script>
+
+    <!-- summernote -->
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
+
     </head>
+    
 
 <body>
  
-    <c:set var="a" value="${post.memberNo}"/>
+  <c:set var="a" value="${post.memberNo}"/>
   <c:set var="b" value="${classMember}"/>
   <c:choose>
     <c:when test="${a == b}">
@@ -29,14 +35,15 @@
      <br><br/>
      <h6>제목</h6>
      <input class="form-control" name='title' type='text' value='${post.title}' style="width: 200px"><br>
+     <!-- ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
      <h6>내용</h6>
-     <textarea class="form-control" name='content' rows='10' cols='15' type='text' style="text-align:left; width:700px; word-break: break-all;" value='${post.content}'></textarea><br>
+     <textarea id='summernote' name='content'>${post.content}</textarea><br>
      <!-- 파일 -->
      <input name='partFile' type='file'><br>     
      <span id="download" title="다운로드" style="cursor:pointer;">${file.originalName}</span>
      <!-- 작성일 -->
      <input name='createDate' type='hidden' readonly value='${post.createDate}'><br></br>
-     <button type="button" class="btn btn-outline-dark btn-sm">변경</button> <button type="button" class="btn btn-outline-dark btn-sm" onclick="location.href='delete?no=${post.postNo}&bno=${post.boardNo}'">삭제</button>
+     <button type="submit" class="btn btn-outline-dark btn-sm">변경</button> <button type="button" class="btn btn-outline-dark btn-sm" onclick="confirmDelete()">삭제</button>
    </form>
    
    <!-- <a href="delete?no=${post.postNo}&bno=${post.boardNo}">삭제</a> -->
@@ -51,8 +58,9 @@
      <br><br/>
      <h6>제목</h6>
      <input class="form-control" name='title' type='text' readonly value='${post.title}' style="width: 200px"><br>
+     <!-- //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
      <h6>내용</h6>
-     <textarea class="form-control" name='content' rows='10' cols='15' type='text' style="text-align:left; width:700px; word-break: break-all;" readonly value='${post.content}'></textarea><br>
+     <textarea id='summernote' name='content'>${post.content}</textarea><br>
      <!-- 파일 -->
      <input name='partFile' type='file'><br>     
      <span id="download" title="다운로드" style="cursor:pointer;">${file.originalName}</span>
@@ -65,6 +73,25 @@
   document.getElementById("download").onclick = () => {
   window.location = '../download?fileId='+`${file.fileId}`;
   }
+  </script>
+  
+  <script>
+  
+  $('#summernote').summernote({
+	    height: 300,
+      width: 800,
+    });  
+  
+  </script>
+  
+  <script>
+  function confirmDelete() {
+      if(confirm("정말 삭제하시겠습니까?")) {
+        location.href="delete?no=${post.postNo}&bno=${post.boardNo}";
+      }
+  }
+  
+  
   </script>
 </body>
 </html>

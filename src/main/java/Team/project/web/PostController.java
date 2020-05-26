@@ -42,6 +42,7 @@ public class PostController {
   public String form(String bno, Model model) throws Exception {
     System.out.println("================>" + bno);
     model.addAttribute("boardNo", bno);
+
     return "/WEB-INF/jsp/post/form.jsp";
   }
 
@@ -81,6 +82,10 @@ public class PostController {
     String fileId = post.getFile();
     model.addAttribute("file", fileService.get(fileId));
     model.addAttribute("post", post);
+
+    System.out.printf("================================================>", post);
+
+
     return "/WEB-INF/jsp/post/detail.jsp";
   }
 

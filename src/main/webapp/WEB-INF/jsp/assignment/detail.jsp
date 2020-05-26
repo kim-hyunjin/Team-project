@@ -8,16 +8,31 @@
     <i class="fas fa-times" onclick="location.href='../lesson/list?room_no=${clazzNow.classNo}'" style="font-size:2em; cursor:pointer"></i>
   </span>
 <c:if test="${not empty assignment}">
-<form class="inputGroup" action='update' method='post' enctype="multipart/form-data">
-<input name="assignmentNo" readonly type="hidden" value="${assignment.assignmentNo}" >
-<div><label class="inputGroupText">제목</label><input name="title" value="${assignment.title}"></div>
-<label class="inputGroupText">내용</label><textarea name='content' id="summernote" >${assignment.content}</textarea>
-<div><label class="inputGroupText">시작일</label><input name="startDate" value="${assignment.startDate}"></div>
-<div><label class="inputGroupText">마감일</label><input name="deadline" value="${assignment.deadline}"></div>
-<label class="inputGroupText">파일</label><span id="download" title="다운로드" style="cursor:pointer;">${file.originalName}</span>
-<input name="partfile" type="file" style="font-size:1em;">
+<form id="assignmentUpdateSubmit" action='update' method='post' enctype="multipart/form-data">
+<div class="inputGroup">
+	<input name="assignmentNo" readonly type="hidden" value="${assignment.assignmentNo}" >
+	<div><label class="inputGroupText">제목</label><input name="title" value="${assignment.title}"></div>
+	<label class="inputGroupText">내용</label><textarea name='content' id="summernote" >${assignment.content}</textarea>
+</div>
+<div class="d-flex mb-5 mt-3">
+	<div class="col">
+	<span class="inputGroupText" >첨부파일</span>
+	<span id="download" title="다운로드" style="cursor:pointer; font-size:1em;">${file.originalName}</span> 
+	<input name='partfile' type='file' class="btn btn-light btn-sm mt-2 mb-2">
+	</div>
+	<div class="col">
+		<div class="inputGroup">
+		<label class="inputGroupText" for="startdate">시작일</label><input id="startdate" name="startDate" type="date" value='${question.startDate}'>
+		</div>
+		<div class="inputGroup">
+		<label class="inputGroupText" for="enddate">마감일</label><input id="enddate" name="deadline" type="date" value='${question.deadline}'>
+		</div>
+		<small id="input_small"></small>
+	</div>
+</div>
+<small id="input_small"></small>
 <div class="d-flex flex-row-reverse" id="updateDiv">
-	<button class="btn btn-primary">변경</button>
+	<button type="button" class="btn btn-primary" onclick="updateSubmit()">변경</button>
 	<button type="button" class="btn btn-danger mr-2" onclick='confirmDelete()'>삭제</button>
 	<button type="button" class="btn btn-success mr-2" onclick="location.href='submitted?assignmentNo=${assignment.assignmentNo}'">제출된 과제 보기</button>
 </div>
@@ -86,6 +101,21 @@ document.getElementById("download").onclick = () => {
 	    }
 	}
 	
+	function updateSubmit() {
+	    const updateForm = document.getElementById('assignmentUpdateSubmit');
+	    if(updateForm.title.value == '') {
+			updateForm.title.focus();
+			updateForm.title.placeholder = "제목을 입력해주세요!";
+	    }else if(!updateForm.startDate.value) {
+		  updateForm.startDate.focus();
+		  $('#input_small').html("시작일을 입력해주세요!").css('color', 'red');
+	    }else if(!updateForm.deadline.value) {
+		  updateForm.deadline.focus();
+		  $('#input_small').html("마감일을 입력해주세요!").css('color', 'red');
+	    }else {
+		  updateForm.submit();
+	    }
+	}
 	</script>
 </body>
 </html>

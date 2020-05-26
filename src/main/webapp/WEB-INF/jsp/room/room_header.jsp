@@ -9,7 +9,7 @@
         <!-- vue.js -->
         <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
         <!-- jQuery 및 bootstrap -->
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
@@ -70,7 +70,7 @@ content = "360175730868-7161sh4v73h0hsufdvgmoa9u3o25oi21.apps.googleusercontent.
             </div>
             <div class="room_header__column">
                 <c:if test="${nowMember.role == 0}">
-                  <a href="../../clazz/detail"><i class="fas fa-cog" style="font-size: 1.2em;"></i></a>
+                  <a href="#" data-toggle="modal" data-target="#classDetailModal" id="class_settings"><i class="fas fa-cog" style="font-size: 1.2em;"></i></a>
                 </c:if>
                 <c:if test="${not empty loginUser}">
                     <div class="header__user">
@@ -100,7 +100,36 @@ content = "360175730868-7161sh4v73h0hsufdvgmoa9u3o25oi21.apps.googleusercontent.
             </div>
         </nav>
         
-        <!-- Modal -->
+        <!-- 수업정보 모달 -->
+<div class="modal fade" id="classDetailModal" tabindex="-1" role="dialog" aria-labelledby="classDetailModalTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="classDetailModalTitle">수업 상세정보</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+		<form class="inputGroup" id="modal-class-update" action='../../clazz/update?from=room' method='post' enctype='multipart/form-data'>
+		        <input name='classNo' type='hidden'>
+		        <label class="inputGroupText">수업명</label><input name='name' type='text'>
+		        <label class="inputGroupText">설명</label><textarea rows="5" name='description' style="resize:none"></textarea>
+		        <label class="inputGroupText">강의실</label><input name='room' type='text'>
+		        <label class="inputGroupText">클래스 코드</label><input name='classCode' type='text'>
+		        <label class="inputGroupText">생성일</label><span id="class-createDate" style="font-size:1.2em;"></span><br>
+		</form>
+      </div>
+      <div class="modal-footer">
+      	<button type="button" class="btn btn-danger" id="class-delete-Btn">DELETE</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="class-update-closeBtn">Close</button>
+        <button type="button" class="btn btn-primary" id="class-update-updateBtn">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+        
+        <!-- 유저정보 Modal -->
 <div class="modal fade" id="userDetailModal" tabindex="-1" role="dialog" aria-labelledby="userDetailModalTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-scrollable" role="document">
     <div class="modal-content">
@@ -133,52 +162,79 @@ content = "360175730868-7161sh4v73h0hsufdvgmoa9u3o25oi21.apps.googleusercontent.
     </div>
   </div>
 </div>
-<script type="text/javascript">
-	var userJson;
+	<script>
+    // 수업 정보 수정을 위한 스크립트
+    $('#class_settings').click(function () {
+		let classData = undefined;
+		$.getJSON("../../clazz/detail", function(data) {
+		    classData = data;
+		    let classUpdateForm = document.getElementById('modal-class-update');
+		    classUpdateForm.classNo.value = data.classNo;
+		    classUpdateForm.name.value = data.name;
+		    if(data.description != undefined){
+		    	classUpdateForm.description.value = data.description;
+		    }
+		    if(data.room != undefined) {
+		    	classUpdateForm.room.value = data.room;
+		    }
+		    classUpdateForm.classCode.value = data.classCode;
+		    $('#class-createDate').html(data.createDate);
+		});
+		
+		$('#class-delete-Btn').click(() =>{
+			if (confirm("정말 삭제하시겠습니까??") == true){    //확인
+			    location.href = "../../clazz/delete?no="+classData.classNo;
+			}else{   //취소
+			    return;
+			}
+		});
+    });
+    
+    $('#class-update-updateBtn').click(()=>{
+		$('#modal-class-update').submit();
+	});
+
+    </script>
+	<script>
     // 유저 정보 수정을 위한 스크립트
     $('#headerUserName').click(function () {
-    	let xhr = new XMLHttpRequest();
-    	console.log(${loginUser.userNo});
-    	xhr.open("GET", "../../user/detail?userNo=${loginUser.userNo}", true);
-    	xhr.onreadystatechange = () => {
-            if(xhr.readyState == 4) {
-	            if(xhr.status == 200) {
-		          	userJson = JSON.parse(xhr.responseText);
-		           	console.log(userJson);
-		           	if(userJson.profilePhoto != undefined) {
-			    		document.getElementById('modal-user-img').setAttribute('src', '${pageContext.servletContext.contextPath}/upload/user/thumbnail.'+userJson.profilePhoto+'.jpg');
-	            	} else {
-	            	    $('#modal-user-profile-div').html('<i class="far fa-user"></i>');
-	            	}
-		    		let userUpdateForm = document.getElementById('modal-user-update');
-		    		userUpdateForm.userNo.value = userJson.userNo;
-		    		userUpdateForm.email.value = userJson.email;
-			    	userUpdateForm.name.value = userJson.name
-			    	if(userJson.tel != undefined) {
-			    		userUpdateForm.tel.value = userJson.tel;
-			    	}
-			    	if(userJson.major != undefined) {
-				   		userUpdateForm.major.value = userJson.major;
-			    	}
-			   		if(userJson.introduce != undefined) {
-			    		userUpdateForm.introduce.innerHTML = userJson.introduce;
-		    		}
-			   		$('#user-createDate').html(userJson.createDate);
-	   			}
-	   		}	
-	   }
-    	xhr.send();
+		let userJson = undefined;
+		$.getJSON("../../user/detail?userNo=${loginUser.userNo}", function(data) {
+		    userJson = data;
+		    if(userJson.profilePhoto != undefined) {
+	    		document.getElementById('modal-user-img').setAttribute('src', '${pageContext.servletContext.contextPath}/upload/user/thumbnail.'+userJson.profilePhoto+'.jpg');
+	    	} else {
+	    	    $('#modal-user-profile-div').html('<i class="far fa-user"></i>');
+	    	}
+	    		let userUpdateForm = document.getElementById('modal-user-update');
+	    		userUpdateForm.userNo.value = userJson.userNo;
+	    		userUpdateForm.email.value = userJson.email;
+		    	userUpdateForm.name.value = userJson.name
+		    	if(userJson.tel != undefined) {
+		    		userUpdateForm.tel.value = userJson.tel;
+		    	}
+		    	if(userJson.major != undefined) {
+			   		userUpdateForm.major.value = userJson.major;
+		    	}
+		   		if(userJson.introduce != undefined) {
+		    		userUpdateForm.introduce.innerHTML = userJson.introduce;
+	    		}
+		   		$('#user-createDate').html(userJson.createDate);
+		});
+		
+	    $('#modal-user-delete-btn').click(() =>{
+			if (confirm("정말 삭제하시겠습니까??") == true){    //확인
+			    location.href = "../../user/delete?no="+userJson.userNo;
+			}else{   //취소
+			    return;
+			}
+		});
     });
-    $('#modal-user-delete-btn').click(() =>{
-		if (confirm("정말 삭제하시겠습니까??") == true){    //확인
-		    location.href = "../../user/delete?no="+userJson.userNo;
-		}else{   //취소
-		    return;
-		}
-	});
     
     $('#user-update-updateBtn').click(()=>{
 		$('#modal-user-update').submit();
     });
     </script>
+    
+    
 

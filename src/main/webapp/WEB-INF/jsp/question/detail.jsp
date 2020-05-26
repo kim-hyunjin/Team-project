@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
     
 <jsp:include page="../room/room_header.jsp"></jsp:include>
-<div class="room_contents">
+<div class="room_contents" style="margin-bottom:5em;">
   <div class="container">
   <span class="d-flex flex-row-reverse">
     <i class="fas fa-times" onclick="location.href='../lesson/list?room_no=${clazzNow.classNo}'" style="font-size:2em; cursor:pointer"></i>

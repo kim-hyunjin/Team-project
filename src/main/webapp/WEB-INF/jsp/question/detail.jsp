@@ -8,7 +8,7 @@
   <span class="d-flex flex-row-reverse">
     <i class="fas fa-times" onclick="location.href='../lesson/list?room_no=${clazzNow.classNo}'" style="font-size:2em; cursor:pointer"></i>
   </span>
-	<form action='update' method='post' enctype='multipart/form-data'>
+	<form id="questionUpdateForm" action='update' method='post' enctype='multipart/form-data'>
     <div class="inputGroup">
 		  <input name='questionNo' type='hidden' value='${question.questionNo}'>
 		  <div>
@@ -20,37 +20,36 @@
 		  <textarea id='summernote' name='content' style="width:75%; margin-bottom:1em;">${question.content}</textarea >
 		</div>
 		  
-		  
-			<div id="multipleBox">
-			<span class="inputGroupText" >객관식항목</span>
-			<button id="addMultiple" class="btn btn-light btn-sm">항목 추가</button>
-		  	<c:if test="${not empty multiple}">
-		  	  <c:forEach items="${multiple}" var="m">
-						<div class="multipleRow">
-		  	    	<input type="hidden" name="multipleNo" value="${m.multipleNo}">
-							<input class="multipleNoInput" type="number" name="no" value="${m.no}">
-							<input class="multipleContentInput" type="text" name="multipleContent" value="${m.multipleContent}">
-							<span class="multipleDelete"><i class='fas fa-times'></i></span>
-						</div>
-					</c:forEach>
-		  	</c:if>
+		 <div class="d-flex flex-nowrap justify-content-between mb-5 mt-5">
+			<div class="col" id="multipleBox">
+				<span class="inputGroupText" >객관식항목</span>
+				<button id="addMultiple" class="btn btn-light btn-sm">항목 추가</button>
+			  	<c:if test="${not empty multiple}">
+			  	  <c:forEach items="${multiple}" var="m">
+				    <div class="multipleRow">
+			  	    	<input type="hidden" name="multipleNo" value="${m.multipleNo}">
+						<input class="multipleNoInput" type="number" name="no" value="${m.no}">
+						<input class="multipleContentInput" type="text" name="multipleContent" value="${m.multipleContent}">
+						<span class="multipleDelete"><i class='fas fa-times'></i></span>
+					</div>
+				  </c:forEach>
+			  	</c:if>
 			</div>
-			
-			<div class="inputGroup">
+			<div class="col d-flex flex-column">
 			  <span class="inputGroupText" >첨부파일</span>
-			  <span id="download" title="다운로드" style="cursor:pointer; font-size:1.3em;">${file.originalName}</span> 
-			  <input name='partfile' type='file' style="font-size:1em; margin-left:4em;">
-			  <div>
-			  <span class="inputGroupText" >시작일</span>
-			  <input name='startDate' type='date' value='${question.startDate}'>
+			  <span id="download" title="다운로드" style="cursor:pointer; font-size:1em;">${file.originalName}</span> 
+			  <input name='partfile' type='file' class="btn btn-light btn-sm mt-2 mb-2">
+			  <div class="inputGroup">
+			  <label class="inputGroupText" for="startdate">시작일</label><input id="startdate" name="startDate" type="date" value='${question.startDate}'>
 			  </div>
-			  <div>
-			  <span class="inputGroupText" >마감일</span>
-			  <input name='deadline' type='date' value='${question.deadline}'>
+			  <div class="inputGroup">
+			  <label class="inputGroupText" for="enddate">마감일</label><input id="enddate" name="deadline" type="date" value='${question.deadline}'>
 			  </div>
+			  <small id="input_small"></small>
+			</div>
 		  </div>
 		  <div class="d-flex flex-row-reverse">
-		  <button class="btn btn-primary">변경</button>
+		  <button type="button" class="btn btn-primary" onclick="updateSubmit()">변경</button>
 	    <button type="button" class="btn btn-danger mr-2" onclick="confirmDelete()">삭제</button>
 		  <button type="button" class="btn btn-success mr-2">답변보기</button>
 	    </div>
@@ -124,6 +123,22 @@ $('#summernote').summernote({
 	    }
 	}
 	
+
+	function updateSubmit() {
+	    const updateForm = document.getElementById('questionUpdateForm');
+	    if(updateForm.title.value == '') {
+			updateForm.title.focus();
+			updateForm.title.placeholder = "제목을 입력해주세요!";
+	    }else if(!updateForm.startDate.value) {
+		  updateForm.startDate.focus();
+		  $('#input_small').html("시작일을 입력해주세요!").css('color', 'red');
+	    }else if(!updateForm.deadline.value) {
+		  updateForm.deadline.focus();
+		  $('#input_small').html("마감일을 입력해주세요!").css('color', 'red');
+	    }else {
+		  updateForm.submit();
+	    }
+	}
 	</script>
 </body>
 </html>

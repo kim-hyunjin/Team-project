@@ -71,7 +71,6 @@ public class BoardController {
     return "redirect:list"; //
   }
 
-
   @GetMapping("delete")
   public String delete(int no) throws Exception {
     if (boardService.delete(no) > 0) {

@@ -5,7 +5,6 @@
 
 <jsp:include page="../room/room_header.jsp" />
 
-
 <body>
 
 <div class="room_contents">
@@ -43,6 +42,44 @@
 	       
      </div>
      
+     <!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="myModalLabel">게시판 추가하기</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      </div>
+      <div class="modal-body">
+       <form id="boardAddForm" action='add' method='post' onsubmit='return formCheck(this)'>
+			    <input name="title" type="text" class="form-control" id="boardTitleAdd">
+			    <small id="titleHelp" class="form-text text-muted">게시판명을 입력해주세요.</small>
+			</form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+        <button type="button" class="btn btn-primary" onclick="submitBtn();">생성</button>
+      </div>
+    </div>
+  </div>
+  </div>
+
+     <script>
+  function formCheck(frm) {
+    if (frm.title.value == "") {
+      swal("제목을 입력해 주세요");
+      frm.title.focus();
+      return false;
+    }
+    return true;
+  }
+  
+  function submitBtn() {
+	     $('#boardAddForm').submit();
+       swal("등록되었습니다!", "", "success");
+    }
+
+  </script>
 		<script>
 		$(document).ready(function() {
 			      if(${fn:length(list)} > 0) {
@@ -72,7 +109,7 @@
 		 
 		 // const content = "<a href='form' >새 게시판 </a>";
 		 // 게시판 추가 아이콘, 마우스 오버시 말풍선 띄우기
-		 const content = "<a href='form' ><i class='fas fa-folder-plus' style='font-size:1.2em;' title='게시판을 추가합니다.'></i></a>";
+		 const content = "<span onclick='modalActive()'><i class='fas fa-folder-plus' style='font-size:1.2em;' title='게시판을 추가합니다.'></i></span>";
 
 		 const rBtn = "<i class='fas fa-edit'></i>"
 		 const xBtn = "<i class='fas fa-times'></i>";
@@ -97,6 +134,18 @@
      }
 
 		 </script>
+		 
+<script>
+    function modalActive(){
+        $("#myModal").modal("show");
+      
+    }
+</script>
+<script>
+$('#myModal').on('shown.bs.modal', function () {
+    $('#myInput').focus()
+  })
+</script>
 
    </body>
 

@@ -16,6 +16,7 @@
   <association property="user" javaType="User">
       <id column="user_no"   property="userNo"/>
       <result column="name"  property="name"/>
+      <result column="profile_photo" property="profilePhoto"/>
   </association>
   <association property="clazzMember" javaType="ClazzMember">
     <id column="member_no" property="memberNo"/>
@@ -29,11 +30,13 @@
   </resultMap>
 
   <select id="findAll" resultMap="AssignmentSubmitMap" parameterType="int">
-    select s.*, u.name, u.user_no, cm.member_no
+    select s.*, u.name, u.user_no, u.profile_photo, cm.member_no, a.title, a.content, a.deadline, f.original_name
     from assignment_submit s
     join class_member cm on s.member_no = cm.member_no
     join user u on cm.user_no = u.user_no
-    where assignment_no = #{assignmentNo}
+    join assignment a on a.assignment_no = s.assignment_no
+    left outer join file f on f.file_id = s.file
+    where s.assignment_no = #{assignmentNo}
   </select>
 
   <select id="findAllByClassNoAndUserNo" resultMap="AssignmentSubmitMap" parameterType="map">
@@ -75,7 +78,7 @@
     <set>
       <if test="content != null and content != ''">content = #{content},</if>
       <if test="file != null and file != ''">file = #{file},</if>
-      <if test="score != null and score != ''">score = #{score},</if>
+      score = #{score},
       <if test="feedback != null and feedback != ''">feedback = #{feedback}</if>
     </set>
     where assignment_no = #{assignmentNo} and member_no = #{memberNo}

@@ -7,7 +7,7 @@
   <span class="d-flex flex-row-reverse">
     <i class="fas fa-times" onclick="location.href='../lesson/list?room_no=${clazzNow.classNo}'" style="font-size:2em; cursor:pointer"></i>
   </span>
-<c:if test="${not empty assignment}">
+<c:if test="${nowMember.role == 0}">
 <form id="assignmentUpdateSubmit" action='update' method='post' enctype="multipart/form-data">
 <div class="inputGroup">
 	<input name="assignmentNo" readonly type="hidden" value="${assignment.assignmentNo}" >
@@ -22,26 +22,27 @@
 	</div>
 	<div class="col">
 		<div class="inputGroup">
-		<label class="inputGroupText" for="startdate">시작일</label><input id="startdate" name="startDate" type="date" value='${question.startDate}'>
+		<label class="inputGroupText" for="startdate">시작일</label><input id="startdate" name="startDate" type="date" value='${assignment.startDate}'>
 		</div>
 		<div class="inputGroup">
-		<label class="inputGroupText" for="enddate">마감일</label><input id="enddate" name="deadline" type="date" value='${question.deadline}'>
+		<label class="inputGroupText" for="enddate">마감일</label><input id="enddate" name="deadline" type="date" value='${assignment.deadline}'>
 		</div>
 		<small id="input_small"></small>
 	</div>
 </div>
-<small id="input_small"></small>
+
 <div class="d-flex flex-row-reverse" id="updateDiv">
 	<button type="button" class="btn btn-primary" onclick="updateSubmit()">변경</button>
 	<button type="button" class="btn btn-danger mr-2" onclick='confirmDelete()'>삭제</button>
-	<button type="button" class="btn btn-success mr-2" onclick="location.href='submitted?assignmentNo=${assignment.assignmentNo}'">제출된 과제 보기</button>
+	<button type="button" class="btn btn-success mr-2" onclick="location.href='../assignmentSubmit/submitted?assignmentNo=${assignment.assignmentNo}'">제출된 과제 보기</button>
 </div>
 </form>
 </c:if>
-<c:if test="${empty assignment}">
-<h1>Oops! 과제를 불러오지 못했습니다.</h1>
-</c:if>
+
 <c:if test="${nowMember.role != 0 }">
+  
+
+
   <button id="submitBtn">과제 제출하기</button>
 </c:if>
 </div>
@@ -52,32 +53,9 @@ $('#summernote').summernote({
     tabsize: 2,
     height: 300
   });
-</script>
-<script>
-// 학생인 경우와 선생인 경우를 나누어 과제 detail 화면 출력
-if(${nowMember.role} != 0) {
-	document.getElementById("updateDiv").setAttribute("style", "display:none");
-	// 과제 제출하기 클릭시 과제에 대한 정보를 request body에 담아 post로 요청
-	document.querySelector("#submitBtn").onclick = () => {
-		let form = document.createElement('form');
-		form.setAttribute('method', 'post');
-		form.setAttribute('action', '../assignmentSubmit/form');
-		document.charset = "utf-8";
-		let params={"assignmentNo":`${assignment.assignmentNo}`,"title":`${assignment.title}`,
-		"content":`${assignment.content}`,"file":`${assignment.file}`}
 
-		for (let key in params) {
-			let hiddenField = document.createElement('input');
-			hiddenField.setAttribute('type', 'hidden');
-			hiddenField.setAttribute('name', key);
-			hiddenField.setAttribute('value', params[key]);
-			form.appendChild(hiddenField);
-		}
-		document.body.appendChild(form);
-		form.submit();
-	};
-	
 	// 기존에 과제물을 제출한 적이 있다면 해당 정보를 출력해주고 변경할 수 있도록 해줌
+	/*
 	if(`${assignmentSubmit}` != ``) {
 		let pTag = document.createElement("p");
 		pTag.innerHTML = "과제 제출 여부 : Yes (제출일: " + `${assignmentSubmit.createDate}` + ")";
@@ -88,7 +66,7 @@ if(${nowMember.role} != 0) {
 		submitUpdateBtn.innerHTML = "제출 과제 변경하기";
 		document.getElementsByClassName("room_contents")[0].appendChild(submitUpdateBtn);
 	}
-}
+}*/
 
 document.getElementById("download").onclick = () => {
 	window.location = '../../download?fileId='+`${file.fileId}`;

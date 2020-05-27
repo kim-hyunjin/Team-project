@@ -22,6 +22,7 @@ import Team.project.service.ClazzMemberService;
 import Team.project.service.UserService;
 
 @Controller
+@RequestMapping("/room/grade")
 public class GradeController {
   static Logger logger = LogManager.getLogger(AppConfig.class);
 
@@ -38,7 +39,7 @@ public class GradeController {
   ClazzMemberService clazzMemberService;
 
 
-  @RequestMapping("/room/grade/list")
+  @RequestMapping("list")
   public String list(@RequestParam("room_no") int classNo, Model model, HttpSession session)
       throws Exception {
     int role = ((ClazzMember) session.getAttribute("nowMember")).getRole();
@@ -74,18 +75,3 @@ public class GradeController {
   }
 }
 
-
-
-// List<Assignment> assignmentList = assignmentService.list(no);
-// List<ClazzMember> clazzMemberList = clazzMemberService.list(no);
-// int cNo;
-// List<List> listoflist = new ArrayList<>();
-// for (ClazzMember c : clazzMemberList) {
-// cNo = c.getMember_no();
-// List<AssignmentSubmit> assignmentSubmitList = assignmentSubmitService.list(cNo);
-// listoflist.add(assignmentSubmitList);
-// }
-//
-// model.addAttribute("assignmentsubmitList", assignmentSubmitList);
-// model.addAttribute("assignmentList", assignmentList);
-// return "/WEB-INF/jsp/grade/list.jsp";

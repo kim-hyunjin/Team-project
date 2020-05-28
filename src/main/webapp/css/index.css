@@ -1,5 +1,4 @@
 .hero_section {
-  z-index:-1;
 }
 
 .index_title{
@@ -7,6 +6,32 @@
 }
 
 .img-fluid {
-  width:45em;
+  width:auto;
   height:30em;
+  float:right
+}
+
+.content-container {
+	align-items: center;
+	display: flex;
+	margin: 0 auto;
+	max-width: 1220px;
+	padding: 30px 0;
+}
+
+.content {
+	color: #fff;
+	padding: 0 40px 40px 0;
+	width: 50%;
+	letter-spacing: 0;
+	position: relative;
+	z-index: 1;
+}
+
+.h1 {
+	font size: 3rem;
+}
+
+.h4 {
+	font size: 10%;
 }

@@ -88,7 +88,7 @@ body {
         <script>
         function formCheck(frm) {
         	if (frm.title.value == "") {
-        		swal("제목을 입력해 주세요.");
+        		alert("제목을 입력해 주세요.");
         		frm.title.focus();
         		return false;
         	}

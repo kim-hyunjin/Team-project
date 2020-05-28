@@ -40,21 +40,12 @@ public class AssignmentController {
     return "/WEB-INF/jsp/assignment/form.jsp";
   }
 
-  @GetMapping("updateForm")
-  public String updateForm(int no, Model model) throws Exception {
-    Assignment assignment = assignmentService.get(no);
-    FileVO file = fileService.get(assignment.getFile());
-    model.addAttribute("assignment", assignment);
-    model.addAttribute("file", file);
-    return "/WEB-INF/jsp/assignment/updateForm.jsp";
-  }
-
   @PostMapping("add")
   public String add(HttpSession session, Assignment assignment, MultipartFile partfile)
       throws Exception {
-    Clazz clazz = (Clazz) session.getAttribute("clazzNow");
+    int clazzNowNo = (int) session.getAttribute("clazzNowNo");
     ClazzMember member = (ClazzMember) session.getAttribute("nowMember");
-    assignment.setClassNo(clazz.getClassNo());
+    assignment.setClassNo(clazzNowNo);
     assignment.setMemberNo(member.getMemberNo());
 
     if (partfile.getSize() > 0) { // 파일 업로드 처리
@@ -64,14 +55,13 @@ public class AssignmentController {
       assignment.setFile(fileId);
     }
     assignmentService.add(assignment);
-    return "redirect:../lesson/list?room_no=" + clazz.getClassNo();
+    return "redirect:../lesson/list?room_no=" + clazzNowNo;
   }
 
   @GetMapping("delete")
   public String delete(HttpSession session, int no) throws Exception {
-    Clazz clazz = (Clazz) session.getAttribute("clazzNow");
     if (assignmentService.delete(no) > 0) {
-      return "redirect:../lesson/list?room_no=" + clazz.getClassNo();
+      return "redirect:../lesson/list?room_no=" + session.getAttribute("clazzNowNo");
     } else {
       throw new Exception("삭제할 과제 번호가 유효하지 않습니다.");
     }

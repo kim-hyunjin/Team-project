@@ -1,44 +1,48 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <jsp:include page="../room/room_header.jsp"></jsp:include>
 
-    <div class="room_contents">
-    	  <span class="d-flex flex-row-reverse">
-		    <i class="fas fa-times" onclick="location.href='../lesson/list?room_no=${clazzNow.classNo}'" style="font-size:2em; cursor:pointer"></i>
-		  </span>
-		 <span class="inputGroupText">질문 추가하기</span>
-		    <form id="addForm" action='add' method='post' enctype='multipart/form-data'>
-		    	<div class="inputGroup">
-			        <input id="titleInput" name="title" type="text" placeholder="제목">
-			        <textarea id="summernote" name="content"></textarea>
-		        </div>
-		        <div class="d-flex mt-3 mb-5">
-			        <div class="col d-flex flex-column">
-				        <label class="inputGroupText" for="partfile-input">파일 첨부하기</label>
-				        <input id="partfile-input" name="partfile" type="file" class="btn btn-light btn-sm">
-				        <div class="mt-5" id="multipleBox">
-							<button type="button" id="addMultiple" class="btn btn-light btn-sm">객관식 항목 추가</button>
-						</div>
-			        </div>
-			        <div class="col d-flex flex-column inputGroup">
-				        <label class="inputGroupText" for="startdate">시작일</label><input id="startdate" name="startDate" type="date">
-				        <label class="inputGroupText" for="enddate">마감일</label><input id="enddate" name="deadline" type="date">
-			        	<small id="dateHelp"></small>
-			        </div>
-		        </div>
-				
-				<div class="d-flex flex-row-reverse">
-		        <button type="button" onclick="formSubmit()" class="btn btn-primary">생성</button>
-		        </div>
-		    </form>
-    </div>
+<div class="room_contents">
+	<div class="container">
+		<span class="d-flex flex-row-reverse"> <i class="fas fa-times"
+			onclick="location.href='../lesson/list?room_no=${clazzNow.classNo}'"
+			style="font-size: 2em; cursor: pointer"></i>
+		</span> <span class="inputGroupText">질문 추가하기</span>
+		<form id="addForm" action='add' method='post'
+			enctype='multipart/form-data'>
+			<div class="inputGroup">
+				<input id="titleInput" name="title" type="text" placeholder="제목">
+				<textarea class="form-control" name="content" placeholder="질문내용" style="height:15em;"></textarea>
+			</div>
+			<div class="d-flex mt-3 mb-5">
+				<div class="col d-flex flex-column">
+					<label class="inputGroupText" for="partfile-input">파일 첨부하기</label>
+					<input id="partfile-input" name="partfile" type="file"
+						class="btn btn-light btn-sm">
+					<div class="mt-5" id="multipleBox">
+						<button type="button" id="addMultiple"
+							class="btn btn-secondary btn-sm">객관식 항목 추가</button>
+					</div>
+				</div>
+				<div class="col d-flex flex-column inputGroup">
+					<label class="inputGroupText" for="startdate">시작일</label><input
+						id="startdate" name="startDate" type="date"> <label
+						class="inputGroupText" for="enddate">마감일</label><input
+						id="enddate" name="deadline" type="date"> <small
+						id="dateHelp"></small>
+				</div>
+			</div>
 
-  <script>
-  $('#summernote').summernote({
-      placeholder: "질문 내용",
-      tabsize: 2,
-      height: 300
-    });
+			<div class="d-flex flex-row-reverse">
+				<button type="button" onclick="formSubmit()" class="btn btn-primary">생성</button>
+			</div>
+		</form>
+	</div>
+</div>
+<script>
+$(document).ready(function() {
+    document.getElementById('startdate').value = new Date().toISOString().substring(0, 10);
+ });
   
 	// 객관식 항목 추가 버튼 클릭시 #multipleBox 밑에 .multipleRow추가
 	const addMultiple = document.getElementById("addMultiple");

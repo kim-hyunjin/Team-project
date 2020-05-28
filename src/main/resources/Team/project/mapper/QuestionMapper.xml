@@ -17,7 +17,7 @@
   </resultMap>
   
   <select id="findAll" resultMap="QuestionMap" parameterType="int">
-  select *
+  select question_no, title, deadline, create_date
   from question q
   where class_no=#{no}
   order by question_no

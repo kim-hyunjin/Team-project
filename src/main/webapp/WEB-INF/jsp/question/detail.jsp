@@ -1,61 +1,61 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
-    
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <jsp:include page="../room/room_header.jsp"></jsp:include>
 <div class="room_contents">
   <div class="container">
-  <span class="d-flex flex-row-reverse">
-    <i class="fas fa-times" onclick="location.href='../lesson/list?room_no=${clazzNow.classNo}'" style="font-size:2em; cursor:pointer"></i>
-  </span>
-	<form id="questionUpdateForm" action='update' method='post' enctype='multipart/form-data'>
-    <div class="inputGroup">
-		  <input name='questionNo' type='hidden' value='${question.questionNo}'>
-		  <div>
-      <label class="inputGroupText" >제목</label>
-		  <input name="title" type="text" value="${question.title}">
-		  </div>
-		  
-		  <span class="inputGroupText" >내용</span>
-		  <textarea id='summernote' name='content' style="width:75%; margin-bottom:1em;">${question.content}</textarea >
-		</div>
-		  
-		 <div class="d-flex flex-nowrap justify-content-between mb-5 mt-5">
-			<div class="col" id="multipleBox">
-				<span class="inputGroupText" >객관식항목</span>
-				<button id="addMultiple" class="btn btn-light btn-sm">항목 추가</button>
-			  	<c:if test="${not empty multiple}">
-			  	  <c:forEach items="${multiple}" var="m">
-				    <div class="multipleRow">
-			  	    	<input type="hidden" name="multipleNo" value="${m.multipleNo}">
-						<input class="multipleNoInput" type="number" name="no" value="${m.no}">
-						<input class="multipleContentInput" type="text" name="multipleContent" value="${m.multipleContent}">
-						<span class="multipleDelete"><i class='fas fa-times'></i></span>
-					</div>
-				  </c:forEach>
-			  	</c:if>
-			</div>
-			<div class="col d-flex flex-column">
-			  <span class="inputGroupText" >첨부파일</span>
-			  <span id="download" title="다운로드" style="cursor:pointer; font-size:1em;">${file.originalName}</span> 
-			  <input name='partfile' type='file' class="btn btn-light btn-sm mt-2 mb-2">
-			  <div class="inputGroup">
-			  <label class="inputGroupText" for="startdate">시작일</label><input id="startdate" name="startDate" type="date" value='${question.startDate}'>
-			  </div>
-			  <div class="inputGroup">
-			  <label class="inputGroupText" for="enddate">마감일</label><input id="enddate" name="deadline" type="date" value='${question.deadline}'>
-			  </div>
-			  <small id="input_small"></small>
-			</div>
-		  </div>
-		  <div class="d-flex flex-row-reverse">
-		  <button type="button" class="btn btn-primary" onclick="updateSubmit()">변경</button>
-	    <button type="button" class="btn btn-danger mr-2" onclick="confirmDelete()">삭제</button>
-		  <button type="button" class="btn btn-success mr-2">답변보기</button>
-	    </div>
-	</form>
-	</div>
-<!-- 	
+    <span class="d-flex flex-row-reverse"> <i class="fas fa-times"
+      onclick="location.href='../lesson/list?room_no=${clazzNow.classNo}'" style="font-size: 2em; cursor: pointer"></i>
+    </span>
+    <form id="questionUpdateForm" action='update' method='post' enctype='multipart/form-data'>
+      <div class="inputGroup">
+        <input name='questionNo' type='hidden' value='${question.questionNo}'>
+        <div>
+          <label class="inputGroupText">제목</label> <input name="title" type="text" value="${question.title}">
+        </div>
+        <textarea name='content' class="form-control" placeholder="내용" style="height: 15em;">${question.content}</textarea>
+      </div>
+
+      <div class="d-flex flex-nowrap justify-content-between mb-5 mt-3">
+        <div class="col" id="multipleBox">
+          <span class="inputGroupText">객관식항목</span>
+          <button id="addMultiple" class="btn btn-light btn-sm">항목 추가</button>
+          <c:if test="${not empty multiple}">
+            <c:forEach items="${multiple}" var="m">
+              <div class="multipleRow">
+                <input type="hidden" name="multipleNo" value="${m.multipleNo}"> <input class="multipleNoInput"
+                  type="number" name="no" value="${m.no}"> <input class="multipleContentInput" type="text"
+                  name="multipleContent" value="${m.multipleContent}"> <span class="multipleDelete"><i
+                  class='fas fa-times'></i></span>
+              </div>
+            </c:forEach>
+          </c:if>
+        </div>
+        <div class="col d-flex flex-column">
+            <div>
+              <label class="inputGroupText">첨부파일</label> <span id="download" title="다운로드"
+                style="cursor: pointer; font-size: 1em;">${file.originalName}</span>
+            </div>
+            <input name='partfile' type='file' class="btn btn-light btn-sm mt-2 mb-3" style="width:80%;">
+          <div class="inputGroup">
+            <label class="inputGroupText" for="startdate">시작일</label><input id="startdate" name="startDate" type="date"
+              value='${question.startDate}'>
+          </div>
+          <div class="inputGroup">
+            <label class="inputGroupText" for="enddate">마감일</label><input id="enddate" name="deadline" type="date"
+              value='${question.deadline}'>
+          </div>
+          <small id="input_small"></small>
+        </div>
+      </div>
+      <div class="d-flex flex-row-reverse">
+        <button type="button" class="btn btn-primary" onclick="updateSubmit()">변경</button>
+        <button type="button" class="btn btn-danger mr-2" onclick="confirmDelete()">삭제</button>
+        <button type="button" class="btn btn-success mr-2">답변보기</button>
+      </div>
+    </form>
+  </div>
+  <!-- 	
 	<div id="answer_detail">
 	<h1>학생 답변 목록</h1>
 	<c:if test="${not empty answers}">
@@ -70,7 +70,7 @@
 	   </c:forEach>
 	</c:if>
 	</div>
- -->	
+ -->
 </div>
 
 <script>
@@ -81,7 +81,7 @@ $('#summernote').summernote({
   });
 </script>
 
-	<script>
+<script>
 		// 객관식 항목 추가 버튼 클릭시 #multipleBox 밑에 .multipleRow추가
 		const addMultiple = document.getElementById("addMultiple");
 		addMultiple.addEventListener("click", function(event){
@@ -116,7 +116,7 @@ $('#summernote').summernote({
 		
 
 	</script>
-	<script>
+<script>
 	function confirmDelete() {
 	    if(confirm("정말 삭제하시겠습니까?")) {
 		    location.href="delete?no=${question.questionNo}";

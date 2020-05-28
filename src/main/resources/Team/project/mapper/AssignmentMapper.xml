@@ -19,7 +19,7 @@
 </resultMap>
 
 <select id="findByClassNo" resultMap="AssignmentMap" parameterType="int">
-  select *
+  select assignment_no, title, create_date, deadline
   from assignment a
   where class_no=#{no}
   order by assignment_no

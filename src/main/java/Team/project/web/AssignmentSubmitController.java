@@ -16,7 +16,6 @@ import com.google.gson.Gson;
 import Team.project.domain.Assignment;
 import Team.project.domain.AssignmentSubmit;
 import Team.project.domain.Clazz;
-import Team.project.domain.ClazzMember;
 import Team.project.service.AssignmentService;
 import Team.project.service.AssignmentSubmitService;
 import Team.project.service.FileService;
@@ -35,12 +34,7 @@ public class AssignmentSubmitController {
   @Autowired
   FileService fileService;
 
-  @PostMapping("form")
-  public String form(Assignment assignment, Model model) {
-    model.addAttribute("assignment", assignment);
-    return "/WEB-INF/jsp/assignmentSubmit/form.jsp";
-  }
-
+  // 학생이 새로 과제물을 제출할 때 호출됨
   @PostMapping("add")
   public String add(HttpSession session, AssignmentSubmit assignmentSubmit, MultipartFile partfile)
       throws Exception {
@@ -52,22 +46,10 @@ public class AssignmentSubmitController {
       assignmentSubmit.setFile(fileId);
     }
     assignmentSubmitService.add(assignmentSubmit);
-    return "redirect:../lesson/list?room_no="
-        + ((Clazz) session.getAttribute("clazzNow")).getClassNo();
+    return "redirect:../lesson/list?room_no=" + session.getAttribute("clazzNowNo");
   }
 
-  @GetMapping("detail")
-  public String detailByStudent(int assignmentNo, HttpSession session, Model model)
-      throws Exception {
-    AssignmentSubmit submit = assignmentSubmitService.get(assignmentNo,
-        ((ClazzMember) session.getAttribute("nowMember")).getMemberNo());
-    Assignment assignment = assignmentService.get(assignmentNo);
-    model.addAttribute("file", fileService.get(submit.getFile()));
-    model.addAttribute("assignmentSubmit", submit);
-    model.addAttribute("assignmentTitle", assignment.getTitle());
-    return "/WEB-INF/jsp/assignmentSubmit/detail.jsp";
-  }
-
+  // 학생이 제출한 과제물 변경 시 호출됨
   @PostMapping("update")
   public String update(HttpSession session, AssignmentSubmit assignmentSubmit,
       MultipartFile partfile) throws Exception {
@@ -91,7 +73,7 @@ public class AssignmentSubmitController {
         + ((Clazz) session.getAttribute("clazzNow")).getClassNo();
   }
 
-  // 선생이 해당 과제에 대한 학생 제출물을 볼 때 호출됨
+  // 선생이 과제에 대한 학생 제출물을 볼 때 호출됨
   @GetMapping("submitted")
   public String submitted(int assignmentNo, Model model) throws Exception {
     ArrayList<AssignmentSubmit> submittedList =
@@ -102,13 +84,6 @@ public class AssignmentSubmitController {
     model.addAttribute("assignment", assignment);
     model.addAttribute("submittedList", gson.toJson(submittedList));
     return "/WEB-INF/jsp/assignmentSubmit/submitted.jsp";
-  }
-
-  // 선생이 제출된 과제물 상세보기에서 평가시 호출됨
-  @PostMapping("evaluation")
-  public String evaluation(AssignmentSubmit assignmentSubmit) throws Exception {
-    assignmentSubmitService.update(assignmentSubmit);
-    return "redirect:submitted?assignmentNo=" + assignmentSubmit.getAssignmentNo();
   }
 
 

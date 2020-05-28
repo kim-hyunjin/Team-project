@@ -4,8 +4,12 @@
 
 <jsp:include page="../room/room_header.jsp"/>
   <div class="room_contents">
+    <span class="d-flex flex-row-reverse">
+    	<i class="fas fa-times" onclick="location.href='../lesson/list?room_no=${clazzNow.classNo}'" style="font-size:2em; cursor:pointer"></i>
+    </span>
+  <!-- 과제정보 렌더링 -->
 	<div class="d-flex">
-		<div class="col-2 d-flex flex-column submitted_assignment_detail" style="border-right:thin solid rgba(0,0,0,0.1)">
+		<div class="col-2 p-0 pr-5 d-flex flex-column submitted_assignment_detail" style="border-right:thin solid rgba(0,0,0,0.1)">
 			<label class="inputGroupText">과제명</label>
 			<div id="assignment_title">${assignment.title}</div>
 			<label class="inputGroupText">과제내용</label>
@@ -17,7 +21,10 @@
 				<option>평가완료</option>
 				<option>미평가</option>
 			</select>
+			<input id="searchInput" class="form-control mt-3" type="search" placeholder="이름 검색">
 		</div>
+		
+		<!-- 학생 제출물 렌더링 -->
 		<div class="col-10 d-flex flex-column justify-content-center">
 			<ul id="submitted_ul" class="" style="list-style-type:none;">
 			  <li v-for="submit in submittedList" style="border-bottom:thin solid rgba(0,0,0,0.1)" class="mb-5">
@@ -27,17 +34,17 @@
 					  <div class="card__content">{{submit.content}}</div>
 					  <label class="inputGroupText mt-3">제출파일</label>
 					  <div v-if="submit.file != undefined && submit.fileVO != undefined">
-					  	<span class="download" title="다운로드" style="cursor:pointer;" v-bind:fileId="submit.file">{{submit.fileVO.originalName}}</span>
+					  	<span :onclick="'downloadFile(`'+ submit.fileVO.fileId +'`)'" title="다운로드" style="cursor:pointer;">{{submit.fileVO.originalName}}</span>
 					  </div>
 				  </div>
 				  <div class="card__footer col">
 				  	<form action='evaluation' method='post' enctype='multipart/form-data'>
-						<input name="assignmentNo" type="hidden" v-bind:value="submit.assignmentNo" >
-						<input name="memberNo" type="hidden" v-bind:value="submit.clazzMember.memberNo">
+						<input name="assignmentNo" type="hidden" :value="submit.assignmentNo" >
+						<input name="memberNo" type="hidden" :value="submit.clazzMember.memberNo">
 						<label class="inputGroupText">피드백</label>
 					    <textarea name="feedback" class="card__feedback form-control" rows="2">{{submit.feedback}}</textarea>
 					    <label class="inputGroupText mt-3">평가점수</label>
-					    <input name="score" type="number" class="score form-control" v-bind:value="submit.score"></input>
+					    <input name="score" type="number" class="score form-control" :value="submit.score"></input>
 					    <div class="d-flex flex-row-reverse mt-3">
 					    <button class="btn btn-sm btn-light">평가</button>
 					    </div>
@@ -50,6 +57,8 @@
 	</div>
 
   </div>
+
+
 
 <script>
 const submittedList = ${submittedList};
@@ -79,10 +88,16 @@ function activeFilter(value) {
 	  }
 }
   
-  
-$('.download').click(function(e) {
-	  window.location = '../download?fileId='+ e.target.getAttribute('fileId').value;
-})
+  function downloadFile(fileId) {
+	  window.location = '../download?fileId='+ fileId;
+}
+
+//이름 검색 기능
+$('#searchInput').keyup(function() {
+    submit_list.submittedList = submittedList.filter(function (item) {
+        return item.user.name.includes($('#searchInput').val());
+      })
+});
 
 </script>
 </body>

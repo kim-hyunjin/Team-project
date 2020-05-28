@@ -7,6 +7,7 @@
   <span class="d-flex flex-row-reverse">
     <i class="fas fa-times" onclick="location.href='../lesson/list?room_no=${clazzNow.classNo}'" style="font-size:2em; cursor:pointer"></i>
   </span>
+  <!-- 선생일 때 화면 -->
 <c:if test="${nowMember.role == 0}">
 <form id="assignmentUpdateSubmit" action='update' method='post' enctype="multipart/form-data">
 <div class="inputGroup">
@@ -39,39 +40,64 @@
 </form>
 </c:if>
 
+	<!-- 학생일 때 화면 -->
 <c:if test="${nowMember.role != 0 }">
   
+    <div class="inputGroup border-bottom">
+		<div><label class="inputGroupText">과제명</label><input readonly value="${assignment.title}"></div>
+		<textarea readonly class="form-control" style="resize:none; height:10em;">${assignment.content}</textarea>
+		<div class="d-flex justify-content-around mt-5">
+			<div class="col-4 p-0">
+			<label class="inputGroupText" >첨부파일</label><span id="download" title="다운로드" style="cursor:pointer; font-size:1.2em;">${file.originalName}</span>
+			</div> 
+			<div class="col-8 d-flex justify-content-end">
+			<label class="inputGroupText" for="enddate">마감일</label><span class="font-weight-bold" style="font-size:1.2em;">${assignment.deadline}</span>
+			</div>
+		</div>
+	</div>
+	<!-- 과제 제출물이 없을때 -->
+	<c:if test="${empty assignmentSubmit}">
+		<form action='../assignmentSubmit/add' method='post' enctype='multipart/form-data'>
+			<input name='memberNo' type='hidden' value='${nowMember.memberNo}'>
+			<input name='assignmentNo' type='hidden' value='${assignment.assignmentNo}'>
+			<label class="inputGroupText mt-5">과제제출</label><textarea id="summernote" name='content'></textarea>
+			<div class="d-flex justify-content-between mt-5 mb-5">
+				<div><label class="inputGroupText">파일첨부</label><input class="btn btn-sm btn-light" name='partfile' type='file'></div>
+				<button class="btn btn-primary">과제 제출하기</button>
+			</div>
+		</form>
+	</c:if>
+	<!-- 과제 제출물이 있을 때 -->
+	<c:if test="${not empty assignmentSubmit}">
+		<form action='../assignmentSubmit/update' method='post' enctype='multipart/form-data'>
+			<input name='memberNo' type='hidden' value='${nowMember.memberNo}'>
+			<input name='assignmentNo' type='hidden' value='${assignment.assignmentNo}'>
+			<label class="inputGroupText mt-5">과제제출</label><textarea id="summernote" name='content'>${assignmentSubmit.content}</textarea>
+			<label class="inputGroupText mt-3">제출한 파일</label><span id="submit-download" title="다운로드" style="cursor:pointer; font-size:1.2em;">${assignmentSubmit.fileVO.originalName}</span>
+			<div class="d-flex justify-content-between mt-3 mb-5">
+				<div><label class="inputGroupText">파일변경</label><input class="btn btn-sm btn-light" name='partfile' type='file'></div>
+				<button class="btn btn-primary">변경</button>
+			</div>
+		</form>
+	</c:if>
 
-
-  <button id="submitBtn">과제 제출하기</button>
 </c:if>
 </div>
-
-<script>
-$('#summernote').summernote({
-    placeholder: '내용',
-    tabsize: 2,
-    height: 300
-  });
-
-	// 기존에 과제물을 제출한 적이 있다면 해당 정보를 출력해주고 변경할 수 있도록 해줌
-	/*
-	if(`${assignmentSubmit}` != ``) {
-		let pTag = document.createElement("p");
-		pTag.innerHTML = "과제 제출 여부 : Yes (제출일: " + `${assignmentSubmit.createDate}` + ")";
-		document.getElementsByClassName("room_contents")[0].appendChild(pTag);
-		document.getElementById("submitBtn").setAttribute("style", "display:none");
-		let submitUpdateBtn = document.createElement("button");
-		submitUpdateBtn.setAttribute("onclick", "location.href = '../assignmentSubmit/detail?assignmentNo=" + `${assignmentSubmit.assignmentNo}`+ "'");
-		submitUpdateBtn.innerHTML = "제출 과제 변경하기";
-		document.getElementsByClassName("room_contents")[0].appendChild(submitUpdateBtn);
-	}
-}*/
-
-document.getElementById("download").onclick = () => {
-	window.location = '../../download?fileId='+`${file.fileId}`;
-	}
-</script>
+	<script>
+	$('#summernote').summernote({
+	    placeholder: '내용',
+	    tabsize: 2,
+	    height: 300
+	  });
+	
+	document.getElementById("download").onclick = () => {
+		window.location = '../download?fileId='+`${file.fileId}`;
+		}
+	
+	document.getElementById("submit-download").onclick = () => {
+		window.location = '../download?fileId='+`${assignmentSubmit.fileVO.fileId}`;
+		}
+	</script>
 	<script>
 	function confirmDelete() {
 	    if(confirm("정말 삭제하시겠습니까?")) {

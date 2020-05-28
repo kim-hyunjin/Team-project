@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
     trimDirectiveWhitespaces="true"%>
+    
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -11,6 +12,8 @@
     <link rel="stylesheet" href="../../css/style.css" />
 <script src="https://kit.fontawesome.com/764f0503e3.js" crossorigin="anonymous"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 <style>
 html, body {
     margin: 0px;
@@ -19,34 +22,35 @@ html, body {
     height: 100%;
 }
 input {
-    font-size:1em;
+  font-size:1em;
   margin-top: 1em;
   width: 100%;
   height: 2.5em;
 }
 button {
-margin-top: 1.3em;
-  font-weight: 700;
-  font-size: 1em;
+  margin-top: 1.3em;
   width: 5em;
   height: 2em;
-  margin-left:5em;
+  margin-left:5.5em;
 }
 </style>
 </head>
 <body>
 <div class="center-container">
 <div class="login_box">
-    <h1>회원 가입</h1>
+    <h2>회원 가입</h2>
+    <label></label>
+    <label></label>
+    <label></label>
     <div style="width:70%;">
     <form id="addForm" action='signup' method='post' enctype='multipart/form-data'>
         <input id = "emailInput" name='email' type='email' placeholder="   이메일"><br>
-        <label id="emailLabel"></label>
+        <!-- <label id="emailLabel"></label>  -->
         <input id = "nameInput" name='name' type='text' placeholder="   이름"><br>
         <input id="passwordInput" name='password' type='password' placeholder="   비밀번호">
         <label id="passwordLabel"></label><br>
         <input name="loginMethod" type="hidden" value="0">
-        <button id="completeBtn">완료</button>
+        <button class="btn btn-success" id="completeBtn">완료</button>
     </form>
     </div>
     </div>

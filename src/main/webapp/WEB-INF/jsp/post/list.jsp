@@ -99,11 +99,11 @@
 
   <button type="button" class="btn btn-outline-dark btn-sm" onclick="location.href='../post/form?bno=${boardNo}'">글쓰기</button>
   
-<hr>
+<hr width="83%" align="left">
 
-      <form action='search' method='get' style="width:50%; margin-left:2em;">
+      <form action='search' method='get' style="width:50%; margin-left:1em;">
   <div class="form-group row justify-content-left">
-      <div class="w100" style="padding-right:10px">
+      <div class="w100" style="padding-right:5px">
         <input name='boardNo' type='hidden' value='${boardNo}'>
         <select class="form-control form-control-sm" name="searchType" id="searchType">
           <option value="title">제목</option>

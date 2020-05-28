@@ -4,6 +4,10 @@
 
     <!DOCTYPE html>
     <html lang="ko">
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
+<link rel="stylesheet"href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" />
+
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -27,7 +31,7 @@
   <c:set var="b" value="${classMember}"/>
   <c:choose>
     <c:when test="${a == b}">
-     <form action='update' method='post' enctype='multipart/form-data'>
+     <form action='update' method='post' enctype='multipart/form-data' onsubmit='return formCheck(this)'>
      <input name='memberNo' style='display:none'  value='${post.memberNo}'>
      <input name='boardNo' type='hidden' value='${post.boardNo}'>    
      <!-- 번호 -->
@@ -85,13 +89,24 @@
   </script>
   
   <script>
+  
   function confirmDelete() {
       if(confirm("정말 삭제하시겠습니까?")) {
         location.href="delete?no=${post.postNo}&bno=${post.boardNo}";
       }
   }
   
+  </script>
   
+  <script>
+    function formCheck(frm) {
+	    if (frm.title.value == "") {
+	      alert("제목을 입력해 주세요.");
+	      frm.title.focus();
+	      return false;
+	    }
+      return true;
+    }
   </script>
 </body>
 </html>

@@ -56,8 +56,17 @@ content = "360175730868-7161sh4v73h0hsufdvgmoa9u3o25oi21.apps.googleusercontent.
 <body>
   <nav class="header main_header">
     <div class="main_header__column">
+    
+      <a href="/Team-project/app/clazz/list" title="BtS 홈페이지로 이동"  id="logo">
+      <img src="../../images/logo_bts.png" alt="로고" width="70" height="70">
+      </a>
+      
+      <!--  
       <a class="navbar-brand" href="/Team-project/app/clazz/list"><i class="fas fa-home"></i></a>
+      -->
       <span style="font-weight:bold; font-size:1.2em;">BTS</span>
+      
+      
     </div>
     <div class="main_header__column">
       <c:if test="${loginUser.alterKey == 'Y' }">

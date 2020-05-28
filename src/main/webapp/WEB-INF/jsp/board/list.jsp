@@ -31,10 +31,8 @@
             <span class="board_update" style="display:none; cursor:pointer;">
               <span onclick='modalActive2(${item.boardNo}, "${item.title}")'><i class='fas fa-edit'></i></span>
             </span>     
-	            <span class="board_delete" style="display:none; cursor:pointer;">
-	              <a href="delete?no=${item.boardNo}">
+	            <span class="board_delete" style="display:none; cursor:pointer;" onclick="button_del(${item.boardNo})">
 		              <i class='fas fa-times'></i>
-	              </a>
 	            </span>
          </div>
        </c:forEach>
@@ -59,7 +57,7 @@
       <div class="modal-body">
        <form id="boardAddForm" action='add' method='post' onsubmit='return formCheck(this)'>
           <input name="title" type="text" class="form-control" id="boardTitleAdd">
-          <small id="titleHelp" class="form-text text-muted">게시판명을 입력해주세요.</small>
+          <small id="titleHelp" class="form-text text-muted">추가할 게시판명을 입력해주세요.</small>
       </form>
       </div>
       <div class="modal-footer">
@@ -81,6 +79,7 @@
        <form id="boardUpdateForm" action='update' method='post' onsubmit='return formCheck(this)'>
           <input name="boardNo" type="hidden" id="boardNoUpdate">
           <input name="title" type="text" class="form-control" id="boardTitleUpdate">
+          <small id="titleHelp" class="form-text text-muted">수정할 게시판명을 입력해주세요.</small>
       </form>
       </div>
       <div class="modal-footer">
@@ -150,6 +149,17 @@
      }
 
 </script>
+
+<script>
+function button_del(boardNo){
+    if (confirm("정말 삭제하시겠습니까??") == true){    //확인
+        location.href='delete?no='+boardNo;
+   }else{   //취소
+     return;
+   }
+}
+</script>
+
 <script>
     function modalActive(){
         $("#myModal").modal("show");
@@ -170,6 +180,14 @@ $('#myModal2').on('shown.bs.modal', function () {
     $('#myInput').focus()
   })
   
+</script>
+<!-- ////////////////////////////////////////////////////////// -->
+<script>
+function check() {
+    var iframe
+}
+
+
 </script>
 
 

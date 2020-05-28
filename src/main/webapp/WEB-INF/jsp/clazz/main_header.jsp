@@ -158,7 +158,7 @@ content = "360175730868-7161sh4v73h0hsufdvgmoa9u3o25oi21.apps.googleusercontent.
 		        <div class="form-group"><label>암호</label><input class="form-control" name='password' type='password' placeholder="변경하고자하는 비밀번호를 입력하세요."></div>
 		        <div class="form-group"><label>전화</label><input class="form-control" name='tel' type='tel' ></div>
 		        <div class="form-group"><label>전공</label><input class="form-control" name='major' type='text'></div>
-		        <div class="form-group"><label>자기소개</label><textarea name='introduce' rows='5' cols='55' style="resize:none"></textarea></div>
+		        <div class="form-group"><label>자기소개</label><textarea class="form-control" name='introduce' rows='5' cols='55' style="resize:none"></textarea></div>
 		        <div class="form-group">
 			        <label for='user-photo-input'>프로필 사진 업로드</label>
 			        <input name='photo' type='file' class="btn btn-light btn-sm">

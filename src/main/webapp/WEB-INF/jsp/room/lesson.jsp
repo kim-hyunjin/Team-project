@@ -70,15 +70,11 @@
 </div>
 
 <script>
-// 버튼 정보
-const assignmentAddBtn = document.getElementById("assignment_add_btn");
-const questionAddBtn = document.getElementById("question_add_btn");
-
-//학생이면 과제와 질문 추가 버튼을 숨김
+//학생이면 만들기 버튼을 숨김
 const role = ${nowMember.role};
+console.log(role);
 if(role !== 0) {
-  assignmentAddBtn.setAttribute("style", "display:none;");
-  questionAddBtn.setAttribute("style", "display:none;");
+  $('#lesson_section_add').css('display', 'none');
 }
 
 

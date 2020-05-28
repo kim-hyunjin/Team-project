@@ -25,7 +25,7 @@
 			        </div>
 		        </div>
 		        <div class="d-flex">
-		        <button type="button" class="btn btn-light" id="standard-add">평가기준 추가</button>
+		        <button type="button" class="btn btn-secondary" id="standard-add">평가기준 추가</button>
 		        </div>
 		        <div id="standard_div" style="display:none">
 		        <textarea class="form-control mt-3" name="standard" placeholder="평가기준" style="height:10em;"></textarea>

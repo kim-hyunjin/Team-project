@@ -12,7 +12,7 @@
       <div>
         <label class="inputGroupText">제목</label> <input value="${question.title}" readonly>
       </div>
-      <textarea readonly class="mt-3 mb-3 form-control" style="height:10em; border:0; background-color:white;">${question.content}</textarea>
+      <textarea readonly class="mt-3 mb-3 form-control" style="height:10em; background-color:white;">${question.content}</textarea>
       <div class="d-flex justify-content-between mt-3 mb-3">
         <div>
           <label class="inputGroupText">파일</label><span id="download" title="다운로드" style="cursor: pointer;">${file.originalName}</span>

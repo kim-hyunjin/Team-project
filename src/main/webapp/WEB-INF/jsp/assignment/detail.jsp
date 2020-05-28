@@ -20,8 +20,7 @@
 						<label class="inputGroupText">제목</label><input name="title"
 							value="${assignment.title}">
 					</div>
-					<label class="inputGroupText">내용</label>
-					<textarea class="form-control" name='content' style="height:20em;">${assignment.content}</textarea>
+					<textarea class="form-control" name='content' placeholder="내용" style="height:20em;">${assignment.content}</textarea>
 				</div>
 				<div class="d-flex mb-5 mt-3">
 					<div class="col">
@@ -65,7 +64,7 @@
 					<label class="inputGroupText">과제명</label><input readonly
 						value="${assignment.title}">
 				</div>
-        <textarea readonly class="form-control mt-3 mb-3" style="background-color:white; height:10em; border:0;">${assignment.content}</textarea>
+        <textarea readonly class="form-control mt-3 mb-3" style="background-color:white; height:10em;">${assignment.content}</textarea>
 				<div class="d-flex justify-content-around mt-3 mb-3">
 					<div class="col-4 p-0">
 						<label class="inputGroupText">파일</label><span id="download"

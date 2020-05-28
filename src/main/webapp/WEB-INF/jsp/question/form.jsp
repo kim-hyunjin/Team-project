@@ -21,7 +21,7 @@
 						class="btn btn-light btn-sm">
 					<div class="mt-5" id="multipleBox">
 						<button type="button" id="addMultiple"
-							class="btn btn-light btn-sm">객관식 항목 추가</button>
+							class="btn btn-secondary btn-sm">객관식 항목 추가</button>
 					</div>
 				</div>
 				<div class="col d-flex flex-column inputGroup">

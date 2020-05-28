@@ -11,7 +11,7 @@
 		    <form id="addForm"  action='add' method='post' enctype='multipart/form-data'>
 		    	<div class="inputGroup">
 		        <input id="titleInput" name="title" type="text" placeholder="제목">
-		        <textarea id="content_summernote" name="content"></textarea>
+		        <textarea class="form-control" name="content" placeholder="과제내용" style="height:15em;"></textarea>
 		        </div>
 		        <div class="d-flex mt-3 mb-5">
 			        <div class="col d-flex flex-column">
@@ -28,7 +28,7 @@
 		        <button type="button" class="btn btn-light" id="standard-add">평가기준 추가</button>
 		        </div>
 		        <div id="standard_div" style="display:none">
-		        <textarea id="standard-summernote" name="standard" placeholder="평가기준"></textarea>
+		        <textarea class="form-control mt-3" name="standard" placeholder="평가기준" style="height:10em;"></textarea>
 		        </div>
 		        <div class="d-flex flex-row-reverse mt-3">
 		        <button type="button" class="btn btn-primary" onclick="formSubmit()">생성</button>
@@ -40,18 +40,6 @@
 $(document).ready(function() {
    document.getElementById('addForm').startDate.value = new Date().toISOString().substring(0, 10);
 });
-
-$('#content_summernote').summernote({
-    placeholder: "과제 내용",
-    tabsize: 2,
-    height: 300
-  });
-
-$('#standard-summernote').summernote({
-    placeholder: "평가기준",
-    tabsize: 2,
-    height: 300
-  });
   
 let standardStatus = 0;
 $('#standard-add').click(function() {

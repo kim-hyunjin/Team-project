@@ -1,5 +1,6 @@
 package Team.project.web;
 
+import java.net.URLEncoder;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -48,8 +49,8 @@ public class LessonController {
     String questionJson = mapper.writeValueAsString(questionService.list(room_no));
     String assignmentJson = mapper.writeValueAsString(assignmentService.list(room_no));
 
-    model.addAttribute("questionJson", questionJson);
-    model.addAttribute("assignmentJson", assignmentJson);
+    model.addAttribute("questionJson", URLEncoder.encode(questionJson, "UTF-8"));
+    model.addAttribute("assignmentJson", URLEncoder.encode(assignmentJson, "UTF-8"));
 
     return "/WEB-INF/jsp/room/lesson.jsp";
   }

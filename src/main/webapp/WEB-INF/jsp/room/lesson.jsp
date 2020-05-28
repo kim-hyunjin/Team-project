@@ -1,3 +1,4 @@
+<%@page import="java.net.URLEncoder"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -69,24 +70,24 @@
 </div>
 
 <script>
-// 버튼 정보
-const assignmentAddBtn = document.getElementById("assignment_add_btn");
-const questionAddBtn = document.getElementById("question_add_btn");
-
-//학생이면 과제와 질문 추가 버튼을 숨김
+//학생이면 만들기 버튼을 숨김
 const role = ${nowMember.role};
+console.log(role);
 if(role !== 0) {
-  assignmentAddBtn.setAttribute("style", "display:none;");
-  questionAddBtn.setAttribute("style", "display:none;");
+  $('#lesson_section_add').css('display', 'none');
 }
 
+
+var questionJson = '${questionJson}';
+var assignmentJson = '${assignmentJson}';
+
 //서버로부터 받은 자료
-let questions = eval('('+ '${questionJson}' +')');
-let assignments = eval('('+ '${assignmentJson}' +')');
+let questions = JSON.parse(decodeURIComponent(questionJson).replace(/\+/g," "));
+let assignments = JSON.parse(decodeURIComponent(assignmentJson).replace(/\+/g," "));
 let all = questions.concat(assignments);
-let sortingField = "createDate";
 
 //생성일 순으로 정렬
+let sortingField = "createDate";
 all.sort(function(a,b) {
   return b[sortingField] - a[sortingField];
 });

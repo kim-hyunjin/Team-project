@@ -27,10 +27,14 @@
     <result column="content" property="content"/>
     <result column="deadline" property="deadline"/>
 </association>
+<association property="fileVO" javaType="FileVO">
+  <id column="file_id" property="fileId"></id>
+  <result column="original_name" property="originalName"></result>
+</association>
   </resultMap>
 
   <select id="findAll" resultMap="AssignmentSubmitMap" parameterType="int">
-    select s.*, u.name, u.user_no, u.profile_photo, cm.member_no, a.title, a.content, a.deadline, f.original_name
+    select s.*, u.name, u.user_no, u.profile_photo, cm.member_no, a.title, a.content, a.deadline, f.file_id, f.original_name
     from assignment_submit s
     join class_member cm on s.member_no = cm.member_no
     join user u on cm.user_no = u.user_no
@@ -66,10 +70,11 @@
   </insert>
   
   <select id="findByAssignmentNoAndMemberNo" resultMap="AssignmentSubmitMap">
-    select s.*, u.name, u.user_no, cm.member_no
+    select s.*, u.name, u.user_no, cm.member_no, f.file_id, f.original_name
     from assignment_submit s
     join class_member cm on s.member_no = cm.member_no
     join user u on cm.user_no = u.user_no
+    left outer join file f on f.file_id = s.file
     where s.assignment_no = #{assignmentNo} and s.member_no = #{memberNo}
   </select>
   
@@ -78,7 +83,7 @@
     <set>
       <if test="content != null and content != ''">content = #{content},</if>
       <if test="file != null and file != ''">file = #{file},</if>
-      score = #{score},
+      <if test="score != null">score = #{score},</if>
       <if test="feedback != null and feedback != ''">feedback = #{feedback}</if>
     </set>
     where assignment_no = #{assignmentNo} and member_no = #{memberNo}

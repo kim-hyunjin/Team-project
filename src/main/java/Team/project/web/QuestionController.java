@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
-import com.google.gson.Gson;
 import Team.project.domain.Answer;
 import Team.project.domain.Clazz;
 import Team.project.domain.ClazzMember;
@@ -55,7 +54,7 @@ public class QuestionController {
     ClazzMember member = (ClazzMember) session.getAttribute("nowMember");
     question.setClassNo(clazz.getClassNo());
     question.setMemberNo(member.getMemberNo());
-    
+
     // 파일 처리 부분
     if (partfile.getSize() > 0) {
       String fileId = UUID.randomUUID().toString();
@@ -76,7 +75,7 @@ public class QuestionController {
       }
     }
 
-    return "redirect:../lesson/list?room_no="+ clazz.getClassNo();
+    return "redirect:../lesson/list?room_no=" + clazz.getClassNo();
   }
 
   @GetMapping("detail")
@@ -93,9 +92,8 @@ public class QuestionController {
     HashMap<Integer, Multiple> multipleMap = new HashMap<>();
     for (Answer a : answerList) {
       int multipleNo = a.getMultipleNo();
-      int questionNo = a.getQuestionNo();
       if (multipleNo > 0) {
-        multipleMap.put(multipleNo, multipleService.getAnswer(questionNo, multipleNo));
+        multipleMap.put(multipleNo, multipleService.getAnswer(a.getQuestionNo(), multipleNo));
       }
     }
     model.addAttribute("multipleAnswers", multipleMap);
@@ -110,8 +108,7 @@ public class QuestionController {
       // 학생인 경우 답변이 있는 지 찾아 있다면 모델에 담아준다.
       Answer answer = answerService.get(clazzMember.getMemberNo(), qno);
       if (answer != null) {
-        Gson gson = new Gson();
-        model.addAttribute("answer", gson.toJson(answer));
+        model.addAttribute("answer", answer);
       }
       return "/WEB-INF/jsp/question/detail_student.jsp";
     }

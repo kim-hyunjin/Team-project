@@ -37,11 +37,11 @@
               </div>
             </div>
             <div class="card__footer col">
-              <form action='evaluation' method='post' enctype='multipart/form-data'>
+              <form action='eval' method='post' enctype='multipart/form-data'>
                 <input name="assignmentNo" type="hidden" :value="submit.assignmentNo"> <input name="memberNo"
                   type="hidden" :value="submit.clazzMember.memberNo"> <label class="inputGroupText">피드백</label>
                 <textarea name="feedback" class="card__feedback form-control" rows="2">{{submit.feedback}}</textarea>
-                <label class="inputGroupText mt-3">평가점수</label> <input name="score" type="number"
+                <label class="inputGroupText mt-3">평가점수</label> <input name="score" type="number" min="0" max="9999999999"
                   class="score form-control" :value="submit.score"></input>
                 <div class="d-flex flex-row-reverse mt-3">
                   <button class="btn btn-sm btn-light">평가</button>
@@ -59,14 +59,6 @@
 
 
 <script>
-    $('.submit_content_summernote').summernote({
-	toolbar : false,
-	height : 100,
-	disableResizeEditor : true
-    });
-    $('#student_assignment_detail').summernote('disable');
-    $('.note-resizebar').css('display', 'none');
-    $('.note-editor').css('border-bottom', '0');
 
     const submittedList = ${submittedList};
     console.log(submittedList);

@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.multipart.MultipartFile;
 import com.google.gson.Gson;
 import Team.project.domain.Assignment;
@@ -52,8 +53,8 @@ public class AssignmentSubmitController {
   // 학생이 제출한 과제물 변경 시 호출됨
   @PostMapping("update")
   public String update(HttpSession session, AssignmentSubmit assignmentSubmit,
-      MultipartFile partfile) throws Exception {
-    if (partfile.getSize() > 0) {
+      @RequestPart(required = false) MultipartFile partfile) throws Exception {
+    if (partfile != null) {
       String fileId = UUID.randomUUID().toString();
       String dirPath = servletContext.getRealPath("/upload/lesson/assignmentSubmit");
       fileService.add(partfile, fileId, dirPath);
@@ -86,5 +87,9 @@ public class AssignmentSubmitController {
     return "/WEB-INF/jsp/assignmentSubmit/submitted.jsp";
   }
 
-
+  @PostMapping("eval")
+  public String update(HttpSession session, AssignmentSubmit assignmentSubmit) throws Exception {
+    assignmentSubmitService.update(assignmentSubmit);
+    return "redirect:submitted?assignmentNo=" + assignmentSubmit.getAssignmentNo();
+  }
 }

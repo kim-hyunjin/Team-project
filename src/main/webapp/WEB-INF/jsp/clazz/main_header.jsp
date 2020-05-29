@@ -113,7 +113,7 @@ content = "360175730868-7161sh4v73h0hsufdvgmoa9u3o25oi21.apps.googleusercontent.
         </button>
       </div>
       <div class="modal-body">
-          <input id="modal-code" name="code" type="text" placeholder="수업 코드를 입력하세요." style="width:100%;">
+          <input class="form-control" id="modal-code" name="code" type="text" placeholder="수업 코드를 입력하세요." style="width:100%;">
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal" id="join-modal-close">Close</button>
@@ -135,9 +135,9 @@ content = "360175730868-7161sh4v73h0hsufdvgmoa9u3o25oi21.apps.googleusercontent.
       </div>
       <div class="modal-body">
         <form id="createForm" action='add' method='post'>
-          <input id="modal-name" name='name' type='text' placeholder="수업명" style="width:100%;"> 
-          <input id="modal-description" name='description' type='text' placeholder="설명" style="width:100%;"> 
-          <input id="modal-room" name='room' type='text' placeholder="강의실" style="width:100%;">
+          <input class="form-control" id="modal-name" name='name' type='text' placeholder="수업명" style="width:100%;"> 
+          <input class="form-control" id="modal-description" name='description' type='text' placeholder="설명" style="width:100%;"> 
+          <input class="form-control" id="modal-room" name='room' type='text' placeholder="강의실" style="width:100%;">
         </form>  
       </div>
       <div class="modal-footer">

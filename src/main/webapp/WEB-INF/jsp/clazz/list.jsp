@@ -25,7 +25,6 @@
 							<div onMouseover="this.style.backgroundColor='gray';"
 								onMouseout="this.style.backgroundColor='white';"
 								onclick="button_event(${clazz.classNo})">삭제</div>
-								
 						</div>
 					</div>
 					<span>${clazz.room}</span>
@@ -50,12 +49,12 @@
 			</div>
 			<div class="modal-body">
 				<form id="updateForm" action='update' method='post'>
-					<input name='classNo' type='hidden'> 
-					<input name='from' type='hidden' value='main'> 
-			        <input name='name' type='text' placeholder="수업명"> 
-					<input name='description' type='text' placeholder="설명"> 
-					<input name='room' type='text' placeholder="강의실"> 
-					<input name='classCode' type='text' placeholder="수업코드">
+					<input class="form-control" name='classNo' type='hidden'> 
+					<input class="form-control" name='from' type='hidden' value='main'> 
+			        <input class="form-control" name='name' type='text' placeholder="수업명"> 
+					<input class="form-control" name='description' type='text' placeholder="설명"> 
+					<input class="form-control" name='room' type='text' placeholder="강의실"> 
+					<input class="form-control" name='classCode' type='text' placeholder="수업코드">
 				</form>
 			</div>
 			<div class="modal-footer">

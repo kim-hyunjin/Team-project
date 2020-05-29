@@ -8,20 +8,20 @@
 <div class="container-fluid" style='margin-top:8em; display:flex;'>
 <aside id='lesson_aside'>
 <div id="alarm_box">
-       <i class="fas fa-lightbulb"></i>
-       <span style='margin-left:2em; font-weight:bold; font-size:1em;'>알림 상자</span>
+       <i class="fas fa-lightbulb text-warning"></i>
+       <!-- <span class="badge badge-warning">알림 상자</span> -->
   <ul id="alarm_contents">
      <li v-for="item in items" v-if="dateConfigure(item.deadline)">
        <span v-if="item.hasOwnProperty('questionNo')">
          <a v-bind:href="`../question/detail?qno=`+item.questionNo">
          <span class="alarm_box__icon"><i class="fas fa-question-circle"></i></span>
-           <span title='마감일이 임박했습니다.'>{{ item["title"] }}  마감일이 임박했습니다.</span>
+           <span title='마감일이 임박했습니다.'>{{ item["title"] }}</span>
          </a>
        </span>
        <span v-if="item.hasOwnProperty('assignmentNo')">
        <a v-bind:href="`../assignment/detail?assignmentNo=`+ item.assignmentNo">
         <span class="alarm_box__icon"><i class="fas fa-pen-square"></i></span>
-        <span title='마감일이 임박했습니다.'>{{ item["title"] }}  마감일이 임박했습니다.</span>
+        <span title='마감일이 임박했습니다.'>{{ item["title"] }}</span>
        </a>
        </span>
      </li>

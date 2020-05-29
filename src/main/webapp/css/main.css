@@ -62,20 +62,21 @@
   .clazz-detail-box {
     display:none;
     width:5em; 
-    height:4em; 
+    height:100%; 
     z-index:9999; 
-    background-color:white; 
     color:black; 
     position:absolute; 
     margin-left:11em; 
-    margin-top:3em;
-    border:thin solid rgba(0,0,0,0.1);
+    margin-top:2em;
     text-align:center;
     user-select:none;
     }
     
     .clazz-detail-box>div {
       cursor:pointer;
+      height:2em;
+      border:thin solid rgba(0,0,0,0.1);
+      background-color:white; 
     }
     
     #updateForm>input, #createForm>input {

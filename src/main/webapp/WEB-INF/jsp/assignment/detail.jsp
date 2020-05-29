@@ -6,16 +6,16 @@
 <div class="room_contents">
 	<div class="container">
 		<span class="d-flex flex-row-reverse"> <i class="fas fa-times"
-			onclick="location.href='../lesson/list?room_no=${clazzNow.classNo}'"
+			onclick="location.href='javascript:history.back()'"
 			style="font-size: 2em; cursor: pointer"></i>
 		</span>
 		<!-- 선생일 때 화면 -->
 		<c:if test="${nowMember.role == 0}">
 			<form id="assignmentUpdateSubmit" action='update' method='post'
 				enctype="multipart/form-data">
-        <input name="memberNo" type="hidden" value="${nowMemberNo}">
+        <input name="memberNo" type="hidden" value="${nowMember.getMemberNo()}">
 				<div class="inputGroup">
-					<input name="assignmentNo" readonly type="hidden"
+					<input name="assignmentNo" type="hidden"
 						value="${assignment.assignmentNo}">
 					<div>
 						<label class="inputGroupText">제목</label><input name="title"

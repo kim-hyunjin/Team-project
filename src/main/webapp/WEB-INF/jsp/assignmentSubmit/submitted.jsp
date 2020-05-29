@@ -4,7 +4,7 @@
 <jsp:include page="../room/room_header.jsp" />
 <div class="room_contents">
   <span class="d-flex flex-row-reverse"> <i class="fas fa-times"
-    onclick="location.href='../lesson/list?room_no=${clazzNow.classNo}'" style="font-size: 2em; cursor: pointer"></i>
+    onclick="location.href='javascript:history.back()'" style="font-size: 2em; cursor: pointer"></i>
   </span>
   <!-- 과제정보 렌더링 -->
   <div class="d-flex">

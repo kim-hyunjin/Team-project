@@ -85,9 +85,7 @@ public class AssignmentController {
   public String update(HttpSession session, Assignment assignment, MultipartFile partfile)
       throws Exception {
     Clazz clazz = (Clazz) session.getAttribute("clazzNow");
-    ClazzMember member = (ClazzMember) session.getAttribute("nowMember");
     assignment.setClassNo(clazz.getClassNo());
-    assignment.setMemberNo(member.getMemberNo());
 
     if (partfile.getSize() > 0) { // 파일 업로드 처리
       String fileId = UUID.randomUUID().toString();

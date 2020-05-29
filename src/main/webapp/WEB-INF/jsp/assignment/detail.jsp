@@ -13,6 +13,7 @@
 		<c:if test="${nowMember.role == 0}">
 			<form id="assignmentUpdateSubmit" action='update' method='post'
 				enctype="multipart/form-data">
+        <input name="memberNo" type="hidden" value="${nowMemberNo}">
 				<div class="inputGroup">
 					<input name="assignmentNo" readonly type="hidden"
 						value="${assignment.assignmentNo}">

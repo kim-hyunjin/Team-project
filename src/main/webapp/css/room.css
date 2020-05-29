@@ -36,3 +36,8 @@
     flex-direction: column;
     margin-bottom: 5em;
 }
+
+#classDetailModal label {
+  color:#66ccff;
+  font-weight: bold;
+}

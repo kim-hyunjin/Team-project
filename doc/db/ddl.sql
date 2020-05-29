@@ -41,7 +41,6 @@ insert into user(email, name, password, tel, major, profile_photo, login_method,
   values('naldo@gamil.com', '호날두', password('1111'), '010-1111-5555', '역사', 'e.gif', '0', '2020-4-24');
 insert into user(email, name, password, tel, major, login_method, create_date, alterkey)
   values('123@123', '테스트', password('123'), '010-1111-5555', '역사', '0', '2020-4-24', 'Y');
->>>>>>> upstream/master
   
   
 -- 클래스 생성

@@ -14,6 +14,7 @@ public class Clazz implements Serializable {
   private ClazzMember clazzMember;
   private Assignment assignment;
   private Question question;
+  private String color;
 
   public Assignment getAssignment() {
     return assignment;
@@ -85,6 +86,22 @@ public class Clazz implements Serializable {
 
   public void setClazzMember(ClazzMember clazzMember) {
     this.clazzMember = clazzMember;
+  }
+
+  public String getColor() {
+    return color;
+  }
+
+  public void setColor(String color) {
+    this.color = color;
+  }
+
+  @Override
+  public String toString() {
+    return "Clazz [classNo=" + classNo + ", name=" + name + ", description=" + description
+        + ", room=" + room + ", classCode=" + classCode + ", createDate=" + createDate
+        + ", clazzMember=" + clazzMember + ", assignment=" + assignment + ", question=" + question
+        + ", color=" + color + "]";
   }
 
 

@@ -31,19 +31,20 @@
 </select>
 
 <select id="findByUserNo" resultMap="ClazzMap" parameterType="int">
-  select c.class_no, name, description, room, class_code, create_date
+  select c.class_no, name, description, room, class_code, create_date, color
   from class c
   join class_member m on c.class_no = m.class_no where user_no = #{no} 
 </select>
 
 <insert id="insert" useGeneratedKeys="true" keyProperty="classNo" parameterType="Clazz">
   insert into class
-  (name, description, room, class_code)
+  (name, description, room, class_code, color)
   values(
     #{name},
     #{description},
     #{room},
-    #{classCode}
+    #{classCode},
+    #{color}
   )
 </insert>
 
@@ -58,7 +59,8 @@
       <if test="name != null and name != ''">name=#{name},</if>
       <if test="description != null and description != ''">description=#{description},</if> 
       <if test="room != null and room != ''">room=#{room},</if>
-      <if test="classCode != null and classCode != ''">class_code=#{classCode}</if>
+      <if test="classCode != null and classCode != ''">class_code=#{classCode},</if>
+      <if test="color != null and color != ''">color = #{color}</if>
     </set>
     where class_no=#{classNo}
   </update>

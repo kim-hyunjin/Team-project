@@ -59,7 +59,7 @@ li {
               <input name='boardNo' type='hidden' value='${boardNo}'> <select
                 class="form-control form-control-sm" name="searchType" id="searchType">
                 <option value="title">제목</option>
-                <option value="content">본문</option>
+                <option value="content">내용</option>
                 <option value="name">작성자</option>
               </select>
             </div>

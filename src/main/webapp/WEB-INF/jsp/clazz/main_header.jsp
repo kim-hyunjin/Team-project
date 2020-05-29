@@ -102,7 +102,7 @@ content = "360175730868-7161sh4v73h0hsufdvgmoa9u3o25oi21.apps.googleusercontent.
     </div>
   </nav>
   
-  <!-- Modal -->
+  <!-- 수업 참여하기 Modal -->
 <div class="modal fade" id="classJoin" tabindex="-1" role="dialog" aria-labelledby="classJoinLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -123,7 +123,7 @@ content = "360175730868-7161sh4v73h0hsufdvgmoa9u3o25oi21.apps.googleusercontent.
   </div>
 </div>
 
-  <!-- Modal -->
+  <!-- 수업 만들기 Modal -->
 <div class="modal fade" id="makeClass" tabindex="-1" role="dialog" aria-labelledby="makeClassLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -134,10 +134,11 @@ content = "360175730868-7161sh4v73h0hsufdvgmoa9u3o25oi21.apps.googleusercontent.
         </button>
       </div>
       <div class="modal-body">
-        <form id="createForm" action='add' method='post'>
-          <input class="form-control" id="modal-name" name='name' type='text' placeholder="수업명" style="width:100%;"> 
-          <input class="form-control" id="modal-description" name='description' type='text' placeholder="설명" style="width:100%;"> 
-          <input class="form-control" id="modal-room" name='room' type='text' placeholder="강의실" style="width:100%;">
+        <form id="class_createForm" action='add' method='post'>
+          <input class="form-control" id="modal-name" name='name' type='text' placeholder="수업명" maxlength="30"> 
+          <input class="form-control" id="modal-description" name='description' type='text' placeholder="설명" > 
+          <input class="form-control" id="modal-room" name='room' type='text' placeholder="강의실" >
+          <input class="form-control" name="color" type="color">
         </form>  
       </div>
       <div class="modal-footer">
@@ -148,7 +149,7 @@ content = "360175730868-7161sh4v73h0hsufdvgmoa9u3o25oi21.apps.googleusercontent.
   </div>
 </div>
 
-<!-- Modal -->
+<!-- 유저 상세정보 Modal -->
 <div class="modal fade" id="userDetailModal" tabindex="-1" role="dialog" aria-labelledby="userDetailModalTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-scrollable" role="document">
     <div class="modal-content">
@@ -186,20 +187,7 @@ content = "360175730868-7161sh4v73h0hsufdvgmoa9u3o25oi21.apps.googleusercontent.
   </div>
 </div>
 <script>
-// 수업 참여 관련 스크립트
-let modalStatus = 0;
-	$(document).on('click', '.clazz-modal', function(event) {
-		var parentDiv = event.currentTarget.parentNode;
-		var div = parentDiv.children[2];
-		if(modalStatus == 0) {
-			div.setAttribute("style", "display:block");
-			   modalStatus = 1;
-		} else {
-			div.setAttribute("style", "display:none");
-            modalStatus = 0;
-		}
-	});
-
+// 수업 참여를 위한 스크립트
 $(function () {
     $("#joinBtn").click(function () {
     let xhr = new XMLHttpRequest();
@@ -225,54 +213,13 @@ $(function () {
 });
 
 
-</script>
-<script>
-  // 수업 생성 관련 스크립트
-  $(function() {
+// 수업 생성 버튼 클릭시 post요청
 	  $("#createBtn").click(function() {
-		  let form = document.getElementById("createForm");
-	      if(!form.name.value) {
-	        form.name.setAttribute("placeholder", "수업명을 입력해주세요!");
-	        form.name.focus();
-	      } else {
-	        addClass(form);
-	      }
+	      $('#class_createForm').submit();
 	  })
-  });
-    
-    // 수업추가를 비동기로 처리
-    async function addClass(form) {
-      //사용자가 폼에 입력한 데이터를 json으로 만든다.
-        let clazz = {
-                name: form.name.value,
-                description: form.description.value,
-                room: form.room.value
-            };
-      
-        try {
-          //fetch()를 통해 clazz/add에 위에서 만든 json 데이터를 가지고 POST요청한다.
-            let response = await fetch('add', {
-                  method: 'POST',
-                  headers: {
-                    'Content-Type': 'application/json;charset=utf-8'
-                  },
-                  body: JSON.stringify(clazz)
-            });
-          // 응답이 200번대로 오면 팝업창을 띄운 부모창을 새로고침하고 팝업창은 닫는다.
-            if (response.ok) {
-              location.reload();
-              $("#create-modal-close").trigger("click");
-            }           
-          // 수업 추가에 실패한 경우 알림창을 띄우고 팝업창은 닫는다.
-        }catch(error) {
-          alert("수업 추가에 실패했습니다.");
-          form.reset();
-        }
-    }
-    </script>
-	<script type="text/javascript">
-	var userJson;
+
     // 유저 정보 수정을 위한 스크립트
+	var userJson;
     $('#headerUserName').click(function () {
     	let xhr = new XMLHttpRequest();
     	console.log(${loginUser.userNo});

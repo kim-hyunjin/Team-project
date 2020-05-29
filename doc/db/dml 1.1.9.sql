@@ -122,7 +122,8 @@ CREATE TABLE `class` (
   `description` TEXT        NULL     COMMENT '설명', -- 설명
   `room`        VARCHAR(30) NULL     COMMENT '강의실', -- 강의실
   `class_code`  VARCHAR(30) NOT NULL COMMENT '수업코드', -- 수업코드
-  `create_date` DATETIME    NOT NULL DEFAULT now() COMMENT '생성일' -- 생성일
+  `create_date` DATETIME    NOT NULL DEFAULT now() COMMENT '생성일', -- 생성일
+  `color`       TEXT        NULL     COMMENT '컬러' -- 컬러
 )
 COMMENT '클래스';
 

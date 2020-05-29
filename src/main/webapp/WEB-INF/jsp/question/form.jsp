@@ -5,7 +5,7 @@
 <div class="room_contents">
 	<div class="container">
 		<span class="d-flex flex-row-reverse"> <i class="fas fa-times"
-			onclick="location.href='../lesson/list?room_no=${clazzNow.classNo}'"
+			onclick="location.href='javascript:history.back()'"
 			style="font-size: 2em; cursor: pointer"></i>
 		</span> <span class="inputGroupText">질문 추가하기</span>
 		<form id="addForm" action='add' method='post'

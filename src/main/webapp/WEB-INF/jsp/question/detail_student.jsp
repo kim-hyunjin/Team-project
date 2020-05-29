@@ -5,7 +5,7 @@
 <div class="room_contents">
   <div class="container">
     <span class="d-flex flex-row-reverse"> <i class="fas fa-times"
-      onclick="location.href='../lesson/list?room_no=${clazzNow.classNo}'" style="font-size: 2em; cursor: pointer"></i>
+      onclick="location.href='javascript:history.back()'" style="font-size: 2em; cursor: pointer"></i>
     </span>
     <!-- 질문상세정보 -->
     <div class="d-flex flex-column inputGroup border-bottom" id="question_detail">

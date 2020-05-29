@@ -9,11 +9,12 @@
 	width: 15em;
 	height: 15em;
 	overflow:overlay;
+	font-weight:bold;
+	font-size:1em;
 }
 
 #alarm_box > i {
 	font-size : 2em;
-	color : #ff9900;
 	position:absolute;
 	margin: -0.5em 0 0 -0.3em;
 }

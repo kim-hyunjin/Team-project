@@ -93,13 +93,13 @@
           <div id="headerUserName" data-toggle="modal" data-target="#userDetailModal" style="cursor: pointer;">${loginUser.name}</div>
         </div>
         <c:if test="${loginUser.loginMethod == 2}">
-          <a href="#" onclick="signOut();">Sign out</a>
+          <a href="#" onclick="signOut();">로그아웃</a>
         </c:if>
         <c:if test="${loginUser.loginMethod == 0}">
-          <a href="../../auth/logout">logout</a>
+          <a href="../../auth/logout">로그아웃</a>
         </c:if>
         <c:if test="${loginUser.loginMethod == 1}">
-          <button class="api-btn" onclick="kakaoLogout()">logout</button>
+          <button class="api-btn" onclick="kakaoLogout()">로그아웃</button>
         </c:if>
       </c:if>
     </div>
@@ -141,9 +141,9 @@
         </form>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-danger" id="class-delete-Btn">DELETE</button>
-          <button type="button" class="btn btn-secondary" data-dismiss="modal" id="class-update-closeBtn">Close</button>
-          <button type="button" class="btn btn-primary" id="class-update-updateBtn">Save changes</button>
+          <button type="button" class="btn btn-danger" id="class-delete-Btn">수업삭제</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal" id="class-update-closeBtn">닫기</button>
+          <button type="button" class="btn btn-primary" id="class-update-updateBtn">저장</button>
         </div>
       </div>
     </div>
@@ -200,8 +200,8 @@
           </form>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal" id="user-update-closeBtn">Close</button>
-          <button type="button" class="btn btn-primary" id="user-update-updateBtn">Save changes</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal" id="user-update-closeBtn">닫기</button>
+          <button type="button" class="btn btn-primary" id="user-update-updateBtn">저장</button>
         </div>
       </div>
     </div>

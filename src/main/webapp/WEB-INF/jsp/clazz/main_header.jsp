@@ -90,13 +90,13 @@ content = "360175730868-7161sh4v73h0hsufdvgmoa9u3o25oi21.apps.googleusercontent.
           <div id="headerUserName" data-toggle="modal" data-target="#userDetailModal" style="cursor:pointer;">${loginUser.name}</div>
         </div>
           <c:if test="${loginUser.loginMethod == 2}">
-              <a href="#" onclick="signOut();">Sign out</a>
+              <a href="#" onclick="signOut();">로그아웃</a>
             </c:if>
           <c:if test="${loginUser.loginMethod == 0}">
-             <a href="../auth/logout">logout</a>
+             <a href="../auth/logout">로그아웃</a>
           </c:if>
           <c:if test="${loginUser.loginMethod == 1}">
-             <button class="api-btn" onclick="kakaoLogout()">logout</button>
+             <button class="api-btn" onclick="kakaoLogout()">로그아웃</button>
           </c:if>
         </c:if>
     </div>
@@ -116,8 +116,8 @@ content = "360175730868-7161sh4v73h0hsufdvgmoa9u3o25oi21.apps.googleusercontent.
           <input class="form-control" id="modal-code" name="code" type="text" placeholder="수업 코드를 입력하세요." style="width:100%;">
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="join-modal-close">Close</button>
-        <button type="button" class="btn btn-primary" id="joinBtn">Join</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="join-modal-close">닫기</button>
+        <button type="button" class="btn btn-primary" id="joinBtn">참여</button>
       </div>
     </div>
   </div>
@@ -142,8 +142,8 @@ content = "360175730868-7161sh4v73h0hsufdvgmoa9u3o25oi21.apps.googleusercontent.
         </form>  
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="create-modal-close">Close</button>
-        <button type="button" class="btn btn-primary" id="createBtn">Create</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="create-modal-close">닫기</button>
+        <button type="button" class="btn btn-primary" id="createBtn">만들기</button>
       </div>
     </div>
   </div>
@@ -180,8 +180,8 @@ content = "360175730868-7161sh4v73h0hsufdvgmoa9u3o25oi21.apps.googleusercontent.
 		</form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="user-update-closeBtn">Close</button>
-        <button type="button" class="btn btn-primary" id="user-update-updateBtn">Save changes</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="user-update-closeBtn">닫기</button>
+        <button type="button" class="btn btn-primary" id="user-update-updateBtn">저장</button>
       </div>
     </div>
   </div>

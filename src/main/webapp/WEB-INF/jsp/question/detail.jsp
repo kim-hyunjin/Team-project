@@ -5,7 +5,7 @@
 <div class="room_contents">
   <div class="container">
     <span class="d-flex flex-row-reverse"> <i class="fas fa-times"
-      onclick="location.href='../lesson/list?room_no=${clazzNow.classNo}'" style="font-size: 2em; cursor: pointer"></i>
+      onclick="location.href='javascript:history.back()'" style="font-size: 2em; cursor: pointer"></i>
     </span>
     <form id="questionUpdateForm" action='update' method='post' enctype='multipart/form-data'>
       <div class="inputGroup">
@@ -33,7 +33,7 @@
         </div>
         <div class="col d-flex flex-column">
             <div>
-              <label class="inputGroupText">첨부파일</label> <span id="download" title="다운로드"
+              <label class="inputGroupText">파일</label> <span id="download" title="다운로드"
                 style="cursor: pointer; font-size: 1em;">${file.originalName}</span>
             </div>
             <input name='partfile' type='file' class="btn btn-light btn-sm mt-2 mb-3" style="width:80%;">
@@ -51,35 +51,11 @@
       <div class="d-flex flex-row-reverse">
         <button type="button" class="btn btn-primary" onclick="updateSubmit()">변경</button>
         <button type="button" class="btn btn-danger mr-2" onclick="confirmDelete()">삭제</button>
-        <button type="button" class="btn btn-success mr-2">답변보기</button>
+        <button type="button" class="btn btn-success mr-2" onclick="location.href='submitted?qno=${question.questionNo}'">답변보기</button>
       </div>
     </form>
   </div>
-  <!-- 	
-	<div id="answer_detail">
-	<h1>학생 답변 목록</h1>
-	<c:if test="${not empty answers}">
-	   <c:forEach items="${answers}" var="a">
-	     <p>${a.user.name}:</p>
-          <c:if test="${not empty a.content}">
-             <p>${a.content}</p>
-          </c:if>
-          <c:if test="${not empty multipleAnswers.get(a.multipleNo)}">
-            <p>${multipleAnswers.get(a.multipleNo).no} ${multipleAnswers.get(a.multipleNo).multipleContent}</p>
-          </c:if>
-	   </c:forEach>
-	</c:if>
-	</div>
- -->
 </div>
-
-<script>
-$('#summernote').summernote({
-    placeholder: '내용',
-    tabsize: 2,
-    height: 300
-  });
-</script>
 
 <script>
 		// 객관식 항목 추가 버튼 클릭시 #multipleBox 밑에 .multipleRow추가

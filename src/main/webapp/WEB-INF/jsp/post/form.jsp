@@ -35,13 +35,17 @@
 <body>
 	<div class="container">
 		<h3>게시글 등록</h3>
+		<span class="d-flex flex-row-reverse"> <i class="fas fa-times col-2"
+			onclick="location.href='javascript:history.back()'"
+			style="font-size: 2em; cursor: pointer"></i>
+		</span>
 		<form class="mt-5" action='../post/add' method='post'
 			enctype='multipart/form-data' onsubmit='return formCheck(this)'>
 			<input name="boardNo" type="hidden" value="${boardNo}">
 			<div class="inputGroup mb-3" style="width: 58em;">
 				<div>
 					<label class="inputGroupText">제목</label> <input id='titleInput'
-						name='title' type='text' placeholder='제목을 입력하세요.'>
+						name='title' type='text' placeholder='제목을 입력하세요.' maxlength="50">
 				</div>
 			</div>
 			<textarea id="summernote" name="content"></textarea>
@@ -50,25 +54,24 @@
 				<button class="btn btn-primary">확인</button>
 			</div>
 		</form>
-
-		<script>
-	    function formCheck(frm) {
-		if (frm.title.value == "") {
-		    alert("제목을 입력해 주세요.");
-		    frm.title.focus();
-		    return false;
-		}
-		return true;
-	    }
-	</script>
 	</div>
 	<script>
-	$('#summernote').summernote({
-	    height : 300,
-	    width : 800,
-	    placeholder : '내용을 입력하세요.'
-	});
-    </script>
+		function formCheck(frm) {
+			if (frm.title.value == "") {
+				alert("제목을 입력해 주세요.");
+				frm.title.focus();
+				return false;
+			}
+			return true;
+		}
+	</script>
+	<script>
+		$('#summernote').summernote({
+			height : 300,
+			width : 800,
+			placeholder : '내용을 입력하세요.'
+		});
+	</script>
 </body>
 </html>
 

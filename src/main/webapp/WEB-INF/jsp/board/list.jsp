@@ -27,7 +27,7 @@
        <c:forEach items="${list}" var="item">
          <div class="d-flex justify-content-between border-bottom board_list__div" style="height:3em; align-items:center;">
             <input name="boardNo" type="hidden" value="${item.boardNo}">
-            <span class="board_title_list" onclick="targetControl('../post/list?bno=${item.boardNo}&bTitle=${item.title}')">${item.title}</span>
+            <span class="board_title_list" onclick="targetControl('../post/list?boardNo=${item.boardNo}')">${item.title}</span>
             <span class="board_update" style="display:none; cursor:pointer;">
               <span onclick='modalActive2(${item.boardNo}, "${item.title}")'><i class='fas fa-edit'></i></span>
             </span>     
@@ -114,7 +114,7 @@
 <script>
     $(document).ready(function() {
             if(${fn:length(list)} > 0) {
-              targetControl('../post/list?bno=${list[0].boardNo}&bTitle=${list[0].title}');
+              targetControl('../post/list?boardNo=${list[0].boardNo}');
             }
         }
     );

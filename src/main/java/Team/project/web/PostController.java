@@ -4,8 +4,10 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
+
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+
 import Team.project.domain.ClazzMember;
 import Team.project.domain.PageMaker;
 import Team.project.domain.Post;
@@ -40,7 +43,6 @@ public class PostController {
 
   @GetMapping("form")
   public String form(String bno, Model model) throws Exception {
-    System.out.println("================>" + bno);
     model.addAttribute("boardNo", bno);
 
     return "/WEB-INF/jsp/post/form.jsp";
@@ -51,9 +53,7 @@ public class PostController {
       throws Exception {
 
     ClazzMember member = (ClazzMember) session.getAttribute("nowMember");
-    int memberNo = member.getMemberNo();
-    System.out.println("memberNo========>" + memberNo);
-    post.setMemberNo(memberNo);
+    post.setMemberNo(member.getMemberNo());
 
     if (partFile.getSize() > 0) {
       String dirPath = servletContext.getRealPath("/upload/post");
@@ -62,34 +62,21 @@ public class PostController {
       post.setFile(fileId);
     }
     postService.add(post);
-    model.addAttribute("bno", post.getBoardNo());
-    model.addAttribute("bTitle", boardService.get(post.getBoardNo()).getTitle());
-    return "redirect:list";
+    return "redirect:list?boardNo="+post.getBoardNo();
   }
 
 
-  @GetMapping("detail") // postNo가 넘어온다. => detail.jsp
-  public String detail(HttpSession session, Model model, int no) throws Exception {
-
-    ClazzMember member = (ClazzMember) session.getAttribute("nowMember");
-    int cmNo = member.getMemberNo();
-
-    model.addAttribute("classMember", cmNo);
-    System.out.println("memberNo========>" + cmNo);
-
-    session.getAttribute(Integer.toString(cmNo));
-    Post post = postService.get(no);
+  @GetMapping("detail") 
+  public String detail(HttpSession session, Model model, int postNo) throws Exception {
+    model.addAttribute("classMember", ((ClazzMember)session.getAttribute("nowMember")).getMemberNo());
+    Post post = postService.get(postNo);
     String fileId = post.getFile();
     model.addAttribute("file", fileService.get(fileId));
     model.addAttribute("post", post);
 
-    System.out.printf("================================================>", post);
-
-
     return "/WEB-INF/jsp/post/detail.jsp";
   }
 
-  //////////////////////////////////////////////////////////////////////
 
   @PostMapping("update")
   public String update(Post post, HttpSession session, MultipartFile partFile, Model model)
@@ -109,63 +96,42 @@ public class PostController {
     }
 
     postService.update(post);
-    model.addAttribute("bno", post.getBoardNo());
-    return "redirect:list";
+    return "redirect:list?boardNo="+post.getBoardNo();
   }
 
   @GetMapping("delete")
   public String delete(int no, int bno, Model model) throws Exception {
 
     postService.delete(no);
-    model.addAttribute("bno", bno);
+    model.addAttribute("boardNo", bno);
 
     return "redirect:list";
   }
 
   @RequestMapping("list")
-  public String list(@RequestParam(value = "page", defaultValue = "1") int page, int bno,
-      Model model, String bTitle) throws Exception {
-    System.out.println("pageNum=====>" + page);
-    System.out.println("bno=======>" + bno);
-    System.out.println("bTitle=======>" + bTitle);
-    model.addAttribute("posts", postService.list(bno, page));
-    int totalCount = postService.listCount(bno);
+  public String list(@RequestParam(value = "page", defaultValue = "1") int page, int boardNo,
+      Model model) throws Exception {
+    model.addAttribute("posts", postService.list(boardNo, page));
+    int totalCount = postService.listCount(boardNo);
     model.addAttribute("pageMaker", new PageMaker(page, 10, totalCount));
-    model.addAttribute("boardNo", bno);
-    model.addAttribute("boardTitle", bTitle);
-
-    System.out.println("=========================================>" + bTitle);
+    model.addAttribute("board", boardService.get(boardNo));
     return "/WEB-INF/jsp/post/list.jsp";
   }
-
-  @GetMapping("search")
-  public String search(int boardNo, String searchType, String keyword, Model model)
-      throws Exception {
-
-
-    HashMap<String, Object> map = new HashMap<>();
-    List<Post> posts = null;
-    if (searchType.equals("title")) {
-      map.put("type", "title");
-    }
-    if (searchType.equals("content")) {
-      map.put("type", "content");
-    }
-    if (searchType.equals("name")) {
-      map.put("type", "name");
-    }
-
-    map.put("keyword", keyword);
-    map.put("boardNo", boardNo);
-    posts = postService.search(map);
-
-    model.addAttribute("posts", posts);
-    int totalCount = posts.size();
-    model.addAttribute("pageMaker", new PageMaker(1, 10, totalCount));
-    model.addAttribute("boardNo", posts.get(0).getBoardNo());
-    model.addAttribute("boardTitle", posts.get(0).getBoard().getTitle());
-
-    return "/WEB-INF/jsp/post/list.jsp";
+  
+  @RequestMapping("search")
+  public String search(int boardNo, String searchType, String keyword, Model model) throws Exception {
+	  if(keyword.length() == 0) {
+		  return "redirect:list?boardNo="+boardNo;
+	  }
+	  HashMap<String, Object> params = new HashMap<>();
+	  params.put("boardNo", boardNo);
+	  params.put("type", searchType);
+	  params.put("keyword", keyword);
+	  List<Post> posts = postService.search(params);
+	  model.addAttribute("pageMaker", new PageMaker(1, 10, posts.size()));
+	  model.addAttribute("posts", posts);
+	  model.addAttribute("board", boardService.get(boardNo));
+	  return "/WEB-INF/jsp/post/list.jsp";
   }
 
 

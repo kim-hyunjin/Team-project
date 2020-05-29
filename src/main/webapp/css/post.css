@@ -34,3 +34,24 @@
   text-indent: 5px;
   border: 1px solid #bbb;
 }
+
+.pagination-nav {
+	margin-left: 3em;
+}
+
+.pagination-ul {
+	display: inline-block;
+}
+
+.pagination {
+	display: inline-block;
+	padding-left: 0;
+	list-style: none;
+	border-radius: .25rem;
+}
+
+.postTitleTd{
+	text-overflow:ellipsis; overflow:hidden; white-space:nowrap;
+}
+
+

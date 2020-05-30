@@ -41,16 +41,7 @@
       content
       create_date
   </sql>
-  
-  <!-- 
-  <select id="findAll" resultMap="PostMap" parameterType="int">
-    select
-      *
-    from post
-    where
-     board_no = #{no}
-  </select>
-   -->
+ 
 
   <select id="compare" resultMap="PostMap" parameterType="int">
     select

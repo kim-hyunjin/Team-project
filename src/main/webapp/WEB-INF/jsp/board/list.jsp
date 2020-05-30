@@ -1,96 +1,125 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
 <jsp:include page="../room/room_header.jsp" />
 
 <body>
 
-<div class="room_contents">
+		<div class="container-fluid d-flex" style="margin-top:7em; height:55em;">
+			<div class="board_part col-2 pl-5">
+				<c:if test="${nowMember.role == 0}">
+					<c:if test="${empty list}">
+						<a href="form">게시판 만들기</a>
+					</c:if>
+					<div class="d-flex justify-content-between mb-3" style="height:1em;">
+						<i class="fas fa-cog" onclick="func()" id="boardManagement"
+							style="display: inline-block; font-size: 1.2em; cursor: pointer;"></i>
+						<span id="addlink"
+							style="margin-left: 5em; display: none; cursor: pointer;">
+							<span onclick='modalActive()'><i
+								class='fas fa-folder-plus text-primary' style='font-size: 1.2em;'
+								title='게시판을 추가합니다.'></i></span>
+						</span>
+					</div>
+				</c:if>
+				<div class="board_list">
+					<c:forEach items="${list}" var="item">
+						<div
+							class="d-flex justify-content-between border-bottom font-weight-bold board_list__div"
+							style="height: 3em; align-items: center;">
+							<input name="boardNo" type="hidden" value="${item.boardNo}">
+							<span class="board_title_list"
+								onclick="targetControl('../post/list?boardNo=${item.boardNo}')">${item.title}</span>
+							<span class="board_update"
+								style="display: none; cursor: pointer;"> <span
+								onclick='modalActive2(${item.boardNo}, "${item.title}", ${item.notice})'><i
+									class='fas fa-edit text-primary'></i></span>
+							</span> <span class="board_delete"
+								style="display: none; cursor: pointer;"
+								onclick="button_del(${item.boardNo})"> <i
+								class='fas fa-times text-primary'></i>
+							</span>
+						</div>
+					</c:forEach>
+				</div>
+			</div>
+			<div class="post_part col-10">
+				<iframe id="iframeTarget" name="postList" class="post_part__content"
+					scrolling="no"></iframe>
+			</div>
+		</div>
 
-      
-       
-  <div class="board_part" >
-   <c:if test="${nowMember.role == 0}">
-       <c:if test="${empty list}" >
-         <a href="form">게시판 만들기</a>
-       </c:if>
-     <div class="d-flex justify-content-between mb-3">
-       <i class="fas fa-cog" onclick="func()" id="boardManagement" style="display:inline-block; font-size:1.2em; cursor:pointer;"></i>
-       <span id="addlink" style="margin-left:5em; display:none; cursor:pointer;">
-       <span onclick='modalActive()'><i class='fas fa-folder-plus' style='font-size:1.2em;' title='게시판을 추가합니다.'></i></span>
-       </span>
-     </div>  
-  </c:if>
-     <div class="board_list">
-       <c:forEach items="${list}" var="item">
-         <div class="d-flex justify-content-between border-bottom board_list__div" style="height:3em; align-items:center;">
-            <input name="boardNo" type="hidden" value="${item.boardNo}">
-            <span class="board_title_list" onclick="targetControl('../post/list?boardNo=${item.boardNo}')">${item.title}</span>
-            <span class="board_update" style="display:none; cursor:pointer;">
-              <span onclick='modalActive2(${item.boardNo}, "${item.title}")'><i class='fas fa-edit'></i></span>
-            </span>     
-	            <span class="board_delete" style="display:none; cursor:pointer;" onclick="button_del(${item.boardNo})">
-		              <i class='fas fa-times'></i>
-	            </span>
-         </div>
-       </c:forEach>
-    </div>
-  </div>
-         
+	<!-- Modal -->
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="myModalLabel">게시판 추가</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<form id="boardAddForm" action='add' method='post'
+						onsubmit='return formCheck(this)'>
+						<input name="title" type="text" class="form-control"
+							id="boardTitleAdd" placeholder="추가할 게시판명을 입력해주세요.">
+							<div class="d-flex mt-3"><label class="col-3 text-primary font-weight-bold" for="board-add-select">글쓰기 권한</label>
+							<select id="board-add-select" class="form-control col-9" name="notice">
+							<option value="0">모두 글 작성 가능</option>
+							<option value="1">선생님만 작성 가능</option>
+							</select>
+							</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+					<button type="button" class="btn btn-primary"
+						onclick="submitBtn();">생성</button>
+				</div>
+			</div>
+		</div>
+	</div>
 
-         <div class="post_part" style="position:absolute; position:static top; margin:0px 300px 100px 350px; width:70%; height:150%;">
-           <iframe id="iframeTarget" name="postList" class="post_part__content" scrolling="no"></iframe>
-         </div>
-         
-</div>
-     
-     <!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="myModalLabel">게시판 추가</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-      </div>
-      <div class="modal-body">
-       <form id="boardAddForm" action='add' method='post' onsubmit='return formCheck(this)'>
-          <input name="title" type="text" class="form-control" id="boardTitleAdd">
-          <small id="titleHelp" class="form-text text-muted">추가할 게시판명을 입력해주세요.</small>
-      </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
-        <button type="button" class="btn btn-primary" onclick="submitBtn();">생성</button>
-      </div>
-    </div>
-  </div>
- </div>
-  
-  <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="myModalLabel">게시판 수정</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-      </div>
-      <div class="modal-body">
-       <form id="boardUpdateForm" action='update' method='post' onsubmit='return formCheck(this)'>
-          <input name="boardNo" type="hidden" id="boardNoUpdate">
-          <input name="title" type="text" class="form-control" id="boardTitleUpdate">
-          <small id="titleHelp" class="form-text text-muted">수정할 게시판명을 입력해주세요.</small>
-      </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
-        <button type="button" class="btn btn-primary" onclick="boardUpdateBtn();">수정</button>
-      </div>
-    </div>
-  </div>
-  </div>
+	<div class="modal fade" id="myModal2" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="myModalLabel">게시판 수정</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<form id="boardUpdateForm" action='update' method='post'
+						onsubmit='return formCheck(this)'>
+            <input name="boardNo" type="hidden" id="boardUpdate-boardNo">
+						<input name="title" type="text" class="form-control"
+              id="boardTitleUpdate" placeholder="추가할 게시판명을 입력해주세요.">
+              <div class="d-flex mt-3"><label class="col-3 text-primary font-weight-bold" for="board-add-select">글쓰기 권한</label>
+              <select id="board-add-select" class="form-control col-9" name="notice">
+              <option id="boardUpdate-option-0" value="0">모두 글 작성 가능</option>
+              <option id="boardUpdate-option-1" value="1">선생님만 작성 가능</option>
+              </select>
+              </div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+					<button type="button" class="btn btn-primary"
+						onclick="boardUpdateBtn();">수정</button>
+				</div>
+			</div>
+		</div>
+	</div>
 
-<script>
+	<script>
   function formCheck(frm) {
     if (frm.title.value == "") {
       swal("제목을 입력해 주세요");
@@ -111,7 +140,7 @@
   }
 
 </script>
-<script>
+	<script>
     $(document).ready(function() {
             if(${fn:length(list)} > 0) {
               targetControl('../post/list?boardNo=${list[0].boardNo}');
@@ -124,7 +153,7 @@
       document.getElementById('iframeTarget').src = url;
     }
 </script>
-<script>
+	<script>
      const role = ${nowMember.role};
      const element = document.getElementById("boardManagement");
      if (role == 0) {
@@ -150,7 +179,7 @@
 
 </script>
 
-<script>
+	<script>
 function button_del(boardNo){
     if (confirm("정말 삭제하시겠습니까??") == true){    //확인
         location.href='delete?no='+boardNo;
@@ -160,16 +189,25 @@ function button_del(boardNo){
 }
 </script>
 
-<script>
+	<script>
     function modalActive(){
         $("#myModal").modal("show");
     }
 
-    function modalActive2(boardNo, title){
-	console.log(title);
+    function modalActive2(boardNo, title, notice){
+    	console.log(boardNo);
+    	console.log(title);
+    	console.log(notice);
         $("#myModal2").modal("show");
-        $("#boardNoUpdate").val(boardNo);
+        $("#boardUpdate-boardNo").val(boardNo)
         $("#boardTitleUpdate").val(title);
+        if(notice == 0) {
+        	$('#boardUpdate-option-0').attr('selected', 'selected');
+        	$('#boardUpdate-option-1').removeAttr('selected');
+        } else {
+        	$('#boardUpdate-option-0').removeAttr('selected');
+        	$('#boardUpdate-option-1').attr('selected', 'selected');
+        }
     }
 
 $('#myModal').on('shown.bs.modal', function () {
@@ -181,16 +219,9 @@ $('#myModal2').on('shown.bs.modal', function () {
   })
   
 </script>
-<!-- ////////////////////////////////////////////////////////// -->
-<script>
-function check() {
-    var iframe
-}
 
 
-</script>
 
-
-   </body>
+</body>
 
 </html>

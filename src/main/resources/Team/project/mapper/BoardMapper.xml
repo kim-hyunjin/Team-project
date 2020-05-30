@@ -13,17 +13,9 @@
     <result column="notice" property="notice"/>
   </resultMap>
   
-  <sql id="select1">
-    select 
-      board_no,
-      title,
-      class_no,
-      notice
-  </sql>
-  
   <select id="findAll" resultMap="BoardMap" parameterType="int">
     select
-      board_no, title
+      *
     from board
     where class_no = #{no}
   </select>
@@ -33,10 +25,9 @@
   </select>
   
   <update id="update" parameterType="Board">
- update board
-    <set>
-      <if test="title != null and title != ''">title=#{title}</if>
-    </set>
+ update board set
+    title=#{title},
+    notice=#{notice}
   where board_no = #{boardNo}
   </update>
   

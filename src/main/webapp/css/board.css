@@ -1,6 +1,4 @@
-.board_part{
-	width:15em; float:left;
-}
+
 
 .board_title_list {
 	display:inline-block;
@@ -10,12 +8,6 @@
   width:10em;
   cursor:pointer; 
   user-select:none;
-}
-
-.post_part {
-	margin:3em;
-	width:70%;
-	height:100%;
 }
 
 .post_part__content{

@@ -5,7 +5,6 @@
 	overflow:hidden;
   text-overflow:ellipsis;
   white-space: nowrap;
-  width:10em;
   cursor:pointer; 
   user-select:none;
 }

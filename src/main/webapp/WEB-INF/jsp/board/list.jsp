@@ -7,49 +7,52 @@
 
 <body>
 
-		<div class="container-fluid d-flex" style="margin-top:7em; height:55em;">
-			<div class="board_part col-2 pl-5">
-				<c:if test="${nowMember.role == 0}">
-					<c:if test="${empty list}">
-						<a href="form">게시판 만들기</a>
-					</c:if>
-					<div class="d-flex justify-content-between mb-3" style="height:1em;">
-						<i class="fas fa-cog" onclick="func()" id="boardManagement"
-							style="display: inline-block; font-size: 1.2em; cursor: pointer;"></i>
-						<span id="addlink"
-							style="margin-left: 5em; display: none; cursor: pointer;">
-							<span onclick='modalActive()'><i
-								class='fas fa-folder-plus text-primary' style='font-size: 1.2em;'
-								title='게시판을 추가합니다.'></i></span>
+	<div class="container-fluid d-flex"
+		style="margin-top: 7em; height: 55em;">
+		<div class="board_part col-2 pl-5">
+			<c:if test="${nowMember.role == 0}">
+				<c:if test="${empty list}">
+					<a href="form">게시판 만들기</a>
+				</c:if>
+				<div class="d-flex justify-content-between mb-3"
+					style="height: 1em;">
+					<span class="col-10 pl-0"> <i class="fas fa-cog" onclick="func()"
+						id="boardManagement"
+						style="display: inline-block; font-size: 1.2em; cursor: pointer;"></i>
+					</span> <span class="col-2" id="addlink"
+						style="display: none; cursor: pointer;"> <span
+						onclick='modalActive()'><i
+							class='fas fa-folder-plus text-primary' style='font-size: 1.2em;'
+							title='게시판을 추가합니다.'></i></span>
+					</span>
+				</div>
+			</c:if>
+			<div class="board_list">
+				<c:forEach items="${list}" var="item">
+					<div
+						class="d-flex justify-content-between border-bottom font-weight-bold board_list__div"
+						style="height: 3em; align-items: center;">
+						<input name="boardNo" type="hidden" value="${item.boardNo}">
+						<span class="col-8 board_title_list"
+							onclick="targetControl('../post/list?boardNo=${item.boardNo}')">${item.title}</span>
+						<span class="col-2 board_update" style="display: none; cursor: pointer;">
+							<span
+							onclick='modalActive2(${item.boardNo}, "${item.title}", ${item.notice})'><i
+								class='fas fa-edit text-primary'></i></span>
+						</span> <span class="col-2 board_delete"
+							style="display: none; cursor: pointer;"
+							onclick="button_del(${item.boardNo})"> <i
+							class='fas fa-times text-primary'></i>
 						</span>
 					</div>
-				</c:if>
-				<div class="board_list">
-					<c:forEach items="${list}" var="item">
-						<div
-							class="d-flex justify-content-between border-bottom font-weight-bold board_list__div"
-							style="height: 3em; align-items: center;">
-							<input name="boardNo" type="hidden" value="${item.boardNo}">
-							<span class="board_title_list"
-								onclick="targetControl('../post/list?boardNo=${item.boardNo}')">${item.title}</span>
-							<span class="board_update"
-								style="display: none; cursor: pointer;"> <span
-								onclick='modalActive2(${item.boardNo}, "${item.title}", ${item.notice})'><i
-									class='fas fa-edit text-primary'></i></span>
-							</span> <span class="board_delete"
-								style="display: none; cursor: pointer;"
-								onclick="button_del(${item.boardNo})"> <i
-								class='fas fa-times text-primary'></i>
-							</span>
-						</div>
-					</c:forEach>
-				</div>
-			</div>
-			<div class="post_part col-10">
-				<iframe id="iframeTarget" name="postList" class="post_part__content"
-					scrolling="no"></iframe>
+				</c:forEach>
 			</div>
 		</div>
+		<div class="post_part col-10">
+			<iframe id="iframeTarget" name="postList" class="post_part__content"
+				scrolling="no"></iframe>
+		</div>
+	</div>
 
 	<!-- Modal -->
 	<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
@@ -67,13 +70,15 @@
 					<form id="boardAddForm" action='add' method='post'
 						onsubmit='return formCheck(this)'>
 						<input name="title" type="text" class="form-control"
-							id="boardTitleAdd" placeholder="추가할 게시판명을 입력해주세요.">
-							<div class="d-flex mt-3"><label class="col-3 text-primary font-weight-bold" for="board-add-select">글쓰기 권한</label>
-							<select id="board-add-select" class="form-control col-9" name="notice">
-							<option value="0">모두 글 작성 가능</option>
-							<option value="1">선생님만 작성 가능</option>
+							id="boardTitleAdd" placeholder="추가할 게시판명을 입력해주세요." maxlength="50">
+						<div class="d-flex mt-3">
+							<label class="col-3 text-primary font-weight-bold"
+								for="board-add-select">글쓰기 권한</label> <select
+								id="board-add-select" class="form-control col-9" name="notice">
+								<option value="0">모두 글 작성 가능</option>
+								<option value="1">선생님만 작성 가능</option>
 							</select>
-							</div>
+						</div>
 					</form>
 				</div>
 				<div class="modal-footer">
@@ -99,15 +104,17 @@
 				<div class="modal-body">
 					<form id="boardUpdateForm" action='update' method='post'
 						onsubmit='return formCheck(this)'>
-            <input name="boardNo" type="hidden" id="boardUpdate-boardNo">
+						<input name="boardNo" type="hidden" id="boardUpdate-boardNo">
 						<input name="title" type="text" class="form-control"
-              id="boardTitleUpdate" placeholder="추가할 게시판명을 입력해주세요.">
-              <div class="d-flex mt-3"><label class="col-3 text-primary font-weight-bold" for="board-add-select">글쓰기 권한</label>
-              <select id="board-add-select" class="form-control col-9" name="notice">
-              <option id="boardUpdate-option-0" value="0">모두 글 작성 가능</option>
-              <option id="boardUpdate-option-1" value="1">선생님만 작성 가능</option>
-              </select>
-              </div>
+							id="boardTitleUpdate" placeholder="추가할 게시판명을 입력해주세요." maxlength="50">
+						<div class="d-flex mt-3">
+							<label class="col-3 text-primary font-weight-bold"
+								for="board-add-select">글쓰기 권한</label> <select
+								id="board-add-select" class="form-control col-9" name="notice">
+								<option id="boardUpdate-option-0" value="0">모두 글 작성 가능</option>
+								<option id="boardUpdate-option-1" value="1">선생님만 작성 가능</option>
+							</select>
+						</div>
 					</form>
 				</div>
 				<div class="modal-footer">

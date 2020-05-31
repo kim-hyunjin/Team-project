@@ -1,42 +1,56 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"
-    trimDirectiveWhitespaces="true"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"
+  trimDirectiveWhitespaces="true"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<jsp:include page="../room/room_header.jsp"/>
+<jsp:include page="../room/room_header.jsp" />
 
 <div class="room_contents">
-
-<select id="filter_list" onclick="activeFilter(this.value)">
-  <option>전체</option>
-  <option  v-for="item in assignments">
-    {{item.title}}
-  </option>
-  <option>제출</option>
-  <option>미제출</option>
-</select>
-
-<div id="grade_contents">
-  <ul id="grade_list">
-    <li v-for="user in users" v-if="user.role != 0">
-      <span class="user_info">{{user.user.name}}</span>
-      <div v-for="submit in submits" >
-        <div v-if="submit.user.userNo == user.userNo && submit.hasOwnProperty('createDate')" class="assignments_info green" >
-          <a v-bind:href="`../assignmentSubmit/submitted?assignmentNo=`+submit.assignmentNo" title="제출 과제 확인 및 평가하기">
-              <div>{{ submit.assignment.title }}</div>
-          </a>
-            <div>{{ submit.score }}</div>
-          </div>
-        <div v-if="submit.user.userNo == user.userNo && !submit.hasOwnProperty('createDate')" class="assignments_info red">
-          <div>{{ submit.assignment.title }}</div>
-          <div>{{ submit.score }}</div>
-        </div>
+  <div class="container-fluid">
+    <div class="row d-flex">
+      <div class="col-4">
+        <select class="form-control form-control-sm col-6" id="filter_list"
+          onclick="activeFilter(this.value)">
+          <option>전체</option>
+          <option>제출</option>
+          <option>미제출</option>
+        </select>
       </div>
-    </li>
-  </ul>
-</div>
-
-</div>
+      <div class="col-8 d-flex">
+        <select class="form-control form-control-sm col-2 mr-2" id="searchType">
+          <option value="student">학생명</option>
+          <option value="assignment">과제명</option>
+        </select> <input type="text" class="form-control form-control-sm col-6" id="keyword"
+          onkeyup="search(this.value)" placeholder="검색어를 입력하세요">
+      </div>
+    </div>
+    <div class="row mt-3" id="grade_contents">
+      <ul class="d-flex flex-column" id="grade_list" style="width: 100%">
+        <li class="d-flex border-bottom p-3" v-for="user in users" v-if="user.role != 0">
+          <div class="col-2 user_info font-weight-bold" style="font-size:1.2em;">{{user.user.name}}</div>
+          <div class="col-10 d-flex flex-wrap align-content-around">
+            <div v-for="submit in submits">
+              <!-- 과제 제출한 경우 box -->
+              <div v-if="submit.user.userNo == user.userNo && submit.hasOwnProperty('createDate')"
+                class="bg-info text-white grade-assignment-card text-center font-weight-bold d-flex flex-column justify-content-center border m-1 rounded-lg">
+                <a class="d-block text-truncate"
+                  v-bind:href="`../assignmentSubmit/submitted?assignmentNo=`+submit.assignmentNo"
+                  :title="submit.assignment.title"> {{ submit.assignment.title }} </a>
+                <div>{{ submit.score }}</div>
+              </div>
+              <!-- 과제 제출하지 않은 경우 box -->
+              <div v-if="submit.user.userNo == user.userNo && !submit.hasOwnProperty('createDate')"
+                class="bg-light text-secondary grade-assignment-card text-center font-weight-bold d-flex flex-column justify-content-center border m-1 rounded-lg">
+                <a class="d-block text-truncate"
+                  v-bind:href="`../assignmentSubmit/submitted?assignmentNo=`+submit.assignmentNo"
+                  :title="submit.assignment.title"> {{ submit.assignment.title }} </a>
+                <div>{{ submit.score }}</div>
+              </div>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
 </div>
 <script>
 const clazzMembersJson = eval('('+ '${clazzMembers}' +')');
@@ -93,6 +107,24 @@ var filter_list = new Vue({
           return item.assignment.title.match(value);
         })
     }
+  }
+  
+  //검색 기능
+  function search(value) {
+	  grade_list.submits = submitsJson;
+	  grade_list.users = clazzMembersJson;
+	  
+	  let searchType = $('#searchType').val();
+	  if(searchType == 'assignment') {
+		  grade_list.submits = submitsJson.filter(function (item) {
+	          return item.assignment.title.includes(value);
+	        })
+	  } else if(searchType == 'student') {
+		  grade_list.users = clazzMembersJson.filter(function (item) {
+	            return item.user.name.includes(value);
+	          })
+	  }
+	  
   }
 
     

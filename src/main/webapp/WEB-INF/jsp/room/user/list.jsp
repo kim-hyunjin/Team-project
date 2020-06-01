@@ -161,12 +161,12 @@
 let btn = document.getElementById("memberAddBtn");
 // 버튼 클릭시 유효성 검사 시작(type="button"인 경우 버튼을 클릭해도 submit을 수행하지 않는다.)
 btn.addEventListener("click", function(event){
+    event.preventDefault();
     let form = document.getElementById("modalMemberAddForm");
     const input = document.getElementById("emailInput");
     const email = form.email.value;
     // 입력값이 없으면 경고창 띄움
     if(email.length == 0) {
-        event.preventDefault();
         input.focus();
         return;
     } else {
@@ -175,14 +175,12 @@ btn.addEventListener("click", function(event){
         xhr.send();
         // get요쳥으로 이메일 체크 
         if(xhr.status == 404) { // 입력한 이메일을 가진 유저가 없으면 404
-            event.preventDefault();
             input.value = "";
             input.setAttribute("placeholder", "유효하지 않는 이메일입니다!");
             input.focus();
             return;
         }
         if(xhr.status == 200) { // 이메일이 유효하고, 클래스룸의 소속이면 200
-            event.preventDefault();
             input.value = "";
             input.setAttribute("placeholder", "이미 클래스의 멤버입니다!");
             input.focus();

@@ -7,7 +7,7 @@
 <div class="user_content">
   <div class="teacher">
     <div class="teacher__header">
-      <div style="font-size: x-large; font-weight: bold;">선생</div>
+      <div style="font-size: x-large; font-weight: bold;">Teacher</div>
       <span onclick="memberAddModalActive(0)" style="cursor: pointer;" onclick="popup(0)"> <i
         class="fas fa-user-plus"></i></span>
     </div>
@@ -20,7 +20,7 @@
               src="${pageContext.servletContext.contextPath}/upload/user/thumbnail.${teacher.user.profilePhoto}.jpg" /></span>
           </c:if> <c:if test="${empty teacher.user.profilePhoto}">
             <span class="user_list__profile"><i class="far fa-user"></i></span>
-          </c:if> <span data-toggle="modal" data-target="#MemberDetailModal" style="cursor: pointer;">${teacher.user.name}</span>
+          </c:if> <span class="user_list__profile___add text-truncate" data-toggle="modal" data-target="#MemberDetailModal" style="cursor: pointer;">${teacher.user.name}</span>
         </li>
       </c:forEach>
     </ul>
@@ -28,7 +28,7 @@
 
   <div class="student" style="margin-top: 10em;">
     <div class="student__header">
-      <div style="font-size: x-large; font-weight: bold;">학생</div>
+      <div style="font-size: x-large; font-weight: bold;">Student</div>
       <span onclick="memberAddModalActive(1)" style="cursor: pointer;"><i class="fas fa-user-plus"></i></span>
     </div>
     <hr>
@@ -40,7 +40,7 @@
               src="${pageContext.servletContext.contextPath}/upload/user/thumbnail.${student.user.profilePhoto}.jpg" /></span>
           </c:if> <c:if test="${empty student.user.profilePhoto}">
             <span class="user_list__profile"><i class="far fa-user"></i></span>
-          </c:if> <span data-toggle="modal" data-target="#MemberDetailModal" style="cursor: pointer;">${student.user.name}</span>
+          </c:if> <span class="user_list__profile___add text-truncate" data-toggle="modal" data-target="#MemberDetailModal" style="cursor: pointer;">${student.user.name}</span>
         </li>
       </c:forEach>
     </ul>

@@ -5,9 +5,6 @@
 
 <jsp:include page="../room/room_header.jsp" />
 
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
-
-
 <body>
 
 	<div class="container-fluid d-flex"
@@ -133,7 +130,6 @@
 	  function formCheck(frm) {
 	      if (frm.title.value == "") {
 	    Swal.fire({
-	        position : 'top',
 	        icon : 'error',
 	        title : '제목을 입력해주세요.',
 	    });
@@ -197,14 +193,14 @@
 
 function button_del(boardNo){
     Swal.fire({
-    position: 'top',
     title: '정말 삭제하시겠습니까?',
     text: '삭제하면 되돌릴 수 없습니다.',
     icon: 'warning',
     showCancelButton: true,
-    confirmButtonColor: '#3085d6',
-    cancelButtonColor: '#d33',
-    confirmButtonText: 'Yes, delete it!'
+    confirmButtonColor: '#d33',
+    cancelButtonColor: '#A4A4A4',
+    cancelButtonText: '취소',
+    confirmButtonText: '삭제'
   }).then((result) => {
     if (result.value) {
 	location.href='delete?no='+boardNo;

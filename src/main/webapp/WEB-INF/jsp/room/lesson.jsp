@@ -3,7 +3,9 @@
 	pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<jsp:include page="../room/room_header.jsp" />
+<jsp:include page="room_header.jsp" />
+
+
 
 <div class="container-fluid" style='margin-top:8em; display:flex;'>
 <aside id='lesson_aside'>

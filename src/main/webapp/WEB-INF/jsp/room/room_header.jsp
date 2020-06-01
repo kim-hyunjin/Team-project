@@ -24,7 +24,12 @@
 <script src="https://kit.fontawesome.com/764f0503e3.js" crossorigin="anonymous"></script>
 <!-- 카카오 로그인 -->
 <script src="/Team-project/script/kakao.js"></script>
+<!-- 구글 로그인 -->
+<script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script>
+<meta name="google-signin-client_id" content="360175730868-7161sh4v73h0hsufdvgmoa9u3o25oi21.apps.googleusercontent.com">
 <script>
+
+//카카오 로그인 관련
         Kakao.init('e42d7bc3930faad4ef83d4fb783cf136');
         console.log(Kakao.isInitialized());
         function kakaoLogout() {
@@ -35,12 +40,8 @@
           window.location.href="../../auth/logout";
         })
       }
-</script>
 
-<!-- 구글 로그인 -->
-<script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script>
-<meta name="google-signin-client_id" content="360175730868-7161sh4v73h0hsufdvgmoa9u3o25oi21.apps.googleusercontent.com">
-<script>
+        //구글 로그인, 로그아웃 관련
     function signOut() {
         var auth2 = gapi.auth2.getAuthInstance();
         auth2.signOut().then(function () {
@@ -58,96 +59,6 @@
 </script>
 <!-- css -->
 <link rel="stylesheet" href="/Team-project/css/style.css" />
-<script>
-    // 수업 정보 수정을 위한 스크립트
-    $('#class_settings').click(function () {
-    let classData = undefined;
-    $.getJSON("../../clazz/detail", function(data) {
-        classData = data;
-        let classUpdateForm = document.getElementById('modal-class-update');
-        classUpdateForm.classNo.value = data.classNo;
-        classUpdateForm.name.value = data.name;
-        if(data.description != undefined){
-          classUpdateForm.description.value = data.description;
-        }
-        if(data.room != undefined) {
-          classUpdateForm.room.value = data.room;
-        }
-        classUpdateForm.classCode.value = data.classCode;
-        $('#class-createDate').html(data.createDate);
-        classUpdateForm.color.value = data.color;
-    });
-    
-    $('#class-delete-Btn').click(() =>{
-        Swal.fire({
-                    title: '정말 삭제하시겠습니까?',
-                    text: "삭제하면 되돌릴 수 없습니다.",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Yes, delete it!'
-                  }).then((result) => {
-                    if (result.value) {
-                        location.href = "../../clazz/delete?no="+classData.classNo;
-                    }
-            
-          });
-
-    });
-    
-    $('#class-update-updateBtn').click(()=>{
-      $('#modal-class-update').submit();
-    });
-
-    // 유저 정보 수정을 위한 스크립트
-    $('#headerUserName').click(function () {
-    let userJson = undefined;
-    $.getJSON("../../user/detail?userNo=${loginUser.userNo}", function(data) {
-        userJson = data;
-        if(userJson.profilePhoto != undefined) {
-          document.getElementById('modal-user-img').setAttribute('src', '${pageContext.servletContext.contextPath}/upload/user/thumbnail.'+userJson.profilePhoto+'.jpg');
-        } else {
-            $('#modal-user-profile-div').html('<i class="far fa-user"></i>');
-        }
-          let userUpdateForm = document.getElementById('modal-user-update');
-          userUpdateForm.userNo.value = userJson.userNo;
-          userUpdateForm.email.value = userJson.email;
-          userUpdateForm.name.value = userJson.name
-          if(userJson.tel != undefined) {
-            userUpdateForm.tel.value = userJson.tel;
-          }
-          if(userJson.major != undefined) {
-            userUpdateForm.major.value = userJson.major;
-          }
-          if(userJson.introduce != undefined) {
-            userUpdateForm.introduce.innerHTML = userJson.introduce;
-          }
-          $('#user-createDate').html(userJson.createDate);
-    });
-    
-      $('#modal-user-delete-btn').click(() =>{
-        Swal.fire({
-                  title: '정말 삭제하시겠습니까?',
-                  text: "삭제하면 되돌릴 수 없습니다.",
-                  icon: 'warning',
-                  showCancelButton: true,
-                  confirmButtonColor: '#3085d6',
-                  cancelButtonColor: '#d33',
-                  confirmButtonText: 'Yes, delete it!'
-                }).then((result) => {
-                  if (result.value) {
-                      location.href = "../../user/delete?no="+userJson.userNo;
-                  }
-            })
-          
-        });
-    });
-    
-    $('#user-update-updateBtn').click(()=>{
-    $('#modal-user-update').submit();
-    });
-</script>
 </head>
 <body>
   <nav class="header room_header">
@@ -169,7 +80,7 @@
       </c:if>
       <c:if test="${not empty loginUser}">
         <div class="header__user">
-          <c:if test="${not empty loginUser.profilePhoto}">
+          <c:if test="${not empty loginUser.profilePhoto && loginUser.profilePhoto ne 'undefined'}">
             <c:if test="${loginUser.loginMethod > 0}">
               <span class="header__user__photo"><img src='${loginUser.profilePhoto}'></span>
             </c:if>
@@ -178,7 +89,7 @@
                 src='${pageContext.servletContext.contextPath}/upload/user/thumbnail.${loginUser.profilePhoto}.jpg'></span>
             </c:if>
           </c:if>
-          <c:if test="${empty loginUser.profilePhoto}">
+          <c:if test="${empty loginUser.profilePhoto  || loginUser.profilePhoto eq 'undefined'}">
             <i class="far fa-user" style="font-size: 1.5em; margin-right: 0.3em;"></i>
           </c:if>
           <div id="headerUserName" data-toggle="modal" data-target="#userDetailModal" style="cursor: pointer;">${loginUser.name}</div>
@@ -190,7 +101,7 @@
           <a href="../../auth/logout">로그아웃</a>
         </c:if>
         <c:if test="${loginUser.loginMethod == 1}">
-          <button class="api-btn" onclick="kakaoLogout()">로그아웃</button>
+          <a href="#" class="api-btn" onclick="kakaoLogout()">로그아웃</a>
         </c:if>
       </c:if>
     </div>
@@ -299,3 +210,95 @@
       </div>
     </div>
   </div>
+
+  <script>
+    // 수업 정보 수정을 위한 스크립트
+    $('#class_settings').click(function () {
+      let classData = undefined;
+      $.getJSON("../../clazz/detail", function(data) {
+          classData = data;
+          let classUpdateForm = document.getElementById('modal-class-update');
+          classUpdateForm.classNo.value = data.classNo;
+          classUpdateForm.name.value = data.name;
+          if(data.description != undefined){
+            classUpdateForm.description.value = data.description;
+          }
+          if(data.room != undefined) {
+            classUpdateForm.room.value = data.room;
+          }
+          classUpdateForm.classCode.value = data.classCode;
+          $('#class-createDate').html(data.createDate);
+          classUpdateForm.color.value = data.color;
+      });
+      
+      $('#class-delete-Btn').click(() =>{
+          Swal.fire({
+                      title: '정말 삭제하시겠습니까?',
+                      text: "삭제하면 되돌릴 수 없습니다.",
+                      icon: 'warning',
+                      showCancelButton: true,
+                      confirmButtonColor: '#3085d6',
+                      cancelButtonColor: '#d33',
+                      confirmButtonText: 'Yes, delete it!'
+                    }).then((result) => {
+                      if (result.value) {
+                          location.href = "../../clazz/delete?no="+classData.classNo;
+                      }
+            });
+        });
+    });
+    
+    $('#class-update-updateBtn').click(()=>{
+      $('#modal-class-update').submit();
+    });
+
+    // 유저 정보 수정을 위한 스크립트
+    $('#headerUserName').click(function () {
+    let userJson = undefined;
+    $.getJSON("../../user/detail?userNo=${loginUser.userNo}", function(data) {
+        userJson = data;
+        if(userJson.profilePhoto != undefined && userJson.profilePhoto != 'undefined' && userJson.loginMethod == 0) {
+            document.getElementById('modal-user-img').setAttribute('src', '${pageContext.servletContext.contextPath}/upload/user/thumbnail.'+userJson.profilePhoto+'.jpg');
+              } else if(userJson.profilePhoto != undefined && userJson.profilePhoto != 'undefined' && userJson.loginMethod > 0) {
+                  document.getElementById('modal-user-img').setAttribute('src', userJson.profilePhoto);
+              } else {
+                  $('#modal-user-profile-div').html('<i class="far fa-user"></i>');
+              }
+          let userUpdateForm = document.getElementById('modal-user-update');
+          userUpdateForm.userNo.value = userJson.userNo;
+          userUpdateForm.email.value = userJson.email;
+          userUpdateForm.name.value = userJson.name
+          if(userJson.tel != undefined) {
+            userUpdateForm.tel.value = userJson.tel;
+          }
+          if(userJson.major != undefined) {
+            userUpdateForm.major.value = userJson.major;
+          }
+          if(userJson.introduce != undefined) {
+            userUpdateForm.introduce.innerHTML = userJson.introduce;
+          }
+          $('#user-createDate').html(userJson.createDate);
+    });
+    
+      $('#modal-user-delete-btn').click(() =>{
+        Swal.fire({
+                  title: '정말 삭제하시겠습니까?',
+                  text: "삭제하면 되돌릴 수 없습니다.",
+                  icon: 'warning',
+                  showCancelButton: true,
+                  confirmButtonColor: '#3085d6',
+                  cancelButtonColor: '#d33',
+                  confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                  if (result.value) {
+                      location.href = "../../user/delete?no="+userJson.userNo;
+                  }
+            })
+          
+        });
+    });
+    
+    $('#user-update-updateBtn').click(()=>{
+      $('#modal-user-update').submit();
+    });
+</script>

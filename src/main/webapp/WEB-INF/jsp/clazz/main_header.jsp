@@ -22,6 +22,7 @@
 <script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script>
 <!-- 구글 메타 태그 추가 -->
 <meta name="google-signin-client_id" content="360175730868-7161sh4v73h0hsufdvgmoa9u3o25oi21.apps.googleusercontent.com">
+
 <script>
         Kakao.init('e42d7bc3930faad4ef83d4fb783cf136');
         console.log(Kakao.isInitialized());

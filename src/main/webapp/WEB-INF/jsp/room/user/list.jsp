@@ -64,19 +64,19 @@
         <form id="modal-memberDetail" class="form-group d-flex flex-column">
           <input name='memberNo' type='hidden'>
           <div class="d-flex">
-            <label class="col-3 text-primary font-weight-bold">이메일</label><input class="form-control" name='email' type='text' readonly>
+            <label class="col-3">이메일</label><input class="form-control" name='email' type='text' readonly>
           </div>
           <div class="d-flex mt-2">
-            <label class="col-3 text-primary font-weight-bold">이름</label><input class="form-control" name='name' type='text' readonly>
+            <label class="col-3">이름</label><input class="form-control" name='name' type='text' readonly>
           </div>
           <div class="d-flex mt-2">
-            <label class="col-3 text-primary font-weight-bold">전화번호</label><input class="form-control" name='tel' type='text' readonly>
+            <label class="col-3">전화번호</label><input class="form-control" name='tel' type='text' readonly>
           </div>
           <div class="d-flex mt-2">
-            <label class="col-3 text-primary font-weight-bold">전공</label><input class="form-control" name='major' type='text' readonly>
+            <label class="col-3">전공</label><input class="form-control" name='major' type='text' readonly>
           </div>
           <div class="d-flex flex-column mt-2">
-            <label class="col-3 text-primary font-weight-bold">소개</label>
+            <label class="col-3">소개</label>
             <textarea class="form-control" name='introduce' type='text' readonly style="resize: none; background-color:white;"></textarea>
           </div>
         </form>

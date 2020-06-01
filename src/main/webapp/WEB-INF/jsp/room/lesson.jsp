@@ -49,22 +49,20 @@
 	 </div>
 		<div onclick='location.href="../question/form"'onmouseover='this.style.backgroundColor="#b3ecff"'
     onmouseleave='this.style.backgroundColor="white"' id="question_add_btn">
-		  <i class="fas fa-question-circle"></i>질문 추가
+		  <i class="fas fa-question-circle text-info"></i>질문 추가
 		</div>
 	</div>
 </div>
 <div id="lesson_box">
 	<ul id="lesson_contents">
-	  <li v-for="item in items" v-if="item.hasOwnProperty('questionNo')">
-      <a v-bind:href="`../question/detail?qno=`+item.questionNo">	   
-  	    <i class="fas fa-question-circle"></i><span>{{ item["title"] }}</span>
+	  <li v-for="item in items">
+      <a v-if="item.hasOwnProperty('questionNo')" v-bind:href="`../question/detail?qno=`+item.questionNo">	   
+  	    <i class="fas fa-question-circle text-info"></i><span>{{ item["title"] }}</span>
 	    </a>
-	  </li>
-	  <li v-for="item in items" v-if="item.hasOwnProperty('assignmentNo')">
-	   <a v-bind:href="`../assignment/detail?assignmentNo=`+ item.assignmentNo">
+      <a v-if="item.hasOwnProperty('assignmentNo')" v-bind:href="`../assignment/detail?assignmentNo=`+ item.assignmentNo">
         <i class="fas fa-pen-square"></i><span>{{ item["title"] }}</span>
      </a>
-    </li>
+	  </li>
   </ul>
 </div>
 </section>
@@ -84,9 +82,10 @@ var questionJson = '${questionJson}';
 var assignmentJson = '${assignmentJson}';
 
 //서버로부터 받은 자료
-let questions = JSON.parse(decodeURIComponent(questionJson).replace(/\+/g," "));
-let assignments = JSON.parse(decodeURIComponent(assignmentJson).replace(/\+/g," "));
+let questions = eval("(" + decodeURIComponent(questionJson).replace(/\+/g," ")+")");
+let assignments = eval("(" + decodeURIComponent(assignmentJson).replace(/\+/g," ")+")");
 let all = questions.concat(assignments);
+console.log(all);
 
 //생성일 순으로 정렬
 let sortingField = "createDate";

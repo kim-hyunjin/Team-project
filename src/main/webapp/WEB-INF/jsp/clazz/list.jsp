@@ -122,11 +122,20 @@ $(document).on('click', '.clazz-modal', function(event) {
 
  // 수업 삭제시 정말 삭제할지 묻는 코드
     function button_event(no){
-         if (confirm("정말 삭제하시겠습니까??") == true){    //확인
-             location.href='delete?no='+no;
-        }else{   //취소
-          return;
-        }
+    	Swal.fire({
+    	          title: '정말 삭제하시겠습니까?',
+    	          text: "삭제하면 되돌릴 수 없습니다.",
+    	          icon: 'warning',
+    	          showCancelButton: true,
+    	          confirmButtonColor: '#3085d6',
+    	          cancelButtonColor: '#d33',
+    	          confirmButtonText: 'Yes, delete it!'
+    	        }).then((result) => {
+    	          if (result.value) {
+    	              location.href='delete?no='+no;
+    	          }
+    	    })
+         
     }
     </script>
 

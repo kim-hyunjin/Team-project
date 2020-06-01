@@ -41,11 +41,14 @@ public class AppConfig implements WebMvcConfigurer {
     return mr;
   }
 
+
   @Override
   public void addInterceptors(InterceptorRegistry registry) {
     registry.addInterceptor(roomUserInterceptor) //
         .addPathPatterns("/room/**");
   }
+
+
 
 }
 

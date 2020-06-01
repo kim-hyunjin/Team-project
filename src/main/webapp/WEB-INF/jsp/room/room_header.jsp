@@ -16,10 +16,15 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
   integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 
+
 <!--favicon -->
 <link rel="favicon" href="images/favicon.ico">
 <link rel="shortcut icon" href="http://localhost:9999/Team-project/images/favicon.ico" type="image/x-icon" />
 <link rel="icon" href="http://localhost:9999/Team-project/images/favicon.ico" type="image/x-icon" />
+
+
+<!-- sweet alert2 -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 
 <!-- summernote -->
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
@@ -39,7 +44,7 @@
           window.location.href="../../auth/logout";
         })
       }
-    </script>
+</script>
 
 <!-- 구글 로그인 -->
 <script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script>
@@ -59,9 +64,99 @@
           gapi.auth2.init();
         });
       }
-      </script>
+</script>
 <!-- css -->
 <link rel="stylesheet" href="/Team-project/css/style.css" />
+<script>
+    // 수업 정보 수정을 위한 스크립트
+    $('#class_settings').click(function () {
+    let classData = undefined;
+    $.getJSON("../../clazz/detail", function(data) {
+        classData = data;
+        let classUpdateForm = document.getElementById('modal-class-update');
+        classUpdateForm.classNo.value = data.classNo;
+        classUpdateForm.name.value = data.name;
+        if(data.description != undefined){
+          classUpdateForm.description.value = data.description;
+        }
+        if(data.room != undefined) {
+          classUpdateForm.room.value = data.room;
+        }
+        classUpdateForm.classCode.value = data.classCode;
+        $('#class-createDate').html(data.createDate);
+        classUpdateForm.color.value = data.color;
+    });
+    
+    $('#class-delete-Btn').click(() =>{
+        Swal.fire({
+                    title: '정말 삭제하시겠습니까?',
+                    text: "삭제하면 되돌릴 수 없습니다.",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                  }).then((result) => {
+                    if (result.value) {
+                        location.href = "../../clazz/delete?no="+classData.classNo;
+                    }
+            
+          });
+
+    });
+    
+    $('#class-update-updateBtn').click(()=>{
+      $('#modal-class-update').submit();
+    });
+
+    // 유저 정보 수정을 위한 스크립트
+    $('#headerUserName').click(function () {
+    let userJson = undefined;
+    $.getJSON("../../user/detail?userNo=${loginUser.userNo}", function(data) {
+        userJson = data;
+        if(userJson.profilePhoto != undefined) {
+          document.getElementById('modal-user-img').setAttribute('src', '${pageContext.servletContext.contextPath}/upload/user/thumbnail.'+userJson.profilePhoto+'.jpg');
+        } else {
+            $('#modal-user-profile-div').html('<i class="far fa-user"></i>');
+        }
+          let userUpdateForm = document.getElementById('modal-user-update');
+          userUpdateForm.userNo.value = userJson.userNo;
+          userUpdateForm.email.value = userJson.email;
+          userUpdateForm.name.value = userJson.name
+          if(userJson.tel != undefined) {
+            userUpdateForm.tel.value = userJson.tel;
+          }
+          if(userJson.major != undefined) {
+            userUpdateForm.major.value = userJson.major;
+          }
+          if(userJson.introduce != undefined) {
+            userUpdateForm.introduce.innerHTML = userJson.introduce;
+          }
+          $('#user-createDate').html(userJson.createDate);
+    });
+    
+      $('#modal-user-delete-btn').click(() =>{
+        Swal.fire({
+                  title: '정말 삭제하시겠습니까?',
+                  text: "삭제하면 되돌릴 수 없습니다.",
+                  icon: 'warning',
+                  showCancelButton: true,
+                  confirmButtonColor: '#3085d6',
+                  cancelButtonColor: '#d33',
+                  confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                  if (result.value) {
+                      location.href = "../../user/delete?no="+userJson.userNo;
+                  }
+            })
+          
+        });
+    });
+    
+    $('#user-update-updateBtn').click(()=>{
+    $('#modal-user-update').submit();
+    });
+</script>
 </head>
 <body>
   <nav class="header room_header">
@@ -122,28 +217,29 @@
           </button>
         </div>
         <div class="modal-body">
-        <form class="d-flex flex-column" id="modal-class-update" action='../../clazz/update?from=room' method='post' enctype='multipart/form-data'>
-          <input name='classNo' type='hidden'>
-          <div class="form-group">
-            <label>수업명</label><input class="form-control" name='name' type='text' maxlength="30">
-          </div>
-          <div class="form-group">
-            <label>설명</label>
-            <textarea class="form-control" rows="5" name='description' style="resize: none"></textarea>
-          </div>
-          <div class="form-group">
-            <label>강의실</label><input class="form-control" name='room' type='text'>
-          </div>
-          <div class="form-group">
-            <label>수업코드</label><input class="form-control form-control-sm" name='classCode' type='text'>
-          </div>
-          <div class="form-group">
-            <label>테마색상</label><input class="form-control" name='color' type='color'>
-          </div>
-          <div>
-            <label>생성일</label><span id="class-createDate" style="font-size: 1.2em; margin-left:1em;"></span>
-          </div>
-        </form>
+          <form class="d-flex flex-column" id="modal-class-update" action='../../clazz/update?from=room' method='post'
+            enctype='multipart/form-data'>
+            <input name='classNo' type='hidden'>
+            <div class="form-group">
+              <label>수업명</label><input class="form-control" name='name' type='text' maxlength="30">
+            </div>
+            <div class="form-group">
+              <label>설명</label>
+              <textarea class="form-control" rows="5" name='description' style="resize: none"></textarea>
+            </div>
+            <div class="form-group">
+              <label>강의실</label><input class="form-control" name='room' type='text'>
+            </div>
+            <div class="form-group">
+              <label>수업코드</label><input class="form-control form-control-sm" name='classCode' type='text'>
+            </div>
+            <div class="form-group">
+              <label>테마색상</label><input class="form-control" name='color' type='color'>
+            </div>
+            <div>
+              <label>생성일</label><span id="class-createDate" style="font-size: 1.2em; margin-left: 1em;"></span>
+            </div>
+          </form>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-danger" id="class-delete-Btn">수업삭제</button>
@@ -173,10 +269,11 @@
             enctype='multipart/form-data'>
             <input name='userNo' type='hidden'>
             <div class="form-group">
-              <label>이메일</label><input class="form-control" name='email' type='email' readonly>
+              <label>이메일</label><input class="form-control" name='email' type='email' readonly
+                style="background-color: white;">
             </div>
             <div class="form-group">
-              <label>이름</label><input class="form-control" name='name' type='text'>
+              <label>이름</label><input class="form-control" name='name' type='text' maxlength="30">
             </div>
             <div class="form-group">
               <label>암호</label><input class="form-control" name='password' type='password'
@@ -211,77 +308,3 @@
       </div>
     </div>
   </div>
-  <script>
-    // 수업 정보 수정을 위한 스크립트
-    $('#class_settings').click(function () {
-		let classData = undefined;
-		$.getJSON("../../clazz/detail", function(data) {
-		    classData = data;
-		    let classUpdateForm = document.getElementById('modal-class-update');
-		    classUpdateForm.classNo.value = data.classNo;
-		    classUpdateForm.name.value = data.name;
-		    if(data.description != undefined){
-		    	classUpdateForm.description.value = data.description;
-		    }
-		    if(data.room != undefined) {
-		    	classUpdateForm.room.value = data.room;
-		    }
-		    classUpdateForm.classCode.value = data.classCode;
-		    $('#class-createDate').html(data.createDate);
-		    classUpdateForm.color.value = data.color;
-		});
-		
-		$('#class-delete-Btn').click(() =>{
-			if (confirm("정말 삭제하시겠습니까??") == true){    //확인
-			    location.href = "../../clazz/delete?no="+classData.classNo;
-			}else{   //취소
-			    return;
-			}
-		});
-    });
-    
-    $('#class-update-updateBtn').click(()=>{
-		$('#modal-class-update').submit();
-	});
-
-    </script>
-  <script>
-    // 유저 정보 수정을 위한 스크립트
-    $('#headerUserName').click(function () {
-		let userJson = undefined;
-		$.getJSON("../../user/detail?userNo=${loginUser.userNo}", function(data) {
-		    userJson = data;
-		    if(userJson.profilePhoto != undefined) {
-	    		document.getElementById('modal-user-img').setAttribute('src', '${pageContext.servletContext.contextPath}/upload/user/thumbnail.'+userJson.profilePhoto+'.jpg');
-	    	} else {
-	    	    $('#modal-user-profile-div').html('<i class="far fa-user"></i>');
-	    	}
-	    		let userUpdateForm = document.getElementById('modal-user-update');
-	    		userUpdateForm.userNo.value = userJson.userNo;
-	    		userUpdateForm.email.value = userJson.email;
-		    	userUpdateForm.name.value = userJson.name
-		    	if(userJson.tel != undefined) {
-		    		userUpdateForm.tel.value = userJson.tel;
-		    	}
-		    	if(userJson.major != undefined) {
-			   		userUpdateForm.major.value = userJson.major;
-		    	}
-		   		if(userJson.introduce != undefined) {
-		    		userUpdateForm.introduce.innerHTML = userJson.introduce;
-	    		}
-		   		$('#user-createDate').html(userJson.createDate);
-		});
-		
-	    $('#modal-user-delete-btn').click(() =>{
-			if (confirm("정말 삭제하시겠습니까??") == true){    //확인
-			    location.href = "../../user/delete?no="+userJson.userNo;
-			}else{   //취소
-			    return;
-			}
-		});
-    });
-    
-    $('#user-update-updateBtn').click(()=>{
-		$('#modal-user-update').submit();
-    });
-    </script>

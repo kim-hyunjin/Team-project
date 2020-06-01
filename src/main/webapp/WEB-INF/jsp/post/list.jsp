@@ -66,7 +66,7 @@ li {
         </form>
       </div>
     </div>
-    <div class="row mb-3" style="height: 35em;">
+    <div class="row mb-3" style="height: 35em; margin-top: 17px;">
       <!-- 게시글 있을 때 -->
       <c:if test="${not empty posts}">
         <table class="table table-hover" style="table-layout: fixed;">

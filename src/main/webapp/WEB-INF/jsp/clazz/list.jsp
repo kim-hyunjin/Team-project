@@ -23,7 +23,7 @@
               <div onMouseover="this.style.backgroundColor='gray';" onMouseout="this.style.backgroundColor='white';"
                 onclick="button_event(${clazz.classNo})">삭제</div>
             </div>
-          </div>
+          </div> 
           <span>${clazz.room}</span>
         </div>
         <div class="description">${clazz.description}</div>
@@ -54,8 +54,8 @@
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="create-modal-close">Close</button>
-        <button type="button" class="btn btn-primary" id="modal-updateBtn">Update</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="create-modal-close">닫기</button>
+        <button type="button" class="btn btn-primary" id="modal-updateBtn">수정</button>
       </div>
     </div>
   </div>
@@ -127,9 +127,10 @@ $(document).on('click', '.clazz-modal', function(event) {
     	          text: "삭제하면 되돌릴 수 없습니다.",
     	          icon: 'warning',
     	          showCancelButton: true,
-    	          confirmButtonColor: '#3085d6',
-    	          cancelButtonColor: '#d33',
-    	          confirmButtonText: 'Yes, delete it!'
+    	          confirmButtonColor: '#d33',
+    	          cancelButtonColor: '#A4A4A4',
+    	          cancelButtonText: '취소',
+    	          confirmButtonText: '삭제'
     	        }).then((result) => {
     	          if (result.value) {
     	              location.href='delete?no='+no;

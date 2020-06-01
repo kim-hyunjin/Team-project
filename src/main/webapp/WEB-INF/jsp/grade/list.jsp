@@ -30,7 +30,7 @@
           <div class="col-10 d-flex flex-wrap align-content-around">
             <div v-for="submit in submits">
               <!-- 과제 제출한 경우 box -->
-              <div v-if="submit.user.userNo == user.userNo && submit.hasOwnProperty('createDate')"
+              <div v-if="submit.user.userNo == user.userNo && submit.createDate != null"
                 class="bg-info text-white grade-assignment-card text-center font-weight-bold d-flex flex-column justify-content-center border m-1 rounded-lg">
                 <a class="d-block text-truncate"
                   v-bind:href="`../assignmentSubmit/submitted?assignmentNo=`+submit.assignmentNo"
@@ -38,7 +38,7 @@
                 <div>{{ submit.score }}</div>
               </div>
               <!-- 과제 제출하지 않은 경우 box -->
-              <div v-if="submit.user.userNo == user.userNo && !submit.hasOwnProperty('createDate')"
+              <div v-if="submit.user.userNo == user.userNo && submit.createDate == null"
                 class="bg-light text-secondary grade-assignment-card text-center font-weight-bold d-flex flex-column justify-content-center border m-1 rounded-lg">
                 <a class="d-block text-truncate"
                   v-bind:href="`../assignmentSubmit/submitted?assignmentNo=`+submit.assignmentNo"
@@ -93,11 +93,11 @@ var filter_list = new Vue({
   function activeFilter(value) {
     if(value == "미제출"){
     grade_list.submits = submitsJson.filter(function (item) {
-            return !item.hasOwnProperty("createDate");
+            return item.createDate == null;
         })
     } else if(value == "제출"){
       grade_list.submits = submitsJson.filter(function (item) {
-          return item.hasOwnProperty('createDate');
+          return item.createDate != null;
         })
     } else if(value == "전체") {
       grade_list.submits = submitsJson;

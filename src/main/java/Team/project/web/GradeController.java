@@ -10,7 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import com.google.gson.Gson;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import Team.project.AppConfig;
 import Team.project.domain.Assignment;
 import Team.project.domain.AssignmentSubmit;
@@ -43,17 +43,15 @@ public class GradeController {
   public String list(@RequestParam("room_no") int classNo, Model model, HttpSession session)
       throws Exception {
     int role = ((ClazzMember) session.getAttribute("nowMember")).getRole();
-    Gson gson = new Gson();
+    ObjectMapper mapper = new ObjectMapper();
+    // 수업 과제 목록 얻기
+    List<Assignment> assignments = assignmentService.list(classNo);
+    model.addAttribute("assignments", mapper.writeValueAsString(assignments));
+
     if (role == 0) {
       // 수업 참여자 목록 얻기
       List<ClazzMember> clazzMembers = clazzMemberService.list(classNo);
-
-      model.addAttribute("clazzMembers", gson.toJson(clazzMembers));
-
-      // 수업 과제 목록 얻기
-      List<Assignment> assignments = assignmentService.list(classNo);
-      model.addAttribute("assignments", gson.toJson(assignments));
-
+      model.addAttribute("clazzMembers", mapper.writeValueAsString(clazzMembers));
       // 수업 참여자별 과제 제출 목록
       // HashMap<Object, Object> userAssignmentSubmits = new HashMap<>();
       List<AssignmentSubmit> assignmentSubmitList = new ArrayList<>();
@@ -62,11 +60,12 @@ public class GradeController {
           assignmentSubmitList.add(ass);
         }
       }
-      model.addAttribute("userAssignmentSubmits", gson.toJson(assignmentSubmitList));
+      model.addAttribute("userAssignmentSubmits", mapper.writeValueAsString(assignmentSubmitList));
 
       return "/WEB-INF/jsp/grade/list.jsp";
     } else {
-      model.addAttribute("userAssignmentSubmits", gson.toJson(assignmentSubmitService.list(classNo,
+      // 제출한 과제물 모델에 담기
+      model.addAttribute("submits", mapper.writeValueAsString(assignmentSubmitService.list(classNo,
           ((User) session.getAttribute("loginUser")).getUserNo())));
 
       return "/WEB-INF/jsp/grade/list_student.jsp";

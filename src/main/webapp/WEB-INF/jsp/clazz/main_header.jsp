@@ -14,6 +14,7 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
   integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 <script src="https://kit.fontawesome.com/764f0503e3.js" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 <script src="/Team-project/script/kakao.js"></script>
 <script>
         Kakao.init('e42d7bc3930faad4ef83d4fb783cf136');
@@ -53,6 +54,98 @@
 <link href='${pageContext.servletContext.contextPath}/script/fullcalendar/packages/core/main.css' rel='stylesheet' />
 <link href='${pageContext.servletContext.contextPath}/script/fullcalendar/packages/daygrid/main.css' rel='stylesheet' />
 
+<script>
+// 수업 참여를 위한 스크립트
+$(function () {
+    $("#joinBtn").click(function () {
+    let xhr = new XMLHttpRequest();
+    const code = $("#modal-code").val();
+    console.log(code);
+    xhr.open("GET", "join?code="+code, true);
+    xhr.onreadystatechange = () => {
+      if(xhr.readyState == 4) {
+        if(xhr.status == 200) {
+          location.reload(true);
+          $("#join-modal-close").trigger("click");
+        }else if(xhr.status == 400) {
+          alert("중복된 수업입니다.");
+          $("#modal-code").focus();
+        }else {
+          alert("유효하지 않는 수업코드입니다.");
+          $("#modal-code").focus();
+        }
+      }
+    }
+    xhr.send();
+  });
+});
+
+
+// 수업 생성 버튼 클릭시 post요청
+    $("#createBtn").click(function() {
+        $('#class_createForm').submit();
+    })
+
+    // 유저 정보 수정을 위한 스크립트
+  var userJson;
+    $('#headerUserName').click(function () {
+      let xhr = new XMLHttpRequest();
+      console.log(${loginUser.userNo});
+      xhr.open("GET", "../user/detail?userNo=${loginUser.userNo}", true);
+      xhr.onreadystatechange = () => {
+            if(xhr.readyState == 4) {
+              if(xhr.status == 200) {
+                userJson = JSON.parse(xhr.responseText);
+                console.log(userJson);
+                if(userJson.profilePhoto != undefined) {
+              document.getElementById('modal-user-img').setAttribute('src', '${pageContext.servletContext.contextPath}/upload/user/thumbnail.'+userJson.profilePhoto+'.jpg');
+                } else {
+                    $('#modal-user-profile-div').html('<i class="far fa-user"></i>');
+                }
+            let userUpdateForm = document.getElementById('modal-user-update');
+            userUpdateForm.userNo.value = userJson.userNo;
+            userUpdateForm.email.value = userJson.email;
+            userUpdateForm.name.value = userJson.name
+            if(userJson.tel != undefined) {
+              userUpdateForm.tel.value = userJson.tel;
+            }
+            if(userJson.major != undefined) {
+              userUpdateForm.major.value = userJson.major;
+            }
+            if(userJson.introduce != undefined) {
+              userUpdateForm.introduce.innerHTML = userJson.introduce;
+            }
+            $('#user-createDate').html(userJson.createDate);
+            
+            
+          }
+        } 
+     }
+      xhr.send();
+    });
+    
+    //유저 삭제 버튼 클릭시
+    $('#modal-user-delete-btn').click(() =>{
+      Swal.fire({
+          title: '정말 삭제하시겠습니까?',
+          text: "삭제하면 되돌릴 수 없습니다.",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+          if (result.value) {
+        location.href = "../user/delete?no="+userJson.userNo;
+          }
+    })
+  });
+    
+    // 유저정보 수정 버튼 클릭시
+    $('#user-update-updateBtn').click(()=>{
+	   $('#modal-user-update').submit();
+    });
+    </script>
 </head>
 <body>
   <nav class="header main_header">
@@ -210,84 +303,3 @@
       </div>
     </div>
   </div>
-  <script>
-// 수업 참여를 위한 스크립트
-$(function () {
-    $("#joinBtn").click(function () {
-    let xhr = new XMLHttpRequest();
-    const code = $("#modal-code").val();
-    console.log(code);
-    xhr.open("GET", "join?code="+code, true);
-    xhr.onreadystatechange = () => {
-      if(xhr.readyState == 4) {
-        if(xhr.status == 200) {
-          location.reload(true);
-          $("#join-modal-close").trigger("click");
-        }else if(xhr.status == 400) {
-          alert("중복된 수업입니다.");
-          $("#modal-code").focus();
-        }else {
-          alert("유효하지 않는 수업코드입니다.");
-          $("#modal-code").focus();
-        }
-      }
-    }
-    xhr.send();
-  });
-});
-
-
-// 수업 생성 버튼 클릭시 post요청
-	  $("#createBtn").click(function() {
-	      $('#class_createForm').submit();
-	  })
-
-    // 유저 정보 수정을 위한 스크립트
-	var userJson;
-    $('#headerUserName').click(function () {
-    	let xhr = new XMLHttpRequest();
-    	console.log(${loginUser.userNo});
-    	xhr.open("GET", "../user/detail?userNo=${loginUser.userNo}", true);
-    	xhr.onreadystatechange = () => {
-            if(xhr.readyState == 4) {
-	            if(xhr.status == 200) {
-		          	userJson = JSON.parse(xhr.responseText);
-		           	console.log(userJson);
-		           	if(userJson.profilePhoto != undefined) {
-			    		document.getElementById('modal-user-img').setAttribute('src', '${pageContext.servletContext.contextPath}/upload/user/thumbnail.'+userJson.profilePhoto+'.jpg');
-	            	} else {
-	            	    $('#modal-user-profile-div').html('<i class="far fa-user"></i>');
-	            	}
-		    		let userUpdateForm = document.getElementById('modal-user-update');
-		    		userUpdateForm.userNo.value = userJson.userNo;
-		    		userUpdateForm.email.value = userJson.email;
-			    	userUpdateForm.name.value = userJson.name
-			    	if(userJson.tel != undefined) {
-			    		userUpdateForm.tel.value = userJson.tel;
-			    	}
-			    	if(userJson.major != undefined) {
-				   		userUpdateForm.major.value = userJson.major;
-			    	}
-			   		if(userJson.introduce != undefined) {
-			    		userUpdateForm.introduce.innerHTML = userJson.introduce;
-		    		}
-			   		$('#user-createDate').html(userJson.createDate);
-			   		
-			   		
-	   			}
-	   		}	
-	   }
-    	xhr.send();
-    });
-    $('#modal-user-delete-btn').click(() =>{
-		if (confirm("정말 삭제하시겠습니까??") == true){    //확인
-		    location.href = "../user/delete?no="+userJson.userNo;
-		}else{   //취소
-		    return;
-		}
-	});
-    
-    $('#user-update-updateBtn').click(()=>{
-		$('#modal-user-update').submit();
-    });
-    </script>

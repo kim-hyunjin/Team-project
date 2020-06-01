@@ -142,9 +142,20 @@
 <script>
 //유효성 검사 관련 스크립트
 	function confirmDelete() {
-	    if(confirm("정말 삭제하시겠습니까?")) {
-		    location.href="delete?no=${assignment.assignmentNo}";
-	    }
+	    Swal.fire({
+                title: '정말 삭제하시겠습니까?',
+                text: "삭제하면 되돌릴 수 없습니다.",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+              }).then((result) => {
+                if (result.value) {
+                    location.href="delete?no=${assignment.assignmentNo}";
+                }
+
+      });
 	}
 	
 	function updateSubmit() {

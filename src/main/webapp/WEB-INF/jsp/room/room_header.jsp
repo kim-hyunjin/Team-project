@@ -168,10 +168,10 @@
             enctype='multipart/form-data'>
             <input name='userNo' type='hidden'>
             <div class="form-group">
-              <label>이메일</label><input class="form-control" name='email' type='email' readonly>
+              <label>이메일</label><input class="form-control" name='email' type='email' readonly style="background-color:white;">
             </div>
             <div class="form-group">
-              <label>이름</label><input class="form-control" name='name' type='text'>
+              <label>이름</label><input class="form-control" name='name' type='text' maxlength="30">
             </div>
             <div class="form-group">
               <label>암호</label><input class="form-control" name='password' type='password'

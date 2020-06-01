@@ -88,7 +88,6 @@ Kakao.Auth.createLoginButton({
                window.location.href="social?email="+user.kakao_account.email
                         +"&id="+user.id
                         +"&nickname="+encodeURI(user.properties.nickname, "UTF-8")
-                        +"&image="+user.properties.profile_image
                         +"&loginMethod=1";
             },
             fail: function(error) {
@@ -113,7 +112,6 @@ function onSuccess(googleUser) {
     window.location.href="social?email="+profile.getEmail()
     +"&id="+profile.getId()
     +"&nickname="+encodeURI(profile.getName(), "UTF-8")
-    +"&image="+profile.getImageUrl()
     +"&loginMethod=2";
 }
     function onFailure(error) {

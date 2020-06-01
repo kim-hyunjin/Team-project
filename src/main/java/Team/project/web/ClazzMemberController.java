@@ -35,7 +35,8 @@ public class ClazzMemberController {
   }
 
   @RequestMapping("add")
-  public void add(@RequestBody Map<String, Object> json, HttpServletResponse response) throws Exception {
+  public void add(@RequestBody Map<String, Object> json, HttpServletResponse response)
+      throws Exception {
     User result = userService.get(json.get("email").toString());
     if (result != null) {
       ClazzMember clazzMember = new ClazzMember();
@@ -45,7 +46,7 @@ public class ClazzMemberController {
       clazzMemberService.add(clazzMember);
       response.setStatus(200);
     } else {
-    	response.setStatus(404);
+      response.setStatus(404);
       throw new Exception("회원을 추가할 수 없습니다.");
     }
   }
@@ -85,6 +86,8 @@ public class ClazzMemberController {
         students.add(member);
       }
     }
+    System.out.println(teachers);
+    System.out.println(students);
     model.addAttribute("teachers", teachers);
     model.addAttribute("students", students);
     model.addAttribute("room_no", room_no);

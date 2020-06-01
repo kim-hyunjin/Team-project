@@ -34,7 +34,9 @@
     cm.class_no,
     cm.user_no,
     cm.role,
-    u.name
+    u.name,
+    u.profile_photo,
+    u.login_method
   from 
     class_member cm
     inner join user u on cm.user_no = u.user_no

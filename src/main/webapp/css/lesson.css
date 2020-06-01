@@ -6,8 +6,6 @@
 #alarm_box {
 	display:block;
 	border:thin solid rgba(0,0,0,0.1);
-	width: 15em;
-	height: 15em;
 	overflow:overlay;
 	font-weight:bold;
 	font-size:1em;
@@ -39,14 +37,13 @@
 
 #lesson_aside {
 	display:flex;
-	margin: 0 3em 0 2em;
 	height:100%;
 	flex-direction:column;
 	align-items:center;
 }
 
 #lesson_aside select {
-	width: 10em;
+	/*width: 10em;*/
 	margin-top: 2em;
     padding: .5em .5em; /* 여백으로 높이 설정 */
     font-family: inherit;  /* 폰트 상속 */
@@ -55,7 +52,7 @@
 }
 
 #lesson_section {
-	width: 70%;
+	/*width: 70%;*/
 }
 
 #lesson_box {

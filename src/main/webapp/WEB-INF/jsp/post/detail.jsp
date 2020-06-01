@@ -9,6 +9,9 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" />
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 
 <head>
 <meta charset="utf-8">
@@ -44,7 +47,8 @@
 
 <body>
 	<div class="container">
-		<span class="d-flex flex-row-reverse"> <i class="fas fa-times col-2"
+		<span class="d-flex flex-row-reverse"> <i
+			class="fas fa-times col-2"
 			onclick="location.href='javascript:history.back()'"
 			style="font-size: 2em; cursor: pointer"></i>
 		</span>
@@ -102,7 +106,8 @@
 					</div>
 					<span>작성일 : ${post.createDate}</span>
 				</div>
-				<textarea id='summernote-readonly' name='content' style="background-color:white;">${post.content}</textarea>
+				<textarea id='summernote-readonly' name='content'
+					style="background-color: white;">${post.content}</textarea>
 				<!-- 파일 -->
 				<span id="download" title="다운로드" class="mt-3"
 					style="cursor: pointer; font-size: 1.2em;">${file.originalName}</span>
@@ -118,35 +123,79 @@
 
   
   $('#summernote').summernote({
-	    height: 300,
+      height: 300,
       width: 800
     });  
   
   $('#summernote-readonly').summernote({
-	  toolbar: false,
-	  height: 300,
+    toolbar: false,
+    height: 300,
       width: 800
   });  
   $('#summernote-readonly').summernote('disable');
   $('.note-editable').css('background-color', 'white');
-  
+  </script>
 
+	<script>
+  //function confirmDelete() {
+  //    if(confirm("정말 삭제하시겠습니까?")) {
+  //      location.href="delete?no=${post.postNo}&bno=${post.boardNo}";
+  //    }
+  //}
   
-  function confirmDelete() {
-      if(confirm("정말 삭제하시겠습니까?")) {
-        location.href="delete?no=${post.postNo}&bno=${post.boardNo}";
-      }
-  }
+  //function confirmDelete() {
+  //   swal({
+	//		  title: "정말 삭제하시겠습니까?",
+	//		  text: "삭제하면 되돌릴 수 없습니다.",
+	//		  icon: "warning",
+	//		  buttons: true,
+	//		  dangerMode: true
+	//		})
+	//		.then((willDelete) => {
+	//		  if (willDelete) {
+	//		      location.href="delete?no=${post.postNo}&bno=${post.boardNo}";
+	//		  }
+	//		});
+	// }
+function confirmDelete() {
+	  Swal.fire({
+	  position: 'top',
+	  title: '정말 삭제하시겠습니까?',
+	  text: '삭제하면 되돌릴 수 없습니다.',
+	  icon: 'warning',
+	  showCancelButton: true,
+	  confirmButtonColor: '#3085d6',
+	  cancelButtonColor: '#d33',
+	  confirmButtonText: 'Yes, delete it!'
+	}).then((result) => {
+	  if (result.value) {
+	      location.href="delete?no=${post.postNo}&bno=${post.boardNo}";
+	  }
+	});
+}
   
-
+//    function formCheck(frm) {
+//      if (frm.title.value == "") {
+//        alert("제목을 입력해 주세요.");
+//        frm.title.focus();
+//        return false;
+//      }
+//      return true;
+//    }
+    
     function formCheck(frm) {
-	    if (frm.title.value == "") {
-	      alert("제목을 입력해 주세요.");
-	      frm.title.focus();
-	      return false;
+	      if (frm.title.value == "") {
+		  Swal.fire({
+		      position: 'top',
+		      icon: 'error',
+		      title: '제목을 입력해주세요.',
+		    });
+	        frm.title.focus();
+	        return false;
+	      }
+	      return true;
 	    }
-      return true;
-    }
+    
   </script>
 </body>
 </html>

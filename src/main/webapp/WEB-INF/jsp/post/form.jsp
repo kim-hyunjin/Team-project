@@ -24,6 +24,8 @@
 <script src="https://kit.fontawesome.com/764f0503e3.js"
 	crossorigin="anonymous"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+
 <!-- summernote -->
 <link
 	href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css"
@@ -35,7 +37,8 @@
 <body>
 	<div class="container">
 		<h3>게시글 등록</h3>
-		<span class="d-flex flex-row-reverse"> <i class="fas fa-times col-2"
+		<span class="d-flex flex-row-reverse"> <i
+			class="fas fa-times col-2"
 			onclick="location.href='javascript:history.back()'"
 			style="font-size: 2em; cursor: pointer"></i>
 		</span>
@@ -56,22 +59,26 @@
 		</form>
 	</div>
 	<script>
-		function formCheck(frm) {
-			if (frm.title.value == "") {
-				alert("제목을 입력해 주세요.");
-				frm.title.focus();
-				return false;
-			}
-			return true;
-		}
-	</script>
-	<script>
-		$('#summernote').summernote({
-			height : 300,
-			width : 800,
-			placeholder : '내용을 입력하세요.'
+	function formCheck(frm) {
+	    if (frm.title.value == "") {
+		Swal.fire({
+		    position : 'top',
+		    icon : 'error',
+		    title : '제목을 입력해주세요.',
 		});
-	</script>
+		frm.title.focus();
+		return false;
+	    }
+	    return true;
+	}
+    </script>
+	<script>
+	$('#summernote').summernote({
+	    height : 300,
+	    width : 800,
+	    placeholder : '내용을 입력하세요.'
+	});
+    </script>
 </body>
 </html>
 

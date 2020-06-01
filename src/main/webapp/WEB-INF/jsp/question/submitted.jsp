@@ -19,33 +19,38 @@
       <select class="mt-5 form-control" id="filter-select" onclick="answerFilter(this.value)">
         <option>전체</option>
         <c:forEach items="${multiples}" var="m">
-        <option>${m.multipleContent}</option>
+          <option>${m.multipleContent}</option>
         </c:forEach>
-      </select> <input id="searchInput" class="form-control mt-3" type="search" placeholder="이름 검색" onkeyup="nameSearch(this.value)">
+      </select> <input id="searchInput" class="form-control mt-3" type="search" placeholder="이름 검색"
+        onkeyup="nameSearch(this.value)">
     </div>
     <div class="col-10 d-flex flex-column justify-content-start mt-3">
       <c:if test="${not empty multiples && not empty ratioMap}">
-        <div class="progress" style="height:2em;">
+        <div class="progress" style="height: 2em;">
           <c:forEach items="${multiples}" var="m">
-            <div class="progress-bar" role="progressbar" title="${ratioMap.get(m.multipleNo)}%" style="width:${ratioMap.get(m.multipleNo)}%;" aria-valuenow="${ratioMap.get(m.multipleNo)}" aria-valuemin="0"
-              aria-valuemax="100" >${m.multipleContent}</div>
+            <div class="progress-bar" role="progressbar" title="${ratioMap.get(m.multipleNo)}%"
+              style="width:${ratioMap.get(m.multipleNo)}%;" aria-valuenow="${ratioMap.get(m.multipleNo)}"
+              aria-valuemin="0" aria-valuemax="100">${m.multipleContent}</div>
           </c:forEach>
         </div>
       </c:if>
-        <c:if test="${not empty answers}">
-          <c:forEach items="${answers}" var="a">
-          <div class="row mt-5">
+      <c:if test="${not empty answers}">
+        <c:forEach items="${answers}" var="a">
+          <div class="d-flex mt-5">
             <div class="col-6">
-              <div class="userName text-primary font-weight-bold mb-2" style="font-size:1.2em">${a.user.name}</div>
-              <textarea readonly class="form-control" style="background-color:white;">${a.content}</textarea>
+              <div class="userName text-primary font-weight-bold mb-2" style="font-size: 1.2em">${a.user.name}</div>
+              <textarea readonly class="form-control" style="background-color: white;">${a.content}</textarea>
             </div>
             <c:if test="${not empty multipleAnswerMap.get(a.multipleNo)}">
-            <div class="col-6 input-group d-flex align-items-center">
-            <div class="col-3 text-info font-weight-bold">객관식 답변</div>
-              <label class="input-group-append mb-0"> <span class="input-group-text">
-                  ${multipleAnswerMap.get(a.multipleNo).no}</span></label> <input readonly class="form-control answerMultipeContent"
-                value="${multipleAnswerMap.get(a.multipleNo).multipleContent}" style="background-color:white;">
-            </div>
+              <div class="col-6 input-group d-flex flex-column justify-content-center">
+                <div class="text-info font-weight-bold">객관식 답변</div>
+                <div class="d-flex">
+                  <label class="input-group-append mb-0"> <span class="input-group-text">
+                      ${multipleAnswerMap.get(a.multipleNo).no}</span></label> <input readonly
+                    class="form-control answerMultipeContent"
+                    value="${multipleAnswerMap.get(a.multipleNo).multipleContent}" style="background-color: white;">
+                </div>
+              </div>
             </c:if>
           </div>
         </c:forEach>
@@ -54,44 +59,41 @@
   </div>
 </div>
 <script>
-$('.progress-bar:nth-child(n+1)').attr('class', 'progress-bar');
-$('.progress-bar:nth-child(n+2)').attr('class', 'progress-bar bg-warning');
-$('.progress-bar:nth-child(n+3)').attr('class', 'progress-bar bg-success');
-$('.progress-bar:nth-child(n+4)').attr('class', 'progress-bar bg-info');
-$('.progress-bar:nth-child(n+5)').attr('class', 'progress-bar bg-danger');
+    $('.progress-bar:nth-child(n+1)').attr('class', 'progress-bar');
+    $('.progress-bar:nth-child(n+2)').attr('class', 'progress-bar bg-warning');
+    $('.progress-bar:nth-child(n+3)').attr('class', 'progress-bar bg-success');
+    $('.progress-bar:nth-child(n+4)').attr('class', 'progress-bar bg-info');
+    $('.progress-bar:nth-child(n+5)').attr('class', 'progress-bar bg-danger');
 
-function nameSearch(value) {
-    var name, item, i;
-    value = value.toUpperCase();
-    item = document.getElementsByClassName("row");
-    for(i=0;i<item.length;i++){
-      name = item[i].getElementsByClassName("userName");
-      if(name[0].innerHTML.toUpperCase().includes(value) == true){
-        item[i].style.display = "flex";
-      }else{
-        item[i].style.display = "none";
-      }
+    function nameSearch(value) {
+	var name, item, i;
+	value = value.toUpperCase();
+	item = document.getElementsByClassName("row");
+	for (i = 0; i < item.length; i++) {
+	    name = item[i].getElementsByClassName("userName");
+	    if (name[0].innerHTML.toUpperCase().includes(value) == true) {
+		item[i].style.display = "flex";
+	    } else {
+		item[i].style.display = "none";
+	    }
+	}
     }
-}
 
-function answerFilter(value) {
-    var name, item, i;
-    value = value.toUpperCase();
-    item = document.getElementsByClassName("row");
-    for(i=0;i<item.length;i++){
-      name = item[i].getElementsByClassName("answerMultipeContent");
-      if(value == "전체") {
-	      item[i].style.display = "flex";
-      }else
-      if(name[0].value.toUpperCase().includes(value) == true){
-        item[i].style.display = "flex";
-      }else{
-        item[i].style.display = "none";
-      }
+    function answerFilter(value) {
+	var name, item, i;
+	value = value.toUpperCase();
+	item = document.getElementsByClassName("row");
+	for (i = 0; i < item.length; i++) {
+	    name = item[i].getElementsByClassName("answerMultipeContent");
+	    if (value == "전체") {
+		item[i].style.display = "flex";
+	    } else if (name[0].value.toUpperCase().includes(value) == true) {
+		item[i].style.display = "flex";
+	    } else {
+		item[i].style.display = "none";
+	    }
+	}
     }
-}
-
-
 </script>
 </body>
 </html>

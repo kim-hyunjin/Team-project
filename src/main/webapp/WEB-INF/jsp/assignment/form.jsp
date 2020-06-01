@@ -10,7 +10,7 @@
 		  <span class="inputGroupText">과제 추가</span>
 		    <form id="addForm"  action='add' method='post' enctype='multipart/form-data'>
 		    	<div class="inputGroup">
-		        <input id="titleInput" name="title" type="text" placeholder="제목">
+		        <input id="titleInput" name="title" type="text" placeholder="제목" maxlength="50">
 		        <textarea class="form-control" name="content" placeholder="과제내용" style="height:15em;"></textarea>
 		        </div>
 		        <div class="d-flex mt-3 mb-5">

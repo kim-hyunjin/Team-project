@@ -1,71 +1,69 @@
 <%@page import="java.net.URLEncoder"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <jsp:include page="room_header.jsp" />
+<style>
+html, body, aside {
+	height: 100%;
+}
+</style>
 
 
-
-<div class="container-fluid" style='margin-top:8em; display:flex;'>
-<aside id='lesson_aside'>
-<div id="alarm_box">
-       <i class="fas fa-lightbulb text-warning"></i>
-       <!-- <span class="badge badge-warning">알림 상자</span> -->
-  <ul id="alarm_contents">
-     <li v-for="item in items" v-if="dateConfigure(item.deadline)">
-       <span v-if="item.hasOwnProperty('questionNo')">
-         <a v-bind:href="`../question/detail?qno=`+item.questionNo">
-         <span class="alarm_box__icon"><i class="fas fa-question-circle"></i></span>
-           <span title='마감일이 임박했습니다.'>{{ item["title"] }}</span>
-         </a>
-       </span>
-       <span v-if="item.hasOwnProperty('assignmentNo')">
-       <a v-bind:href="`../assignment/detail?assignmentNo=`+ item.assignmentNo">
-        <span class="alarm_box__icon"><i class="fas fa-pen-square"></i></span>
-        <span title='마감일이 임박했습니다.'>{{ item["title"] }}</span>
-       </a>
-       </span>
-     </li>
-  </ul>
-</div>
-  <form id="filter">
-    <select onclick="activeFilter(this.value)">
-      <option value="0">전체</option>
-      <option value="1">과제</option>
-      <option value="2">질문</option>
-    </select>
-  </form>
-</aside>
-<section id='lesson_section'>
-<div id='lesson_section_add'>
-  <div id='lesson__create-div' onclick='lessonAddActive()'>
-    <i class="fas fa-plus"></i>만들기
-  </div>
-	<div id='lessonAddActiveDiv' style='display:none;'>
-		<div onclick='location.href="../assignment/form"' onmouseover='this.style.backgroundColor="#b3ecff"'
-		onmouseleave='this.style.backgroundColor="white"' id="assignment_add_btn" >
-			<i class="fas fa-pen-square"></i>과제 추가
-	 </div>
-		<div onclick='location.href="../question/form"'onmouseover='this.style.backgroundColor="#b3ecff"'
-    onmouseleave='this.style.backgroundColor="white"' id="question_add_btn">
-		  <i class="fas fa-question-circle text-info"></i>질문 추가
-		</div>
-	</div>
-</div>
-<div id="lesson_box">
-	<ul id="lesson_contents">
-	  <li v-for="item in items">
-      <a v-if="item.hasOwnProperty('questionNo')" v-bind:href="`../question/detail?qno=`+item.questionNo">	   
-  	    <i class="fas fa-question-circle text-info"></i><span>{{ item["title"] }}</span>
-	    </a>
-      <a v-if="item.hasOwnProperty('assignmentNo')" v-bind:href="`../assignment/detail?assignmentNo=`+ item.assignmentNo">
-        <i class="fas fa-pen-square"></i><span>{{ item["title"] }}</span>
-     </a>
-	  </li>
-  </ul>
-</div>
-</section>
+<div class="container-fluid d-flex" style='margin-top: 8em; height: 100%;'>
+  <aside class="col-2" id='lesson_aside'>
+    <div id="alarm_box" style="width: 100%; height: 50%; font-size:1.2em;">
+      <i class="fas fa-lightbulb text-warning"></i>
+      <!-- <span class="badge badge-warning">알림 상자</span> -->
+      <ul id="alarm_contents">
+        <li v-for="item in items" v-if="dateConfigure(item.deadline)"><span
+          v-if="item.hasOwnProperty('questionNo')"> <a v-bind:href="`../question/detail?qno=`+item.questionNo">
+              <span class="alarm_box__icon"><i class="fas fa-question-circle text-info"></i></span> <span title='마감일이 임박했습니다.'>{{
+                item["title"] }}</span>
+          </a>
+        </span> <span v-if="item.hasOwnProperty('assignmentNo')"> <a
+            v-bind:href="`../assignment/detail?assignmentNo=`+ item.assignmentNo"> <span class="alarm_box__icon"><i
+                class="fas fa-pen-square"></i></span> <span title='마감일이 임박했습니다.'>{{ item["title"] }}</span>
+          </a>
+        </span></li>
+      </ul>
+    </div>
+    <form id="filter" style="width: 100%;">
+      <select class="form-control" onclick="activeFilter(this.value)" style="width: 100%;">
+        <option value="0">전체</option>
+        <option value="1">과제</option>
+        <option value="2">질문</option>
+      </select>
+    </form>
+  </aside>
+  <section class="col-10" id='lesson_section'>
+    <div id='lesson_section_add'>
+      <div id='lesson__create-div' onclick='lessonAddActive()'>
+        <i class="fas fa-plus"></i>만들기
+      </div>
+      <div id='lessonAddActiveDiv' style='display: none;'>
+        <div onclick='location.href="../assignment/form"' onmouseover='this.style.backgroundColor="#b3ecff"'
+          onmouseleave='this.style.backgroundColor="white"' id="assignment_add_btn">
+          <i class="fas fa-pen-square"></i>과제 추가
+        </div>
+        <div onclick='location.href="../question/form"' onmouseover='this.style.backgroundColor="#b3ecff"'
+          onmouseleave='this.style.backgroundColor="white"' id="question_add_btn">
+          <i class="fas fa-question-circle text-info"></i>질문 추가
+        </div>
+      </div>
+    </div>
+    <div id="lesson_box" style="width: 70%;">
+      <ul id="lesson_contents">
+        <li class="text-truncate" v-for="item in items"><a v-if="item.hasOwnProperty('questionNo')"
+          v-bind:href="`../question/detail?qno=`+item.questionNo"> <i class="fas fa-question-circle text-info"></i><span>{{
+              item["title"] }}</span>
+        </a> <a v-if="item.hasOwnProperty('assignmentNo')"
+          v-bind:href="`../assignment/detail?assignmentNo=`+ item.assignmentNo"> <i class="fas fa-pen-square"></i><span>{{
+              item["title"] }}</span>
+        </a></li>
+      </ul>
+    </div>
+  </section>
 
 </div>
 
@@ -139,7 +137,7 @@ function activeFilter(value) {
 }	
 
   </script>
-  <script>
+<script>
   let lessonAddActiveStatus = 0;
   function lessonAddActive() {
       if(lessonAddActiveStatus == 0) {

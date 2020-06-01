@@ -62,15 +62,13 @@ public class AuthController {
   }
 
   @RequestMapping("social")
-  public String kakao(String email, String id, String nickname, String image, int loginMethod)
-      throws Exception {
-    System.out.println("image=========>" + image);
+  public String kakao(String email, String id, String nickname, int loginMethod) throws Exception {
     if (userService.get(email) != null) {
       return "redirect:login?email=" + email + "&password=" + id;
     } else {
       return "redirect:../user/add?email=" + email + "&password=" + id + "&name="
-          + URLEncoder.encode(nickname, StandardCharsets.UTF_8) + "&profilePhoto=" + image
-          + "&loginMethod=" + loginMethod + "&alterKey=Y";
+          + URLEncoder.encode(nickname, StandardCharsets.UTF_8) + "&loginMethod=" + loginMethod
+          + "&alterKey=Y";
     }
   }
 

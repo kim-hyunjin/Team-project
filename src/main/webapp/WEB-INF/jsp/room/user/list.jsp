@@ -14,13 +14,18 @@
     <hr>
     <ul class="teacher_list user_list">
       <c:forEach items="${teachers}" var="teacher">
-        <li class="user_card" onclick="showUserDetail(${teacher.user.userNo},${teacher.memberNo})"><c:if
-            test="${not empty teacher.user.profilePhoto}">
-            <span class="user_list__profile"><img
-              src="${pageContext.servletContext.contextPath}/upload/user/thumbnail.${teacher.user.profilePhoto}.jpg" /></span>
-          </c:if> <c:if test="${empty teacher.user.profilePhoto}">
-            <span class="user_list__profile"><i class="far fa-user"></i></span>
-          </c:if> <span class="user_list__profile___add text-truncate" data-toggle="modal" data-target="#MemberDetailModal" style="cursor: pointer;">${teacher.user.name}</span>
+        <li class="user_card" onclick="showUserDetail(${teacher.user.userNo},${teacher.memberNo})">
+        <c:if test="${not empty teacher.user.profilePhoto && teacher.user.profilePhoto ne 'undefined'}">
+              <span class="user_list__profile">
+                <img class="img-thumbnail rounded" style="border: 0;"
+                src="${pageContext.servletContext.contextPath}/upload/user/thumbnail.${teacher.user.profilePhoto}.jpg" />
+              </span>
+          </c:if>
+        <c:if test="${empty teacher.user.profilePhoto || teacher.user.profilePhoto eq 'undefined'}">
+          <span class="user_list__profile text-center"><i class="far fa-user"></i></span>
+        </c:if>
+        <span class="user_list__profile___add text-truncate" data-toggle="modal" data-target="#MemberDetailModal"
+          style="cursor: pointer;">${teacher.user.name}</span>
         </li>
       </c:forEach>
     </ul>
@@ -34,14 +39,17 @@
     <hr>
     <ul class="student_list user_list">
       <c:forEach items="${students}" var="student">
-        <li class="user_card" onclick="showUserDetail(${student.user.userNo}, ${student.memberNo})"><c:if
-            test="${not empty student.user.profilePhoto}">
-            <span class="user_list__profile"><img
-              src="${pageContext.servletContext.contextPath}/upload/user/thumbnail.${student.user.profilePhoto}.jpg" /></span>
-          </c:if> <c:if test="${empty student.user.profilePhoto}">
-            <span class="user_list__profile"><i class="far fa-user"></i></span>
-          </c:if> <span class="user_list__profile___add text-truncate" data-toggle="modal" data-target="#MemberDetailModal" style="cursor: pointer;">${student.user.name}</span>
-        </li>
+        <li class="user_card" onclick="showUserDetail(${student.user.userNo}, ${student.memberNo})">
+        <c:if test="${not empty student.user.profilePhoto && student.user.profilePhoto ne 'undefined'}">
+            <span class="user_list__profile">
+              <img class="img-thumbnail rounded" style="border: 0;"
+                src="${pageContext.servletContext.contextPath}/upload/user/thumbnail.${student.user.profilePhoto}.jpg" />
+            </span>
+        </c:if> 
+        <c:if test="${empty student.user.profilePhoto || student.user.profilePhoto eq 'undefined'}">
+           <span class="user_list__profile text-center"><i class="far fa-user"></i></span>
+        </c:if> <span class="user_list__profile___add text-truncate" data-toggle="modal" data-target="#MemberDetailModal"
+          style="cursor: pointer;">${student.user.name}</span></li>
       </c:forEach>
     </ul>
   </div>
@@ -77,7 +85,8 @@
           </div>
           <div class="d-flex flex-column mt-2">
             <label class="col-3">소개</label>
-            <textarea class="form-control" name='introduce' type='text' readonly style="resize: none; background-color:white;"></textarea>
+            <textarea class="form-control" name='introduce' type='text' readonly
+              style="resize: none; background-color: white;"></textarea>
           </div>
         </form>
       </div>

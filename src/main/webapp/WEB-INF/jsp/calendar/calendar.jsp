@@ -3,6 +3,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <jsp:include page="../clazz/main_header.jsp" />
+
+<!-- favicon -->
+<link rel="favicon" href="images/favicon.ico">
+<link rel="shortcut icon" href="http://localhost:9999/Team-project/images/favicon.ico" type="image/x-icon" />
+<link rel="icon" href="http://localhost:9999/Team-project/images/favicon.ico" type="image/x-icon" />
+
 <div class='container' style="margin-top: 5em;">
 <div id='calendar'></div>
 </div>

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
     trimDirectiveWhitespaces="true"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
     
 
 <!DOCTYPE html>
@@ -21,72 +22,61 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 <title>BTS-회원가입</title>
 <style>
-html, body {
-    margin: 0px;
-    padding: 0px;
-    width: 100%;
-    height: 100%;
-}
-input {
-  font-size:1em;
-  margin-top: 1em;
-  width: 100%;
-  height: 2.5em;
-}
-button {
-  margin-top: 1.3em;
-  width: 5em;
-  height: 2em;
-  margin-left:5.5em;
+html, body, .container {
+height: 100%;
 }
 </style>
 </head>
 <body>
-<div class="center-container">
-<div class="login_box">
+<div class="container d-flex justify-content-center align-items-center">
+  <div class="d-flex flex-column justify-content-center align-items-center w-100" style="margin-top:-20em;">
     <h2>회원 가입</h2>
-    <label></label>
-    <label></label>
-    <label></label>
-    <div style="width:70%;">
-    <form id="addForm" action='signup' method='post' enctype='multipart/form-data'>
-        <input id = "emailInput" name='email' type='email' placeholder="   이메일"><br>
-        <!-- <label id="emailLabel"></label>  -->
-        <input id = "nameInput" name='name' type='text' placeholder="   이름"><br>
-        <input id="passwordInput" name='password' type='password' placeholder="   비밀번호">
-        <label id="passwordLabel"></label><br>
+    <form class="d-flex flex-column col-12 justify-content-center align-items-center" 
+    id="addForm" action='signup' method='post' enctype='multipart/form-data'>
+        <input class="form-control col-3" id = "emailInput" name='email' type='email' placeholder="   이메일">
+        <input class="form-control mt-2 col-3" id = "nameInput" name='name' type='text' placeholder="   이름">
+        <input class="form-control mt-2 col-3" id="passwordInput" name='password' type='password' placeholder="   비밀번호">
+        <input class="form-control mt-2 col-3" id="passwordInput2" type='password' placeholder="   비밀번호 재확인">
+        <label class="text-primary mt-2 font-weight-bold" id="form-label" style="height:2em;">
+          <c:if test="${not empty error}">
+          ${error}
+          </c:if>
+        </label>
         <input name="loginMethod" type="hidden" value="0">
-        <button class="btn btn-success" id="completeBtn">완료</button>
+        <button type="button" class="btn btn-primary col-3" id="completeBtn">완료</button>
     </form>
-    </div>
-    </div>
-    </div>
+  </div>
+</div>
     <script>
     const emailReg = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    const emailBox = document.getElementById("emailInput");
-    const emailLabel = document.getElementById("emailLabel");
     const passwordReg = /^(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
-    const passwordBox = document.getElementById("passwordInput");
-    const passwordLabel = document.getElementById("passwordLabel");
-    const nameBox = document.getElementById("nameInput");
-    document.getElementById("completeBtn").addEventListener("click", function(event) {
-            event.preventDefault();
-        if(emailBox.value == "" || nameBox.value == "" || passwordBox.value == "") {
-                label.innerHTML = "모든 정보를 입력해주세요.";
+
+    $('#completeBtn').click(function(event){
+    	event.preventDefault();
+        if($('#emailInput').val() == "" || $('#nameInput').val() == "" || $('#passwordInput') == "") {
+        	$('#form-label').html("모든 정보를 입력해주세요.");
         } else {
-            let email = emailBox.value;
-            let password = passwordBox.value;
+            let email = $('#emailInput').val()
+            let password = $('#passwordInput').val();
+            let password2 = $('#passwordInput2').val();
             if(emailReg.test(String(email).toLowerCase()) == false) {
-        		emailBox.focus();
-        		emailLabel.innerHTML = "올바른 이메일 형식을 입력해주세요."
-            }
-            if(passwordReg.test(password) == false) {
-	            passwordBox.focus();
-	            passwordLabel.innerHTML = "비밀번호는 8자 이상이어야 하며, 숫자/소문자/특수문자를 모두 포함해야 합니다.";
-	          } 
-            if(emailReg.test(String(email).toLowerCase()) == true && passwordReg.test(password) == true) {
-	            document.getElementById("addForm").submit();
+            	$('#emailInput').focus();
+          		$('#form-label').html("올바른 이메일 형식을 입력해주세요.");
+            } else if(passwordReg.test(password) == false) {
+            	$('#passwordInput').focus();
+	            $('#form-label').html("비밀번호는 8자 이상이어야 하며, 숫자/소문자/특수문자를 모두 포함해야 합니다.");
+	          } else if(password != password2) {
+	        	  $('#passwordInput2').focus();
+            	$('#form-label').html("비밀번호와 재확인 비밀번호가 일치하지 않습니다.");
+            } else if(emailReg.test(String(email).toLowerCase()) == true && passwordReg.test(password) == true) {
+            	document.getElementById("addForm").submit();
 	          }
+        }
+    });
+    
+    $("input").keydown(function(key) {
+        if (key.keyCode == 13) {
+          $("#completeBtn").trigger("click");
         }
     });
     </script>

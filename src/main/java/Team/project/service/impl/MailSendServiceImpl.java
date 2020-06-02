@@ -11,16 +11,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Component;
 import Team.project.dao.UserDao;
+import Team.project.domain.User;
+import Team.project.service.ClazzService;
 import Team.project.service.MailSendService;
+import Team.project.service.UserService;
 
 @Component
-public class MailSendServiceImpl implements MailSendService{
+public class MailSendServiceImpl implements MailSendService {
   @Autowired
   JavaMailSender mailSender;
-  
   @Autowired
   UserDao userDao;
-  
+  @Autowired
+  UserService userService;
+  @Autowired
+  ClazzService clazzService;
+
   public MailSendServiceImpl(UserDao userDao) {
     this.userDao = userDao;
   }
@@ -49,7 +55,7 @@ public class MailSendServiceImpl implements MailSendService{
   // 난수를 이용한 키 생성
   private boolean lowerCheck;
   private int size;
-  
+
 
   @Override
   public String getKey(boolean lowerCheck, int size) {
@@ -60,7 +66,8 @@ public class MailSendServiceImpl implements MailSendService{
 
   // 회원가입 발송 이메일(인증키 발송)
   @Override
-  public void mailSendWithKey(String email, String name, String password, HttpServletRequest request) {
+  public void mailSendWithKey(String email, String name, String password,
+      HttpServletRequest request) {
     String key = getKey(false, 15);
 
     Map<String, Object> params = new HashMap<>();
@@ -72,8 +79,7 @@ public class MailSendServiceImpl implements MailSendService{
       String htmlStr = "<h2>안녕하세요. BTS에 가입해주셔서 감사합니다!</h2><br><br>" + "<h3>" + name + "님</h3>"
           + "<p>인증하기 버튼을 누르시면 로그인을 하실 수 있습니다 : " + "<a href='http://localhost:9999"
           + request.getContextPath() + "/app/auth/keyalter?email=" + email + "&key=" + key
-          + "&password=" + password
-          + "'>인증하기</a></p>" + "(혹시 잘못 전달된 메일이라면 이 이메일을 무시하셔도 됩니다)";
+          + "&password=" + password + "'>인증하기</a></p>" + "(혹시 잘못 전달된 메일이라면 이 이메일을 무시하셔도 됩니다)";
       try {
         mail.setSubject(String.format("[본인인증] BTS: %s님의 인증메일입니다", name), "utf-8");
         mail.setText(htmlStr, "utf-8", "html");
@@ -109,7 +115,7 @@ public class MailSendServiceImpl implements MailSendService{
     params.put("email", email);
     userDao.updatePassword(params);
     MimeMessage mail = mailSender.createMimeMessage();
-    String htmlStr = "<h2>해당 계정의 임시 비밀번호가 발급되었습니다.<br><br>" + "<h3>" + password
+    String htmlStr = "<h2>BTS 계정의 임시 비밀번호가 발급되었습니다.<br><br>" + "<h3>" + password
         + "</h3><br><p><a href='http://localhost:9999/Team-project/app'>BTS 바로가기</a><br>(혹시 잘못 전달된 메일이라면 이 이메일을 무시하셔도 됩니다)";
     try {
       mail.setSubject("[본인인증] BTS: 임시 비밀번호를 보내드립니다.", "utf-8");
@@ -120,6 +126,30 @@ public class MailSendServiceImpl implements MailSendService{
       e.printStackTrace();
     }
 
+  }
+
+  @Override
+  public void clazzInvite(String email, int classNo, int role, int invitorNo,
+      HttpServletRequest request) throws Exception {
+    User user = userService.get(email);
+    String userName = user.getName();
+    String clazzName = clazzService.get(classNo).getName();
+    String invitor = userService.get(invitorNo).getName();
+    MimeMessage mail = mailSender.createMimeMessage();
+    String htmlStr = "<h2>안녕하세요. " + userName + "님! " + invitor + "님께서 " + userName + "님을 "
+        + clazzName + " 수업으로 초대하셨습니다!</h2><br><br>" + "<h3>" + userName + "님</h3>"
+        + "<p>다음 링크를 클릭하시면 수업에 참여하실 수 있습니다. : " + "<a href='http://localhost:9999"
+        + request.getContextPath() + "/app/clazz/invited?userNo=" + user.getUserNo() + "&clazzNo="
+        + classNo + "&role=" + role + "'>참여하기</a></p>" + "(혹시 잘못 전달된 메일이라면 이 이메일을 무시하셔도 됩니다)";
+    try {
+      mail.setSubject(String.format("[수업초대] BTS: %s님께서 %s 수업에 초대되셨습니다!", userName, clazzName),
+          "utf-8");
+      mail.setText(htmlStr, "utf-8", "html");
+      mail.addRecipient(javax.mail.Message.RecipientType.TO, new InternetAddress(email));
+      mailSender.send(mail);
+    } catch (MessagingException e) {
+      e.printStackTrace();
+    }
   }
 
 

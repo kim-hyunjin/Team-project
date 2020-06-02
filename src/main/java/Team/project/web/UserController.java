@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.UUID;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -41,15 +42,15 @@ public class UserController {
   }
 
   @RequestMapping("signup")
-  public String signup(User user, Model model, HttpServletRequest request) throws Exception {
+  public void signup(User user, Model model, HttpServletRequest request,
+      HttpServletResponse response) throws Exception {
     if (userService.get(user.getEmail()) != null) {
-      model.addAttribute("error", "이미 회원으로 가입된 이메일입니다.");
-      return "/WEB-INF/jsp/user/form.jsp";
+      response.setStatus(400);
     }
     if (userService.join(user) > 0) {
       // 인증 메일 보내기 메서드
       mailsender.mailSendWithKey(user.getEmail(), user.getName(), user.getPassword(), request);
-      return "redirect:../auth/form";
+      response.setStatus(200);
     } else {
       throw new Exception("회원을 추가할 수 없습니다.");
     }

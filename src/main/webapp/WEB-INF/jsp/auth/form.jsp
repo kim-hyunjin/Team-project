@@ -54,9 +54,9 @@ html, body {
             </div>
             <div class="email_login">
                 <form id="loginForm" name="loginForm" method="post" action="login">
-                    <input class="email_login__input" type="text" name="email"
+                    <input class="email_login__input form-control" type="text" name="email"
                         placeholder="  email" onkeyup="enterkey();"> <input
-                        class="email_login__input" type="password" name="password"
+                        class="email_login__input form-control" type="password" name="password"
                         placeholder="  password" onkeyup="enterkey();">
                     </td>
                     <div style="margin-top: 1em;">
@@ -72,6 +72,7 @@ html, body {
             </div>
         </div>
     </div>
+
 
 <script>
 let errorMsg = `${loginError}`;

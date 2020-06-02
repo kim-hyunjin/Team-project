@@ -25,12 +25,15 @@
 html, body, .container {
 height: 100%;
 }
+form {
+height: 10em;
+}
 </style>
 </head>
 <body>
 <div class="container d-flex justify-content-center align-items-center">
   <div class="d-flex flex-column justify-content-center align-items-center w-100" style="margin-top:-20em;">
-    <h2>회원 가입</h2>
+    <img src="/Team-project/images/logo_bts.png" style="width:5em; height:5em;">
     <form class="d-flex flex-column col-12 justify-content-center align-items-center" 
     id="addForm" action='signup' method='post' enctype='multipart/form-data'>
         <input class="form-control col-3" id = "emailInput" name='email' type='email' placeholder="   이메일">
@@ -38,9 +41,6 @@ height: 100%;
         <input class="form-control mt-2 col-3" id="passwordInput" name='password' type='password' placeholder="   비밀번호">
         <input class="form-control mt-2 col-3" id="passwordInput2" type='password' placeholder="   비밀번호 재확인">
         <label class="text-primary mt-2 font-weight-bold" id="form-label" style="height:2em;">
-          <c:if test="${not empty error}">
-          ${error}
-          </c:if>
         </label>
         <input name="loginMethod" type="hidden" value="0">
         <button type="button" class="btn btn-primary col-3" id="completeBtn">완료</button>
@@ -48,7 +48,9 @@ height: 100%;
   </div>
 </div>
     <script>
-    const emailReg = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    //const emailReg = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    const emailReg = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+
     const passwordReg = /^(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
 
     $('#completeBtn').click(function(event){
@@ -69,7 +71,49 @@ height: 100%;
 	        	  $('#passwordInput2').focus();
             	$('#form-label').html("비밀번호와 재확인 비밀번호가 일치하지 않습니다.");
             } else if(emailReg.test(String(email).toLowerCase()) == true && passwordReg.test(password) == true) {
-            	document.getElementById("addForm").submit();
+            	$.ajax({
+            		url : 'signup',
+            		method: 'POST',
+            		data:{
+            			email:$('#emailInput').val(),
+            			name:$('#nameInput').val(),
+            			password:$('#passwordInput').val()
+            		},
+            		beforeSend:function(){
+            			var width = 0;
+                  var height = 0;
+                  var left = 0;
+                  var top = 0;
+                  width = 50;
+                  height = 50;
+                  top = ( $(window).height() - height ) / 2 + $(window).scrollTop();
+                  left = ( $(window).width() - width ) / 2 + $(window).scrollLeft();
+                  if($("#div_ajax_load_image").length != 0) {
+                         $("#div_ajax_load_image").css({
+                                "top": top+"px",
+                                "left": left+"px"
+                         });
+                         $("#div_ajax_load_image").show();
+                  }
+                  else {
+                         $('body').append('<div id="div_ajax_load_image" style="position:absolute; top:' 
+                         + top + 'px; left:' + left + 'px; width:' + width + 'px; height:' + height 
+                         + 'px; z-index:9999; background:#f0f0f0; filter:alpha(opacity=50); opacity:alpha*0.5; margin:auto; padding:0; "><img src="/Team-project/images/loading.gif" style="width:50px; height:50px;"></div>');
+                        }
+            		},
+            		complete: function () {
+                  $("#div_ajax_load_image").hide();
+                },
+                statusCode:{
+                	400:function(){
+                		$('#form-label').html("이미 회원으로 가입된 이메일입니다.");
+                	},
+                	200:function(){
+                		location.href="../auth/form";
+                	}
+                }
+            		
+            	});
 	          }
         }
     });

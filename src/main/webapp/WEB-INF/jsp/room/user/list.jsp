@@ -112,15 +112,15 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body">
         <form id='modalMemberAddForm' action='add' method='post' class="inputGroup">
+      <div class="modal-body">
           <input name="class_no" type="hidden" value="${clazzNowNo}"> <input name="role" type="hidden">
           <input class="form-control" type="email" name="email" id="emailInput" placeholder="초대 대상의 이메일을 입력하세요." />
-        </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" id="memberAddBtn">초대 보내기</button>
+        <button class="btn btn-primary" id="memberAddBtn">초대 보내기</button>
       </div>
+      </form>
     </div>
   </div>
 </div>
@@ -183,11 +183,7 @@
 			document.getElementById('modalMemberAddForm').role.value = role;
 		}
 		
-		
-		
-let btn = document.getElementById("memberAddBtn");
-// 버튼 클릭시 유효성 검사 시작(type="button"인 경우 버튼을 클릭해도 submit을 수행하지 않는다.)
-btn.addEventListener("click", function(event){
+$('#modalMemberAddForm').submit(function(event){
     event.preventDefault();
     let form = document.getElementById("modalMemberAddForm");
     const input = document.getElementById("emailInput");

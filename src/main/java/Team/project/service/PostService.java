@@ -26,6 +26,6 @@ public interface PostService {
 
   List<Post> search(HashMap<String, Object> params) throws Exception;
 
-
+  List<Post> noticeList(int classNo) throws Exception;
 }
 

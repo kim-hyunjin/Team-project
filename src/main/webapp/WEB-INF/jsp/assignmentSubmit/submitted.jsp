@@ -3,8 +3,13 @@
 
 <jsp:include page="../room/room_header.jsp" />
 <div class="room_contents">
-  <span class="d-flex flex-row-reverse"> <i class="fas fa-times"
-    onclick="location.href='javascript:history.back()'" style="font-size: 2em; cursor: pointer"></i>
+  <span class="d-flex flex-row-reverse">
+    <c:if test="${from == 0}">
+    <i class="fas fa-times" onclick="location.href='../assignment/detail?assignmentNo=${assignment.assignmentNo}'" style="font-size: 2em; cursor: pointer"></i>
+    </c:if>
+    <c:if test="${from == 1}">
+    <i class="fas fa-times" onclick="location.href='../grade/list?room_no=${clazzNowNo}'" style="font-size: 2em; cursor: pointer"></i>
+    </c:if>
   </span>
   <!-- 과제정보 렌더링 -->
   <div class="d-flex">
@@ -38,6 +43,12 @@
             </div>
             <div class="card__footer col">
               <form action='eval' method='post' enctype='multipart/form-data'>
+                <c:if test="${from == 0}">
+                  <input name="from" value="0" type="hidden">
+                </c:if>
+                <c:if test="${from == 1}">
+                  <input name="from" value="1" type="hidden">
+                </c:if>
                 <input name="assignmentNo" type="hidden" :value="submit.assignmentNo"> <input name="memberNo"
                   type="hidden" :value="submit.clazzMember.memberNo"> <label class="inputGroupText">피드백</label>
                 <textarea name="feedback" class="card__feedback form-control" rows="2">{{submit.feedback}}</textarea>

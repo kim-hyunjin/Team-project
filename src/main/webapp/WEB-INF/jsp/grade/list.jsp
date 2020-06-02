@@ -33,7 +33,7 @@
               <div v-if="submit.user.userNo == user.userNo && submit.createDate != null"
                 class="bg-info text-white grade-assignment-card text-center font-weight-bold d-flex flex-column justify-content-center border m-1 rounded-lg">
                 <a class="d-block text-truncate"
-                  v-bind:href="`../assignmentSubmit/submitted?assignmentNo=`+submit.assignmentNo"
+                  v-bind:href="`../assignmentSubmit/submitted?assignmentNo=`+submit.assignmentNo+`&from=1`"
                   :title="submit.assignment.title"> {{ submit.assignment.title }} </a>
                 <div>{{ submit.score }}</div>
               </div>
@@ -41,7 +41,7 @@
               <div v-if="submit.user.userNo == user.userNo && submit.createDate == null"
                 class="bg-light text-secondary grade-assignment-card text-center font-weight-bold d-flex flex-column justify-content-center border m-1 rounded-lg">
                 <a class="d-block text-truncate"
-                  v-bind:href="`../assignmentSubmit/submitted?assignmentNo=`+submit.assignmentNo"
+                  v-bind:href="`../assignmentSubmit/submitted?assignmentNo=`+submit.assignmentNo+`&from=1`"
                   :title="submit.assignment.title"> {{ submit.assignment.title }} </a>
                 <div>{{ submit.score }}</div>
               </div>

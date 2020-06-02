@@ -46,7 +46,7 @@
 
 
 <body>
-	<div class="container">
+	<div class="container mt-5">
 		<span class="d-flex flex-row-reverse"> <i
 			class="fas fa-times col-2"
 			onclick="location.href='javascript:history.back()'"

@@ -72,15 +72,15 @@
     </div>
     <div class="main_header__column">
       <c:if test="${loginUser.alterKey == 'Y' }">
-        <span><a href="../calendar/main">캘린더</a></span>
-        <span data-toggle="modal" data-target="#classJoin" style="cursor: pointer;">수업 참여</span>
-        <span data-toggle="modal" data-target="#makeClass" style="cursor: pointer;">수업 만들기</span>
+        <span><a href="../calendar/main" onmouseover="this.style.fontWeight='bold';this.style.color='#009973';" onmouseout="this.style.fontWeight='';this.style.color='';">캘린더</a></span>
+        <span data-toggle="modal" data-target="#classJoin" style="cursor: pointer;"onmouseover="this.style.fontWeight='bold';this.style.color='#009973';" onmouseout="this.style.fontWeight='';this.style.color='';">수업 참여</span>
+        <span data-toggle="modal" data-target="#makeClass" style="cursor: pointer;"onmouseover="this.style.fontWeight='bold';this.style.color='#009973';" onmouseout="this.style.fontWeight='';this.style.color='';">수업 만들기</span>
       </c:if>
       <c:if test="${not empty loginUser}">
         <div class="header__user">
           <c:if test="${not empty loginUser.profilePhoto  && loginUser.profilePhoto ne 'undefined'}">
               <span class="header__user__photo"><img class="img-thumbnail" style="border:0;"
-                src='${pageContext.servletContext.contextPath}/upload/user/thumbnail.${loginUser.profilePhoto}.jpg'></span>
+                src='${pageContext.servletContext.contextPath}/upload/user/thumbnail.${loginUser.profilePhoto}.jpg' ></span>
           </c:if>
           <c:if test="${empty loginUser.profilePhoto || loginUser.profilePhoto eq 'undefined'}">
             <i class="far fa-user" style="font-size: 1.5em; margin-right: 0.3em;"></i>

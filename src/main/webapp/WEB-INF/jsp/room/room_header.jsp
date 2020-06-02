@@ -77,10 +77,10 @@
       </a> <a href="../lesson/list?room_no=${clazzNow.classNo}""><span style="font-weight: bold; font-size: 1.2em;">${clazzNow.name}</span></a>
     </div>
     <div class="room_header__column">
-      <a href="../lesson/list?room_no=${clazzNow.classNo}"><span class="room_header__menu">수업</span></a> <a
-        href="../user/list?room_no=${clazzNow.classNo}"><span class="room_header__menu">사용자</span></a> <a
-        href="../grade/list?room_no=${clazzNow.classNo}"><span class="room_header__menu">성적</span></a> <a
-        href="../board/list"><span class="room_header__menu">게시판</span></a>
+      <a href="../lesson/list?room_no=${clazzNow.classNo}"onmouseover="this.style.fontWeight='bold';this.style.color='#009973';" onmouseout="this.style.fontWeight='';this.style.color='';"><span class="room_header__menu">수업</span></a> <a
+        href="../user/list?room_no=${clazzNow.classNo}"><span class="room_header__menu"onmouseover="this.style.fontWeight='bold';this.style.color='#009973';" onmouseout="this.style.fontWeight='';this.style.color='';">사용자</span></a> <a
+        href="../grade/list?room_no=${clazzNow.classNo}"onmouseover="this.style.fontWeight='bold';this.style.color='#009973';" onmouseout="this.style.fontWeight='';this.style.color='';"><span class="room_header__menu">성적</span></a> <a
+        href="../board/list"><span class="room_header__menu"onmouseover="this.style.fontWeight='bold';this.style.color='#009973';" onmouseout="this.style.fontWeight='';this.style.color='';">게시판</span></a>
     </div>
     <div class="room_header__column">
       <c:if test="${nowMember.role == 0}">

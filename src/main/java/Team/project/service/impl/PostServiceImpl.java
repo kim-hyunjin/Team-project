@@ -79,5 +79,10 @@ public class PostServiceImpl implements PostService {
     return postDao.findByKeyword(params);
   }
 
+  @Override
+  public List<Post> noticeList(int classNo) throws Exception {
+    return postDao.findAllNewNoticePost(classNo);
+  }
+
 
 }

@@ -158,6 +158,13 @@ limit #{rowStart}, #{rowEnd}
       where p.board_no = #{bno}
     </select>
     
+    
+    <select id="findAllNewNoticePost" resultMap="PostMap" parameterType="int">
+	    select p.post_no, p.board_no, p.title, p.content from post p
+	    join board b on p.board_no = b.board_no
+	    where b.class_no = #{classNo} and b.notice = 1 and DATEDIFF(p.create_date, current_timestamp()) > -3; 
+    </select>
+    
 </mapper>
 
 

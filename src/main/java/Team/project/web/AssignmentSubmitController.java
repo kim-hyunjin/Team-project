@@ -76,7 +76,8 @@ public class AssignmentSubmitController {
 
   // 선생이 과제에 대한 학생 제출물을 볼 때 호출됨
   @GetMapping("submitted")
-  public String submitted(int assignmentNo, Model model) throws Exception {
+  public String submitted(int assignmentNo, int from, Model model) throws Exception {
+    // from 0 = 과제 상세보기화면, 1 = 성적화면
     ArrayList<AssignmentSubmit> submittedList =
         (ArrayList<AssignmentSubmit>) assignmentSubmitService.list(assignmentNo);
     Gson gson = new Gson();
@@ -84,12 +85,15 @@ public class AssignmentSubmitController {
     Assignment assignment = assignmentService.get(assignmentNo);
     model.addAttribute("assignment", assignment);
     model.addAttribute("submittedList", gson.toJson(submittedList));
+    model.addAttribute("from", from);
     return "/WEB-INF/jsp/assignmentSubmit/submitted.jsp";
   }
 
   @PostMapping("eval")
-  public String update(HttpSession session, AssignmentSubmit assignmentSubmit) throws Exception {
+  public String update(HttpSession session, AssignmentSubmit assignmentSubmit, int from)
+      throws Exception {
     assignmentSubmitService.update(assignmentSubmit);
-    return "redirect:submitted?assignmentNo=" + assignmentSubmit.getAssignmentNo();
+    return "redirect:submitted?assignmentNo=" + assignmentSubmit.getAssignmentNo() + "&from="
+        + from;
   }
 }

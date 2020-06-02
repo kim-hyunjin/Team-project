@@ -8,14 +8,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import Team.project.domain.Clazz;
-import Team.project.service.AnswerService;
 import Team.project.service.AssignmentService;
-import Team.project.service.AssignmentSubmitService;
-import Team.project.service.ClazzMemberService;
 import Team.project.service.ClazzService;
-import Team.project.service.MultipleService;
+import Team.project.service.PostService;
 import Team.project.service.QuestionService;
-import Team.project.service.TagService;
 
 @Controller
 @RequestMapping("/room")
@@ -23,19 +19,11 @@ public class LessonController {
   @Autowired
   AssignmentService assignmentService;
   @Autowired
-  AssignmentSubmitService assignmentSubmitService;
-  @Autowired
   QuestionService questionService;
   @Autowired
-  AnswerService answerService;
-  @Autowired
-  TagService tagService;
-  @Autowired
-  MultipleService multipleService;
-  @Autowired
-  ClazzMemberService clazzMemberService;
-  @Autowired
   ClazzService clazzService;
+  @Autowired
+  PostService postService;
 
   @RequestMapping("lesson/list")
   public String list(int room_no, Model model, HttpSession session) throws Exception {
@@ -48,10 +36,11 @@ public class LessonController {
     ObjectMapper mapper = new ObjectMapper();
     String questionJson = mapper.writeValueAsString(questionService.list(room_no));
     String assignmentJson = mapper.writeValueAsString(assignmentService.list(room_no));
-
+    String postJson = mapper.writeValueAsString(postService.noticeList(clazz.getClassNo()));
     model.addAttribute("questionJson", URLEncoder.encode(questionJson, "UTF-8"));
     model.addAttribute("assignmentJson", URLEncoder.encode(assignmentJson, "UTF-8"));
-
+    model.addAttribute("postJson", URLEncoder.encode(postJson, "UTF-8"));
+    System.out.println("새게시물===>" + postJson);
     return "/WEB-INF/jsp/room/lesson.jsp";
   }
 

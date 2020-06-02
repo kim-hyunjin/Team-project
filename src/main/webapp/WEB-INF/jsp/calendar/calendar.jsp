@@ -24,14 +24,14 @@
 				</button>
 			</div>
 			<div class="modal-body" id="calendarEventModalBody">
-				<label>제목</label><input id='calendar-modal-title'readonly>
-				<label>설명</label><textarea rows="4" id='calendar-modal-dscription' readonly></textarea> 
-				<label>시작일</label><input id='calendar-modal-start' readonly> 
-				<label>종료일</label><input id='calendar-modal-end' readonly>
+				<label class="inputGroupText">제목</label><input class="form-control" id='calendar-modal-title'readonly>
+				<label class="inputGroupText">설명</label><textarea class="form-control" rows="4" id='calendar-modal-dscription' readonly></textarea> 
+				<label class="inputGroupText">시작일</label><input class="form-control" id='calendar-modal-start' readonly> 
+				<label class="inputGroupText">종료일</label><input class="form-control" id='calendar-modal-end' readonly>
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-secondary" data-dismiss="modal"
-					id="calendar-modal-close">Close</button>
+					id="calendar-modal-close">닫기</button>
 				<button type="button" class="btn btn-primary" id="modal-moveToClass">클래스로 이동</button>
 			</div>
 		</div>
@@ -54,7 +54,8 @@
     		  start : a.startDate,
     		  end : a.deadline,
     		  classNames : 'event-assignment',
-    		  id : a.assignmentNo
+    		  id : a.assignmentNo,
+    		  color: '#009973'
     	  });
       }
       
@@ -64,7 +65,8 @@
     		  start : q.startDate,
     		  end : q.deadline,
     		  classNames : 'event-question',
-    		  id : q.questionNo
+    		  id : q.questionNo,
+    		  color: '#17a2b8'
     	  });
       }
     

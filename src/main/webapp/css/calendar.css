@@ -1,14 +1,22 @@
 #calendarEventModalBody > label{
-	color: gray;
-	width : 13%;
+
 }
 
 #calendarEventModalBody > input{
-	width : 87%;
 	margin-bottom : 0.5em;
+	background-color:white;
 }
 
 #calendarEventModalBody > textarea {
 	resize: none;
 	width: 100%;
+	background-color:white;
+}
+
+.event-question {
+	background-color:#17a2b8;
+}
+
+.event-assignment {
+	background-color:#009973;
 }

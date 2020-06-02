@@ -42,7 +42,7 @@
 			onclick="location.href='javascript:history.back()'"
 			style="font-size: 2em; cursor: pointer"></i>
 		</span>
-		<form class="mt-5" action='../post/add' method='post'
+		<form class="mt-3" action='../post/add' method='post'
 			enctype='multipart/form-data' onsubmit='return formCheck(this)'>
 			<input name="boardNo" type="hidden" value="${boardNo}">
 			<div class="inputGroup mb-3" style="width: 58em;">

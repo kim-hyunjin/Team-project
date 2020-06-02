@@ -9,6 +9,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="../../css/style.css" />
+
+<link rel="favicon" href="images/favicon.ico">
+<link rel="shortcut icon" href="http://localhost:9999/Team-project/images/favicon.ico" type="image/x-icon" />
+<link rel="icon" href="http://localhost:9999/Team-project/images/favicon.ico" type="image/x-icon" />
+
 <script src="https://kit.fontawesome.com/764f0503e3.js"
     crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>

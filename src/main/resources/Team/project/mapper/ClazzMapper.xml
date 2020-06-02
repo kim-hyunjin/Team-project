@@ -12,6 +12,7 @@
   <result column="room" property="room"/>
   <result column="class_code" property="classCode"/>
   <result column="create_date" property="createDate"/>
+  <result column="color" property="color"/>
 </resultMap>
 
 <sql id="selectAll">
@@ -56,11 +57,11 @@
 <update id="update" parameterType="Clazz">
     update class
     <set>
-      <if test="name != null and name != ''">name=#{name},</if>
-      <if test="description != null and description != ''">description=#{description},</if> 
-      <if test="room != null and room != ''">room=#{room},</if>
-      <if test="classCode != null and classCode != ''">class_code=#{classCode},</if>
-      <if test="color != null and color != ''">color = #{color}</if>
+      name=#{name},
+      description=#{description},
+      room=#{room},
+      class_code=#{classCode},
+      color = #{color}
     </set>
     where class_no=#{classNo}
   </update>

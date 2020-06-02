@@ -100,6 +100,7 @@ public class ClazzController {
     } else {
       clazz = clazzService.get(classNo);
     }
+    System.out.println(clazz);
     Gson gson = new Gson();
     String jsonData = gson.toJson(clazz);
     HttpHeaders header = new HttpHeaders();

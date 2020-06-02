@@ -53,6 +53,7 @@
     ass.score,
     ass.assignment_no,
     ass.content,
+    ass.feedback,
     ass.create_date
   from
     class c

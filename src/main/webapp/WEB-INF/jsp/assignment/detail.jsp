@@ -4,8 +4,13 @@
 <jsp:include page="../room/room_header.jsp"></jsp:include>
 <div class="room_contents">
   <div class="container">
-    <span class="d-flex flex-row-reverse"> <i class="fas fa-times"
-      onclick="location.href='../lesson/list?room_no=${clazzNowNo}'" style="font-size: 2em; cursor: pointer"></i>
+    <span class="d-flex flex-row-reverse">
+    <c:if test="${nowMember.role == 0}">
+      <i class="fas fa-times" onclick="location.href='../lesson/list?room_no=${clazzNowNo}'" style="font-size: 2em; cursor: pointer"></i>
+    </c:if>
+    <c:if test="${nowMember.role == 1}">
+      <i class="fas fa-times" onclick="location.href='javascript:history.back()'" style="font-size: 2em; cursor: pointer"></i>
+    </c:if>
     </span>
     <!-- 선생일 때 화면 -->
     <c:if test="${nowMember.role == 0}">
@@ -88,7 +93,7 @@
           <textarea id="student_content" class="form-control" name='content' style="height: 10em;">${assignmentSubmit.content}</textarea>
           <label class="inputGroupText mt-3">제출한 파일</label><span id="submit-download" title="다운로드"
             style="cursor: pointer; font-size: 1.2em;">${assignmentSubmit.fileVO.originalName}</span>
-          <c:if test="${assignmentSubmit.feedback == null && assignmentSubmit.score == null}">
+          <c:if test="${timeout eq false}">
             <div class="d-flex justify-content-between mt-3 mb-5">
               <div id="file-input">
                 <label class="inputGroupText">파일변경</label><input class="btn btn-sm btn-light" name='partfile'
@@ -99,13 +104,13 @@
           </c:if>
         </form>
       </c:if>
-      <c:if test="${assignmentSubmit.feedback != null || assignmentSubmit.score != null }">
+      <c:if test="${assignmentSubmit.feedback != '' || assignmentSubmit.score > 0 }">
         <button type="button" class="btn btn-light mt-3" onclick="showFeedback()">평가 확인하기</button>
         <div id="feedback-contents" style="display: none; margin-bottom: 5em; margin-top: 3em;">
           <div class="d-flex">
             <div class="col-8">
               <label class="inputGroupText">피드백</label>
-              <textarea class="form-control" readonly style="resize: none;">${assignmentSubmit.feedback}</textarea>
+              <textarea class="form-control" readonly style="resize: none; height:15em;">${assignmentSubmit.feedback}</textarea>
             </div>
             <div class="col-4 d-flex flex-column">
               <label class="inputGroupText">평가점수</label> <input class="form-control" value="${assignmentSubmit.score}"

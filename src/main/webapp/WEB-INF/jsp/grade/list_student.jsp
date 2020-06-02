@@ -6,31 +6,48 @@
 <div class="room_contents">
 
   <div class="container" id="grade_contents">
-    <div class="inputGroupText mb-3">과제 목록</div>
-    <ul id="grade_list" style="display: flex">
-      <li class="d-flex" v-for="assignment in assignments">
-        <div class="col-10 d-flex flex-wrap align-content-around">
-          <div v-for="submit in submits"  v-if="submit.assignmentNo == assignment.assignmentNo">
-            <!-- 마감일이 지난 경우 -->
-            <div v-if="filterByDeadline(assignment.deadline)"
-              class="bg-light text-secondary grade-assignment-card text-center font-weight-bold d-flex flex-column justify-content-center border m-1 rounded-lg">
-              <a class="d-block text-truncate" v-bind:href="`../assignment/detail?assignmentNo=`+submit.assignmentNo"
-                :title="submit.assignment.title"> {{ submit.assignment.title }} </a>
-              <div>{{ submit.score }}</div>
-            </div>
-            <!-- 과제를 제출한 경우 -->
-            <div v-else-if="submit.createDate != null"
-              class="bg-info text-white grade-assignment-card text-center font-weight-bold d-flex flex-column justify-content-center border m-1 rounded-lg">
-              <a class="d-block text-truncate" v-bind:href="`../assignment/detail?assignmentNo=`+submit.assignmentNo"
-                :title="submit.assignment.title"> {{ submit.assignment.title }} </a>
-              <div>{{ submit.score }}</div>
+    <ul id="grade_list" class="d-flex flex-column" style="font-size:1.2em;">
+      <li class="d-flex">
+        <div class="col-3" style="color:#66ccff; font-weight:bold;">과제명</div>
+        <div class="col-1" style="color:#66ccff; font-weight:bold;">점수</div>
+        <div class="col-7" style="color:#66ccff; font-weight:bold;">피드백</div>
+      </li>
+      <li class="mt-2 border-bottom" v-for="assignment in assignments">
+          <div v-for="submit in submits"  v-if="submit.assignmentNo == assignment.assignmentNo" 
+          v-bind:onclick="`location.href='../assignment/detail?assignmentNo=`+submit.assignmentNo +`'`"
+          onmouseover="this.style.backgroundColor='#CCCCCC'" onmouseleave="this.style.backgroundColor='white'" style="cursor:pointer;">
+          <!-- 과제를 제출한 경우 -->
+            <div v-if="submit.createDate != null"
+              class="d-flex align-items-center" style="height:3em;">
+              <div class="bg-info" style="width:0.5em; height:90%;"></div>
+              <span class="d-block text-truncate col-3" 
+                :title="submit.assignment.title"> {{ submit.assignment.title }} </span>
+              <div class="col-1">{{ submit.score }}</div>
+              <div class="col-7">
+                <div class="d-block text-truncate" :title="submit.feedback">{{submit.feedback}}</div>
+              </div>
             </div>
             <!-- 과제를 제출하지 않은 경우 -->
             <div v-else-if="submit.createDate == null"
-              class="bg-danger text-white grade-assignment-card text-center font-weight-bold d-flex flex-column justify-content-center border m-1 rounded-lg">
-              <a class="d-block text-truncate" v-bind:href="`../assignment/detail?assignmentNo=`+submit.assignmentNo"
-                :title="submit.assignment.title"> {{ submit.assignment.title }} </a>
-              <div>{{ submit.score }}</div>
+              class="d-flex align-items-center" style="height:3em;">
+              <div class="bg-danger" style="width:0.5em; height:90%;"></div>
+              <span class="d-block text-truncate col-3"
+                :title="submit.assignment.title"> {{ submit.assignment.title }} </span>
+              <div class="col-1">{{ submit.score }}</div>
+              <div class="col-7">
+                <div class="d-block text-truncate">{{submit.feedback}}</div>
+              </div>
+            </div>
+            <!-- 마감일이 지난 경우 -->
+            <div v-else-if="filterByDeadline(assignment.deadline)"
+              class="d-flex align-items-center" style="height:3em;">
+              <div class="bg-secondary" style="width:0.5em; height:90%;"></div>
+              <span class="d-block text-truncate col-3"
+                :title="submit.assignment.title"> {{ submit.assignment.title }} </span>
+              <div class="col-1">{{ submit.score }}</div>
+              <div class="col-7">
+                <div class="d-block text-truncate">{{submit.feedback}}</div>
+              </div>
             </div>
           </div>
       </li>

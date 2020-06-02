@@ -45,12 +45,13 @@
       </div>
       <div class="modal-body">
         <form id="updateForm" action='update' method='post'>
-          <input class="form-control" name='classNo' type='hidden'> <input class="form-control" name='from'
-            type='hidden' value='main'> <input class="form-control" name='name' type='text' placeholder="수업명">
-          <input class="form-control" name='description' type='text' placeholder="설명"> <input
-            class="form-control" name='room' type='text' placeholder="강의실"> <input class="form-control"
-            name='classCode' type='text' placeholder="수업코드"> <input class="form-control" name='color'
-            type='color'>
+          <input class="form-control" name='classNo' type='hidden'> 
+          <input class="form-control" name='from' type='hidden' value='main'>
+          <input class="form-control" name='name' type='text' placeholder="수업명">
+          <textarea class="form-control mt-2" style="height:10em;" name='description' type='text' placeholder="설명"></textarea>
+          <input class="form-control" name='room' type='text' placeholder="강의실">
+          <input class="form-control" name='classCode' type='text' placeholder="수업코드">
+          <input class="form-control" name='color' type='color'>
         </form>
       </div>
       <div class="modal-footer">
@@ -97,10 +98,18 @@ $(document).on('click', '.clazz-modal', function(event) {
               const clazzJson = JSON.parse(xhr.responseText);
               console.log(clazzJson);
               form.name.value= clazzJson.name;
-              form.description.value= clazzJson.description;
-              form.room.value= clazzJson.room;
+              if(clazzJson.description != undefined){
+        	      form.description.value= clazzJson.description;
+              }
+              if(clazzJson.room != undefined){
+                form.room.value= clazzJson.room;
+              }
               form.classCode.value= clazzJson.classCode;
-              form.color.value=clazzJson.color;
+              if(clazzJson.color == undefined) {
+        	      form.color.value="#2F4F4F";
+              }else{      	  
+                form.color.value=clazzJson.color;
+              }
             }
           }
         }

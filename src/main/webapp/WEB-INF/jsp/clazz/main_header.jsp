@@ -11,6 +11,13 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 
+<script
+  src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
+<link rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" />
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+
 <link rel="favicon" href="images/favicon.ico">
 <link rel="shortcut icon" href="http://localhost:9999/Team-project/images/favicon.ico" type="image/x-icon" />
 <link rel="icon" href="http://localhost:9999/Team-project/images/favicon.ico" type="image/x-icon" />
@@ -285,9 +292,10 @@ $(function () {
           text: "삭제하면 되돌릴 수 없습니다.",
           icon: 'warning',
           showCancelButton: true,
-          confirmButtonColor: '#3085d6',
-          cancelButtonColor: '#d33',
-          confirmButtonText: 'Yes, delete it!'
+          confirmButtonColor: '#d33',
+          cancelButtonColor: '#A4A4A4',
+          cancelButtonText: '취소',
+          confirmButtonText: '삭제'
         }).then((result) => {
           if (result.value) {
         location.href = "../user/delete?no="+userJson.userNo;

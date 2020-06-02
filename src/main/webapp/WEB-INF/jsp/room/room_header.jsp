@@ -241,9 +241,10 @@
                       text: "삭제하면 되돌릴 수 없습니다.",
                       icon: 'warning',
                       showCancelButton: true,
-                      confirmButtonColor: '#3085d6',
-                      cancelButtonColor: '#d33',
-                      confirmButtonText: 'Yes, delete it!'
+                      confirmButtonColor: '#d33',
+                      cancelButtonColor: '#A4A4A4',
+                      cancelButtonText: '취소',
+                      confirmButtonText: '삭제'
                     }).then((result) => {
                       if (result.value) {
                           location.href = "../../clazz/delete?no="+classData.classNo;

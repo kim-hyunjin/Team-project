@@ -26,7 +26,7 @@
           </div> 
           <span>${clazz.room}</span>
         </div>
-        <div class="description">${clazz.description}</div>
+        <div style="height:10em; overflow:hidden; text-overflow:ellipsis;" class="description text-monospace text-muted">${clazz.description}</div>
       </div>
     </c:forEach>
   </c:if>
@@ -48,7 +48,7 @@
           <input class="form-control" name='classNo' type='hidden'> <input class="form-control" name='from'
             type='hidden' value='main'> <input class="form-control" name='name' type='text' placeholder="수업명">
           <input class="form-control" name='description' type='text' placeholder="설명"> <input
-            class="form-control" name='room' type='text' placeholder="강의실"> <input class="form-control"
+            class="form-control" name='room' type='text' placeholder="강의실" maxlength="30"> <input class="form-control"
             name='classCode' type='text' placeholder="수업코드"> <input class="form-control" name='color'
             type='color'>
         </form>

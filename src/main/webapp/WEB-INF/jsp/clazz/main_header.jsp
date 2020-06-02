@@ -139,18 +139,18 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
+          <form id="class_createForm" action='add' method='post' onsubmit='return formCheck(this)'>
         <div class="modal-body">
-          <form id="class_createForm" action='add' method='post'>
             <input class="form-control" id="modal-name" name='name' type='text' placeholder="수업명" maxlength="30">
             <input class="form-control" id="modal-description" name='description' type='text' placeholder="설명">
-            <input class="form-control" id="modal-room" name='room' type='text' placeholder="강의실"> <input
-              class="form-control" name="color" type="color">
-          </form>
+            <input class="form-control" id="modal-room" name='room' type='text' placeholder="강의실"> 
+            <input class="form-control" name="color" type="color">
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal" id="create-modal-close">닫기</button>
-          <button type="button" class="btn btn-primary" id="createBtn">만들기</button>
+          <button class="btn btn-primary" id="createBtn">만들기</button>
         </div>
+          </form>
       </div>
     </div>
   </div>
@@ -239,12 +239,6 @@ $(function () {
   });
 });
 
-
-// 수업 생성 버튼 클릭시 post요청
-    $("#createBtn").click(function() {
-        $('#class_createForm').submit();
-    })
-
     // 유저 정보 수정을 위한 스크립트
   var userJson;
     $('#headerUserName').click(function () {
@@ -307,4 +301,25 @@ $(function () {
     $('#user-update-updateBtn').click(()=>{
      $('#modal-user-update').submit();
     });
+    
     </script>
+    
+    <script>
+    
+    // 유효성검사
+    
+    function formCheck(frm) {
+        if (frm.name.value == "") {
+      Swal.fire({
+          icon : 'error',
+          title : '수업명을 입력해주세요.',
+      });
+      frm.name.focus();
+      return false;
+        }
+        return true;
+    }
+    
+    </script>
+    
+    

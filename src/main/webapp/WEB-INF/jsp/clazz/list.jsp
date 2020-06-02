@@ -21,7 +21,7 @@
               <div onMouseover="this.style.backgroundColor='gray';" onMouseout="this.style.backgroundColor='white';"
                 class="class-update-btn" data-toggle="modal" data-target="#updateClass">수정</div>
               <div onMouseover="this.style.backgroundColor='gray';" onMouseout="this.style.backgroundColor='white';"
-                onclick="button_event(${clazz.classNo})">삭제</div>
+                onclick="button_event(this, ${clazz.classNo})">삭제</div>
             </div>
           </div> 
           <span>${clazz.room}</span>
@@ -121,7 +121,12 @@ $(document).on('click', '.clazz-modal', function(event) {
     
 
  // 수업 삭제시 정말 삭제할지 묻는 코드
-    function button_event(no){
+    function button_event(btn, no){
+	   var parent = btn.parentNode;
+	      console.log(parent);
+	      parent.setAttribute("style", "display:none;");
+	      modalStatus = 0;
+	      
     	Swal.fire({
     	          title: '정말 삭제하시겠습니까?',
     	          text: "삭제하면 되돌릴 수 없습니다.",

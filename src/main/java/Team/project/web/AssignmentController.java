@@ -72,12 +72,20 @@ public class AssignmentController {
   public String detail(int assignmentNo, Model model, HttpSession session) throws Exception {
     Assignment assignment = assignmentService.get(assignmentNo);
     FileVO file = fileService.get(assignment.getFile());
-    System.out.println(file);
-    model.addAttribute("file", file);
+    if (file != null) {
+      model.addAttribute("file", file);
+    }
     model.addAttribute("assignment", assignment);
     AssignmentSubmit submit = assignmentSubmitService.get(assignmentNo,
         ((ClazzMember) session.getAttribute("nowMember")).getMemberNo());
     model.addAttribute("assignmentSubmit", submit);
+    if (assignment.getDeadline().after(new java.sql.Date(System.currentTimeMillis()))) {
+      System.out.println("마감 시간 안지남!");
+      model.addAttribute("timeout", false);
+    } else {
+      System.out.println("마감 시간 지남!");
+      model.addAttribute("timeout", true);
+    }
     return "/WEB-INF/jsp/assignment/detail.jsp";
   }
 

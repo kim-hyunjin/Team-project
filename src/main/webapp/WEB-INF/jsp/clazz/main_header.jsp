@@ -79,9 +79,9 @@
     </div>
     <div class="main_header__column">
       <c:if test="${loginUser.alterKey == 'Y' }">
-        <span><a href="../calendar/main" onmouseover="this.style.fontWeight='bold';this.style.color='#009973';" onmouseout="this.style.fontWeight='';this.style.color='';">캘린더</a></span>
-        <span data-toggle="modal" data-target="#classJoin" style="cursor: pointer;"onmouseover="this.style.fontWeight='bold';this.style.color='#009973';" onmouseout="this.style.fontWeight='';this.style.color='';">수업 참여</span>
-        <span data-toggle="modal" data-target="#makeClass" style="cursor: pointer;"onmouseover="this.style.fontWeight='bold';this.style.color='#009973';" onmouseout="this.style.fontWeight='';this.style.color='';">수업 만들기</span>
+        <span><a href="../calendar/main" onmouseover="this.style.fontWeight='bold';this.style.color='#66ccff';" onmouseout="this.style.fontWeight='';this.style.color='';">캘린더</a></span>
+        <span data-toggle="modal" data-target="#classJoin" style="cursor: pointer;"onmouseover="this.style.fontWeight='bold';this.style.color='#66ccff';" onmouseout="this.style.fontWeight='';this.style.color='';">수업 참여</span>
+        <span data-toggle="modal" data-target="#makeClass" style="cursor: pointer;"onmouseover="this.style.fontWeight='bold';this.style.color='#66ccff';" onmouseout="this.style.fontWeight='';this.style.color='';">수업 만들기</span>
       </c:if>
       <c:if test="${not empty loginUser}">
         <div class="header__user">
@@ -144,7 +144,7 @@
             <input class="form-control" id="modal-name" name='name' type='text' placeholder="수업명" maxlength="30">
             <input class="form-control" id="modal-description" name='description' type='text' placeholder="설명">
             <input class="form-control" id="modal-room" name='room' type='text' placeholder="강의실"> <input
-              class="form-control" name="color" type="color">
+              class="form-control" name="color" type="color" value="#2F4F4F">
           </form>
         </div>
         <div class="modal-footer">

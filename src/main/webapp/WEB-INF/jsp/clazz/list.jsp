@@ -14,7 +14,7 @@
         <div class="main_name" style="background-color:${clazz.color eq null ? 'darkslategrey':clazz.color};">
           <!-- style="background-color:${clazz.color != null ? clazz.color : darkslategrey}" -->
           <div class="main_card__header" style="position: relative">
-            <a class="main_name_title" href="../room/lesson/list?room_no=${clazz.classNo}"> ${clazz.name}</a> <span
+            <a class="main_name_title text-truncate" href="../room/lesson/list?room_no=${clazz.classNo}"> ${clazz.name}</a> <span
               class="clazz-modal" style="cursor: pointer;"><i class="fas fa-ellipsis-v"></i></span>
             <!-- 수업 수정 삭제를 위한 div -->
             <div class="clazz-detail-box" id="clazz-detail-box ${clazz.classNo}">

@@ -11,6 +11,13 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 
+<script
+  src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
+<link rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" />
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+
 <link rel="favicon" href="images/favicon.ico">
 <link rel="shortcut icon" href="http://localhost:9999/Team-project/images/favicon.ico" type="image/x-icon" />
 <link rel="icon" href="http://localhost:9999/Team-project/images/favicon.ico" type="image/x-icon" />
@@ -72,15 +79,15 @@
     </div>
     <div class="main_header__column">
       <c:if test="${loginUser.alterKey == 'Y' }">
-        <span><a href="../calendar/main">캘린더</a></span>
-        <span data-toggle="modal" data-target="#classJoin" style="cursor: pointer;">수업 참여</span>
-        <span data-toggle="modal" data-target="#makeClass" style="cursor: pointer;">수업 만들기</span>
+        <span><a href="../calendar/main" onmouseover="this.style.fontWeight='bold';this.style.color='#009973';" onmouseout="this.style.fontWeight='';this.style.color='';">캘린더</a></span>
+        <span data-toggle="modal" data-target="#classJoin" style="cursor: pointer;"onmouseover="this.style.fontWeight='bold';this.style.color='#009973';" onmouseout="this.style.fontWeight='';this.style.color='';">수업 참여</span>
+        <span data-toggle="modal" data-target="#makeClass" style="cursor: pointer;"onmouseover="this.style.fontWeight='bold';this.style.color='#009973';" onmouseout="this.style.fontWeight='';this.style.color='';">수업 만들기</span>
       </c:if>
       <c:if test="${not empty loginUser}">
         <div class="header__user">
           <c:if test="${not empty loginUser.profilePhoto  && loginUser.profilePhoto ne 'undefined'}">
               <span class="header__user__photo"><img class="img-thumbnail" style="border:0;"
-                src='${pageContext.servletContext.contextPath}/upload/user/thumbnail.${loginUser.profilePhoto}.jpg'></span>
+                src='${pageContext.servletContext.contextPath}/upload/user/thumbnail.${loginUser.profilePhoto}.jpg' ></span>
           </c:if>
           <c:if test="${empty loginUser.profilePhoto || loginUser.profilePhoto eq 'undefined'}">
             <i class="far fa-user" style="font-size: 1.5em; margin-right: 0.3em;"></i>
@@ -285,9 +292,10 @@ $(function () {
           text: "삭제하면 되돌릴 수 없습니다.",
           icon: 'warning',
           showCancelButton: true,
-          confirmButtonColor: '#3085d6',
-          cancelButtonColor: '#d33',
-          confirmButtonText: 'Yes, delete it!'
+          confirmButtonColor: '#d33',
+          cancelButtonColor: '#A4A4A4',
+          cancelButtonText: '취소',
+          confirmButtonText: '삭제'
         }).then((result) => {
           if (result.value) {
         location.href = "../user/delete?no="+userJson.userNo;

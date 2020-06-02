@@ -77,10 +77,10 @@
       </a> <a href="../lesson/list?room_no=${clazzNow.classNo}""><span style="font-weight: bold; font-size: 1.2em;">${clazzNow.name}</span></a>
     </div>
     <div class="room_header__column">
-      <a href="../lesson/list?room_no=${clazzNow.classNo}"><span class="room_header__menu">수업</span></a> <a
-        href="../user/list?room_no=${clazzNow.classNo}"><span class="room_header__menu">사용자</span></a> <a
-        href="../grade/list?room_no=${clazzNow.classNo}"><span class="room_header__menu">성적</span></a> <a
-        href="../board/list"><span class="room_header__menu">게시판</span></a>
+      <a href="../lesson/list?room_no=${clazzNow.classNo}"onmouseover="this.style.fontWeight='bold';this.style.color='#009973';" onmouseout="this.style.fontWeight='';this.style.color='';"><span class="room_header__menu">수업</span></a> <a
+        href="../user/list?room_no=${clazzNow.classNo}"><span class="room_header__menu"onmouseover="this.style.fontWeight='bold';this.style.color='#009973';" onmouseout="this.style.fontWeight='';this.style.color='';">사용자</span></a> <a
+        href="../grade/list?room_no=${clazzNow.classNo}"onmouseover="this.style.fontWeight='bold';this.style.color='#009973';" onmouseout="this.style.fontWeight='';this.style.color='';"><span class="room_header__menu">성적</span></a> <a
+        href="../board/list"><span class="room_header__menu"onmouseover="this.style.fontWeight='bold';this.style.color='#009973';" onmouseout="this.style.fontWeight='';this.style.color='';">게시판</span></a>
     </div>
     <div class="room_header__column">
       <c:if test="${nowMember.role == 0}">
@@ -241,9 +241,10 @@
                       text: "삭제하면 되돌릴 수 없습니다.",
                       icon: 'warning',
                       showCancelButton: true,
-                      confirmButtonColor: '#3085d6',
-                      cancelButtonColor: '#d33',
-                      confirmButtonText: 'Yes, delete it!'
+                      confirmButtonColor: '#d33',
+                      cancelButtonColor: '#A4A4A4',
+                      cancelButtonText: '취소',
+                      confirmButtonText: '삭제'
                     }).then((result) => {
                       if (result.value) {
                           location.href = "../../clazz/delete?no="+classData.classNo;

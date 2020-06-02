@@ -13,7 +13,7 @@ html, body, aside {
 <div class="container-fluid d-flex" style='margin-top: 8em; height: 100%;'>
 <div class="col-1"></div>
   <aside class="col-2" id='lesson_aside'>
-    <div id="alarm_box" style="width: 100%; height: 50%; font-size:1.2em;">
+    <div id="alarm_box" style="width: 100%; height: 50%; font-size:1.2em; border-radius: 0.5rem;">
       <i class="fas fa-lightbulb text-warning"></i>
       <!-- <span class="badge badge-warning">알림 상자</span> -->
       <ul id="alarm_contents">
@@ -44,7 +44,7 @@ html, body, aside {
       </ul>
     </div>
     <form id="filter" style="width: 100%;">
-      <select class="form-control" onclick="activeFilter(this.value)" style="width: 100%;">
+      <select class="form-control" onclick="activeFilter(this.value)" style="width: 100%; border-radius: 0.5rem;">
         <option value="0">전체</option>
         <option value="1">과제</option>
         <option value="2">질문</option>

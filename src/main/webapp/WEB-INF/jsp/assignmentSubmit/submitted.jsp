@@ -16,7 +16,7 @@
     <div class="col-2 p-0 pr-5 d-flex flex-column submitted_assignment_detail"
       style="border-right: thin solid rgba(0, 0, 0, 0.1)">
       <label class="inputGroupText">과제명</label>
-      <div>${assignment.title}</div>
+      <div class="text-truncate">${assignment.title}</div>
       <label class="inputGroupText">과제내용</label>
       <textarea class="form-control p-0 mb-3" style="overflow:hidden; width:100%; height:10em; border:0;">${assignment.content}</textarea>
       <label class="inputGroupText">마감일</label>
@@ -52,10 +52,10 @@
                 <input name="assignmentNo" type="hidden" :value="submit.assignmentNo"> <input name="memberNo"
                   type="hidden" :value="submit.clazzMember.memberNo"> <label class="inputGroupText">피드백</label>
                 <textarea name="feedback" class="card__feedback form-control" rows="2">{{submit.feedback}}</textarea>
-                <label class="inputGroupText mt-3">평가점수</label> <input name="score" type="number" min="0" max="9999999999"
+                <label class="inputGroupText mt-3">점수</label> <input name="score" type="number" min="0" max="9999999999"
                   class="score form-control" :value="submit.score"></input>
                 <div class="d-flex flex-row-reverse mt-3">
-                  <button class="btn btn-sm btn-light">평가</button>
+                  <button class="btn btn-sm btn-primary">평가</button>
                 </div>
               </form>
             </div>

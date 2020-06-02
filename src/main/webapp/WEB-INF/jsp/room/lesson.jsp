@@ -11,21 +11,36 @@ html, body, aside {
 
 
 <div class="container-fluid d-flex" style='margin-top: 8em; height: 100%;'>
+<div class="col-1"></div>
   <aside class="col-2" id='lesson_aside'>
     <div id="alarm_box" style="width: 100%; height: 50%; font-size:1.2em; border-radius: 0.5rem;">
       <i class="fas fa-lightbulb text-warning"></i>
       <!-- <span class="badge badge-warning">알림 상자</span> -->
       <ul id="alarm_contents">
-        <li v-for="item in items" v-if="dateConfigure(item.deadline)"><span
-          v-if="item.hasOwnProperty('questionNo')"> <a v-bind:href="`../question/detail?qno=`+item.questionNo">
-              <span class="alarm_box__icon"><i class="fas fa-question-circle text-info"></i></span> <span title='마감일이 임박했습니다.'>{{
-                item["title"] }}</span>
-          </a>
-        </span> <span v-if="item.hasOwnProperty('assignmentNo')"> <a
-            v-bind:href="`../assignment/detail?assignmentNo=`+ item.assignmentNo"> <span class="alarm_box__icon"><i
-                class="fas fa-pen-square"></i></span> <span title='마감일이 임박했습니다.'>{{ item["title"] }}</span>
-          </a>
-        </span></li>
+        <li v-for="post in posts">
+          <div class="d-flex align-items-center">
+            <span class="bade badge-primary badge-pill" style="font-size:0.5em;">new</span>
+            <a href="#" class="d-inline-block text-truncate" :onclick="`postDetailModal('`+post.title+`','`+post.content+`')`">{{post["title"]}}</a>
+          </div>
+        </li>
+        <li v-for="item in items" v-if="dateConfigure(item.deadline)">
+          <span v-if="item.hasOwnProperty('questionNo')"> 
+            <a v-bind:href="`../question/detail?qno=`+item.questionNo">
+              <span class="alarm_box__icon">
+                <i class="fas fa-question-circle text-info"></i>
+              </span>
+              <span title='마감일이 임박했습니다.'>{{ item["title"] }}</span>
+            </a>
+          </span>
+          <span v-if="item.hasOwnProperty('assignmentNo')">
+           <a v-bind:href="`../assignment/detail?assignmentNo=`+ item.assignmentNo">
+            <span class="alarm_box__icon">
+              <i class="fas fa-pen-square"></i>
+            </span>
+            <span title='마감일이 임박했습니다.'>{{ item["title"] }}</span>
+           </a>
+          </span>
+        </li>
       </ul>
     </div>
     <form id="filter" style="width: 100%;">
@@ -36,7 +51,7 @@ html, body, aside {
       </select>
     </form>
   </aside>
-  <section class="col-10" id='lesson_section'>
+  <section class="col-9" id='lesson_section'>
     <div id='lesson_section_add'>
       <div id='lesson__create-div' onclick='lessonAddActive()'>
         <i class="fas fa-plus"></i>만들기
@@ -54,19 +69,56 @@ html, body, aside {
     </div>
     <div id="lesson_box" style="width: 70%;">
       <ul id="lesson_contents">
-        <li class="text-truncate" v-for="item in items"><a v-if="item.hasOwnProperty('questionNo')"
-          v-bind:href="`../question/detail?qno=`+item.questionNo"> <i class="fas fa-question-circle text-info"></i><span>{{
-              item["title"] }}</span>
-        </a> <a v-if="item.hasOwnProperty('assignmentNo')"
-          v-bind:href="`../assignment/detail?assignmentNo=`+ item.assignmentNo"> <i class="fas fa-pen-square"></i><span>{{
-              item["title"] }}</span>
-        </a></li>
+        <li class="text-truncate" v-for="item in items">
+          <a v-if="item.hasOwnProperty('questionNo')" v-bind:href="`../question/detail?qno=`+item.questionNo">
+            <i class="fas fa-question-circle text-info"></i>
+            <span>{{ item["title"] }}</span>
+          </a> 
+          <a v-if="item.hasOwnProperty('assignmentNo')" v-bind:href="`../assignment/detail?assignmentNo=`+ item.assignmentNo">
+            <i class="fas fa-pen-square"></i>
+            <span>{{ item["title"] }}</span>
+          </a>
+        </li>
       </ul>
     </div>
   </section>
-
 </div>
+<div class="modal fade" id="postDetailModal" tabindex="-1" role="dialog" aria-labelledby="postDetailModalTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title text-truncate" id="postDetailModalTitle"></h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <textarea id="postDetailSummernote"></textarea>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-dismiss="modal" id="user-update-closeBtn">확인</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
+<script>
+  
+function postDetailModal(postTitle, postContent) {
+    $('#postDetailSummernote').summernote({
+	    toolbar: false,
+	    height: 350
+	  });  
+	  $('#postDetailSummernote').summernote('disable');
+	  $('.note-editable').css('background-color', 'white');
+    console.log(postTitle);
+    console.log(postContent);
+    $('#postDetailModal').modal();
+    $('#postDetailModalTitle').html(postTitle);
+    $('#postDetailSummernote').summernote('code', postContent);
+}
+</script>
 <script>
 //학생이면 만들기 버튼을 숨김
 const role = ${nowMember.role};
@@ -78,10 +130,13 @@ if(role !== 0) {
 
 var questionJson = '${questionJson}';
 var assignmentJson = '${assignmentJson}';
+var postJson = '${postJson}';
+console.log(postJson);
 
 //서버로부터 받은 자료
 let questions = eval("(" + decodeURIComponent(questionJson).replace(/\+/g," ")+")");
 let assignments = eval("(" + decodeURIComponent(assignmentJson).replace(/\+/g," ")+")");
+let posts = eval("("+decodeURIComponent(postJson).replace(/\+/g," ")+")");
 let all = questions.concat(assignments);
 console.log(all);
 
@@ -98,13 +153,14 @@ var lesson_contents = new Vue({
 	  data: {
 	    items: all
 	  }
-	})
+	});
 
 // 알림 템플릿
 var alarm_contents = new Vue({
     el: '#alarm_contents',
     data: {
-      items: all
+      items: all,
+      posts: posts
     },
     methods: {
     	dateConfigure(deadline) {
@@ -115,7 +171,7 @@ var alarm_contents = new Vue({
     	    }
     	}
     }
-  })
+  });
 
 
 // 필터 선택에 따라 작업하는 함수	

@@ -22,5 +22,7 @@ public interface PostDao {
 
   public List<Post> findByKeyword(Map<String, Object> params) throws Exception;
 
+  public List<Post> findAllNewNoticePost(int classNo) throws Exception;
+
 }
 

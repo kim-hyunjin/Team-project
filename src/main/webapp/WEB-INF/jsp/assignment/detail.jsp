@@ -5,7 +5,7 @@
 <div class="room_contents">
   <div class="container">
     <span class="d-flex flex-row-reverse"> <i class="fas fa-times"
-      onclick="location.href='javascript:history.back()'" style="font-size: 2em; cursor: pointer"></i>
+      onclick="location.href='../lesson/list?room_no=${clazzNowNo}'" style="font-size: 2em; cursor: pointer"></i>
     </span>
     <!-- 선생일 때 화면 -->
     <c:if test="${nowMember.role == 0}">
@@ -41,7 +41,7 @@
           <button type="button" class="btn btn-primary" onclick="updateSubmit()">변경</button>
           <button type="button" class="btn btn-danger mr-2" onclick='confirmDelete()'>삭제</button>
           <button type="button" class="btn btn-success mr-2"
-            onclick="location.href='../assignmentSubmit/submitted?assignmentNo=${assignment.assignmentNo}'">제출된
+            onclick="location.href='../assignmentSubmit/submitted?assignmentNo=${assignment.assignmentNo}&from=0'">제출된
             과제 보기</button>
         </div>
       </form>

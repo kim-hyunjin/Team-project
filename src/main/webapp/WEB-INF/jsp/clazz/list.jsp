@@ -49,6 +49,7 @@
           <input class="form-control" name='room' type='text' placeholder="강의실" maxlength="30">
           <input class="form-control" name='classCode' type='text' placeholder="수업코드">
           <input class="form-control" name='color' type='color'>
+          <input type="hidden" name="userNo" value="${loginUser.userNo}">
         </form>
       </div>
       <div class="modal-footer">
@@ -83,7 +84,6 @@
     </div>
   </div>
 </div>
-
 <script>
 let clazzList = '${clazzList}'
 if(clazzList == '[]') {

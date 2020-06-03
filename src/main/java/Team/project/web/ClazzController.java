@@ -109,8 +109,14 @@ public class ClazzController {
   }
 
   @PostMapping("update")
-  public String update(HttpSession session, Clazz clazz, String from) throws Exception {
-    clazzService.update(clazz);
+  public String update(HttpSession session, Clazz clazz, int userNo, String from, Model model)
+      throws Exception {
+    int role = clazzMemberService.get(userNo, clazz.getClassNo()).getRole();
+    if (role == 0) {
+      clazzService.update(clazz);
+    } else {
+      return "redirect:list";
+    }
     if (from.equals("main")) {
       return "redirect:list";
     }

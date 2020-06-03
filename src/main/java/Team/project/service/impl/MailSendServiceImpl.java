@@ -115,8 +115,8 @@ public class MailSendServiceImpl implements MailSendService {
     params.put("email", email);
     userDao.updatePassword(params);
     MimeMessage mail = mailSender.createMimeMessage();
-    String htmlStr = "<h2>BTS 계정의 임시 비밀번호가 발급되었습니다.<br><br>" + "<h3>" + password
-        + "</h3><br><p><a href='http://localhost:9999/Team-project/app'>BTS 바로가기</a><br>(혹시 잘못 전달된 메일이라면 이 이메일을 무시하셔도 됩니다)";
+    String htmlStr = "<h2>BTS 계정의 임시 비밀번호가 발급되었습니다.</h2><br><br>" + "<h3>" + password
+        + "</h3><br><p><a href='http://localhost:9999/Team-project/app/auth/form'>BTS 바로가기</a><br>(혹시 잘못 전달된 메일이라면 이 이메일을 무시하셔도 됩니다)";
     try {
       mail.setSubject("[본인인증] BTS: 임시 비밀번호를 보내드립니다.", "utf-8");
       mail.setText(htmlStr, "utf-8", "html");

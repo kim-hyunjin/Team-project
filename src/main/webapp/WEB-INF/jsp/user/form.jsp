@@ -11,12 +11,13 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="../../css/style.css" />
-    
     <link rel="favicon" href="images/favicon.ico">
     <link rel="shortcut icon" href="http://localhost:9999/Team-project/images/favicon.ico" type="image/x-icon" />
     <link rel="icon" href="http://localhost:9999/Team-project/images/favicon.ico" type="image/x-icon" />
-    
+<!-- sweet alert2 -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>   
 <script src="https://kit.fontawesome.com/764f0503e3.js" crossorigin="anonymous"></script>
+<!-- bootstrap -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
@@ -109,14 +110,20 @@ height: 10em;
                 		$('#form-label').html("이미 회원으로 가입된 이메일입니다.");
                 	},
                 	200:function(){
-                		location.href="../auth/form";
-                	}
-                }
-            		
-            	});
-	          }
+                	    Swal.fire({
+                	            icon : 'success',
+                	            title : '회원가입을 완료하기 위해 이메일을 인증해주세요!'
+                	        }).then((result) => {
+                                    if (result.value) {
+                	        	           location.href="../auth/form";
+                                    }
+                          });
+                  }
+            	}//statusCode
+	          }); // ajax
         }
-    });
+      }//else      
+    });//click
     
     $("input").keydown(function(key) {
         if (key.keyCode == 13) {

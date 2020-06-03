@@ -13,7 +13,7 @@ public interface MailSendService {
 
   int alterUserKey(String email, String key);
 
-  void findPassword(String emaile) throws Exception;
+  void findPassword(String email) throws Exception;
 
 
 }

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ import com.google.gson.Gson;
 import Team.project.domain.ClazzMember;
 import Team.project.domain.User;
 import Team.project.service.ClazzMemberService;
+import Team.project.service.MailSendService;
 import Team.project.service.UserService;
 
 @Controller
@@ -26,6 +28,8 @@ public class ClazzMemberController {
   UserService userService;
   @Autowired
   ClazzMemberService clazzMemberService;
+  @Autowired
+  private MailSendService mailsender;
 
   @RequestMapping("form")
   public String studentForm(Model model, int class_no, int role) {
@@ -34,16 +38,19 @@ public class ClazzMemberController {
     return "/WEB-INF/jsp/room/user/form.jsp";
   }
 
-  @RequestMapping("add")
-  public void add(@RequestBody Map<String, Object> json, HttpServletResponse response)
-      throws Exception {
+  @RequestMapping("invite")
+  public void add(@RequestBody Map<String, Object> json, HttpServletResponse response,
+      HttpServletRequest request) throws Exception {
     User result = userService.get(json.get("email").toString());
     if (result != null) {
-      ClazzMember clazzMember = new ClazzMember();
-      clazzMember.setUserNo(result.getUserNo());
-      clazzMember.setClazzNo(Integer.parseInt(json.get("classNo").toString()));
-      clazzMember.setRole(Integer.parseInt(json.get("role").toString()));
-      clazzMemberService.add(clazzMember);
+      // 이메일 보내기
+      String email = json.get("email").toString();
+      int invitorNo = Integer.parseInt(json.get("invitorNo").toString());
+      int classNo = Integer.parseInt(json.get("classNo").toString());
+      int role = Integer.parseInt(json.get("role").toString());
+      System.out.println(String.format("!!!!!!!!이메일은 %s, 초대자는 %s, 수업번호는 %d, 역할은 %d", email,
+          invitorNo, classNo, role));
+      mailsender.clazzInvite(email, classNo, role, invitorNo, request);
       response.setStatus(200);
     } else {
       response.setStatus(404);
@@ -86,8 +93,6 @@ public class ClazzMemberController {
         students.add(member);
       }
     }
-    System.out.println(teachers);
-    System.out.println(students);
     model.addAttribute("teachers", teachers);
     model.addAttribute("students", students);
     model.addAttribute("room_no", room_no);

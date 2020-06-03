@@ -1,14 +1,11 @@
 package Team.project.web;
 
 import java.io.File;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.UUID;
-
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -19,9 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-
 import com.google.gson.Gson;
-
 import Team.project.domain.User;
 import Team.project.service.MailSendService;
 import Team.project.service.UserService;
@@ -47,11 +42,15 @@ public class UserController {
   }
 
   @RequestMapping("signup")
-  public String signup(User user, Model model, HttpServletRequest request) throws Exception {
+  public void signup(User user, Model model, HttpServletRequest request,
+      HttpServletResponse response) throws Exception {
+    if (userService.get(user.getEmail()) != null) {
+      response.setStatus(400);
+    }
     if (userService.join(user) > 0) {
       // 인증 메일 보내기 메서드
       mailsender.mailSendWithKey(user.getEmail(), user.getName(), user.getPassword(), request);
-      return "redirect:../auth/form";
+      response.setStatus(200);
     } else {
       throw new Exception("회원을 추가할 수 없습니다.");
     }
@@ -94,12 +93,6 @@ public class UserController {
     HttpHeaders header = new HttpHeaders();
     header.add("Content-Type", "application/json;charset=utf-8");
     return new ResponseEntity<>(gson.toJson(user), header, HttpStatus.OK);
-  }
-
-  @RequestMapping("search")
-  public String search(String keyword, Model model) throws Exception {
-    model.addAttribute("users", userService.search(keyword));
-    return "/WEB-INF/jsp/user/search.jsp";
   }
 
   @RequestMapping("update")

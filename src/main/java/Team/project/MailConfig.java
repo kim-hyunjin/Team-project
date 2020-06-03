@@ -1,7 +1,9 @@
 package Team.project;
 
 import java.io.IOException;
+import java.io.Reader;
 import java.util.Properties;
+import org.apache.ibatis.io.Resources;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.context.annotation.Bean;
@@ -31,11 +33,15 @@ public class MailConfig {
     mailSender.setJavaMailProperties(mailProperties);
     mailSender.setHost("smtp.gmail.com");
     mailSender.setPort(587);
-
-    // 본인 이메일 적으세요.
-    mailSender.setUsername("01049236753a@gmail.com");
-    // 본인 비밀번호 적으세요.
-    mailSender.setPassword("roal12455!!A");
+    Properties properties = new Properties();
+    try {
+      Reader reader = Resources.getResourceAsReader("Team/project/conf/mail.properties");
+      properties.load(reader);
+      mailSender.setUsername(properties.getProperty("email"));
+      mailSender.setPassword(properties.getProperty("password"));
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
 
     mailSender.setDefaultEncoding("utf-8");
     return mailSender;

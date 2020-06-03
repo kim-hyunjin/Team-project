@@ -65,17 +65,10 @@
 <body>
   <nav class="header main_header">
     <div class="main_header__column">
-
       <a href="/Team-project/app/clazz/list" title="BtS 홈페이지로 이동" id="logo"> <img src="../../images/logo_bts.png"
         alt="로고" width="70" height="70">
       </a>
-
-      <!--  
-      <a class="navbar-brand" href="/Team-project/app/clazz/list"><i class="fas fa-home"></i></a>
-      -->
       <span style="font-weight: bold; font-size: 1.2em;">BTS</span>
-
-
     </div>
     <div class="main_header__column">
       <c:if test="${loginUser.alterKey == 'Y' }">
@@ -142,9 +135,9 @@
           <form id="class_createForm" action='add' method='post' onsubmit='return formCheck(this)'>
         <div class="modal-body">
             <input class="form-control" id="modal-name" name='name' type='text' placeholder="수업명" maxlength="30">
-            <input class="form-control" id="modal-description" name='description' type='text' placeholder="설명">
-            <input class="form-control" id="modal-room" name='room' type='text' placeholder="강의실"> <input
-              class="form-control" name="color" type="color" value="#2F4F4F">
+            <input class="form-control mt-2" id="modal-description" name='description' type='text' placeholder="설명">
+            <input class="form-control mt-2" id="modal-room" name='room' type='text' placeholder="강의실"> <input
+              class="form-control mt-2" name="color" type="color" value="#2F4F4F">
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal" id="create-modal-close">닫기</button>

@@ -4,6 +4,7 @@ import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -45,12 +46,17 @@ public class AuthController {
     User user = userService.get(email, password);
     System.out.println("User============>" + user);
     if (user != null) {
-      // 로그인 시 유저 정보가 세션에 "loginUser"로 저장됨.
-      session.setAttribute("loginUser", user);
-      return "redirect:../clazz/list";
+      if (user.getAlterKey().equals("Y")) {
+        // 로그인 시 유저 정보가 세션에 "loginUser"로 저장됨.
+        session.setAttribute("loginUser", user);
+        return "redirect:../clazz/list";
+      } else {
+        model.addAttribute("loginError", 1); // 이메일 인증을 안 한 경우
+        return "/WEB-INF/jsp/auth/form.jsp";
+      }
     } else {
       session.invalidate();
-      model.addAttribute("loginError", "로그인에 실패했습니다!");
+      model.addAttribute("loginError", 2); // 이메일이 유효하지 않은 경우
       return "/WEB-INF/jsp/auth/form.jsp";
     }
   }
@@ -80,6 +86,16 @@ public class AuthController {
     User user = userService.get(email);
     String userEmail = user.getEmail();
     return "redirect:login?email=" + userEmail + "&password=" + password;
+  }
+
+  @GetMapping("findPassword")
+  public void findPassword(String email, HttpServletResponse response) throws Exception {
+    if (userService.get(email) != null) {
+      mailsender.findPassword(email);
+      response.setStatus(200);
+    } else {
+      response.setStatus(400);
+    }
   }
 }
 

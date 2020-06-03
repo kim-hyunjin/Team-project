@@ -107,12 +107,12 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="MemberAddModalLabel">초대 코드</h5>
+        <h5 class="modal-title" id="MemberAddModalLabel">초대하기</h5>
         <button id="memberAddModalClose" type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-        <form id='modalMemberAddForm' action='add' method='post' class="inputGroup">
+        <form id='modalMemberAddForm' action='invite' method='post' class="inputGroup">
       <div class="modal-body">
           <input name="class_no" type="hidden" value="${clazzNowNo}"> <input name="role" type="hidden">
           <input class="form-control" type="email" name="email" id="emailInput" placeholder="초대 대상의 이메일을 입력하세요." />
@@ -211,42 +211,69 @@ $('#modalMemberAddForm').submit(function(event){
             return;
         }
         if(xhr.status == 204) { // 이메일은 유효하나 클래스룸의 소속이 아니면 204
-            addMember();
+            inviteMember();
             return;
         }
     }
     
     // 사용자 추가를 비동기로 처리 후 팝업창 닫기
-    async function addMember() {
-        //사용자가 폼에 입력한 데이터를 json으로 만든다.
-          let member = {
-                classNo: form.class_no.value,
-                role: form.role.value,
-                email: form.email.value
-            };
-        
-          try {
-              //fetch()를 통해 room/user/add에 위에서 만든 json 데이터를 가지고 POST요청한다.
-            let response = await fetch('add', {
-                  method: 'POST',
-                  headers: {
-                    'Content-Type': 'application/json;charset=utf-8'
-                  },
-                  body: JSON.stringify(member)
-            });
-              // 응답이 200번대로 오면 팝업창을 띄운 부모창을 새로고침하고 팝업창은 닫는다.
-            if (response.ok) {
-                location.reload();
-                $('#memberAddModalClose').trigger('click');
-            }               
-              // 사용자 추가에 실패한 경우 알림창을 띄우고 팝업창은 닫는다.
-          }catch(error) {
-              alert("사용자 추가에 실패했습니다.");
+   async function inviteMember() {
+    	$.ajax({
+    	  url:'invite',
+    	  type:"POST",
+    	  contentType: "application/json",
+    	  data: JSON.stringify({
+    		  classNo: form.class_no.value,
+              role: form.role.value,
+              email: form.email.value,
+              invitorNo: '${nowMember.userNo}'
+    	  }),
+    	  beforeSend: function(){
+              var width = 0;
+              var height = 0;
+              var left = 0;
+              var top = 0;
+              width = 50;
+              height = 50;
+              top = ( $(window).height() - height ) / 2 + $(window).scrollTop();
+              left = ( $(window).width() - width ) / 2 + $(window).scrollLeft();
+              if($("#div_ajax_load_image").length != 0) {
+                     $("#div_ajax_load_image").css({
+                            "top": top+"px",
+                            "left": left+"px"
+                     });
+                     $("#div_ajax_load_image").show();
+              }
+              else {
+                     $('body').append('<div id="div_ajax_load_image" style="position:absolute; top:' 
+                     + top + 'px; left:' + left + 'px; width:' + width + 'px; height:' + height 
+                     + 'px; z-index:9999; background:#f0f0f0; filter:alpha(opacity=50); opacity:alpha*0.5; margin:auto; padding:0; "><img src="/Team-project/images/loading.gif" style="width:50px; height:50px;"></div>');
+              }
+
+    	  },
+    	  success:function(){
+    		  location.reload();
               $('#memberAddModalClose').trigger('click');
-          }
-  }
-    
-}); 
+              Swal.fire({
+                  icon : 'success',
+                  title : '초대 이메일을 보냈습니다!',
+              });
+    	  },
+    	  fail:function(){
+    		  $('#memberAddModalClose').trigger('click');
+              Swal.fire({
+                  icon : 'error',
+                  title : '사용자 추가에 실패했습니다.',
+              });
+    	  },
+    	  complete: function () {
+              $("#div_ajax_load_image").hide();
+        }
+
+    	
+    	});//ajax끝
+    } //inviteMember()끝
+}); //submit()끝
 
          
 </script>

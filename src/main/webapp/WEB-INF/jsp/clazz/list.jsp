@@ -5,9 +5,6 @@
 
 
 <div class="main_list">
-  <c:if test="${loginUser.alterKey != 'Y' }">
-    <h3>이메일 인증을 완료해주세요!</h3>
-  </c:if>
   <c:if test="${not empty clazzList && loginUser.alterKey == 'Y'}">
     <c:forEach items="${clazzList}" var="clazz">
       <div class="main_card">
@@ -62,6 +59,45 @@
   </div>
 </div>
 
+<!-- 안내 Modal -->
+<div class="modal fade" id="intro" tabindex="-1" role="dialog" aria-labelledby="introLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title" id="introLabel">반갑습니다!</h3>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" style="height:13em;">
+        <P><b>BTS</b>에서는 온라인을 통해 손쉽게 수업을 관리하고 간편하게 과제와 성적을 관리할 수 있습니다.</P>
+        <p>지구 반대편에 있어도 <b>BTS</b>에서 함께 공부하는 즐거움을 느낄 수 있답니다.</p>
+        <h5><b>지금 바로 수업을 만들거나 참여해보세요!</b></h5>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="create-modal-close">닫기</button>
+        <button type="button" class="btn btn-primary" id="firstClazzCreateBtn" data-toggle="modal" data-target="#makeClass">만들기</button>
+        <button type="button" class="btn btn-success" id="firstClazzJoinBtn" data-toggle="modal" data-target="#classJoin">참여하기</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+let clazzList = '${clazzList}'
+if(clazzList == '[]') {
+    $('#intro').modal('show');
+}
+$('#firstClazzCreateBtn').click(function() {
+    $('#intro').modal('hide');
+    $('#makeClass').modal('show');
+});
+$('#firstClazzJoinBtn').click(function() {
+    $('#intro').modal('hide');
+    $('#classJoin').modal('show');
+});
+</script>
 <script>
 //수업 수정을 위한 스크립트
 let modalStatus = 0;
@@ -152,7 +188,7 @@ $(document).on('click', '.clazz-modal', function(event) {
     	    })
          
     }
-    </script>
+</script>
 
 
 

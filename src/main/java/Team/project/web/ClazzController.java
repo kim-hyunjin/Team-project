@@ -148,4 +148,15 @@ public class ClazzController {
     }
   }
 
+  @RequestMapping("invited")
+  public String join(int userNo, int clazzNo, int role) throws Exception {
+    ClazzMember clazzMember = new ClazzMember();
+    clazzMember.setUserNo(userNo);
+    clazzMember.setClazzNo(clazzNo);
+    clazzMember.setRole(role);
+    clazzMemberService.add(clazzMember);
+
+    return "redirect:../room/lesson/list?room_no=" + clazzNo;
+  }
+
 }// ClazzController

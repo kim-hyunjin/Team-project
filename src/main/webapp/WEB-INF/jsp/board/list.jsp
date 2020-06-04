@@ -6,11 +6,13 @@
 
 <body>
   <c:if test="${empty list}">
-    <div class="d-flex justify-content-center align-items-center" style="margin-top: 15em;">
+    <div class="d-flex justify-content-center align-items-center flex-column" style="margin-top: 15em;">
       <c:if test="${nowMember.role == 0}">
+        <img src="${pageContext.servletContext.contextPath}/images/why.png" style="width:10em;">
         <h1 class="text-info" onclick='modalActive()' style="cursor: pointer;">새 게시판을 만들어보세요.</h1>
       </c:if>
       <c:if test="${nowMember.role == 1}">
+      <img src="${pageContext.servletContext.contextPath}/images/why.png" style="width:10em;">
         <h1 class="text-info">Oops! 게시판이 없네요!</h1>
       </c:if>
     </div>

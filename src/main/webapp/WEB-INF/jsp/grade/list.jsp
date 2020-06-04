@@ -24,6 +24,13 @@
       </div>
     </div>
     <div class="row mt-3" id="grade_contents">
+    <c:if test="${noStudent == true}">
+      <div class="w-100 d-flex flex-column text-center justify-content-center align-items-center" style="margin-top:5em;">
+      <img src="${pageContext.servletContext.contextPath}/images/grade.png" style="width:10em;">
+      <div>아직 수업에 학생이 없습니다.<br>
+           사용자 페이지에서 학생을 추가해 보세요.</div>
+      </div>
+    </c:if>
       <ul class="d-flex flex-column" id="grade_list" style="width: 100%">
         <li class="d-flex border-bottom p-3" v-for="user in users" v-if="user.role != 0">
           <div class="col-2 user_info font-weight-bold" style="font-size:1.2em;">{{user.user.name}}</div>

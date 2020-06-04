@@ -5,6 +5,11 @@
 
 
 <div class="main_list">
+  <c:if test="${empty clazzList}">
+  <div class="w-100 text-center">
+    <img src="${pageContext.servletContext.contextPath}/images/grade.png" style="width:10em; margin-top:5em;">
+  </div>
+  </c:if>
   <c:if test="${not empty clazzList && loginUser.alterKey == 'Y'}">
     <c:forEach items="${clazzList}" var="clazz">
       <div class="main_card">
@@ -71,9 +76,10 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body" style="height:13em;">
-        <P><b>BTS</b>에서는 온라인을 통해 손쉽게 수업을 관리하고 간편하게 과제와 성적을 관리할 수 있습니다.</P>
-        <p>지구 반대편에 있어도 <b>BTS</b>에서 함께 공부하는 즐거움을 느낄 수 있답니다.</p>
+      <div class="modal-body d-flex flex-column align-items-center" style="height:23em;">
+        <img src="${pageContext.servletContext.contextPath}/images/welcome.png" style="width:15em;">
+        <P><b>BTS</b>에서는 온라인을 통해 손쉽게 수업을 관리하고 간편하게 과제와 성적을 관리할 수 있습니다.<br>
+        지구 반대편에 있어도 <b>BTS</b>에서 함께 공부하는 즐거움을 느낄 수 있답니다.</p>
         <h5><b>지금 바로 수업을 만들거나 참여해보세요!</b></h5>
       </div>
       <div class="modal-footer">

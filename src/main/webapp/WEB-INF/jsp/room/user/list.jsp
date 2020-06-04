@@ -37,6 +37,12 @@
       <span onclick="memberAddModalActive(1)" style="cursor: pointer;"><i class="fas fa-user-plus"></i></span>
     </div>
     <hr>
+    <c:if test="${empty students}">
+    <div class="w-100 bg-muted text-center">
+      <img src="${pageContext.servletContext.contextPath}/images/students.jpg" style="width:10em;">
+      <div>학생을 초대하거나 다음의 수업코드를 제공하세요. <b>${clazzNow.classCode}</b></div>
+    </div>
+    </c:if>
     <ul class="student_list user_list">
       <c:forEach items="${students}" var="student">
         <li class="user_card" onclick="showUserDetail(${student.user.userNo}, ${student.memberNo})">

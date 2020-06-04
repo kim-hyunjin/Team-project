@@ -66,6 +66,11 @@ public class GradeController {
       model.addAttribute("userAssignmentSubmits",
           URLEncoder.encode(mapper.writeValueAsString(assignmentSubmitList), "UTF-8"));
 
+      long students = clazzMembers.stream().filter(c -> c.getRole() == 1).count();
+      if (students == 0) {
+        model.addAttribute("noStudent", true);
+      }
+
       return "/WEB-INF/jsp/grade/list.jsp";
     } else {
       // 제출한 과제물 모델에 담기

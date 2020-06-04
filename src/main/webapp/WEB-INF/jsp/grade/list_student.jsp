@@ -55,10 +55,12 @@
   </div>
 </div>
 <script>
-    const submitsJson = eval('(' + '${submits}' + ')');
-    console.log(submitsJson);
-    const assignmentsJson = eval('(' + '${assignments}' + ')');
-    console.log(assignmentsJson);
+    const submits = '${submits}';
+    const assignments = '${assignments}';
+    const submitsJson = JSON.parse(decodeURIComponent(submits).replace(/\+/g," "));
+    const assignmentsJson = JSON.parse(decodeURIComponent(assignments).replace(/\+/g," "));
+    
+    
     var grade_list = new Vue({
     	el : '#grade_list',
     	data : {

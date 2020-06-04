@@ -53,10 +53,13 @@
   </div>
 </div>
 <script>
-const clazzMembersJson = eval('('+ '${clazzMembers}' +')');
-const submitsJson = eval('('+ '${userAssignmentSubmits}' +')');
-const assignmentsJson = eval('('+ '${assignments}' +')');
+const clazzMembers = '${clazzMembers}';
+const submits = '${userAssignmentSubmits}';
+const assignments = '${assignments}';
 
+const clazzMembersJson = JSON.parse(decodeURIComponent(clazzMembers).replace(/\+/g," "));
+const submitsJson = JSON.parse(decodeURIComponent(submits).replace(/\+/g," "));
+const assignmentsJson = JSON.parse(decodeURIComponent(assignments).replace(/\+/g," "));
 
 //성적 템플릿
 console.log(submitsJson);

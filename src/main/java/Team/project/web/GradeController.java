@@ -1,5 +1,6 @@
 package Team.project.web;
 
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpSession;
@@ -46,12 +47,14 @@ public class GradeController {
     ObjectMapper mapper = new ObjectMapper();
     // 수업 과제 목록 얻기
     List<Assignment> assignments = assignmentService.list(classNo);
-    model.addAttribute("assignments", mapper.writeValueAsString(assignments));
+    model.addAttribute("assignments",
+        URLEncoder.encode(mapper.writeValueAsString(assignments), "UTF-8"));
 
     if (role == 0) {
       // 수업 참여자 목록 얻기
       List<ClazzMember> clazzMembers = clazzMemberService.list(classNo);
-      model.addAttribute("clazzMembers", mapper.writeValueAsString(clazzMembers));
+      model.addAttribute("clazzMembers",
+          URLEncoder.encode(mapper.writeValueAsString(clazzMembers), "UTF-8"));
       // 수업 참여자별 과제 제출 목록
       // HashMap<Object, Object> userAssignmentSubmits = new HashMap<>();
       List<AssignmentSubmit> assignmentSubmitList = new ArrayList<>();
@@ -60,13 +63,15 @@ public class GradeController {
           assignmentSubmitList.add(ass);
         }
       }
-      model.addAttribute("userAssignmentSubmits", mapper.writeValueAsString(assignmentSubmitList));
+      model.addAttribute("userAssignmentSubmits",
+          URLEncoder.encode(mapper.writeValueAsString(assignmentSubmitList), "UTF-8"));
 
       return "/WEB-INF/jsp/grade/list.jsp";
     } else {
       // 제출한 과제물 모델에 담기
-      model.addAttribute("submits", mapper.writeValueAsString(assignmentSubmitService.list(classNo,
-          ((User) session.getAttribute("loginUser")).getUserNo())));
+      model.addAttribute("submits",
+          URLEncoder.encode(mapper.writeValueAsString(assignmentSubmitService.list(classNo,
+              ((User) session.getAttribute("loginUser")).getUserNo())), "UTF-8"));
 
       return "/WEB-INF/jsp/grade/list_student.jsp";
     }

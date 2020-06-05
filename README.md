@@ -30,7 +30,7 @@
 <table class="tg">
     <tr align="left">
       <th>프로젝트명</th>
-      <th>Portfoli</th>
+      <th>BTS</th>
     </tr>
     <tr align="left">
       <th>개발기간</th>
@@ -61,11 +61,7 @@
     </tr>
     <tr align="left">
       <th>운영체제</th>
-      <th>Windows 10, Linux(Ubuntu 18.04)</th>
-    </tr>
-    <tr align="left">
-      <th>기타</th>
-      <th>Python3, BashScript</th>
+      <th>Windows 10)</th>
     </tr>
   </table>
 

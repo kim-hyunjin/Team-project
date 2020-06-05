@@ -1,4 +1,4 @@
-<img src="https://github.com/yh0921k/1d2f-portfoli/blob/master/src/main/webapp/resources/assets/images/logo/logo2.png?raw=true" width="10%">
+<img src="https://github.com/shinji-sub/Team-project/blob/master/src/main/webapp/images/logo_bts.png?raw=true" width="10%">
 
 ### 수업 관리 시스템
 
@@ -76,7 +76,7 @@
 --- 
 
 #### :wrench: 시스템 아키텍쳐
-<img src="https://github.com/yh0921k/1d2f-portfoli/blob/master/src/main/webapp/resources/assets/images/System.png?raw=true" width="90%">
+<img src="https://t1.daumcdn.net/cfile/tistory/9997993B5A6C466B13?download" width="90%">
 
 <br/>
 

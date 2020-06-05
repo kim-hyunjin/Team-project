@@ -72,6 +72,7 @@
 --- 
 
 #### :frog: 시스템 아키텍쳐
+<img src="https://github.com/kim-hyunjin/Team-project/blob/master/src/main/webapp/images/%EC%95%84%ED%82%A4%ED%85%8D%EC%B2%98.PNG?raw=true" width="90%">
 <img src="https://t1.daumcdn.net/cfile/tistory/9997993B5A6C466B13?download" width="90%">
 
 <br/>

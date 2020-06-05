@@ -8,7 +8,7 @@
 
 ---
 
-#### :dart: 주요 특징​
+#### :frog: 주요 특징​
 
 - 간편한 회원가입과 수업 생성 및 참여
   - 구글, 카카오톡 계정을 통한 회원가입
@@ -25,7 +25,7 @@
 
 ---
 
-#### :pushpin: 소개
+#### :frog: 소개
 
 <table class="tg">
     <tr align="left">
@@ -75,14 +75,14 @@
 
 --- 
 
-#### :wrench: 시스템 아키텍쳐
+#### :frog: 시스템 아키텍쳐
 <img src="https://t1.daumcdn.net/cfile/tistory/9997993B5A6C466B13?download" width="90%">
 
 <br/>
 
 ---
 
-#### :book: Reference
+#### :frog: Reference
 
 - Document
   - [Java 11 API](https://docs.oracle.com/en/java/javase/11/docs/api/index.html)

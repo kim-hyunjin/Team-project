@@ -36,23 +36,20 @@ content = "360175730868-7161sh4v73h0hsufdvgmoa9u3o25oi21.apps.googleusercontent.
 
 <title>BTS-로그인</title>
 <style>
-html, body {
-    margin: 0px;
-    padding: 0px;
-    width: 100%;
+html, body, .container {
     height: 100%;
 }
 </style>
 
 </head>
 <body>
-    <div class="center-container">
-        <div class="login_box">
+    <div class="container d-flex justify-content-center align-items-center">
+        <div class="d-flex flex-column">
             <div class="social_login">
                 <div class="g-signin2" data-onsuccess="onSignIn" data-width="220" data-height="45" data-longtitle="true"></div>
                 <button id="kakao_login_btn" style="margin-top:1em; border:none; background-color:white;"></button>
             </div>
-            <div class="email_login">
+            <div class="email_login d-flex flex-column align-items-center w-100">
                 <form id="loginForm" name="loginForm" method="post" action="login">
                     <input class="email_login__input form-control" type="text" name="email"
                         placeholder="  email" onkeyup="enterkey();"> <input
@@ -66,11 +63,13 @@ html, body {
                         value="로그인" onclick="sendit()">
                 </form>
             </div>
-            <div class="join" style="margin-top: 1em;">
+            <div class="join mt-3 d-flex flex-column align-items-center">
+              <div>
                 <span style="margin-right: 1em;">계정이 없나요?</span>
                 <a href="../user/form">회원가입</a>
-            </div>
+              </div>
             <div data-toggle="modal" data-target="#findPasswordModal" class="mt-3 text-muted" style="cursor:pointer;">비밀번호를 잊으셨나요?</div>
+            </div>
         </div>
     </div>
 <div class="modal fade" id="findPasswordModal" tabindex="-1" role="dialog" aria-labelledby="findPasswordLabel"
@@ -96,6 +95,14 @@ html, body {
 </div>
 
 <script>
+var agent = navigator.userAgent.toLowerCase();
+if ( (navigator.appName == 'Netscape' && navigator.userAgent.search('Trident') != -1) || (agent.indexOf("msie") != -1) ) {
+    Swal.fire({
+        icon : 'warning',
+        title : '죄송합니다. Internet Explorer에서는 원활한 서비스를 지원하지 않습니다. 다른 브라우저를 사용해주세요.'
+    });
+}
+
 //로그인 실패시 에러 처리
 const error = '${loginError}';
 if(error != '') {

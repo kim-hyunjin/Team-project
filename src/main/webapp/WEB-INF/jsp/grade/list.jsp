@@ -4,7 +4,7 @@
 
 <jsp:include page="../room/room_header.jsp" />
 
-<div class="room_contents">
+<div id="grade_main_contents" class="room_contents">
   <div class="container-fluid">
     <div class="row d-flex">
       <div class="col-4">
@@ -59,6 +59,17 @@
     </div>
   </div>
 </div>
+<script>
+var agent = navigator.userAgent.toLowerCase();
+if ( (navigator.appName == 'Netscape' && navigator.userAgent.search('Trident') != -1) || (agent.indexOf("msie") != -1) ) {
+    $('#grade_main_contents').html('<div class="w-100 text-center"><img src="${pageContext.servletContext.contextPath}/images/crying.svg" style="width:10em;"><h1>죄송합니다.</h1><h3>다른 브라우저를 사용해주세요.</h3></div>');
+    Swal.fire({
+        icon : 'warning',
+        title : '죄송합니다. Internet Explorer에서는 원활한 서비스를 지원하지 않습니다. 다른 브라우저를 사용해주세요.'
+    });
+}
+</script>
+
 <script>
 const clazzMembers = '${clazzMembers}';
 const submits = '${userAssignmentSubmits}';

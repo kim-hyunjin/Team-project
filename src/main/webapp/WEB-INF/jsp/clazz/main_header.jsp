@@ -63,7 +63,7 @@
 <link href='${pageContext.servletContext.contextPath}/script/fullcalendar/packages/daygrid/main.css' rel='stylesheet' />
 </head>
 <body>
-  <nav class="header main_header">
+  <nav class="header main_header d-flex">
     <div class="main_header__column">
       <a href="/Team-project/app/clazz/list" title="BtS 홈페이지로 이동" id="logo"> <img src="../../images/logo_bts.png"
         alt="로고" width="70" height="70">

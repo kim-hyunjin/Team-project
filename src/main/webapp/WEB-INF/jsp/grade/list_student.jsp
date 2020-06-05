@@ -6,6 +6,13 @@
 <div class="room_contents">
 
   <div class="container" id="grade_contents">
+  <c:if test="${empty assignments}">
+   <div class="w-100 text-center">
+     <img src="${pageContext.servletContext.contextPath}/images/why.png" style="width:10em;">
+     <h1 class="text-info">아직 과제가 없어요 :)</h1>
+   </div>  
+  </c:if>
+  <c:if test="${not empty assignments }">
     <ul id="grade_list" class="d-flex flex-column" style="font-size:1.2em;">
       <li class="d-flex">
         <div class="col-3" style="color:#66ccff; font-weight:bold;">과제명</div>
@@ -52,14 +59,16 @@
           </div>
       </li>
     </ul>
+    </c:if>
   </div>
 </div>
+
 <script>
     const submits = '${submits}';
     const assignments = '${assignments}';
     const submitsJson = JSON.parse(decodeURIComponent(submits).replace(/\+/g," "));
     const assignmentsJson = JSON.parse(decodeURIComponent(assignments).replace(/\+/g," "));
-    
+    console.log(assignmentsJson);
     
     var grade_list = new Vue({
     	el : '#grade_list',

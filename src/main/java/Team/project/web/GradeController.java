@@ -47,9 +47,10 @@ public class GradeController {
     ObjectMapper mapper = new ObjectMapper();
     // 수업 과제 목록 얻기
     List<Assignment> assignments = assignmentService.list(classNo);
-    model.addAttribute("assignments",
-        URLEncoder.encode(mapper.writeValueAsString(assignments), "UTF-8"));
-
+    if (assignments.size() != 0) {
+      model.addAttribute("assignments",
+          URLEncoder.encode(mapper.writeValueAsString(assignments), "UTF-8"));
+    }
     if (role == 0) {
       // 수업 참여자 목록 얻기
       List<ClazzMember> clazzMembers = clazzMemberService.list(classNo);

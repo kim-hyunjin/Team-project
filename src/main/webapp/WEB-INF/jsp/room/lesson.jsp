@@ -10,12 +10,11 @@ html, body, aside {
 </style>
 
 
-<div class="container-fluid d-flex" style='margin-top: 8em; height: 100%;'>
+<div id="lesson_main_contents" class="container-fluid d-flex" style='margin-top: 8em; height: 100%;'>
 <div class="col-1"></div>
   <aside class="col-2" id='lesson_aside'>
     <div id="alarm_box" style="width: 100%; height: 50%; font-size:1.2em; border-radius: 0.5rem;">
       <i class="fas fa-lightbulb text-warning"></i>
-      <!-- <span class="badge badge-warning">알림 상자</span> -->
       <ul id="alarm_contents">
         <li v-for="post in posts">
           <div class="d-flex align-items-center">
@@ -68,6 +67,12 @@ html, body, aside {
       </div>
     </div>
     <div id="lesson_box" style="width: 70%;">
+      <c:if test="${assignmentJson eq '%5B%5D'}">
+       <div class="w-100 text-center">
+         <img src="${pageContext.servletContext.contextPath}/images/why.png" style="width:10em;">
+         <h1 class="text-info">아직 과제가 없어요 :)</h1>
+       </div>  
+      </c:if>
       <ul id="lesson_contents">
         <li class="text-truncate" v-for="item in items">
           <a v-if="item.hasOwnProperty('questionNo')" v-bind:href="`../question/detail?qno=`+item.questionNo">
@@ -102,6 +107,17 @@ html, body, aside {
       </div>
     </div>
   </div>
+
+<script>
+var agent = navigator.userAgent.toLowerCase();
+if ( (navigator.appName == 'Netscape' && navigator.userAgent.search('Trident') != -1) || (agent.indexOf("msie") != -1) ) {
+    $('#lesson_main_contents').html('<div class="w-100 text-center"><img src="${pageContext.servletContext.contextPath}/images/crying.svg" style="width:10em;"><h1>죄송합니다.</h1><h3>다른 브라우저를 사용해주세요.</h3></div>');
+    Swal.fire({
+        icon : 'warning',
+        title : '죄송합니다. Internet Explorer에서는 원활한 서비스를 지원하지 않습니다. 다른 브라우저를 사용해주세요.'
+    });
+}
+</script>
 
 <script>
   

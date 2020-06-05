@@ -70,19 +70,19 @@
 <link rel="stylesheet" href="/Team-project/css/style.css" />
 </head>
 <body>
-  <nav class="header room_header">
-    <div class="room_header__column">
+  <nav class="header room_header d-flex">
+    <div class="col-3">
       <a href="/Team-project/app/clazz/list" title="BtS 홈페이지로 이동" id="logo"> <img src="../../../images/logo_bts.png"
         alt="로고" width="70" height="70">
       </a> <a href="../lesson/list?room_no=${clazzNow.classNo}""><span style="font-weight: bold; font-size: 1.2em;">${clazzNow.name}</span></a>
     </div>
-    <div class="room_header__column">
+    <div class="col-6">
       <a href="../lesson/list?room_no=${clazzNow.classNo}"onmouseover="this.style.fontWeight='bold';this.style.color='#66ccff';" onmouseout="this.style.fontWeight='';this.style.color='';"><span class="room_header__menu">수업</span></a> <a
         href="../user/list?room_no=${clazzNow.classNo}"><span class="room_header__menu"onmouseover="this.style.fontWeight='bold';this.style.color='#66ccff';" onmouseout="this.style.fontWeight='';this.style.color='';">사용자</span></a> <a
         href="../grade/list?room_no=${clazzNow.classNo}"onmouseover="this.style.fontWeight='bold';this.style.color='#66ccff';" onmouseout="this.style.fontWeight='';this.style.color='';"><span class="room_header__menu">성적</span></a> <a
         href="../board/list"><span class="room_header__menu"onmouseover="this.style.fontWeight='bold';this.style.color='#66ccff';" onmouseout="this.style.fontWeight='';this.style.color='';">게시판</span></a>
     </div>
-    <div class="room_header__column">
+    <div class="col-3">
       <c:if test="${nowMember.role == 0}">
         <a href="#" data-toggle="modal" data-target="#classDetailModal" id="class_settings"><i class="fas fa-cog"
           style="font-size: 1.2em;"></i></a>

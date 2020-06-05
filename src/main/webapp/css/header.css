@@ -2,8 +2,6 @@
   background-color: white;
   z-index: 100;
   position:fixed;
-  display: flex;
-  justify-content: space-between;
   align-items: center;
   top:0%;
   width: 100%;

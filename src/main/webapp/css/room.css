@@ -1,22 +1,18 @@
 .room_header>div:first-child {
-  margin-left:2em;
-  width: 25%;
   display: flex;
   align-items: center;
 }
 
 .room_header>div:nth-child(2) {
   display: flex;
-  width: 50%;
   justify-content: center;
   align-items: center;
 }
 
 .room_header>div:last-child {
   margin-right:2em;
-  width: 25%;
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
   align-items: center;
 }
 

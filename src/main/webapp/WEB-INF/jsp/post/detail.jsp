@@ -109,6 +109,7 @@
 				<textarea id='summernote-readonly' name='content'
 					style="background-color: white;">${post.content}</textarea>
 				<!-- 파일 -->
+        <label class="inputGroupText">첨부파일</label>
 				<span id="download" title="다운로드" class="mt-3"
 					style="cursor: pointer; font-size: 1.2em;">${file.originalName}</span>
 

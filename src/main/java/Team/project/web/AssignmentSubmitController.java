@@ -1,7 +1,7 @@
 package Team.project.web;
 
 import java.io.File;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.UUID;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
@@ -13,12 +13,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.multipart.MultipartFile;
-import com.google.gson.Gson;
-import Team.project.domain.Assignment;
 import Team.project.domain.AssignmentSubmit;
 import Team.project.domain.Clazz;
 import Team.project.service.AssignmentService;
 import Team.project.service.AssignmentSubmitService;
+import Team.project.service.ClazzMemberService;
 import Team.project.service.FileService;
 
 @Controller
@@ -26,12 +25,12 @@ import Team.project.service.FileService;
 public class AssignmentSubmitController {
   @Autowired
   ServletContext servletContext;
-
   @Autowired
   AssignmentService assignmentService;
-
   @Autowired
   AssignmentSubmitService assignmentSubmitService;
+  @Autowired
+  ClazzMemberService clazzMemberService;
   @Autowired
   FileService fileService;
 
@@ -76,15 +75,21 @@ public class AssignmentSubmitController {
 
   // 선생이 과제에 대한 학생 제출물을 볼 때 호출됨
   @GetMapping("submitted")
-  public String submitted(int assignmentNo, int from, Model model) throws Exception {
+  public String submitted(int assignmentNo, int from, Model model, HttpSession session)
+      throws Exception {
     // from 0 = 과제 상세보기화면, 1 = 성적화면
-    ArrayList<AssignmentSubmit> submittedList =
-        (ArrayList<AssignmentSubmit>) assignmentSubmitService.list(assignmentNo);
-    Gson gson = new Gson();
-    System.out.println(gson.toJson(submittedList));
-    Assignment assignment = assignmentService.get(assignmentNo);
-    model.addAttribute("assignment", assignment);
-    model.addAttribute("submittedList", gson.toJson(submittedList));
+    model.addAttribute("memberList",
+        clazzMemberService.findAllByClassNo((int) session.getAttribute("clazzNowNo")));
+    model.addAttribute("assignment", assignmentService.get(assignmentNo));
+
+    HashMap<Integer, AssignmentSubmit> submitMap = new HashMap<>();
+    for (AssignmentSubmit ass : assignmentSubmitService.list(assignmentNo)) {
+      int memberNo = ass.getMemberNo();
+      if (memberNo > 0) {
+        submitMap.put(memberNo, assignmentSubmitService.get(assignmentNo, memberNo));
+      }
+    }
+    model.addAttribute("submitMap", submitMap);
     model.addAttribute("from", from);
     return "/WEB-INF/jsp/assignmentSubmit/submitted.jsp";
   }

@@ -95,6 +95,6 @@
 
 ---
 
-참고 : https://docs.google.com/spreadsheets/d/1f15vYTuzxQhGe6h7JIgzXn1MdHzbwI9RtEhEpDPAzVo/edit#gid=249943720
+프로젝트 작업 내역 : https://docs.google.com/spreadsheets/d/1f15vYTuzxQhGe6h7JIgzXn1MdHzbwI9RtEhEpDPAzVo/edit#gid=249943720
 
 ---

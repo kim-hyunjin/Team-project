@@ -21,8 +21,7 @@
         <c:forEach items="${multiples}" var="m">
           <option>${m.multipleContent}</option>
         </c:forEach>
-      </select> <input id="searchInput" class="form-control mt-3" type="search" placeholder="이름 검색"
-        onkeyup="nameSearch(this.value)">
+      </select>
     </div>
     <div class="col-10 d-flex flex-column justify-content-start mt-3">
       <c:if test="${not empty multiples && not empty ratioMap}">
@@ -36,7 +35,7 @@
       </c:if>
       <c:if test="${not empty answers}">
         <c:forEach items="${answers}" var="a">
-          <div class="d-flex mt-5">
+          <div class="mt-5 answerList" style="display:flex;">
             <div class="col-6">
               <div class="userName text-primary font-weight-bold mb-2" style="font-size: 1.2em">${a.user.name}</div>
               <textarea readonly class="form-control" style="background-color: white;">${a.content}</textarea>
@@ -65,24 +64,10 @@
     $('.progress-bar:nth-child(n+4)').attr('class', 'progress-bar bg-info');
     $('.progress-bar:nth-child(n+5)').attr('class', 'progress-bar bg-danger');
 
-    function nameSearch(value) {
+function answerFilter(value) {
 	var name, item, i;
 	value = value.toUpperCase();
-	item = document.getElementsByClassName("row");
-	for (i = 0; i < item.length; i++) {
-	    name = item[i].getElementsByClassName("userName");
-	    if (name[0].innerHTML.toUpperCase().includes(value) == true) {
-		item[i].style.display = "flex";
-	    } else {
-		item[i].style.display = "none";
-	    }
-	}
-    }
-
-    function answerFilter(value) {
-	var name, item, i;
-	value = value.toUpperCase();
-	item = document.getElementsByClassName("row");
+	item = document.getElementsByClassName("answerList");
 	for (i = 0; i < item.length; i++) {
 	    name = item[i].getElementsByClassName("answerMultipeContent");
 	    if (value == "전체") {
@@ -93,7 +78,7 @@
 		item[i].style.display = "none";
 	    }
 	}
-    }
+}
 </script>
 </body>
 </html>

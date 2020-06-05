@@ -25,22 +25,28 @@
         <option>전체</option>
         <option>평가완료</option>
         <option>미평가</option>
-      </select> <input id="searchInput" class="form-control mt-3" type="search" placeholder="이름 검색">
+      </select> <input id="searchInput" class="form-control mt-3" type="search" placeholder="이름 검색" onkeyup="searchUser(this.value)">
     </div>
 
     <!-- 학생 제출물 렌더링 -->
     <div class="col-10 d-flex flex-column justify-content-start">
       <ul id="submitted_ul" class="" style="list-style-type: none;">
-        <li v-for="submit in submittedList" style="border-bottom: thin solid rgba(0, 0, 0, 0.1)" class="mb-5">
+        <c:forEach items="${memberList}" var="m">
+        <c:if test="${m.role == 1}">
+        <li class="submit_li" style="border-bottom: thin solid rgba(0, 0, 0, 0.1)" class="mb-5">
           <div class="content-card d-flex p-2">
             <div class="d-flex flex-column col">
-              <div class="card__writer font-weight-bold" style="font-size: 1.2em;">{{submit.user.name}}</div>
-              <textarea class="card__content mt-3 form-control" style="border:0;">{{submit.content}}</textarea>
+              <input class="card__writer font-weight-bold" style="font-size: 1.2em; border:0;" value="${m.user.name}">
+              <c:if test="${not empty submitMap.get(m.memberNo)}">
+              <textarea class="card__content mt-3 form-control" style="border:0;">${submitMap.get(m.memberNo).content}</textarea>
               <label class="inputGroupText mt-3">제출파일</label>
-              <div v-if="submit.file != undefined && submit.fileVO != undefined">
-                <span :onclick="'downloadFile(`'+ submit.fileVO.fileId +'`)'" title="다운로드" style="cursor: pointer;">{{submit.fileVO.originalName}}</span>
-              </div>
+                <span onclick="downloadFile(${submitMap.get(m.memberNo).fileVO.fileId})" title="다운로드" style="cursor: pointer;">${submitMap.get(m.memberNo).fileVO.originalName}</span>
+              </c:if>
+              <c:if test="${empty submitMap.get(m.memberNo)}">
+                <span style="margin: 1em 0 1em 0;">제출한 과제물이 없습니다 :(</span>
+              </c:if>
             </div>
+            <c:if test="${not empty submitMap.get(m.memberNo)}">
             <div class="card__footer col">
               <form action='eval' method='post' enctype='multipart/form-data'>
                 <c:if test="${from == 0}">
@@ -49,18 +55,22 @@
                 <c:if test="${from == 1}">
                   <input name="from" value="1" type="hidden">
                 </c:if>
-                <input name="assignmentNo" type="hidden" :value="submit.assignmentNo"> <input name="memberNo"
-                  type="hidden" :value="submit.clazzMember.memberNo"> <label class="inputGroupText">피드백</label>
-                <textarea name="feedback" class="card__feedback form-control" rows="2">{{submit.feedback}}</textarea>
-                <label class="inputGroupText mt-3">점수</label> <input name="score" type="number" min="0" max="9999999999"
-                  class="score form-control" :value="submit.score"></input>
+                <input name="assignmentNo" type="hidden" value="${assignment.assignmentNo}">
+                <input name="memberNo" type="hidden" value="${m.memberNo}">
+                <label class="inputGroupText">피드백</label>
+                <textarea name="feedback" class="card__feedback form-control" rows="2">${submitMap.get(m.memberNo).feedback}</textarea>
+                <label class="inputGroupText mt-3">점수</label>
+                <input name="score" type="number" min="0" max="9999999999" class="score form-control" value="${submitMap.get(m.memberNo).score}"></input>
                 <div class="d-flex flex-row-reverse mt-3">
                   <button class="btn btn-sm btn-primary">평가</button>
                 </div>
               </form>
             </div>
+            </c:if>
           </div>
         </li>
+        </c:if>
+        </c:forEach>
       </ul>
     </div>
   </div>
@@ -71,43 +81,60 @@
 
 <script>
 
-    const submittedList = ${submittedList};
-    console.log(submittedList);
-    if (submittedList != undefined) {
-	var submit_list = new Vue({
-	    el : '#submitted_ul',
-	    data : {
-		submittedList : submittedList
-	    }
-	})
-    }
-
     //필터 기능
     function activeFilter(value) {
-	if (value == "미평가") {
-	    submit_list.submittedList = submittedList.filter(function(item) {
-		return item.score == undefined
-	    })
-	} else if (value == "평가완료") {
-	    submit_list.submittedList = submittedList.filter(function(item) {
-		return item.score != undefined
-	    })
-	} else if (value == "전체") {
-	    submit_list.submittedList = submittedList;
-	    return;
-	}
+	    console.log(value);
+  	  var name1, name2, item, i;
+  	  value = value.toUpperCase();
+  	  item = document.getElementsByClassName("submit_li");
+  	  for (i = 0; i < item.length; i++) {
+  	    name1 = item[i].getElementsByClassName("card__feedback");
+  	    name2 = item[i].getElementsByClassName("score");
+  	    if (value == "전체") {
+  		    item[i].style.display = "list-item";
+  	    } else if (value == "평가완료") {
+  		    if(name1.length == 0) {
+  			    item[i].style.display = "none";
+  		    } else if(name1[0].value != "" || name2[0].value > 0) {			
+          	item[i].style.display = "list-item";
+  		    } else {
+    			  item[i].style.display = "none";
+    		  }
+  	    } else if(value=="미평가"){
+  		        if(name1.length == 0) {
+  	            item[i].style.display = "none";
+  	          } else if(name1[0].value != "" || name2[0].value > 0) {
+  	            item[i].style.display = "none";  
+  	          } else {
+  	            item[i].style.display = "list-item";  
+  	          }
+  	    }
+  	  }
     }
+	  
 
     function downloadFile(fileId) {
 	window.location = '../download?fileId=' + fileId;
     }
 
     //이름 검색 기능
-    $('#searchInput').keyup(function() {
-	submit_list.submittedList = submittedList.filter(function(item) {
-	    return item.user.name.includes($('#searchInput').val());
-	})
-    });
+   function searchUser(value) {
+	    value = value.toUpperCase();
+	    console.log(value);
+	    var name, item, i;
+	    item = document.getElementsByClassName("submit_li");
+	    for (i = 0; i < item.length; i++) {
+	        name = item[i].getElementsByClassName("card__writer");
+	        if (value.length == 0) {
+	          item[i].style.display = "list-item";
+	        } else if (name[0].value.toUpperCase().indexOf(value) > -1) {
+	          item[i].style.display = "list-item";
+	        } else {
+	          item[i].style.display = "none";
+	        }
+	    }
+    }
+    
 </script>
 </body>
 </html>

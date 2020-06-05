@@ -42,6 +42,7 @@ height: 10em;
         <input class="form-control mt-2 col-3" id="passwordInput" name='password' type='password' placeholder="   비밀번호">
         <input class="form-control mt-2 col-3" id="passwordInput2" type='password' placeholder="   비밀번호 재확인">
         <label class="text-primary mt-2 font-weight-bold" id="form-label" style="height:2em;">
+        비밀번호는 8자 이상이어야 하며, 숫자/소문자/특수문자를 모두 포함해야 합니다.
         </label>
         <input name="loginMethod" type="hidden" value="0">
         <button type="button" class="btn btn-primary col-3" id="completeBtn">완료</button>

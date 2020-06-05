@@ -30,7 +30,7 @@
         console.log(Kakao.isInitialized());
     </script>
 <!--구글 로그인 -->
-<script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
+<script src="https://apis.google.com/js/platform.js" async defer></script>
 <meta name = "google-signin-client_id"
 content = "360175730868-7161sh4v73h0hsufdvgmoa9u3o25oi21.apps.googleusercontent.com">    
 
@@ -49,7 +49,7 @@ html, body {
     <div class="center-container">
         <div class="login_box">
             <div class="social_login">
-        <div id="my-signin2"></div>
+                <div class="g-signin2" data-onsuccess="onSignIn" data-width="220" data-height="45" data-longtitle="true"></div>
                 <button id="kakao_login_btn" style="margin-top:1em; border:none; background-color:white;"></button>
             </div>
             <div class="email_login">
@@ -193,33 +193,17 @@ Kakao.Auth.createLoginButton({
 </script>
 <script>
 //구글로그인 script
-function onSuccess(googleUser) {
+function onSignIn(googleUser) {
     var profile = googleUser.getBasicProfile();
       
     console.log('ID: ' + profile.getId());
     console.log('Name: ' + profile.getName());
-    console.log('Image URL: ' + profile.getImageUrl());
     console.log('Email: ' + profile.getEmail());
     window.location.href="social?email="+profile.getEmail()
     +"&id="+profile.getId()
     +"&nickname="+encodeURI(profile.getName(), "UTF-8")
     +"&loginMethod=2";
 }
-    function onFailure(error) {
-        console.log(error);
-      }
-    
-      function renderButton() {
-        gapi.signin2.render('my-signin2', {
-          'scope': 'profile email',
-          'width': 220,
-          'height': 50,
-          'longtitle': true,
-          'theme': 'light',
-          'onsuccess': onSuccess,
-          'onfailure': onFailure
-        });
-      }
 </script>
 
 </body>

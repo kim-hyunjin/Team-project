@@ -1,63 +1,97 @@
-작업 우선순위
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://github.com/shinji-sub/Team-project/blob/master/src/main/webapp/images/logo_bts.png?raw=true" width="10%">
 
-로그인 시 등록한 클래스 정보만 출력하기
+### 수업 관리 시스템
 
-외부에서 직접 url을 입력해서 접속하는 거 막기
+&nbsp;&nbsp;본 프로젝트는 코로나 팬데믹으로 인해 언택트 서비스, 그 중 온라인 수업에 대한 관심과 수요가 높아진 상황에서 온라인 수업 시 유용하게 사용할 수 있는 도구를 제공해보고자 시작하게 되었습니다. 기존의 구글 클래스룸 사이트를 모티브로 하였으며, 간편하게 과제를 내고, 평가할 수 있도록 하는 데 집중했습니다.
 
-세션에 로그인 쿠기를 저장해 놓았을 때
-index.html로 접속하면 바로 메인 화면으로 가게하기
+<br/>
 
-DB에서 데이터 가져와 리스트로 출력하기
-- 타임라인(과제, 공지여부체크된 게시판의 게시글, 질문, 자료, 태그)
-- 수업(과제, 과제제츨, 자료, 질문, 질문답변(주관식, 객관식), 피드백, 태그)
-- 성적(학생, 과제, 과제제출)
-- 사용자(유저정보)
-- 게시판(게시판, 게시글)
-======================================================================================
+---
 
+#### :frog: 주요 특징​
 
-과제 CRUD
-기준표 CRUD
-질문 CRUD
-게시판 CRUD
-자료 CRUD
-쪽지 CRUD
-사용자 CRUD
+- 간편한 회원가입과 수업 생성 및 참여
+  - 구글, 카카오톡 계정을 통한 회원가입
+  - 간편한 수업 설정
+  - 수업코드를 공유하여 쉽게 수업에 참여
+- 간편한 과제 워크플로우
+  -  한곳에서 빠르게 과제 생성, 검토, 채점 가능
+- 쉬운 의사소통
+  - 게시판을 통한 공지 가능
+  - 자료 공유 및 질문 답변 가능
+
+<br/>
 
 
+---
 
-클래스 권한 설정
-- 글쓰기 권한
-- 수업 코드 변경
+#### :frog: 소개
 
-클래스 참여시 수업코드로만 참여가능하게하기
-클래스 초대 시 선생, 학생 구분해서 데이터 저장하기
+<table class="tg">
+    <tr align="left">
+      <th>프로젝트명</th>
+      <th>BTS</th>
+    </tr>
+    <tr align="left">
+      <th>개발기간</th>
+      <th>2020.04.15 ~ 2020.06.08</th>
+    </tr>
+    <tr align="left">
+      <th>인원</th>
+      <th>4</th>
+    </tr>
+    <tr>
+      <th colspan="2">사용 기술</th>
+    </tr>
+    <tr align="left">
+      <th>백엔드</th>
+      <th>Java, Spring, MariaDB, Mybatis, Apache Tomcat, JSP</th>
+    </tr>
+    <tr align="left">
+      <th>프론트엔드</th>
+      <th>HTML, CSS, JavaScript, jQuery, Ajax, BootStrap</th>
+    </tr>
+    <tr align="left">
+      <th>형상관리</th>
+      <th>Git, Github</th>
+    </tr>
+    <tr align="left">
+      <th>툴</th>
+      <th>Eclipse, Visual Studio Code, Git Bash, eXERD, Gradle</th>
+    </tr>
+    <tr align="left">
+      <th>운영체제</th>
+      <th>Windows 10)</th>
+    </tr>
+  </table>
 
-타임라인 알림기능
-- 과제제출 기간이 임박한 경우 알림목록 맨 위에 보여주기
-타임라인 필터
-- 과제, 자료, 공지, 질문 구분할수 있게 하기
 
-성적 필터
-- 과제 별 성적 순 정렬
-- 이름순
 
-캘린더 기능
-- 클래스 과제 정보 연동(수업 일정)
+<br/>
 
-태그로 검색 기능
+--- 
 
-소셜 로그인 기능
-- 구글
-- 카카오
+#### :frog: 시스템 아키텍쳐
+<img src="https://github.com/kim-hyunjin/Team-project/blob/master/src/main/webapp/images/%EC%95%84%ED%82%A4%ED%85%8D%EC%B2%98.PNG?raw=true" width="90%">
+<img src="https://t1.daumcdn.net/cfile/tistory/9997993B5A6C466B13?download" width="90%">
 
-부트스트랩, css javascript 작업
-- 게시물 선택 시 상세하게 보여줄 수 있게
-- 상단 메뉴버튼
+<br/>
 
-관리자 기능
-- 사용자 활동 로그 남기기
+---
 
-댓글 기능
-- db수정 필요
+#### :frog: Reference
+
+- Document
+  - [Java 11 API](https://docs.oracle.com/en/java/javase/11/docs/api/index.html)
+  - [Spring 5.2.4](https://docs.spring.io/spring/docs/5.2.4.RELEASE/spring-framework-reference/)
+  - [Spring API 5.2.4](https://docs.spring.io/spring/docs/5.2.4.RELEASE/javadoc-api/)
+  - [MyBatis3](https://mybatis.org/mybatis-3/)
+  - [Spring-Mybatis](http://mybatis.org/spring/)
+  - [JavaEE 8 API](https://javaee.github.io/javaee-spec/javadocs/)
+
+
+
+<br/>
+
+---
 

@@ -61,7 +61,7 @@
     </tr>
     <tr align="left">
       <th>운영체제</th>
-      <th>Windows 10)</th>
+      <th>Windows 10</th>
     </tr>
   </table>
 

@@ -8,8 +8,10 @@
   <div class="teacher">
     <div class="teacher__header">
       <div style="font-size: x-large; font-weight: bold;">Teacher</div>
-      <span onclick="memberAddModalActive(0)" style="cursor: pointer;" onclick="popup(0)"> <i
-        class="fas fa-user-plus"></i></span>
+      <c:if test="${nowMember.role == 0}">
+      <span onclick="memberAddModalActive(0)" style="cursor: pointer;" onclick="popup(0)"> 
+      <i class="fas fa-user-plus"></i></span>
+      </c:if>
     </div>
     <hr>
     <ul class="teacher_list user_list">
@@ -34,7 +36,9 @@
   <div class="student" style="margin-top: 10em;">
     <div class="student__header">
       <div style="font-size: x-large; font-weight: bold;">Student</div>
+      <c:if test="${nowMember.role == 0}">
       <span onclick="memberAddModalActive(1)" style="cursor: pointer;"><i class="fas fa-user-plus"></i></span>
+      </c:if>
     </div>
     <hr>
     <c:if test="${empty students}">

@@ -85,7 +85,7 @@
       <if test="content != null and content != ''">content = #{content},</if>
       <if test="file != null and file != ''">file = #{file},</if>
       <if test="score != null">score = #{score},</if>
-      <if test="feedback != null and feedback != ''">feedback = #{feedback}</if>
+      <if test="feedback != null">feedback = #{feedback}</if>
     </set>
     where assignment_no = #{assignmentNo} and member_no = #{memberNo}
   </update>

@@ -31,6 +31,7 @@
            사용자 페이지에서 학생을 추가해 보세요.</div>
       </div>
     </c:if>
+    <c:if test="${empty noStudent && not empty userAssignmentSubmits}">
       <ul class="d-flex flex-column" id="grade_list" style="width: 100%">
         <li class="d-flex border-bottom p-3" v-for="user in users" v-if="user.role != 0">
           <div class="col-2 user_info font-weight-bold" style="font-size:1.2em;">{{user.user.name}}</div>
@@ -56,6 +57,7 @@
           </div>
         </li>
       </ul>
+      </c:if>
     </div>
   </div>
 </div>
